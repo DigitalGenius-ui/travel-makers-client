@@ -8,6 +8,7 @@ import Loading from "./Loading";
 const App = () => {
   return (
     <Routes>
+      <h2>test</h2>
       <Route path="/" element={<RouteWrapper />}>
         <Route path="/" element={<Home />} />
       </Route>
