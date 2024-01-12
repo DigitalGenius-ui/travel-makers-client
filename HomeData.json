@@ -1,0 +1,31 @@
+{
+  "nav": [
+    { "title": "Trips", "path": "#banner" },
+    { "title": "Recommended Tours", "path": "#tours" },
+    { "title": "Assistance", "path": "#assistance" },
+    { "title": "Latest Packages", "path": "#packages" },
+    { "title": "Moments", "path": "#moments" }
+  ],
+  "dropMenu": [
+    { "title": "Profile", "path": "/profile" },
+    { "title": "Booking Lists", "path": "/profile" },
+    { "title": "My Posts", "path": "/profile" }
+  ],
+  "support": [
+    { "text": "Blog", "path": "/" },
+    { "text": "Help", "path": "/" },
+    { "text": "Contact", "path": "/" }
+  ],
+
+  "trip": [
+    { "text": "Island Tours", "path": "/" },
+    { "text": "City tours", "path": "/" },
+    { "text": "Adventure Tours", "path": "/" },
+    { "text": "Mountin Tours", "path": "/" },
+    { "text": "Historical Tours", "path": "/" }
+  ],
+  "agent": [
+    { "text": "Apply now", "path": "/" },
+    { "text": "agent sign in", "path": "/" }
+  ]
+}

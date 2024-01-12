@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply relative;
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* pages white bg with border radius. Refer to ticket, write and booking pages  */
+.roundedBg {
+  @apply bg-gray-100 rounded-se-2xl rounded-ss-2xl;
+}
+.secondBg {
+  @apply relative bg-white shadow-sm top-[-3rem] px-5 py-4;
+}
+.round {
+  @apply rounded-se-lg rounded-ss-lg;
+}
+
+/* profile part classes  */
+.spaces {
+  @apply px-6 py-3;
+}
+
+@media (max-width: 760px) {
+  .hide {
+    clip-path: circle(0% at 100% 0);
+    transition: all 400ms ease-in-out;
+  }
+
+  .animated {
+    clip-path: circle(141.4% at 100% 0);
+    transition: all 400ms ease-in-out;
+  }
+}
+
+/* remove posts scroll bar  */
+.scroll ::-webkit-scrollbar {
+  width: 0;
+}

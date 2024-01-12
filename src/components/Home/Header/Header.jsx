@@ -1,0 +1,103 @@
+import { useState } from "react";
+import {
+  HStack,
+  Image,
+  Link,
+  IconButton,
+  useMediaQuery,
+} from "@chakra-ui/react";
+import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
+import classNames from "classnames";
+import { nav } from "../../../../HomeData.json";
+import DropDown from "./DropDown";
+import { useNavigate } from "react-router-dom";
+import Screen from "../../../utils/Screen";
+import useHeaderScroll from "../../../Hooks/useHeaderScroll";
+
+const Header = () => {
+  const { isScroll, changeBg } = useHeaderScroll();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const [isSmallScreen] = useMediaQuery("(max-width: 760px)");
+
+  const navigate = useNavigate();
+
+  let getUser = true;
+
+  return (
+    <header
+      className={`fixed top-0 left-0 right-0 text-white transition-all duration-500 !z-[999]
+      ${classNames({
+        "translate-y-[-120px]": !isSmallScreen && isScroll,
+        "bg-darkBlue": changeBg,
+      })}`}>
+      <Screen>
+        <div className="flex items-center justify-between gap-3 h-[80px] 2xl:h-[120px]">
+          <Link href="/">
+            <Image
+              h={{ base: "4rem", "2xl": "6rem" }}
+              objectFit="cover"
+              src="/logo.png"
+              alt="logo"
+            />
+          </Link>
+          <div
+            className={`flex flex-col md:flex-row items-center lg:items-initial justify-center 
+            text-left gap-6 md:gap-4 text-3xl md:text-sm lg:text-md fixed md:relative inset-0 bg-darkBlue
+            md:bg-transparent hide
+            ${classNames({ animated: menuOpen })}`}>
+            {/* icons to close the bar  */}
+            <IconButton
+              onClick={() => setMenuOpen(false)}
+              display={{ base: "block", md: "none" }}
+              position="absolute"
+              top="1.5rem"
+              right="1.5rem"
+              fontSize="1.2rem"
+              aria-label="close nav"
+              variant="outlined"
+              icon={<CloseIcon />}
+            />
+            {/* navigation  */}
+            {nav.map((item) => (
+              <a
+                key={item.title}
+                className="relative before:absolute before:bottom-0 before:left-0 before:right-0
+                before:h-[1px] before:bg-white before:scale-0 before:hover:scale-100 before:transition-all
+                before:duration-500 hover:opacity-50 2xl:text-xl"
+                href={item.path}>
+                {item.title}
+              </a>
+            ))}
+          </div>
+          {/* phone number and avatar + menu bar icon  */}
+          <HStack spacing={3}>
+            {!getUser ? (
+              <button
+                onClick={() => navigate("/auth/login")}
+                className="capitalize text-sm 2xl:text-lg hover:opacity-70">
+                sign in
+              </button>
+            ) : (
+              <DropDown getUser={getUser} />
+            )}
+            <span>
+              <IconButton
+                onClick={() => setMenuOpen(true)}
+                display={{ base: "block", md: "none" }}
+                aria-label="bar"
+                position="inherit"
+                variant="outlined"
+                fontSize="2rem"
+                zIndex="0"
+                icon={<HamburgerIcon />}
+              />
+            </span>
+          </HStack>
+        </div>
+      </Screen>
+    </header>
+  );
+};
+
+export default Header;
