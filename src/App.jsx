@@ -14,6 +14,7 @@ const App = () => {
 
   return (
     <Routes>
+      <h2>test</h2>
       <Route path="/" element={<RouteWrapper />}>
         <Route path="/" element={<Home />} />
         {!currentUser && <Route path="/auth/login" element={<Login />} />}
