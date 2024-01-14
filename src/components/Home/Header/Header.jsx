@@ -13,10 +13,12 @@ import DropDown from "./DropDown";
 import { useNavigate } from "react-router-dom";
 import Screen from "../../../utils/Screen";
 import useHeaderScroll from "../../../Hooks/useHeaderScroll";
+import useCurrentUser from "../../../Hooks/useCurrentUser";
 
 const Header = () => {
   const { isScroll, changeBg } = useHeaderScroll();
   const [menuOpen, setMenuOpen] = useState(false);
+  const currentUser = useCurrentUser();
 
   const [isSmallScreen] = useMediaQuery("(max-width: 760px)");
 
@@ -72,14 +74,14 @@ const Header = () => {
           </div>
           {/* phone number and avatar + menu bar icon  */}
           <HStack spacing={3}>
-            {!getUser ? (
+            {!currentUser ? (
               <button
                 onClick={() => navigate("/auth/login")}
                 className="capitalize text-sm 2xl:text-lg hover:opacity-70">
                 sign in
               </button>
             ) : (
-              <DropDown getUser={getUser} />
+              <DropDown getUser={currentUser} />
             )}
             <span>
               <IconButton
