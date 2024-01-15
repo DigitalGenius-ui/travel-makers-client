@@ -10,7 +10,6 @@ import useCurrentUser from "./Hooks/useCurrentUser";
 
 const App = () => {
   const currentUser = useCurrentUser();
-  console.log(currentUser);
 
   return (
     <Routes>

@@ -1,8 +1,8 @@
-import axios from "axios";
+import { axiosPublic } from "../BaseUrl";
 
 export const createUser = async ({ email, password }) => {
   try {
-    const userRegister = await axios.post(`/api/auth/register`, {
+    const userRegister = await axiosPublic.post(`/api/auth/register`, {
       email,
       password,
     });
@@ -26,7 +26,7 @@ export const loginUser = async ({ email, password }) => {
 
 export const logOutUser = async () => {
   try {
-    const userLogin = await axios.post(`/api/auth/logout`);
+    const userLogin = await axiosPublic.post(`/api/auth/logout`);
     return userLogin;
   } catch (error) {
     throw new Error(error.message);
