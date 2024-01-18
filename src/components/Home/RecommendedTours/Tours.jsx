@@ -17,6 +17,7 @@ const Tours = () => {
         title="Recommended Tours"
         tag="Most Branding tours right now"
         btnText="See all tours & activities"
+        link="/allTours"
       />
       <div className="grid grid-cols-resCol gap-10 mb-[4rem]">
         {topReviewsPosts?.slice(0, 6).map((item, i) => (

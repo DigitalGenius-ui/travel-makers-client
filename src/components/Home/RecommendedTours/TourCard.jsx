@@ -3,7 +3,7 @@ import { FaUserFriends } from "react-icons/fa";
 import { GrMapLocation } from "react-icons/gr";
 import { FaRegClock } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import Stars from "../../../utils/stars";
+import Stars from "../../../utils/Stars";
 
 const TourCard = ({ item }) => {
   const isNewTour =

@@ -1,7 +1,8 @@
 import { Box, Button, Flex, Heading, Icon, Text } from "@chakra-ui/react";
 import { FaArrowRight } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
-const Title = ({ title, tag, btnText }) => {
+const Title = ({ title, tag, btnText, link }) => {
   return (
     <Flex
       gap={5}
@@ -21,14 +22,18 @@ const Title = ({ title, tag, btnText }) => {
           {tag}
         </Text>
       </Box>
-      <Button
-        alignSelf={{ base: "flex-end", md: "flex-start" }}
-        colorScheme="blue"
-        rightIcon={<Icon as={FaArrowRight} />}
-        variant="outline"
-        size={{ base: "sm", "2xl": "md" }}>
-        {btnText}
-      </Button>
+      {btnText && (
+        <Link to={link}>
+          <Button
+            alignSelf={{ base: "flex-end", md: "flex-start" }}
+            colorScheme="blue"
+            rightIcon={<Icon as={FaArrowRight} />}
+            variant="outline"
+            size={{ base: "sm", "2xl": "md" }}>
+            {btnText}
+          </Button>
+        </Link>
+      )}
     </Flex>
   );
 };

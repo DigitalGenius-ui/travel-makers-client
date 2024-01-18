@@ -8,6 +8,7 @@ import { loginSchema } from "./Schemas";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../../FetchData/User/Auth";
 import ErrorApi from "../../utils/ErrorApi";
+import { setStorage } from "../../Helpers/localStorage";
 
 const SignIn = () => {
   const [message, setMessage] = useState({
@@ -40,7 +41,8 @@ const SignIn = () => {
       return;
     }
 
-    localStorage.setItem("user", JSON.stringify(userData?.data?.user));
+    setStorage({ item: userData?.data?.user, key: "user" });
+    setStorage({ item: userData?.data?.accessToken, key: "accessToken" });
     // window.location.reload();
   };
 

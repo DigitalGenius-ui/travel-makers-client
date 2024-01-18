@@ -10,7 +10,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 // import FilterBtn from "./FilterBtn";
 import useGetTours from "../../../Hooks/useGetTours";
 import SliderArrow from "../../../utils/SliderArros";
-import TourCard from "../Tours/TourCard";
+import TourCard from "../RecommendedTours/TourCard";
 import FilterBtn from "./FilterBtn";
 
 const Slider = () => {
@@ -22,6 +22,7 @@ const Slider = () => {
       setData(tourData);
     }
   }, [tourData]);
+
   return (
     <>
       <div

@@ -8,3 +8,12 @@ export const getTours = async () => {
     throw new Error(error.message);
   }
 };
+
+export const getSingleTour = async (id) => {
+  try {
+    const tour = await axios.get(`/api/tours/${id}`);
+    return tour;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};

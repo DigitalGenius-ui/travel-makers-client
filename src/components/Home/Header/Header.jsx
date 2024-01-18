@@ -24,8 +24,6 @@ const Header = () => {
 
   const navigate = useNavigate();
 
-  let getUser = true;
-
   return (
     <header
       className={`fixed top-0 left-0 right-0 text-white transition-all duration-500 !z-[999]

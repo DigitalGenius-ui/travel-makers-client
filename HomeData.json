@@ -7,9 +7,11 @@
     { "title": "Moments", "path": "#moments" }
   ],
   "dropMenu": [
-    { "title": "Profile", "path": "/profile" },
-    { "title": "Booking Lists", "path": "/profile" },
-    { "title": "My Posts", "path": "/profile" }
+    { "title": "Profile", "path": "/profile/profileDetails" },
+    { "title": "Booking Lists", "path": "/profile/booking" },
+    { "title": "My Posts", "path": "/profile/posts" },
+    { "title": "Manage password", "path": "/profile/password" },
+    { "title": "Linked accounts", "path": "/profile/accounts" }
   ],
   "support": [
     { "text": "Blog", "path": "/" },
@@ -27,5 +29,37 @@
   "agent": [
     { "text": "Apply now", "path": "/" },
     { "text": "agent sign in", "path": "/" }
+  ],
+  "ticketCondition": [
+    {
+      "title": "Ready to Use Immediately",
+      "desc": [
+        "Must be purchased before 20:55 on the day of use (local time), effective immediately after booking"
+      ]
+    },
+    {
+      "title": "Ticketing Time",
+      "desc": ["Tickets issued in 9s on average"]
+    },
+    {
+      "title": "Ticket Redemption Not Required",
+      "desc": [
+        "You'll need your 「Electronic admission voucher」to verify and use your booking",
+        "Child ticket should be selected and booked together with Adult ticket -the lighting will be on from 5:30 p.m. to 9:30 p.m."
+      ]
+    },
+    {
+      "title": "Non-refundable",
+      "desc": [
+        "Once successfully booked, this product is non-refundable.",
+        "Date changes are not permitted after booking"
+      ]
+    },
+    {
+      "title": "Conditions",
+      "desc": [
+        "Age: 13 and over(Refers to travelers' ages on the date of travel. Age is calculated according to date of birth.)"
+      ]
+    }
   ]
 }

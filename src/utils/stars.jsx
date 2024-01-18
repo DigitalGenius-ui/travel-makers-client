@@ -7,7 +7,7 @@ const Stars = ({ review }) => {
   return (
     <div className="flex items-center gap-2">
       <span>{stars}</span>
-      <p className="text-xs">{review} Reviews</p>
+      <p className="text-xs pt-[0.3rem]">{review} Reviews</p>
     </div>
   );
 };

@@ -23,8 +23,8 @@ const DropDown = () => {
   const signOut = async () => {
     try {
       await mutateAsync();
-      localStorage.clear("user");
-      // window.location.reload();
+      localStorage.clear();
+      window.location.reload();
     } catch (error) {
       throw new Error(error.message);
     }
@@ -42,8 +42,10 @@ const DropDown = () => {
           </Link>
           <MenuDivider />
         </>
-        {dropMenu.map((item, i) => (
-          <MenuItem key={i}>{item.title}</MenuItem>
+        {dropMenu.slice(0, 3).map((item) => (
+          <Link key={item.title} to={`${item.path}/${currentUser.id}`}>
+            <MenuItem>{item.title}</MenuItem>
+          </Link>
         ))}
         <MenuDivider />
         <MenuItem onClick={signOut}>Sign Out</MenuItem>

@@ -6,6 +6,8 @@ export default {
       backgroundImage: {
         banner:
           "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),url('/banner.jpg')",
+        pageBanner:
+          "linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.55)),url('/pageBanner.jpg')",
         assistance:
           "linear-gradient(to right, rgba(0,0,0,0.60), rgba(0,0,0,0.30)),url('/help.jpg')",
         gradient: "linear-gradient(to right, #00639b, #90e0e7)",
@@ -19,6 +21,7 @@ export default {
       },
       fontFamily: {
         banner: "'Montserrat', sans-serif",
+        page: "'Anton', sans-serif",
       },
     },
   },
