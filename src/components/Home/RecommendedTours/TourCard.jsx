@@ -7,7 +7,7 @@ import Stars from "../../../utils/Stars";
 
 const TourCard = ({ item }) => {
   const isNewTour =
-    new Date(item.createAt) <= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    new Date(item.createAt) >= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
 
   return (
     <Link
@@ -34,7 +34,7 @@ const TourCard = ({ item }) => {
       </div>
       {/* card contents  */}
       <div className="px-[1rem] py-[1.5rem]">
-        <h2 className="font-bold text-lg pb-2">{item.title}</h2>
+        <h2 className="font-bold text-lg pb-2 line-clamp-1">{item.title}</h2>
         <Flex
           justifyContent="space-between"
           alignItems="center"

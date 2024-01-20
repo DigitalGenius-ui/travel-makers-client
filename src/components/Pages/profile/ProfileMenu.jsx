@@ -6,10 +6,13 @@ import Profile from "./myProfile/Profile";
 import classNames from "classnames";
 import { dropMenu } from "../../../../HomeData.json";
 import useCurrentUser from "../../../Hooks/useCurrentUser";
+// import MyPosts from "./myPosts/MyPosts";
+import MyBookings from "./myBookings/MyBookings";
 
 const ProfileMenu = () => {
   const [responsiveMenu, setResponsiveMenu] = useState(false);
   const currentUser = useCurrentUser();
+
   const path = useParams();
   const pathName = path["*"].split("/")[0];
 
@@ -43,7 +46,8 @@ const ProfileMenu = () => {
         <div className="flex-[2.5] h-fit">
           <Routes>
             <Route path="/profileDetails/:id" element={<Profile />} />
-            <Route path="/booking/:id" element={<p>Booking</p>} />
+            <Route path="/booking/:id" element={<MyBookings />} />
+            {/* <Route path="/posts/:id" element={<MyPosts />} /> */}
           </Routes>
         </div>
       </div>

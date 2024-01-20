@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const profileDetails = async (id) => {
+export const profileDetails = async (userId) => {
   try {
-    const details = await axios.get(`/api/profile/${id}`);
+    const details = await axios.get(`/api/profile/${userId}`);
     return details;
   } catch (error) {
     throw new Error(error.message);
@@ -11,7 +11,7 @@ export const profileDetails = async (id) => {
 
 export const profileDetailsUpdate = async (data) => {
   try {
-    const details = await axios.get(`/api/profile/${id}`, data);
+    const details = await axios.post(`/api/profile`, data);
     return details;
   } catch (error) {
     throw new Error(error.message);
