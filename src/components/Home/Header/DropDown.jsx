@@ -13,7 +13,8 @@ import { logOutUser } from "../../../FetchData/User/Auth";
 import useCurrentUser from "../../../Hooks/useCurrentUser";
 
 const DropDown = () => {
-  const currentUser = useCurrentUser();
+  const { currentUser, isPending, userDetails } = useCurrentUser();
+  const userImg = userDetails?.profile?.userImg;
 
   const { mutateAsync } = useMutation({
     mutationKey: ["user"],
@@ -33,17 +34,23 @@ const DropDown = () => {
   return (
     <Menu>
       <MenuButton>
-        <Avatar mt={2} name="milad amiri" size="sm" zIndex={10} />
+        <Avatar
+          src={!isPending ? userImg : null}
+          mt={2}
+          name="milad amiri"
+          size="sm"
+          zIndex={10}
+        />
       </MenuButton>
       <MenuList color="black" fontSize="0.9rem">
         <>
-          <Link href={`/admin/dashboard/${currentUser.id}`}>
+          <Link href={`/admin/dashboard/${currentUser?.id}`}>
             <MenuItem>Dashboard</MenuItem>
           </Link>
           <MenuDivider />
         </>
         {dropMenu.slice(0, 3).map((item) => (
-          <Link key={item.title} to={`${item.path}/${currentUser.id}`}>
+          <Link key={item.title} to={`${item.path}/${currentUser?.id}`}>
             <MenuItem>{item.title}</MenuItem>
           </Link>
         ))}

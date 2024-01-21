@@ -43,7 +43,7 @@ const SignIn = () => {
 
     setStorage({ item: userData?.data?.user, key: "user" });
     setStorage({ item: userData?.data?.accessToken, key: "accessToken" });
-    // window.location.reload();
+    window.location.reload();
   };
 
   const formikConfigs = {

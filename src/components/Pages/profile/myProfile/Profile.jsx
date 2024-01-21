@@ -1,28 +1,18 @@
 import { HStack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import EditInputs from "./EditInput";
-import { useQuery } from "@tanstack/react-query";
-import {
-  profileDetails,
-  profileDetailsUpdate,
-} from "../../../../FetchData/Profile/profile";
 import { SubmitButton } from "../../../../utils/SubmitButton";
 import ImagePicker from "./ImagePicker";
 import useCreateData from "../../../../Hooks/useCreateData";
+import useCurrentUser from "../../../../Hooks/useCurrentUser";
+import { profileDetailsUpdate } from "../../../../FetchData/User/UserDetails";
 
 const MyProfile = () => {
   const [isEdit, setIsEdit] = useState(true);
+  const { userDetails } = useCurrentUser();
+  const profile = userDetails?.profile;
 
-  const pathname = useParams();
-  const userId = pathname["*"].split("/")[1];
-
-  const { data } = useQuery({
-    queryKey: ["profile", userId],
-    queryFn: () => profileDetails(userId),
-  });
-
-  const profileData = data?.data?.profileDetails;
+  const userId = userDetails?.id;
 
   const [form, setForm] = useState({
     firstName: "",
@@ -34,8 +24,8 @@ const MyProfile = () => {
   });
 
   useEffect(() => {
-    if (profileData) {
-      setForm(profileData);
+    if (profile) {
+      setForm(profile);
     } else {
       setForm({
         firstName: "",
@@ -46,22 +36,23 @@ const MyProfile = () => {
         userId,
       });
     }
-  }, [profileData, userId]);
+  }, [profile, userId]);
 
   const { submitForm, isPending } = useCreateData({
-    key: "profile",
+    key: "user",
     func: profileDetailsUpdate,
   });
 
   const handleSubmit = async () => {
     if (!isEdit) {
       const { userImg, id, ...rest } = form;
+      console.log(rest);
       // upload content to the server
       await submitForm({
         inputData: rest,
         dataMessage: "Profile has been updated",
       });
-      // await axios.post("/api/profile", { ...rest });
+
       setIsEdit(true);
     } else {
       setIsEdit(false);

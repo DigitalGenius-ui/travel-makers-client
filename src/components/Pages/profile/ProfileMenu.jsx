@@ -6,12 +6,14 @@ import Profile from "./myProfile/Profile";
 import classNames from "classnames";
 import { dropMenu } from "../../../../HomeData.json";
 import useCurrentUser from "../../../Hooks/useCurrentUser";
-// import MyPosts from "./myPosts/MyPosts";
+import MyPosts from "./myPosts/MyPosts";
 import MyBookings from "./myBookings/MyBookings";
+import ChangePassword from "./managePassword/ChangePassword";
+import LinkedAccounts from "./linkAccount/LinkAccounts";
 
 const ProfileMenu = () => {
   const [responsiveMenu, setResponsiveMenu] = useState(false);
-  const currentUser = useCurrentUser();
+  const { currentUser } = useCurrentUser();
 
   const path = useParams();
   const pathName = path["*"].split("/")[0];
@@ -29,7 +31,7 @@ const ProfileMenu = () => {
             ${classNames({ "hidden opacity-100": !responsiveMenu })}`}>
             {dropMenu.map((btn) => (
               <Link
-                to={`${btn.path}/${currentUser.id}`}
+                to={`${btn.path}/${currentUser?.id}`}
                 key={btn.title}
                 className={`block text-left capitalize py-2 text-sm hover:text-blue-600 p-3
                 ${classNames({
@@ -47,7 +49,9 @@ const ProfileMenu = () => {
           <Routes>
             <Route path="/profileDetails/:id" element={<Profile />} />
             <Route path="/booking/:id" element={<MyBookings />} />
-            {/* <Route path="/posts/:id" element={<MyPosts />} /> */}
+            <Route path="/posts/:id" element={<MyPosts />} />
+            <Route path="/password/:id" element={<ChangePassword />} />
+            <Route path="/accounts/:id" element={<LinkedAccounts />} />
           </Routes>
         </div>
       </div>

@@ -2,38 +2,36 @@ import React, { useState } from "react";
 import { Avatar, IconButton } from "@chakra-ui/react";
 import { CiEdit } from "react-icons/ci";
 import BioEdit from "./BioEdit";
-import useCurrentUser from "../../../../Hooks/useCurrentUser";
+import { useParams } from "react-router-dom";
+import useCurrentUser from "../../../../../Hooks/useCurrentUser";
 
-const UserDetails = ({ userDetails }) => {
-  const [showModal, setShowModal] = useState < boolean > false;
-  const profile = userDetails && userDetails?.profile;
+const UserDetails = () => {
+  const [showModal, setShowModal] = useState(false);
+  const { userDetails } = useCurrentUser();
+  const profile = userDetails?.profile;
 
-  const { moments } = userDetails;
-  const { userId } = useParams();
-
-  const currentUser = useCurrentUser();
+  const moments = userDetails?.moments;
+  const { id: userId } = useParams();
 
   return (
     <div className="py-3 md:spaces flex gap-3 border-b border-gray-300">
       <Avatar
         src={profile?.userImg || ""}
-        name={
-          `${profile?.firstName} ${profile?.lastName}` || `FirstName LastName`
-        }
+        name={`${profile?.firstName} ${profile?.lastName}` || `User`}
       />
       <div className="flex-1 space-y-1">
-        <h2 className="capitalize">{`${profile?.firstName || "First Name"} ${
-          profile?.lastName || "Last Name"
+        <h2 className="capitalize">{`${profile?.firstName || "User"} ${
+          profile?.lastName || ""
         }`}</h2>
         <p className="text-xs">
-          {moments.length} Posts | {profile?.followings.length || 0} Followings
-          |{profile?.followers.length || 0} Followers
+          {`${moments?.length} Posts | ${profile?.followings?.length} 
+          Followings | ${profile?.followers?.length} Followers`}
         </p>
         <div className="flex items-center justify-between">
           <p className="text-xs sm:text-sm flex-1 line-clamp-2 first-letter:uppercase">
             {profile?.bio || "This user has no bio"}
           </p>
-          {currentUser.id === userId && (
+          {userDetails?.id === userId && (
             <IconButton
               onClick={() => setShowModal(true)}
               aria-label="edit"
@@ -50,6 +48,7 @@ const UserDetails = ({ userDetails }) => {
           showModal={showModal}
           setShowModal={setShowModal}
           userId={userId}
+          bioText={profile?.bio}
         />
       )}
     </div>

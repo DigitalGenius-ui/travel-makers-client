@@ -1,11 +1,12 @@
 import React from "react";
-import UserDetails from "./UserDetails";
+import UserDetails from "./UserDetails/UserDetails";
+import Menu from "./Menu";
 
 const MyPosts = () => {
   return (
     <section className="space-y-3">
-      <UserDetails userDetails={getUser} />
-      <Menu getUser={getUser} />
+      <UserDetails />
+      <Menu />
     </section>
   );
 };

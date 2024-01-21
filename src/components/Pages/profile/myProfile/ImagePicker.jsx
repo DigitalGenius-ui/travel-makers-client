@@ -4,7 +4,7 @@ import { uploadSingleImage } from "../../../../Helpers/uploadImage";
 import classNames from "classnames";
 import useCreateData from "../../../../Hooks/useCreateData";
 import useCurrentUser from "../../../../Hooks/useCurrentUser";
-import { profileDetailsUpdate } from "../../../../FetchData/Profile/profile";
+import { profileDetailsUpdate } from "../../../../FetchData/User/UserDetails";
 
 const ImagePicker = ({ isEdit, setForm, form }) => {
   const [getImgUrl, setGetImgUrl] = useState(null);
@@ -17,7 +17,7 @@ const ImagePicker = ({ isEdit, setForm, form }) => {
   };
 
   const { submitForm } = useCreateData({
-    key: "profile",
+    key: "user",
     func: profileDetailsUpdate,
   });
 

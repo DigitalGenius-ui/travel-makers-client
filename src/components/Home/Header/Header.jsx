@@ -14,15 +14,20 @@ import { useNavigate } from "react-router-dom";
 import Screen from "../../../utils/Screen";
 import useHeaderScroll from "../../../Hooks/useHeaderScroll";
 import useCurrentUser from "../../../Hooks/useCurrentUser";
+import Loading from "../../../Loading";
 
 const Header = () => {
   const { isScroll, changeBg } = useHeaderScroll();
   const [menuOpen, setMenuOpen] = useState(false);
-  const currentUser = useCurrentUser();
+  const { currentUser, isPending } = useCurrentUser();
 
   const [isSmallScreen] = useMediaQuery("(max-width: 760px)");
 
   const navigate = useNavigate();
+
+  if (isPending) {
+    return <Loading />;
+  }
 
   return (
     <header
@@ -72,14 +77,14 @@ const Header = () => {
           </div>
           {/* phone number and avatar + menu bar icon  */}
           <HStack spacing={3}>
-            {!currentUser ? (
+            {currentUser ? (
+              <DropDown getUser={currentUser} />
+            ) : (
               <button
                 onClick={() => navigate("/auth/login")}
                 className="capitalize text-sm 2xl:text-lg hover:opacity-70">
                 sign in
               </button>
-            ) : (
-              <DropDown getUser={currentUser} />
             )}
             <span>
               <IconButton

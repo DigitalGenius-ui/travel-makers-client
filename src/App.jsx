@@ -12,9 +12,12 @@ import FilterTours from "./components/Home/Destinations/FilterTours";
 import TourDetails from "./components/Pages/tours/TourDetails/TourDetails";
 import BookTicket from "./components/Pages/tours/TourDetails/Tickets/BookTicket/BookTicket";
 import ProfileMenu from "./components/Pages/profile/ProfileMenu";
+import CreatePost from "./components/Pages/profile/myPosts/Posts/CreatePost/CreatePost";
+import SinglePost from "./components/Pages/profile/myPosts/Posts/SinglePost/SinglePost";
+import CreateReview from "./components/Pages/tours/TourDetails/TourDetails/write/CreateReview";
 
 const App = () => {
-  const currentUser = useCurrentUser();
+  const { currentUser } = useCurrentUser();
 
   return (
     <Routes>
@@ -26,7 +29,16 @@ const App = () => {
         <Route path="/allTours" element={<AllTours />} />
         <Route path="/tour/:id" element={<TourDetails />} />
         <Route path="/tour/Book/:tourId" element={<BookTicket />} />
-        <Route path="/profile/*" element={<ProfileMenu />} />
+        {currentUser && (
+          <Route path="/tour/write/:id" element={<CreateReview />} />
+        )}
+        {currentUser && <Route path="/profile/*" element={<ProfileMenu />} />}
+        {currentUser && (
+          <Route path="/profile/posts/createPost" element={<CreatePost />} />
+        )}
+        {currentUser && (
+          <Route path="/profile/posts/post/:id" element={<SinglePost />} />
+        )}
         <Route
           path="*"
           element={<Navigate to={currentUser ? "/" : "/auth/login"} />}

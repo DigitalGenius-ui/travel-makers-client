@@ -1,15 +1,23 @@
 import { CloseButton, Flex, Textarea } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { SubmitButton } from "../../../../utils/SubmitButton";
-import useCreateData from "../../../../Hooks/useCreateData";
-import { profileDetailsUpdate } from "../../../../FetchData/Profile/profile";
+import React, { useEffect, useState } from "react";
+import { SubmitButton } from "../../../../../utils/SubmitButton";
+import useCreateData from "../../../../../Hooks/useCreateData";
+import Modal from "../../../../../utils/Modal";
+import { profileDetailsUpdate } from "../../../../../FetchData/User/UserDetails";
 
-const BioEdit = ({ showModal, setShowModal, userId }) => {
+const BioEdit = ({ showModal, setShowModal, userId, bioText }) => {
   const [bio, setBio] = useState("");
-  const navigate = useRouter();
+
+  useEffect(() => {
+    if (bioText) {
+      setBio(bioText);
+    } else {
+      setBio("");
+    }
+  }, [bioText]);
 
   const { isPending, submitForm } = useCreateData({
-    key: "profile",
+    key: "user",
     func: profileDetailsUpdate,
   });
 

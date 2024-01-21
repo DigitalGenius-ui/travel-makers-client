@@ -5,9 +5,11 @@ import Filter from "./Filter";
 import Review from "./Review";
 import { Link } from "react-router-dom";
 import OutStanding from "../../../../../../utils/OutStanding";
+import useCurrentUser from "../../../../../../Hooks/useCurrentUser";
 
 const Reviews = ({ data }) => {
   const { title, tourId, reviews } = data;
+  const { currentUser } = useCurrentUser();
 
   const ratingSum = reviews?.reduce((acc, item) => (acc += +item?.rating), 0);
   const ratingAverage = Math.round(ratingSum / reviews?.length);
@@ -23,16 +25,18 @@ const Reviews = ({ data }) => {
         gap={4}
         mb="2rem">
         <h2 className="font-bold text-lg sm:text-xl">Reviews of {title}</h2>
-        <Link to={`/tour/write/${tourId}`}>
-          <Button
-            variant="solid"
-            colorScheme="blue"
-            fontSize="sm"
-            size="sm"
-            leftIcon={<HiMiniPencilSquare />}>
-            Write a Review
-          </Button>
-        </Link>
+        {currentUser && (
+          <Link to={`/tour/write/${tourId}`}>
+            <Button
+              variant="solid"
+              colorScheme="blue"
+              fontSize="sm"
+              size="sm"
+              leftIcon={<HiMiniPencilSquare />}>
+              Write a Review
+            </Button>
+          </Link>
+        )}
       </Flex>
       <HStack spacing={2} w="100%" pt="1.5rem" borderTop="1px solid gray">
         {reviews?.length > 0 && (
