@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import BookingContext from "./Context/BookingContext.jsx";
+import ScrollToTop from "./ScrollToTop.jsx";
 // import "./Intercepter/axiosIntercepter.js";
 
 const queryClient = new QueryClient();
@@ -13,13 +14,15 @@ const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <BookingContext>
-        <QueryClientProvider client={queryClient}>
-          <ChakraProvider>
-            <App />
-          </ChakraProvider>
-        </QueryClientProvider>
-      </BookingContext>
+      <ScrollToTop>
+        <BookingContext>
+          <QueryClientProvider client={queryClient}>
+            <ChakraProvider>
+              <App />
+            </ChakraProvider>
+          </QueryClientProvider>
+        </BookingContext>
+      </ScrollToTop>
     </BrowserRouter>
   </React.StrictMode>
 );

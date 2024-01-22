@@ -15,6 +15,8 @@ import ProfileMenu from "./components/Pages/profile/ProfileMenu";
 import CreatePost from "./components/Pages/profile/myPosts/Posts/CreatePost/CreatePost";
 import SinglePost from "./components/Pages/profile/myPosts/Posts/SinglePost/SinglePost";
 import CreateReview from "./components/Pages/tours/TourDetails/TourDetails/write/CreateReview";
+import SingleProfile from "./components/Pages/singleProfile/SingleProfile";
+import CheckOut from "./components/Pages/tours/CheckOut/CheckOut";
 
 const App = () => {
   const { currentUser } = useCurrentUser();
@@ -32,13 +34,15 @@ const App = () => {
         {currentUser && (
           <Route path="/tour/write/:id" element={<CreateReview />} />
         )}
+        <Route path="/checkout/success" element={<CheckOut />} />
+        {/* public profile  */}
+        <Route path="/singleProfile/:id" element={<SingleProfile />} />
+        {/* protected profile  */}
         {currentUser && <Route path="/profile/*" element={<ProfileMenu />} />}
         {currentUser && (
           <Route path="/profile/posts/createPost" element={<CreatePost />} />
         )}
-        {currentUser && (
-          <Route path="/profile/posts/post/:id" element={<SinglePost />} />
-        )}
+        <Route path="/profile/posts/post/:id" element={<SinglePost />} />
         <Route
           path="*"
           element={<Navigate to={currentUser ? "/" : "/auth/login"} />}

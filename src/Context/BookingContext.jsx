@@ -1,28 +1,39 @@
 import React, { createContext, useContext, useState } from "react";
-
 const TravelMaker = createContext();
 
 const BookingContext = ({ children }) => {
   const [sortTitle, setSortTitle] = useState("");
-  const [bookingCount, setBookingCount] = useState({
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const [contactCode, setContactCode] = useState("+1");
+  const [bookForm, setBookForm] = useState({
+    date: "",
     child: 0,
     adult: 0,
+    firstName: "",
+    lastName: "",
+    phone: "",
+    email: "",
+    sendDeal: false,
   });
 
-  const [date, setDate] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
+  const [totalPrice, setTotalPrice] = useState(0);
 
   return (
     <TravelMaker.Provider
       value={{
-        setBookingCount,
-        bookingCount,
-        date,
-        setDate,
         sortTitle,
         setSortTitle,
         errorMsg,
         setErrorMsg,
+
+        bookForm,
+        setBookForm,
+        contactCode,
+        setContactCode,
+
+        totalPrice,
+        setTotalPrice,
       }}>
       {children}
     </TravelMaker.Provider>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ImageSlider from "./ImageSlider";
+import Loading from "../../../../../Loading";
 
 const SliderDemo = ({ tourImages }) => {
   const [showModal, setShowModal] = useState(false);

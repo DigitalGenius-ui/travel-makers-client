@@ -10,11 +10,12 @@ import PostData from "./PostData";
 import ShareComment from "../Comment/ShareComment";
 import LikePost from "../LikePost/LikePost";
 import MentionedTrips from "./MentionTrips";
+import Loading from "../../../../../../Loading";
 
 const SinglePost = () => {
   const { id } = useParams();
 
-  const { data } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["user"],
     queryFn: () => getSingleMoment(id),
   });
@@ -32,13 +33,14 @@ const SinglePost = () => {
 
   return (
     <section className="bg-darkBlue">
+      {isPending && <Loading />}
       <Head />
       <div className="bg-white mt-8">
         <Screen>
           <div className="flex flex-col md:flex-row gap-5 py-5">
             <div
               style={{
-                backgroundImage: `linear-gradient(#00000059, #000000a5), url(${activeImg})`,
+                backgroundImage: `linear-gradient(#0000009d, #000000fc), url(${activeImg})`,
               }}
               className="flex-[1.5] bg-no-repeat bg-cover bg-center md:pt-[2rem] grid place-items-center max-h-[800px]">
               <Image
@@ -55,9 +57,10 @@ const SinglePost = () => {
                     <Image
                       onClick={() => setActiveImg(img)}
                       className={`w-[8rem] h-[8rem] object-cover cursor-pointer
-                ${classNames({
-                  "border-solid border-4 border-blue-700": activeImg === img,
-                })}`}
+                    ${classNames({
+                      "border-solid border-4 border-blue-700":
+                        activeImg === img,
+                    })}`}
                       src={img && img}
                       alt="image-gallery"
                       key={i}

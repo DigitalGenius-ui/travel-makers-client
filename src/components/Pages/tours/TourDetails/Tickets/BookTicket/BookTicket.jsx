@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Checkbox, Flex } from "@chakra-ui/react";
+import { Box, Button, Checkbox, Flex, useToast } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import Head from "../../../../../../utils/Head";
 import Screen from "../../../../../../utils/Screen";
@@ -9,11 +9,91 @@ import DatePicker from "./DatePicker";
 import TicketTypes from "./TicketTypes/TicketTypes";
 import Activity from "./Activity";
 import Contact from "./Contact/Contact";
+import { useBookingContext } from "../../../../../../Context/BookingContext";
+import { useMutation } from "@tanstack/react-query";
+import { createCheckout } from "../../../../../../FetchData/Tours/Tours";
 
 const BookTicket = () => {
   const { tourId } = useParams();
   const { tourData } = useGetTours();
   const singleBooking = tourData?.find((item) => item.id === tourId);
+
+  const toast = useToast();
+
+  const { setBookForm, bookForm, totalPrice, contactCode, setErrorMsg } =
+    useBookingContext();
+
+  const { mutateAsync, isPending } = useMutation({
+    mutationKey: ["tours"],
+    mutationFn: createCheckout,
+  });
+
+  const bookTicket = async (e) => {
+    e.preventDefault();
+
+    if (bookForm.child === 0 && bookForm.adult === 0) {
+      toast({
+        title: "You should choose at least one ticket",
+        status: "error",
+        isClosable: true,
+      });
+      setErrorMsg("ticket");
+      return;
+    }
+
+    if (!bookForm.firstName || !bookForm.lastName) {
+      toast({
+        title: "You should add the traveler details",
+        status: "error",
+        isClosable: true,
+      });
+      setErrorMsg("traveler");
+      return;
+    }
+
+    if (!bookForm.phone || !bookForm.email) {
+      toast({
+        title: "You should add your contact details.",
+        status: "error",
+        isClosable: true,
+      });
+      setErrorMsg("contact");
+      return;
+    }
+
+    const { phone, sendDeal, ...rest } = bookForm;
+
+    const bookData = {
+      totalPrice,
+      phone: `${contactCode} ${phone}`,
+      ...rest,
+      userId: singleBooking?.userId,
+    };
+
+    const formItems = [
+      {
+        name: "Child Ticket",
+        image: singleBooking?.tourImages[0],
+        description: singleBooking?.title,
+        price: +singleBooking?.price * (1 - 0.4),
+        quantity: bookForm.child,
+        id: singleBooking?.id,
+      },
+      {
+        name: "Adult Ticket",
+        image: singleBooking?.tourImages[0],
+        description: singleBooking?.title,
+        price: +singleBooking?.price,
+        quantity: bookForm.adult,
+        id: singleBooking?.id,
+      },
+    ];
+
+    const res = await mutateAsync({ formItems, bookData });
+    if (res.status === 200) {
+      window.location.href = res?.data?.url;
+    }
+  };
 
   return (
     <section className="bg-darkBlue">
@@ -21,7 +101,9 @@ const BookTicket = () => {
       <div className="roundedBg py-5 mt-[6rem]">
         <Screen>
           <Flex gap={5} flexDirection={{ base: "column-reverse", md: "row" }}>
-            <div className="w-full md:w-[10rem] flex-[2.5] space-y-1">
+            <form
+              className="w-full md:w-[10rem] flex-[2.5] space-y-1"
+              onSubmit={bookTicket}>
               <Box as="div" className="secondBg round" w="100%">
                 <h2
                   className="font-bold text-lg md:text-xl border-b border-dashed 
@@ -30,7 +112,7 @@ const BookTicket = () => {
                 </h2>
                 <DatePicker />
               </Box>
-              <TicketTypes />
+              <TicketTypes bookPrice={+singleBooking?.price} />
               <Activity />
               <Contact />
               <section className="secondBg rounded-md !top-[-1.7rem] space-y-4 !z-[30]">
@@ -44,11 +126,20 @@ const BookTicket = () => {
                     </span>
                     .
                   </p>
-                  <Checkbox size="sm">
-                    Send me special Trip.com deals and travel reminders
+                  <Checkbox
+                    onChange={(e) =>
+                      setBookForm((prev) => ({
+                        ...prev,
+                        sendDeal: e.target.checked,
+                      }))
+                    }
+                    size="sm">
+                    Send me special travelmakers.com deals and travel reminders
                   </Checkbox>
                 </div>
                 <Button
+                  isLoading={isPending}
+                  type="submit"
                   variant="solid"
                   colorScheme="blue"
                   w="100%"
@@ -57,10 +148,13 @@ const BookTicket = () => {
                   Pay
                 </Button>
               </section>
-            </div>
+            </form>
             {/* side bare for total price  */}
             <div className="relative flex-[1]">
-              <TotalPrice bookPrice={+singleBooking?.price} />
+              <TotalPrice
+                bookPrice={+singleBooking?.price}
+                ticketTitle={singleBooking?.title}
+              />
             </div>
           </Flex>
         </Screen>

@@ -28,7 +28,7 @@ const TourDetails = () => {
       <Head />
       <div className="roundedBg pb-[4rem]">
         <Screen>
-          <div className="secondBg round overflow-hidden !px-0 !py-0">
+          <div className="secondBg mt-[6rem] round overflow-hidden !px-0 !py-0">
             <SliderDemo tourImages={singleTour?.tourImages} />
             <Details tourDetails={singleTour} />
           </div>

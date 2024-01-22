@@ -4,13 +4,14 @@ import { CiEdit } from "react-icons/ci";
 import BioEdit from "./BioEdit";
 import { useParams } from "react-router-dom";
 import useCurrentUser from "../../../../../Hooks/useCurrentUser";
+import Loading from "../../../../../Loading";
 
-const UserDetails = () => {
+const UserDetails = ({ detail }) => {
   const [showModal, setShowModal] = useState(false);
-  const { userDetails } = useCurrentUser();
-  const profile = userDetails?.profile;
+  const { userDetails, isPending } = useCurrentUser();
+  const profile = userDetails?.profile ?? detail?.profile;
 
-  const moments = userDetails?.moments;
+  const moments = userDetails?.moments ?? detail?.moments;
   const { id: userId } = useParams();
 
   return (

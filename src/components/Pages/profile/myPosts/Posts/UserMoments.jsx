@@ -5,19 +5,20 @@ import Moment from "./Moment";
 import EmptyMessage from "../EmptyMessage";
 import { SubmitButton } from "../../../../../utils/SubmitButton";
 
-const UserMoments = () => {
+const UserMoments = ({ moment }) => {
   const { userDetails } = useCurrentUser();
-  const moments = userDetails?.moments;
+  const moments = userDetails?.moments ?? moment?.moments;
   const { id: userId } = useParams();
+
+  const firstName =
+    userDetails?.profile?.firstName ?? moment?.profile?.firstName;
 
   return (
     <>
       {moments?.length > 0 ? (
         <>
           <div className="flex items-center justify-between pb-8">
-            <h1 className="font-bold">
-              {`Here are ${userDetails?.profile?.firstName}'s posts :`}
-            </h1>
+            <h1 className="font-bold">{`Here are ${firstName}'s posts :`}</h1>
             {userDetails?.id === userId && (
               <Link to="/profile/posts/createPost">
                 <SubmitButton>Create New Post</SubmitButton>

@@ -29,3 +29,16 @@ export const createTourReview = async (data) => {
     throw new Error(error.message);
   }
 };
+
+// get single tour data
+export const createCheckout = async (data) => {
+  try {
+    const checkOut = await axios.post(
+      `/api/tours/create-checkout-session`,
+      data
+    );
+    return checkOut;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};

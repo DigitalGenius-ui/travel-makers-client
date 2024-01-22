@@ -8,48 +8,66 @@ import { FaRegUser } from "react-icons/fa";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { useBookingContext } from "../../../../../../../Context/BookingContext";
 import Conditions from "../../../../../../Pages/tours/Common/Condition";
+import useGetTours from "../../../../../../../Hooks/useGetTours";
+import { useParams } from "react-router-dom";
+import classNames from "classnames";
 
 const TourType = ({ title }) => {
   const [showModal, setShowModal] = useState(false);
   const newTitle = title === "adult" ? "adult" : "child";
 
-  const { setBookingCount, bookingCount, date, setErrorMsg } =
-    useBookingContext();
+  // global context data
+  const { bookForm, setBookForm, setErrorMsg, errorMsg } = useBookingContext();
 
+  // getting tour price
+  const { tourId } = useParams();
+  const { tourData } = useGetTours();
+  const singleBooking = tourData?.find((item) => item.id === tourId);
+
+  // increase ticket number
   const increase = useCallback(() => {
-    if (date === "") {
-      setErrorMsg("You must select a date first.");
+    if (bookForm.date === "") {
+      setErrorMsg("date");
     } else {
-      setBookingCount((prev) => ({ ...prev, [title]: prev[title] + 1 }));
+      setBookForm((prev) => ({ ...prev, [title]: prev[title] + 1 }));
       setErrorMsg("");
     }
-  }, [date, setErrorMsg, setBookingCount, title]);
+  }, [bookForm.date, setErrorMsg, setBookForm, title]);
 
+  // decrease ticket number
   const decrease = useCallback(() => {
-    setBookingCount((prev) => {
+    setBookForm((prev) => {
       const updatedData = prev[title] <= 0 ? 0 : prev[title] - 1;
       return { ...prev, [title]: updatedData };
     });
-  }, [title, setBookingCount]);
+  }, [title, setBookForm]);
+
+  // displaying the child and adult prices
+  const price = {
+    child: +singleBooking?.price * (1 - 0.4),
+    adult: +singleBooking?.price,
+  };
 
   return (
     <>
       <div className="flex items-center justify-between">
-        <h2 className="font-bold capitalize text-lg md:text-xl">
+        <h2
+          className={`font-bold capitalize text-lg md:text-xl 
+        ${classNames({ "text-red-500": errorMsg === "ticket" })}`}>
           {title} Ticket
         </h2>
         <HStack spacing={3}>
-          <p className="font-bold">$300</p>
+          <p className="font-bold">$ {price[title].toFixed(2)}</p>
           <HStack spacing={3}>
             <IconButton
               onClick={decrease}
               isRound={true}
               size="xs"
               aria-label="minus"
-              colorScheme={bookingCount[newTitle] > 0 ? "blue" : "gray"}
+              colorScheme={bookForm[newTitle] > 0 ? "blue" : "gray"}
               icon={<FiMinus />}
             />
-            <span>{bookingCount[newTitle]}</span>
+            <span>{bookForm[newTitle]}</span>
             <IconButton
               onClick={increase}
               isRound={true}
@@ -62,7 +80,7 @@ const TourType = ({ title }) => {
         </HStack>
       </div>
       {/* tour type of people details  */}
-      {bookingCount[newTitle] > 0 ? (
+      {bookForm[newTitle] > 0 ? (
         <VStack
           onClick={() => setShowModal(true)}
           spacing={1}

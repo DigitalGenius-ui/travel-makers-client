@@ -1,21 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import PageBanner from "../../../utils/PageBanner";
 import useGetTours from "../../../Hooks/useGetTours";
 import TourCard from "./TourCard";
 import Screen from "../../../utils/Screen";
+import Pagination from "../../../utils/Pagination";
 
 const AllTours = () => {
   const { tourData } = useGetTours();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const totalPages = Math.ceil(tourData?.length / itemsPerPage);
+
+  const newTours = tourData?.slice(indexOfFirstItem, indexOfLastItem);
+
   return (
     <div>
       <PageBanner title="All Tours" />
       <Screen>
         <div className="grid grid-cols-resCol gap-4 my-6">
-          {tourData?.map((item) => (
+          {newTours?.map((item) => (
             <TourCard item={item} key={item.id} />
           ))}
         </div>
-        <h2>Pagination goes here</h2>
+        <Pagination
+          totalPages={totalPages}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
       </Screen>
     </div>
   );

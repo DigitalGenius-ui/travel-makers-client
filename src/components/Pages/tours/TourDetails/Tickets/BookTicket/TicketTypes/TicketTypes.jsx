@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useMemo, useState } from "react";
 import { SlCalender } from "react-icons/sl";
 import { IoIosArrowDropup } from "react-icons/io";
@@ -15,8 +13,8 @@ const TicketTypes = () => {
   // sort components
   const sortedComponent = useMemo(() => {
     const components = [
-      <TourType key={"adult"} title={"adult"} />,
-      <TourType key={"child"} title={"child"} />,
+      <TourType key={1} title={"adult"} />,
+      <TourType key={2} title={"child"} />,
     ];
     return components.sort((a, b) => {
       const titleA = a.props.title;

@@ -31,7 +31,9 @@ const DatePicker = () => {
     <section className="py-5 px-4 !w-full">
       <div className=" pb-5">
         <h3 className="text-xl font-bold">Select Date</h3>
-        {errorMsg && <p className="text-red-600 ">{errorMsg}</p>}
+        {errorMsg === "date" && (
+          <p className="text-red-600 ">You must select a date first.</p>
+        )}
       </div>
       <Swiper
         spaceBetween={5}
@@ -87,15 +89,16 @@ const DatePicker = () => {
 export default DatePicker;
 
 const SingleDate = ({ day, price }) => {
-  const { setDate, date } = useBookingContext();
+  const { bookForm, setBookForm } = useBookingContext();
   const pickDate = format(day, "E, MMM dd");
 
   return (
     <div
-      onClick={() => setDate(pickDate)}
+      onClick={() => setBookForm((prev) => ({ ...prev, date: pickDate }))}
       className={`border border-gray-600 w-full rounded-md px-2 md:px-3 py-4 cursor-pointer relative
       ${classNames({
-        "border-blue-700 text-blue-800 bg-blue-100/40": date === pickDate,
+        "border-blue-700 text-blue-800 bg-blue-100/40":
+          bookForm.date === pickDate,
       })}`}>
       {isToday(new Date(day)) && (
         <p className="absolute top-[-1rem] bg-blue-200 left-0 text-xs rounded-md px-3 py-1">
