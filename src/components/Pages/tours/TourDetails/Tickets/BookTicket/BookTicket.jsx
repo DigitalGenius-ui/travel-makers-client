@@ -12,6 +12,7 @@ import Contact from "./Contact/Contact";
 import { useBookingContext } from "../../../../../../Context/BookingContext";
 import { useMutation } from "@tanstack/react-query";
 import { createCheckout } from "../../../../../../FetchData/Tours/Tours";
+import { setStorage } from "../../../../../../Helpers/localStorage";
 
 const BookTicket = () => {
   const { tourId } = useParams();
@@ -24,7 +25,7 @@ const BookTicket = () => {
     useBookingContext();
 
   const { mutateAsync, isPending } = useMutation({
-    mutationKey: ["tours"],
+    mutationKey: ["user"],
     mutationFn: createCheckout,
   });
 
@@ -68,6 +69,8 @@ const BookTicket = () => {
       phone: `${contactCode} ${phone}`,
       ...rest,
       userId: singleBooking?.userId,
+      tourImage: singleBooking?.tourImages[0],
+      title: singleBooking?.title,
     };
 
     const formItems = [
@@ -89,8 +92,9 @@ const BookTicket = () => {
       },
     ];
 
-    const res = await mutateAsync({ formItems, bookData });
+    const res = await mutateAsync({ formItems });
     if (res.status === 200) {
+      localStorage.setItem("ticket", JSON.stringify(bookData));
       window.location.href = res?.data?.url;
     }
   };

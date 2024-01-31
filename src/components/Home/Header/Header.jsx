@@ -13,8 +13,8 @@ import DropDown from "./DropDown";
 import { useNavigate } from "react-router-dom";
 import Screen from "../../../utils/Screen";
 import useHeaderScroll from "../../../Hooks/useHeaderScroll";
-import useCurrentUser from "../../../Hooks/useCurrentUser";
 import Loading from "../../../Loading";
+import { useCurrentUser } from "../../../Context/UserContext";
 
 const Header = () => {
   const { isScroll, changeBg } = useHeaderScroll();

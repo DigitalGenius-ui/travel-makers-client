@@ -8,11 +8,11 @@ import WhiteBg from "../../../../../../utils/WhiteBg";
 import UploadImg from "./UploadImg";
 import LocationDrop from "./LocationDrop";
 import TermAndCondition from "../../../../../../utils/TermAndCondition";
-import { createMoment } from "../../../../../../FetchData/User/UserDetails";
+import { createMoment } from "../../../../../../FetchData/User/UserDetailsClient";
 import { uploadImages } from "../../../../../../Helpers/uploadImage";
-import useCurrentUser from "../../../../../../Hooks/useCurrentUser";
 import { useNavigate } from "react-router-dom";
 import { createPostSchema } from "../../../InputsSchemas";
+import { useCurrentUser } from "../../../../../../Context/UserContext";
 
 const CreatePost = () => {
   const [loading, setIsLoading] = useState(false);

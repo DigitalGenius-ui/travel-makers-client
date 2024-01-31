@@ -36,14 +36,13 @@ const SignIn = () => {
       password: values.password,
     });
 
-    if (userData?.data.status === "ERROR") {
+    if (userData?.data?.status === "ERROR") {
       setMessage((prev) => ({ ...prev, error: userData?.data?.message }));
       return;
     }
 
-    setStorage({ item: userData?.data?.user, key: "user" });
-    setStorage({ item: userData?.data?.accessToken, key: "accessToken" });
-    window.location.reload();
+    setStorage({ item: userData?.data?.user.id, key: "user" });
+    // window.location.replace("/");
   };
 
   const formikConfigs = {

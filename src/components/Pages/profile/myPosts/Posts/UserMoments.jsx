@@ -1,17 +1,17 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import useCurrentUser from "../../../../../Hooks/useCurrentUser";
 import Moment from "./Moment";
 import EmptyMessage from "../EmptyMessage";
 import { SubmitButton } from "../../../../../utils/SubmitButton";
+import { useCurrentUser } from "../../../../../Context/UserContext";
 
 const UserMoments = ({ moment }) => {
-  const { userDetails } = useCurrentUser();
-  const moments = userDetails?.moments ?? moment?.moments;
+  const { currentUser } = useCurrentUser();
+  const moments = currentUser?.moments ?? moment?.moments;
   const { id: userId } = useParams();
 
   const firstName =
-    userDetails?.profile?.firstName ?? moment?.profile?.firstName;
+    currentUser?.profile?.firstName ?? moment?.profile?.firstName;
 
   return (
     <>
@@ -19,7 +19,7 @@ const UserMoments = ({ moment }) => {
         <>
           <div className="flex items-center justify-between pb-8">
             <h1 className="font-bold">{`Here are ${firstName}'s posts :`}</h1>
-            {userDetails?.id === userId && (
+            {currentUser?.id === userId && (
               <Link to="/profile/posts/createPost">
                 <SubmitButton>Create New Post</SubmitButton>
               </Link>
@@ -32,7 +32,7 @@ const UserMoments = ({ moment }) => {
           </div>
         </>
       ) : (
-        <EmptyMessage text="posts" getUser={userDetails} />
+        <EmptyMessage text="posts" getUser={currentUser} />
       )}
     </>
   );

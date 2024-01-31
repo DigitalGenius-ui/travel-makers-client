@@ -23,7 +23,7 @@ const TotalPrice = ({ bookPrice, ticketTitle }) => {
       <Prices
         key={"child"}
         title="child"
-        price={`${childPrice}x${count.child}`}
+        price={`${childPrice.toFixed(2)}x${count.child}`}
       />,
     ];
     return pricesCom.sort((a, b) => {

@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import React, { useState } from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
 import useCreateData from "../../../../../../Hooks/useCreateData";
-import { momentPostCommentRemove } from "../../../../../../FetchData/User/UserDetails";
+import { momentPostCommentRemove } from "../../../../../../FetchData/User/UserDetailsClient";
 import { Link } from "react-router-dom";
 
 const Comments = ({ comment }) => {

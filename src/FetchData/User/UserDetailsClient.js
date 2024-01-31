@@ -1,9 +1,13 @@
 import axios from "axios";
 
 // get current user details
+axios.defaults.withCredentials = true;
+
 export const getUserDetails = async (id) => {
   try {
-    const res = await axios.get(`/api/user/${id}`);
+    const res = await axios.get(`/api/user/${id}`, {
+      withCredentials: true,
+    });
     return res;
   } catch (error) {
     throw new Error(error.message);

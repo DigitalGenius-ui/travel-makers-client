@@ -9,12 +9,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import UploadImg from "../../../../profile/myPosts/Posts/CreatePost/UploadImg";
 import TermAndCondition from "../../../../../../utils/TermAndCondition";
 import { uploadImages } from "../../../../../../Helpers/uploadImage";
-import useCurrentUser from "../../../../../../Hooks/useCurrentUser";
 import { createTourReview } from "../../../../../../FetchData/Tours/Tours";
 import useCreateData from "../../../../../../Hooks/useCreateData";
+import { useCurrentUser } from "../../../../../../Context/UserContext";
 
 const Form = () => {
   const { currentUser } = useCurrentUser();
+
   const [ratingCount, setRatingCount] = useState(null);
   const [loading, setLoading] = useState(false);
   const { id } = useParams();

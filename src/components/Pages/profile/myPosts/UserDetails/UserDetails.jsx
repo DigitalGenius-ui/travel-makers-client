@@ -3,15 +3,14 @@ import { Avatar, IconButton } from "@chakra-ui/react";
 import { CiEdit } from "react-icons/ci";
 import BioEdit from "./BioEdit";
 import { useParams } from "react-router-dom";
-import useCurrentUser from "../../../../../Hooks/useCurrentUser";
-import Loading from "../../../../../Loading";
+import { useCurrentUser } from "../../../../../Context/UserContext";
 
 const UserDetails = ({ detail }) => {
   const [showModal, setShowModal] = useState(false);
-  const { userDetails, isPending } = useCurrentUser();
-  const profile = userDetails?.profile ?? detail?.profile;
+  const { currentUser } = useCurrentUser();
+  const profile = currentUser?.profile ?? detail?.profile;
 
-  const moments = userDetails?.moments ?? detail?.moments;
+  const moments = currentUser?.moments ?? detail?.moments;
   const { id: userId } = useParams();
 
   return (
@@ -32,7 +31,7 @@ const UserDetails = ({ detail }) => {
           <p className="text-xs sm:text-sm flex-1 line-clamp-2 first-letter:uppercase">
             {profile?.bio || "This user has no bio"}
           </p>
-          {userDetails?.id === userId && (
+          {currentUser?.id === userId && (
             <IconButton
               onClick={() => setShowModal(true)}
               aria-label="edit"

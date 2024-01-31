@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { SubmitButton } from "../../../../../utils/SubmitButton";
 import useCreateData from "../../../../../Hooks/useCreateData";
 import Modal from "../../../../../utils/Modal";
-import { profileDetailsUpdate } from "../../../../../FetchData/User/UserDetails";
+import { profileDetailsUpdate } from "../../../../../FetchData/User/UserDetailsClient";
 
 const BioEdit = ({ showModal, setShowModal, userId, bioText }) => {
   const [bio, setBio] = useState("");

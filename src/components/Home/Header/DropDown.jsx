@@ -10,11 +10,11 @@ import { Link } from "react-router-dom";
 import { dropMenu } from "../../../../HomeData.json";
 import { useMutation } from "@tanstack/react-query";
 import { logOutUser } from "../../../FetchData/User/Auth";
-import useCurrentUser from "../../../Hooks/useCurrentUser";
+import { useCurrentUser } from "../../../Context/UserContext";
 
 const DropDown = () => {
-  const { currentUser, isPending, userDetails } = useCurrentUser();
-  const userImg = userDetails?.profile?.userImg;
+  const { currentUser } = useCurrentUser();
+  const userImg = currentUser?.profile?.userImg;
 
   const { mutateAsync } = useMutation({
     mutationKey: ["user"],
@@ -34,13 +34,7 @@ const DropDown = () => {
   return (
     <Menu>
       <MenuButton>
-        <Avatar
-          src={!isPending ? userImg : null}
-          mt={2}
-          name="milad amiri"
-          size="sm"
-          zIndex={10}
-        />
+        <Avatar src={userImg} mt={2} name="milad amiri" size="sm" zIndex={10} />
       </MenuButton>
       <MenuList color="black" fontSize="0.9rem">
         <>

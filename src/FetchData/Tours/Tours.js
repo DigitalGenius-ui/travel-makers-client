@@ -42,3 +42,13 @@ export const createCheckout = async (data) => {
     throw new Error(error.message);
   }
 };
+
+// create tickets
+export const createTicket = async (data) => {
+  try {
+    const ticket = await axios.post("/api/tours/ticketSave", data);
+    return ticket.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+};

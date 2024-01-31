@@ -1,18 +1,18 @@
 import React from "react";
 import EmptyMessage from "../EmptyMessage";
-import useCurrentUser from "../../../../../Hooks/useCurrentUser";
 import Review from "./Review";
+import { useCurrentUser } from "../../../../../Context/UserContext";
 
 const UserReviews = () => {
-  const { userDetails } = useCurrentUser();
-  const reviews = userDetails?.reviews;
+  const { currentUser } = useCurrentUser();
+  const reviews = currentUser?.reviews;
 
   return (
     <>
       {reviews?.length > 0 ? (
         reviews?.map((review) => <Review review={review} key={review.id} />)
       ) : (
-        <EmptyMessage getUser={userDetails} text="comments" />
+        <EmptyMessage getUser={currentUser} text="comments" />
       )}
     </>
   );

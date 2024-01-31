@@ -10,6 +10,8 @@ import Details from "./TourDetails/Details";
 import Ticket from "./Tickets/Ticket";
 import Reviews from "./TourDetails/Reviews/Reviews";
 
+// AIzaSyBSeW5Vop-j-38qM3wlUijLtZGGYJjKcgg
+
 const TourDetails = () => {
   const { id } = useParams();
 
@@ -62,6 +64,7 @@ const TourDetails = () => {
             </h2>
             <iframe
               src={singleTour?.iframe_map}
+              loading="lazy"
               width="600"
               height="450"
               style={{ border: 0, width: "100%" }}></iframe>

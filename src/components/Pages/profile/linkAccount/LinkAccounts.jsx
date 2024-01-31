@@ -4,9 +4,9 @@ import { FaLinkedin } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaSquareInstagram } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
-import useCurrentUser from "../../../../Hooks/useCurrentUser";
 import Boxes from "./Boxes";
 import SocialLinks from "./SocialLinks";
+import { useCurrentUser } from "../../../../Context/UserContext";
 
 const socialLinks = [
   {
@@ -31,7 +31,7 @@ const LinkedAccounts = () => {
   const [showModal, setShowModal] = useState(false);
   const { id: userId } = useParams();
 
-  const { userDetails: getUser } = useCurrentUser();
+  const { currentUser } = useCurrentUser();
 
   return (
     <section className="spaces">
@@ -42,7 +42,7 @@ const LinkedAccounts = () => {
             item={item}
             key={i}
             setShowModal={setShowModal}
-            getSocial={getUser?.profile}
+            getSocial={currentUser?.profile}
           />
         ))}
       </div>
@@ -50,7 +50,7 @@ const LinkedAccounts = () => {
         <SocialLinks
           showModal={showModal}
           setShowModal={setShowModal}
-          getSocial={getUser?.profile}
+          getSocial={currentUser?.profile}
         />
       )}
     </section>

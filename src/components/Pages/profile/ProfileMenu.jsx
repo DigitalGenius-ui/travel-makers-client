@@ -5,11 +5,11 @@ import { Link, Route, Routes, useParams } from "react-router-dom";
 import Profile from "./myProfile/Profile";
 import classNames from "classnames";
 import { dropMenu } from "../../../../HomeData.json";
-import useCurrentUser from "../../../Hooks/useCurrentUser";
 import MyPosts from "./myPosts/MyPosts";
 import MyBookings from "./myBookings/MyBookings";
 import ChangePassword from "./managePassword/ChangePassword";
 import LinkedAccounts from "./linkAccount/LinkAccounts";
+import { useCurrentUser } from "../../../Context/UserContext";
 
 const ProfileMenu = () => {
   const [responsiveMenu, setResponsiveMenu] = useState(false);

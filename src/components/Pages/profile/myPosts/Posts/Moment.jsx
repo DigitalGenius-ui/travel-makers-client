@@ -1,13 +1,11 @@
-"use client";
-
 import { Button, IconButton, Image } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { ImLocation } from "react-icons/im";
 import { HiDotsHorizontal } from "react-icons/hi";
-import useCurrentUser from "../../../../../Hooks/useCurrentUser";
 import { Link } from "react-router-dom";
 import useCreateData from "../../../../../Hooks/useCreateData";
-import { removeMoment } from "../../../../../FetchData/User/UserDetails";
+import { removeMoment } from "../../../../../FetchData/User/UserDetailsClient";
+import { useCurrentUser } from "../../../../../Context/UserContext";
 
 const Moment = ({ post }) => {
   const [showRemove, setShowRemove] = useState(false);

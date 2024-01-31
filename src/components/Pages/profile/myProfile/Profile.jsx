@@ -4,15 +4,15 @@ import EditInputs from "./EditInput";
 import { SubmitButton } from "../../../../utils/SubmitButton";
 import ImagePicker from "./ImagePicker";
 import useCreateData from "../../../../Hooks/useCreateData";
-import useCurrentUser from "../../../../Hooks/useCurrentUser";
-import { profileDetailsUpdate } from "../../../../FetchData/User/UserDetails";
+import { profileDetailsUpdate } from "../../../../FetchData/User/UserDetailsClient";
+import { useCurrentUser } from "../../../../Context/UserContext";
 
 const MyProfile = () => {
   const [isEdit, setIsEdit] = useState(true);
-  const { userDetails } = useCurrentUser();
-  const profile = userDetails?.profile;
+  const { currentUser } = useCurrentUser();
+  const profile = currentUser?.profile;
 
-  const userId = userDetails?.id;
+  const userId = currentUser?.id;
 
   const [form, setForm] = useState({
     firstName: "",

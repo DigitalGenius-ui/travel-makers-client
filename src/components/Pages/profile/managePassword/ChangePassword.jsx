@@ -6,7 +6,7 @@ import { inputs } from "./data";
 import Inputs from "./Inputs";
 import { useParams } from "react-router-dom";
 import { SubmitButton } from "../../../../utils/SubmitButton";
-import { changeProfilePassword } from "../../../../FetchData/User/UserDetails";
+import { changeProfilePassword } from "../../../../FetchData/User/UserDetailsClient";
 import useCreateData from "../../../../Hooks/useCreateData";
 
 const ChangePassword = () => {

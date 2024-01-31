@@ -38,11 +38,11 @@ const Register = () => {
     const data = userData?.data;
 
     if (data.status === "ERROR") {
-      setMessage((prev) => ({ ...prev, error: data.message }));
+      setMessage((prev) => ({ ...prev, error: data?.message }));
       return;
     }
 
-    setMessage((prev) => ({ ...prev, success: data.message }));
+    setMessage((prev) => ({ ...prev, success: data?.message }));
   };
 
   const formikConfigs = {

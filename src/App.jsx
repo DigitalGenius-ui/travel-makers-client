@@ -6,7 +6,6 @@ import Footer from "./components/Home/Footer/Footer";
 import Loading from "./Loading";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
-import useCurrentUser from "./Hooks/useCurrentUser";
 import AllTours from "./components/Home/RecommendedTours/AllTours";
 import FilterTours from "./components/Home/Destinations/FilterTours";
 import TourDetails from "./components/Pages/tours/TourDetails/TourDetails";
@@ -17,6 +16,7 @@ import SinglePost from "./components/Pages/profile/myPosts/Posts/SinglePost/Sing
 import CreateReview from "./components/Pages/tours/TourDetails/TourDetails/write/CreateReview";
 import SingleProfile from "./components/Pages/singleProfile/SingleProfile";
 import CheckOut from "./components/Pages/tours/CheckOut/CheckOut";
+import { useCurrentUser } from "./Context/UserContext";
 
 const App = () => {
   const { currentUser } = useCurrentUser();

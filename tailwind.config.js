@@ -23,6 +23,9 @@ export default {
         banner: "'Montserrat', sans-serif",
         page: "'Anton', sans-serif",
       },
+      screens: {
+        tablet: "1090px",
+      },
     },
   },
   plugins: [],

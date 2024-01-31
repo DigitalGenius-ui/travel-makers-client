@@ -5,7 +5,7 @@ import Filter from "./Filter";
 import Review from "./Review";
 import { Link } from "react-router-dom";
 import OutStanding from "../../../../../../utils/OutStanding";
-import useCurrentUser from "../../../../../../Hooks/useCurrentUser";
+import { useCurrentUser } from "../../../../../../Context/UserContext";
 
 const Reviews = ({ data }) => {
   const { title, tourId, reviews } = data;

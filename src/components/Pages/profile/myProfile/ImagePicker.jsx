@@ -3,14 +3,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { uploadSingleImage } from "../../../../Helpers/uploadImage";
 import classNames from "classnames";
 import useCreateData from "../../../../Hooks/useCreateData";
-import useCurrentUser from "../../../../Hooks/useCurrentUser";
-import { profileDetailsUpdate } from "../../../../FetchData/User/UserDetails";
+import { profileDetailsUpdate } from "../../../../FetchData/User/UserDetailsClient";
 
 const ImagePicker = ({ isEdit, setForm, form }) => {
   const [getImgUrl, setGetImgUrl] = useState(null);
   const [loading, setLoading] = useState(false);
   const imgPick = useRef();
-  const currentUser = useCurrentUser();
 
   const imagePicker = () => {
     imgPick?.current?.click();

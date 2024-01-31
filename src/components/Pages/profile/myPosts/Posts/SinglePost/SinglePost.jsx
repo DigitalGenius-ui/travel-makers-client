@@ -2,7 +2,7 @@ import { Image } from "@chakra-ui/react";
 import classNames from "classnames";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getSingleMoment } from "../../../../../../FetchData/User/UserDetails";
+import { getSingleMoment } from "../../../../../../FetchData/User/UserDetailsClient";
 import { useParams } from "react-router-dom";
 import Head from "../../../../../../utils/Head";
 import Screen from "../../../../../../utils/Screen";

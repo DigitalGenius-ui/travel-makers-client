@@ -3,7 +3,7 @@ import WhiteBg from "../.../../../../utils/WhiteBg";
 import UserDetails from "../profile/myPosts/UserDetails/UserDetails";
 import UserMoments from "../profile/myPosts/Posts/UserMoments";
 import { useQuery } from "@tanstack/react-query";
-import { getUserDetails } from "../../../FetchData/User/UserDetails";
+import { getUserDetails } from "../../../FetchData/User/UserDetailsClient";
 import { useParams } from "react-router-dom";
 import Loading from "../../../Loading";
 

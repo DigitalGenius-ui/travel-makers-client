@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiFillLike } from "react-icons/ai";
-import useCurrentUser from "../../../../../../Hooks/useCurrentUser";
+import { useCurrentUser } from "../../../../../../Context/UserContext";
 
 const LikePost = ({ likes, momentId }) => {
   const [isLiked, setIsLiked] = useState(false);

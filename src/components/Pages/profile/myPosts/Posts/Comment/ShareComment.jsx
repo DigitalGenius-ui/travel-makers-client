@@ -2,8 +2,8 @@ import { Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import useCreateData from "../../../../../../Hooks/useCreateData";
-import useCurrentUser from "../../../../../../Hooks/useCurrentUser";
-import { momentPostCommentCreate } from "../../../../../../FetchData/User/UserDetails";
+import { momentPostCommentCreate } from "../../../../../../FetchData/User/UserDetailsClient";
+import { useCurrentUser } from "../../../../../../Context/UserContext";
 
 const ShareComment = () => {
   const { id: postId } = useParams();
