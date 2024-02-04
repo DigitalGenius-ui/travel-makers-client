@@ -1,13 +1,11 @@
 import axios from "axios";
 
-// get current user details
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
+// get current user details
 export const getUserDetails = async (id) => {
   try {
-    const res = await axios.get(`/api/user/${id}`, {
-      withCredentials: true,
-    });
+    const res = await axios.get(`/api/user/singleUser/${id}`);
     return res;
   } catch (error) {
     throw new Error(error.message);
@@ -19,6 +17,16 @@ export const profileDetailsUpdate = async (data) => {
   try {
     const details = await axios.post(`/api/user/profile`, data);
     return details;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+// update profile image
+export const updateProfileImage = async (userImg) => {
+  try {
+    const res = await axios.post(`/api/user/uploadImage`, { userImg });
+    return res.data;
   } catch (error) {
     throw new Error(error.message);
   }

@@ -42,7 +42,7 @@ const SignIn = () => {
     }
 
     setStorage({ item: userData?.data?.user.id, key: "user" });
-    // window.location.replace("/");
+    window.location.replace("/");
   };
 
   const formikConfigs = {

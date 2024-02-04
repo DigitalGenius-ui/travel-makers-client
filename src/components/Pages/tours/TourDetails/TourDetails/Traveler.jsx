@@ -2,9 +2,11 @@ import { Avatar, Button, Flex, HStack } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
 import OutStanding from "../../../../../utils/OutStanding";
+import { useCurrentUser } from "../../../../../Context/UserContext";
 
 const Traveler = ({ reviews }) => {
   const profile = reviews[0]?.user?.profile;
+  const { currentUser } = useCurrentUser();
 
   return (
     <div className="py-2 border-t border-gray-400">
@@ -17,7 +19,12 @@ const Traveler = ({ reviews }) => {
             </Button>
           </a>
         </Flex>
-        <Link to={`/singleProfile/${profile?.userId}`}>
+        <Link
+          to={
+            profile?.userId === currentUser?.id
+              ? `/profile/posts/${currentUser?.id}`
+              : `/singleProfile/${profile?.userId}`
+          }>
           <HStack spacing={1} my="5px" fontSize="xs" fontWeight="bold">
             <Avatar
               src={profile?.userImg || ""}

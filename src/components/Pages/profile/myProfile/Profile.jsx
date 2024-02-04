@@ -46,7 +46,6 @@ const MyProfile = () => {
   const handleSubmit = async () => {
     if (!isEdit) {
       const { userImg, id, ...rest } = form;
-      console.log(rest);
       // upload content to the server
       await submitForm({
         inputData: rest,

@@ -15,7 +15,7 @@ const EmptyMessage = ({ text, getUser }) => {
         duration: 2000,
       });
     } else {
-      navigate("/posts/createPost");
+      navigate("/profile/posts/createPost");
     }
   };
 

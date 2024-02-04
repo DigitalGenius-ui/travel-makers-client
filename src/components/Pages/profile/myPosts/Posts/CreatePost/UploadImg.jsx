@@ -7,15 +7,33 @@ const UploadImg = ({ formik, imageName }) => {
   const imgRef = useRef(null);
 
   const handleChange = (e) => {
-    let selectedImage = e.target.files;
+    let selectedImages = e.target.files;
 
-    if (selectedImage && selectedImage.length <= 5) {
-      formik.setFieldValue(imageName, [...selectedImage]);
+    if (selectedImages && selectedImages.length <= 5) {
+      imageBase64(selectedImages);
+    }
+  };
 
-      Array.from(selectedImage).map((file) => {
-        const newData = URL.createObjectURL(file);
-        return setImageUrl((prev) => [...prev, newData]);
+  const imageBase64 = (selectedImages) => {
+    let base64 = [];
+
+    if (selectedImages.length > 0) {
+      Array.from({ length: selectedImages.length }).forEach((_, index) => {
+        const reader = new FileReader();
+
+        const file = selectedImages[index];
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+          base64.push(reader.result);
+
+          if (base64.length === selectedImages.length) {
+            setImageUrl(base64);
+            formik.setFieldValue(imageName, [...base64]);
+          }
+        };
       });
+    } else {
+      setImageUrl("");
     }
   };
 

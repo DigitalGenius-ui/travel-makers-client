@@ -54,7 +54,7 @@ const Ticket = ({ title, singleTour, tourTitle }) => {
         </button>
       </div>
       <div className="self-end md:self-start flex items-center gap-2">
-        <h3 className="text-2xl font-bold">${price[title]}</h3>
+        <h3 className="text-2xl font-bold">${price[title].toFixed(2)}</h3>
         <Button
           onClick={handleBook}
           variant="solid"

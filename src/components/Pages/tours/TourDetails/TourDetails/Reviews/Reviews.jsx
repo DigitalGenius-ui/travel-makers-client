@@ -1,18 +1,40 @@
 import { Button, Flex, HStack } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { HiMiniPencilSquare } from "react-icons/hi2";
 import Filter from "./Filter";
 import Review from "./Review";
 import { Link } from "react-router-dom";
 import OutStanding from "../../../../../../utils/OutStanding";
 import { useCurrentUser } from "../../../../../../Context/UserContext";
+import Pagination from "../../../../../../utils/Pagination";
 
 const Reviews = ({ data }) => {
   const { title, tourId, reviews } = data;
   const { currentUser } = useCurrentUser();
 
+  // for filtering data
+  const [allReviews, setAllReviews] = useState("");
+
+  useEffect(() => {
+    if (data) {
+      setAllReviews(data?.reviews);
+    } else {
+      setAllReviews();
+    }
+  }, [data]);
+
   const ratingSum = reviews?.reduce((acc, item) => (acc += +item?.rating), 0);
   const ratingAverage = Math.round(ratingSum / reviews?.length);
+
+  // pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const totalPages = Math.ceil(reviews?.length / itemsPerPage);
+
+  const newReviews = allReviews?.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
     <section
@@ -44,17 +66,29 @@ const Reviews = ({ data }) => {
         )}
         <p className="text-xl font-semibold">{+reviews?.length} Reviews</p>
       </HStack>
-      <Filter />
+      {/* filter reviews  */}
+      {reviews?.length > 0 && (
+        <Filter reviews={reviews} setAllReviews={setAllReviews} />
+      )}
+      {/* reviews of the tour  */}
       <div className="space-y-[2rem] py-[2rem]">
         {reviews?.length > 0 ? (
-          reviews?.map((review) => <Review review={review} key={review.id} />)
+          newReviews?.map((review) => (
+            <Review review={review} key={review.id} />
+          ))
         ) : (
           <p className="italic text-xs text-gray-500">
             This tour has no reviews
           </p>
         )}
       </div>
-      pagination goes here
+      {reviews?.length > 5 && (
+        <Pagination
+          totalPages={totalPages}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
+      )}
     </section>
   );
 };

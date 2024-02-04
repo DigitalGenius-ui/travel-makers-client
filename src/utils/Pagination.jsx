@@ -3,32 +3,18 @@ import React from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const Pagination = ({ totalPages, setCurrentPage, currentPage }) => {
-  const scroll = () => {
-    // i added this setTimeout to avoid error as the browser just let the
-    // smooth scroll to happen when the page change.
-    return setTimeout(() => {
-      window.scroll({
-        top: 200,
-        behavior: "smooth",
-      });
-    }, 100);
-  };
-
   const decreasePage = () => {
     setCurrentPage((prev) => (prev > 1 ? prev - 1 : 1));
-    scroll(200);
   };
 
   const increasePage = () => {
     setCurrentPage((prev) =>
       prev < totalPages ? prev + 1 : (prev = totalPages)
     );
-    scroll();
   };
 
   const selectPageNumber = (i) => {
     setCurrentPage(i + 1);
-    scroll();
   };
 
   return (

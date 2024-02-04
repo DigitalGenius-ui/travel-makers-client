@@ -20,7 +20,17 @@ export const getSingleTour = async (id) => {
   }
 };
 
-// get single tour data
+// upload tours reviews images
+export const uploadImages = async (images) => {
+  try {
+    const res = await axios.post("/api/tours/uploadImages", images);
+    return res.data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+// create tour data tour data
 export const createTourReview = async (data) => {
   try {
     const tour = await axios.post(`/api/tours/createReview`, data);
@@ -30,7 +40,17 @@ export const createTourReview = async (data) => {
   }
 };
 
-// get single tour data
+// remove tour data tour data
+export const removeTourReview = async (id) => {
+  try {
+    const tour = await axios.post(`/api/tours/removeReview/${id}`);
+    return tour;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+//create payment data
 export const createCheckout = async (data) => {
   try {
     const checkOut = await axios.post(

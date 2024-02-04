@@ -1,7 +1,6 @@
 import { Button, Input, Textarea } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import * as yup from "yup";
 import useGetTours from "../../../../../../Hooks/useGetTours";
 import useCreateData from "../../../../../../Hooks/useCreateData";
 import WhiteBg from "../../../../../../utils/WhiteBg";
@@ -9,10 +8,10 @@ import UploadImg from "./UploadImg";
 import LocationDrop from "./LocationDrop";
 import TermAndCondition from "../../../../../../utils/TermAndCondition";
 import { createMoment } from "../../../../../../FetchData/User/UserDetailsClient";
-import { uploadImages } from "../../../../../../Helpers/uploadImage";
 import { useNavigate } from "react-router-dom";
 import { createPostSchema } from "../../../InputsSchemas";
 import { useCurrentUser } from "../../../../../../Context/UserContext";
+import { uploadImages } from "../../../../../../FetchData/Tours/Tours";
 
 const CreatePost = () => {
   const [loading, setIsLoading] = useState(false);
@@ -29,8 +28,11 @@ const CreatePost = () => {
   const handleSubmit = async (values) => {
     try {
       setIsLoading(true);
-      const { title, desc, location } = values;
-      const imagesLinks = await uploadImages(values.postImages);
+      const { title, desc, location, postImages } = values;
+      const imagesLinks = await uploadImages(postImages);
+
+      // getting images links
+      const images = imagesLinks.results.map((img) => img.secure_url);
 
       if (imagesLinks.length === 0) return;
 
@@ -38,7 +40,7 @@ const CreatePost = () => {
         title,
         desc,
         location,
-        postImages: imagesLinks,
+        postImages: images,
         userId: currentUser.id,
         id: "",
       };

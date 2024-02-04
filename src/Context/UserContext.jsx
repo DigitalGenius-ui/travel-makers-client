@@ -4,9 +4,9 @@ import Loading from "../Loading";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import ErrorApi from "../utils/ErrorApi";
+import { axiosInstance } from "../FetchData/axiosInstance";
 
 const UserAuth = createContext();
-const axiosInstance = axios.create();
 
 const UserContext = ({ children }) => {
   const [userExist] = useState(JSON.parse(localStorage.getItem("user")));

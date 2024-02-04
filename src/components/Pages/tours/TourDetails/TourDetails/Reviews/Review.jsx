@@ -3,26 +3,42 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import OutStanding from "../../../../../../utils/OutStanding";
 import ImageSlider from "../../ImageSlider/ImageSlider";
+import { removeTourReview } from "../../../../../../FetchData/Tours/Tours";
+import RemoveBtn from "../../../../../../utils/RemoveBtn";
+import { format } from "date-fns";
+import { useCurrentUser } from "../../../../../../Context/UserContext";
 
 const Review = ({ review }) => {
   const [showModal, setShowModal] = useState(false);
-  const { rating, user, reviewImages, text, userId } = review;
+  const { rating, user, reviewImages, text, userId, id } = review;
   const { firstName, lastName, userImg } = user?.profile;
+
+  const { currentUser } = useCurrentUser();
 
   return (
     <>
       <Flex
         gap={6}
         alignItems="flex-start"
-        flexDirection={{ base: "column", sm: "row" }}>
+        flexDirection={{ base: "column", sm: "row" }}
+        position="relative">
         <Link
-          to={`/singleProfile/${userId}`}
+          to={
+            userId === currentUser?.id
+              ? `/profile/posts/${currentUser?.id}`
+              : `/singleProfile/${userId}`
+          }
           className="flex items-center gap-3">
           <Avatar name={`${firstName} ${lastName}`} src={userImg || ""} />
           <h2 className="text-sm font-bold">{`${firstName} ${lastName}`}</h2>
         </Link>
         <div className="space-y-2">
-          <OutStanding size="lg" fontSize="1.3rem" rating={rating} />
+          <div className="flex items-center gap-4">
+            <OutStanding size="lg" fontSize="1.3rem" rating={rating} />
+            <span className="pt-[0.3rem]">
+              {format(review?.createAt, "PP")}
+            </span>
+          </div>
           <p>{text}</p>
           {reviewImages.length > 0 && (
             <div className="flex items-center gap-1 flex-wrap">
@@ -50,6 +66,12 @@ const Review = ({ review }) => {
             tourImages={reviewImages}
           />
         )}
+        <RemoveBtn
+          removeFunc={removeTourReview}
+          itemToRemove={review}
+          inputData={id}
+          message="Review has been removed."
+        />
       </Flex>
     </>
   );

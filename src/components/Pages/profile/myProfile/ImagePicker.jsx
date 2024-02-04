@@ -1,17 +1,39 @@
 import { CloseButton } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
-import { uploadSingleImage } from "../../../../Helpers/uploadImage";
 import classNames from "classnames";
 import useCreateData from "../../../../Hooks/useCreateData";
-import { profileDetailsUpdate } from "../../../../FetchData/User/UserDetailsClient";
+import {
+  profileDetailsUpdate,
+  updateProfileImage,
+} from "../../../../FetchData/User/UserDetailsClient";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const ImagePicker = ({ isEdit, setForm, form }) => {
-  const [getImgUrl, setGetImgUrl] = useState(null);
+  const [getImgUrl, setGetImgUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const imgPick = useRef();
 
   const imagePicker = () => {
     imgPick?.current?.click();
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    imageBase24(file);
+  };
+
+  const imageBase24 = (file) => {
+    const reader = new FileReader();
+
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setGetImgUrl(reader.result);
+      };
+    } else {
+      setGetImgUrl("");
+    }
   };
 
   const { submitForm } = useCreateData({
@@ -23,8 +45,13 @@ const ImagePicker = ({ isEdit, setForm, form }) => {
     (async () => {
       setLoading(true);
       if (getImgUrl) {
-        const imageUrl = await uploadSingleImage(form.userImg);
-        const values = { userId: form.userId, userImg: imageUrl };
+        const res = await axios.post(`/api/user/uploadImage`, {
+          userImg: getImgUrl,
+        });
+        const values = {
+          userId: form.userId,
+          userImg: res.data.result.secure_url,
+        };
         await submitForm({
           inputData: values,
           dataMessage: "Image has been updated!",
@@ -38,10 +65,7 @@ const ImagePicker = ({ isEdit, setForm, form }) => {
   return (
     <>
       <input
-        onChange={(e) => {
-          setGetImgUrl(URL.createObjectURL(e.target.files[0]));
-          setForm((prev) => ({ ...prev, userImg: e.target.files[0] }));
-        }}
+        onChange={(e) => handleImageUpload(e)}
         ref={imgPick}
         hidden
         type="file"

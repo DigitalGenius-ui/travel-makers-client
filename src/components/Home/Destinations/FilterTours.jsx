@@ -12,7 +12,9 @@ const FilterTours = () => {
   const newCat = tourCat.replace("tours", "");
   const tourCategory = `${newCat} tours`;
 
-  const filterTours = tourData.filter((item) => item.category === tourCategory);
+  const filterTours = tourData?.filter(
+    (item) => item.category === tourCategory
+  );
   return (
     <>
       <PageBanner title={tourCategory} />

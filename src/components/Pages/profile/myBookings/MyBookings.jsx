@@ -29,11 +29,13 @@ const MyBookings = () => {
           newBooking.map((book) => <Bookings key={book.id} book={book} />)
         )}
       </div>
-      <Pagination
-        totalPages={totalPages}
-        setCurrentPage={setCurrentPage}
-        currentPage={currentPage}
-      />
+      {bookings.length > itemsPerPage && (
+        <Pagination
+          totalPages={totalPages}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
+      )}
     </section>
   );
 };

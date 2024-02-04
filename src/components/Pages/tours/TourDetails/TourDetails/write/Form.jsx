@@ -8,8 +8,10 @@ import classNames from "classnames";
 import { useNavigate, useParams } from "react-router-dom";
 import UploadImg from "../../../../profile/myPosts/Posts/CreatePost/UploadImg";
 import TermAndCondition from "../../../../../../utils/TermAndCondition";
-import { uploadImages } from "../../../../../../Helpers/uploadImage";
-import { createTourReview } from "../../../../../../FetchData/Tours/Tours";
+import {
+  createTourReview,
+  uploadImages,
+} from "../../../../../../FetchData/Tours/Tours";
 import useCreateData from "../../../../../../Hooks/useCreateData";
 import { useCurrentUser } from "../../../../../../Context/UserContext";
 
@@ -28,13 +30,16 @@ const Form = () => {
 
   const handleSubmit = async (values, { resetForm }) => {
     setLoading(true);
-    const { rating, review } = values;
-    const imagesLinks = await uploadImages(values.reviewImages);
+    const { rating, review, reviewImages } = values;
+    const imagesLinks = await uploadImages(reviewImages);
+
+    // getting images links only
+    const images = imagesLinks.results.map((img) => img.secure_url);
 
     const inputData = {
       rating: rating.toString(),
       text: review,
-      reviewImages: imagesLinks,
+      reviewImages: images,
       toursId: id,
       userId: currentUser?.id,
     };

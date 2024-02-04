@@ -17,7 +17,7 @@ const TourDetails = () => {
 
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["tours", id],
-    queryFn: getSingleTour,
+    queryFn: () => getSingleTour(id),
   });
 
   const singleTour = data?.data?.singleTour;
