@@ -1,16 +1,18 @@
 
 ## Portfolio for Designers Tutorial 2023
 
-<img src="./public/animProfile.png" alt="banner"/>
+<img src="./public/travelMakers.png" alt="banner"/>
 
 ## Features
 
-- Animated Menu
-- Loader
-- Responsive
-- Fade-In
-- Filter Projects
-- Form Validation
+- Display Tours
+- Create Tours
+- Book a Tour
+- Checkout using Strip
+- Leave Reviews
+- Make Profile
+- Share Moment
+- Like moment and leave comment
 
 ## Description
 
@@ -22,12 +24,14 @@ transactions, share travel experiences, and build profiles with a refined authen
 structure. Travel Makers offers ticket sales for both adults and children, with automated
 email ticketing and admin functionalities for tour, user, comment, and ticket management.
 
-Developed By Milad Amiri 2023.
+Developed By Milad Amiri 2024.
 Watch more videos from me [Milad Tech](https://www.youtube.com/@miladtech2844)
 
 ## Technologies 
 
 - [React JS](https://reactjs.org/docs/getting-started.html)
-- [CSS3](https://www.w3schools.com/css/)
+- [Tailwind css](https://tailwindcss.com/)
 - [React Icons](https://react-icons.github.io/react-icons/)
-- [React Awesome Reveal](https://react-awesome-reveal.morello.dev/)
+- [Swiper Sliderl](https://swiperjs.com/swiper-api#thumbs)
+- [Express JS](https://expressjs.com/)
+- [jwt](https://jwt.io/)
