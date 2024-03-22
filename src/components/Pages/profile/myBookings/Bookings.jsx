@@ -6,9 +6,9 @@ const Bookings = ({ book }) => {
   return (
     <div
       className="border border-gray-200 rounded-md w-full tablet:h-[10rem] 
-    overflow-hidden flex flex-col tablet:flex-row gap-2 bg-gray-100/80">
+      overflow-hidden flex flex-col tablet:flex-row gap-2 bg-gray-100/80">
       <img
-        className="h-[10rem] tablet:h-full tablet:w-[13rem] object-cover"
+        className="sm:h-[10rem] tablet:h-full tablet:w-[13rem] object-cover"
         src={book?.tourImage}
         alt="tour-img"
       />

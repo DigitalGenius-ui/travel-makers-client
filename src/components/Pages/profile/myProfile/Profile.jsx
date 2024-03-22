@@ -61,7 +61,7 @@ const MyProfile = () => {
   const boxes = "flex md:items-center flex-col md:flex-row gap-3";
 
   return (
-    <div className="space-y-5 spaces shadow-md p-3 mt-3">
+    <div className="space-y-5 spaces p-3 mt-3">
       <h2 className="font-semibold">Your Profile Details :</h2>
       {/* img input  */}
       <ImagePicker setForm={setForm} form={form} isEdit={isEdit} />

@@ -13,8 +13,10 @@ const UserContext = ({ children }) => {
 
   const [token, setToken] = useState("");
   const [user, setUser] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [errorText, setErrorText] = useState("");
 
-  const { data, isPending, isError, error } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["user", user?.id],
     queryFn: async () => {
       if (token && user?.id) {
@@ -24,11 +26,9 @@ const UserContext = ({ children }) => {
           },
         });
         return res.data;
-      } else {
-        return {};
       }
+      return false;
     },
-    enabled: !!userExist ? !!user && !!token : undefined,
   });
 
   const userData = data?.user;
@@ -48,7 +48,10 @@ const UserContext = ({ children }) => {
         }
         firstRender = false;
       } catch (error) {
+        setErrorText("Something went wrong" + error);
         throw new Error(error);
+      } finally {
+        setLoading(false);
       }
     };
     getRefreshToken();
@@ -75,14 +78,8 @@ const UserContext = ({ children }) => {
   );
 
   return (
-    <UserAuth.Provider value={{ currentUser: userData }}>
-      {isPending ? (
-        <Loading />
-      ) : isError ? (
-        <ErrorApi errorText={error} />
-      ) : (
-        children
-      )}
+    <UserAuth.Provider value={{ currentUser: userData, isPending }}>
+      {loading ? <Loading /> : children}
     </UserAuth.Provider>
   );
 };

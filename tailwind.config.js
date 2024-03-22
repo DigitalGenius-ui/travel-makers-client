@@ -13,7 +13,7 @@ export default {
         gradient: "linear-gradient(to right, #00639b, #90e0e7)",
       },
       gridTemplateColumns: {
-        resCol: "repeat(auto-fit, minmax(300px, 1fr))",
+        resCol: "repeat(auto-fit, minmax(280px, 1fr))",
         social: "repeat(auto-fit, minmax(150px, 1fr))",
       },
       colors: {

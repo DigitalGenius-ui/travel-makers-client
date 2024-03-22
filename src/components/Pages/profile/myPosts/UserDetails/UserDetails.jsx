@@ -14,7 +14,7 @@ const UserDetails = ({ detail }) => {
   const { id: userId } = useParams();
 
   return (
-    <div className="py-3 md:spaces flex gap-3 border-b border-gray-300">
+    <div className="px-3 md:px-0 py-3 md:spaces flex gap-3 border-b border-gray-300">
       <Avatar
         src={profile?.userImg || ""}
         name={`${profile?.firstName} ${profile?.lastName}` || `User`}

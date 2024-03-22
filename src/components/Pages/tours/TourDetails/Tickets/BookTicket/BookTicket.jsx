@@ -12,7 +12,6 @@ import Contact from "./Contact/Contact";
 import { useBookingContext } from "../../../../../../Context/BookingContext";
 import { useMutation } from "@tanstack/react-query";
 import { createCheckout } from "../../../../../../FetchData/Tours/Tours";
-import { setStorage } from "../../../../../../Helpers/localStorage";
 
 const BookTicket = () => {
   const { tourId } = useParams();

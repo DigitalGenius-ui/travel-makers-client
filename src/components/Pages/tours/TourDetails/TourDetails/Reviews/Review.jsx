@@ -33,9 +33,9 @@ const Review = ({ review }) => {
           <h2 className="text-sm font-bold">{`${firstName} ${lastName}`}</h2>
         </Link>
         <div className="space-y-2">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
             <OutStanding size="lg" fontSize="1.3rem" rating={rating} />
-            <span className="pt-[0.3rem]">
+            <span className="pt-[0.3rem] text-xs">
               {format(review?.createAt, "PP")}
             </span>
           </div>

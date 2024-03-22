@@ -12,8 +12,8 @@ const PostData = ({ getSinglePost }) => {
   return (
     <section className="h-[500px] overflow-y-auto">
       <Link
-        to={`/profile/${getSinglePost?.id}`}
-        className="flex items-center gap-2">
+        to={`/profile/profileDetails/${getSinglePost?.id}`}
+        className="flex items-center gap-2 w-fit">
         <Avatar
           name={`${profile?.firstName} ${profile?.lastName}`}
           src={profile?.userImg}

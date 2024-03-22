@@ -19,7 +19,11 @@ import CheckOut from "./components/Pages/tours/CheckOut/CheckOut";
 import { useCurrentUser } from "./Context/UserContext";
 
 const App = () => {
-  const { currentUser } = useCurrentUser();
+  const { currentUser, isPending } = useCurrentUser();
+
+  if (isPending) {
+    return <Loading />;
+  }
 
   return (
     <Routes>
@@ -34,7 +38,9 @@ const App = () => {
         {currentUser && (
           <Route path="/tour/write/:id" element={<CreateReview />} />
         )}
-        <Route path="/checkout/success" element={<CheckOut />} />
+        {currentUser && (
+          <Route path="/checkout/success" element={<CheckOut />} />
+        )}
         {/* public profile  */}
         <Route path="/singleProfile/:id" element={<SingleProfile />} />
         {/* protected profile  */}

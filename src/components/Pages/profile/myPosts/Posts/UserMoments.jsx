@@ -19,7 +19,7 @@ const UserMoments = ({ moment }) => {
         <>
           <div className="flex items-center justify-between pb-8">
             <h1 className="font-bold">{`Here are ${firstName}'s posts :`}</h1>
-            {currentUser?.id === userId && (
+            {currentUser && currentUser?.id === userId && (
               <Link to="/profile/posts/createPost">
                 <SubmitButton>Create New Post</SubmitButton>
               </Link>

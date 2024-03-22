@@ -20,7 +20,7 @@ const MyBookings = () => {
   const newBooking = bookings?.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
-    <section className="space-y-5">
+    <section className="space-y-5 py-4 px-3 md:pr-3">
       <h3 className="text-xl font-bold pb-3">My Bookings :</h3>
       <div className="grid grid-cols-resCol tablet:flex flex-col flex-wrap gap-3">
         {!bookings ? (

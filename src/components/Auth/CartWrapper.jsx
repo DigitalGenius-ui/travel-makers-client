@@ -18,7 +18,9 @@ const CardWrapper = ({ children, headText, footLink, footText }) => {
           <GoBack />
         </Screen>
       </div>
-      <Card w="30rem" m="2rem auto">
+      <Card
+        w={{ base: "100%", sm: "30rem" }}
+        className="!w-[90%] sm:!w-[30rem] mx-auto my-[2rem]">
         <CardHeader textAlign="center" fontWeight="bold" fontSize="1.3rem">
           {headText}
         </CardHeader>

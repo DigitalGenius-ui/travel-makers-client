@@ -13,7 +13,7 @@ import { logOutUser } from "../../../FetchData/User/Auth";
 import { useCurrentUser } from "../../../Context/UserContext";
 
 const DropDown = () => {
-  const { currentUser } = useCurrentUser();
+  const { currentUser, isPending } = useCurrentUser();
   const userImg = currentUser?.profile?.userImg;
 
   const { mutateAsync } = useMutation({

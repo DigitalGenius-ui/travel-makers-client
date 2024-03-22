@@ -13,7 +13,6 @@ import DropDown from "./DropDown";
 import { useNavigate } from "react-router-dom";
 import Screen from "../../../utils/Screen";
 import useHeaderScroll from "../../../Hooks/useHeaderScroll";
-import Loading from "../../../Loading";
 import { useCurrentUser } from "../../../Context/UserContext";
 
 const Header = () => {
@@ -24,10 +23,6 @@ const Header = () => {
   const [isSmallScreen] = useMediaQuery("(max-width: 760px)");
 
   const navigate = useNavigate();
-
-  if (isPending) {
-    return <Loading />;
-  }
 
   return (
     <header
@@ -77,7 +72,9 @@ const Header = () => {
           </div>
           {/* phone number and avatar + menu bar icon  */}
           <HStack spacing={3}>
-            {currentUser ? (
+            {isPending ? (
+              <div className="w-[2rem] h-[2rem] rounded-full bg-gray-300 animate-pulse" />
+            ) : currentUser ? (
               <DropDown getUser={currentUser} />
             ) : (
               <button
