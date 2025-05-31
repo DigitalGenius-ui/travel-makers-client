@@ -7,11 +7,10 @@ import WhiteBg from "../../../../../../utils/WhiteBg";
 import UploadImg from "./UploadImg";
 import LocationDrop from "./LocationDrop";
 import TermAndCondition from "../../../../../../utils/TermAndCondition";
-import { createMoment } from "../../../../../../FetchData/User/UserDetailsClient";
 import { useNavigate } from "react-router-dom";
 import { createPostSchema } from "../../../InputsSchemas";
 import { useCurrentUser } from "../../../../../../Context/UserContext";
-import { uploadImages } from "../../../../../../FetchData/Tours/Tours";
+import { uploadImages } from "../../../../../../api-call/tour-api";
 
 const CreatePost = () => {
   const [loading, setIsLoading] = useState(false);
@@ -156,7 +155,8 @@ const CreatePost = () => {
           variant="solid"
           colorScheme="blue"
           size="lg"
-          px="3rem">
+          px="3rem"
+        >
           Submit
         </Button>
       </form>

@@ -2,8 +2,8 @@ import { Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import useCreateData from "../../../../../../Hooks/useCreateData";
-import { momentPostCommentCreate } from "../../../../../../FetchData/User/UserDetailsClient";
 import { useCurrentUser } from "../../../../../../Context/UserContext";
+import { momentPostCommentCreate } from "../../../../../../api-call/user-api";
 
 const ShareComment = () => {
   const { id: postId } = useParams();
@@ -48,7 +48,8 @@ const ShareComment = () => {
             size="sm"
             mt={3}
             color="blue"
-            variant="ghost">
+            variant="ghost"
+          >
             Submit
           </Button>
         </InputRightElement>

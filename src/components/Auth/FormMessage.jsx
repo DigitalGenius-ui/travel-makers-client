@@ -6,7 +6,7 @@ const FormMessage = ({ messageText, type }) => {
   if (!messageText || !type) return;
   return (
     <>
-      {type === "error" ? (
+      {messageText && type === "error" ? (
         <div className="flex items-center gap-2 text-sm bg-rose-100 text-rose-500 p-3 rounded-md">
           <BsExclamationTriangle className="text-lg" />
           <p>{messageText}</p>

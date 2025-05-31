@@ -3,8 +3,8 @@ import { format } from "date-fns";
 import React, { useState } from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
 import useCreateData from "../../../../../../Hooks/useCreateData";
-import { momentPostCommentRemove } from "../../../../../../FetchData/User/UserDetailsClient";
 import { Link } from "react-router-dom";
+import { momentPostCommentRemove } from "../../../../../../api-call/user-api";
 
 const Comments = ({ comment }) => {
   const [showRemove, setShowRemove] = useState(false);
@@ -27,7 +27,8 @@ const Comments = ({ comment }) => {
       <div className="flex items-center justify-between relative">
         <Link
           to={`/profile/${comment?.userId}`}
-          className="flex items-center gap-2">
+          className="flex items-center gap-2"
+        >
           <Avatar
             name={`${profile?.firstName} ${profile?.lastName}`}
             size="sm"
@@ -51,7 +52,8 @@ const Comments = ({ comment }) => {
             borderBottom="4px"
             borderLeft="2px"
             borderColor="teal"
-            className="!absolute !top-7 !right-2 !px-[3rem]">
+            className="!absolute !top-7 !right-2 !px-[3rem]"
+          >
             Delete
           </Button>
         )}

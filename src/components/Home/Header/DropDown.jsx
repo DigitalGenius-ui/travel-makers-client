@@ -9,8 +9,8 @@ import {
 import { Link } from "react-router-dom";
 import { dropMenu } from "../../../../HomeData.json";
 import { useMutation } from "@tanstack/react-query";
-import { logOutUser } from "../../../FetchData/User/Auth";
 import { useCurrentUser } from "../../../Context/UserContext";
+import { logOutUser } from "../../../api-call/auth-api";
 
 const DropDown = () => {
   const { currentUser, isPending } = useCurrentUser();

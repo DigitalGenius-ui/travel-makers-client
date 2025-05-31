@@ -11,7 +11,7 @@ import Activity from "./Activity";
 import Contact from "./Contact/Contact";
 import { useBookingContext } from "../../../../../../Context/BookingContext";
 import { useMutation } from "@tanstack/react-query";
-import { createCheckout } from "../../../../../../FetchData/Tours/Tours";
+import { createCheckout } from "../../../../../../api-call/tour-api";
 
 const BookTicket = () => {
   const { tourId } = useParams();
@@ -106,11 +106,13 @@ const BookTicket = () => {
           <Flex gap={5} flexDirection={{ base: "column-reverse", md: "row" }}>
             <form
               className="w-full md:w-[10rem] flex-[2.5] space-y-1"
-              onSubmit={bookTicket}>
+              onSubmit={bookTicket}
+            >
               <Box as="div" className="secondBg round" w="100%">
                 <h2
                   className="font-bold text-lg md:text-xl border-b border-dashed 
-                  border-gray-300 pt-2 pb-4">
+                  border-gray-300 pt-2 pb-4"
+                >
                   {singleBooking?.title}
                 </h2>
                 <DatePicker />
@@ -136,7 +138,8 @@ const BookTicket = () => {
                         sendDeal: e.target.checked,
                       }))
                     }
-                    size="sm">
+                    size="sm"
+                  >
                     Send me special travelmakers.com deals and travel reminders
                   </Checkbox>
                 </div>
@@ -147,7 +150,8 @@ const BookTicket = () => {
                   colorScheme="blue"
                   w="100%"
                   mt="1.5rem"
-                  py="1.5rem">
+                  py="1.5rem"
+                >
                   Pay
                 </Button>
               </section>

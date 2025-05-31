@@ -1,10 +1,13 @@
-import React from "react";
+import { WarningIcon } from "@chakra-ui/icons";
 
-const ErrorApi = ({ errorText }) => {
+const ErrorApi = ({ errorMessage, is }) => {
   return (
-    <div className="w-full h-screen grid place-items-center text-rose-500 text-lg">
-      {errorText}
-    </div>
+    <p className="flex items-center gap-2 text-rose-700 border bg-rose-100 rounded-md !p-2 mt-[1rem]">
+      <span className="flex items-center justify-center">
+        <WarningIcon />
+      </span>
+      <span>{errorMessage}</span>
+    </p>
   );
 };
 

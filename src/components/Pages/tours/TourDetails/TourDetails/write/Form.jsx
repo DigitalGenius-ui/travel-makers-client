@@ -8,12 +8,12 @@ import classNames from "classnames";
 import { useNavigate, useParams } from "react-router-dom";
 import UploadImg from "../../../../profile/myPosts/Posts/CreatePost/UploadImg";
 import TermAndCondition from "../../../../../../utils/TermAndCondition";
+import useCreateData from "../../../../../../Hooks/useCreateData";
+import { useCurrentUser } from "../../../../../../Context/UserContext";
 import {
   createTourReview,
   uploadImages,
-} from "../../../../../../FetchData/Tours/Tours";
-import useCreateData from "../../../../../../Hooks/useCreateData";
-import { useCurrentUser } from "../../../../../../Context/UserContext";
+} from "../../../../../../api-call/tour-api";
 
 const Form = () => {
   const { currentUser } = useCurrentUser();
@@ -117,7 +117,8 @@ const Form = () => {
           ${classNames({
             "border border-red-500": handleError("review"),
           })}`}
-          placeholder="Write your review..."></textarea>
+          placeholder="Write your review..."
+        ></textarea>
         {handleError("review") && (
           <span className="text-red-500 text-xs capitalize">
             {formik.errors.review}
@@ -149,7 +150,8 @@ const Form = () => {
         variant="solid"
         colorScheme="blue"
         size="lg"
-        px="3rem">
+        px="3rem"
+      >
         Submit
       </Button>
     </form>

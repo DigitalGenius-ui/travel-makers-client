@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import Loading from "../Loading";
-import { getTours } from "../FetchData/Tours/Tours";
 import ErrorApi from "../utils/ErrorApi";
+import { getTours } from "../api-call/tour-api";
 
 const useGetTours = () => {
   const { data, isPending, isError, error } = useQuery({

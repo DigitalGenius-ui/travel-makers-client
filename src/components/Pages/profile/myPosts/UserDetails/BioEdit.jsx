@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { SubmitButton } from "../../../../../utils/SubmitButton";
 import useCreateData from "../../../../../Hooks/useCreateData";
 import Modal from "../../../../../utils/Modal";
-import { profileDetailsUpdate } from "../../../../../FetchData/User/UserDetailsClient";
+import { profileDetailsUpdate } from "../../../../../api-call/user-api";
 
 const BioEdit = ({ showModal, setShowModal, userId, bioText }) => {
   const [bio, setBio] = useState("");
@@ -36,7 +36,8 @@ const BioEdit = ({ showModal, setShowModal, userId, bioText }) => {
       <div className="grid place-items-center w-full h-screen">
         <form
           onSubmit={handleSubmit}
-          className="w-[95%] md:w-[40rem] bg-white p-6 rounded-sm relative">
+          className="w-[95%] md:w-[40rem] bg-white p-6 rounded-sm relative"
+        >
           <CloseButton
             onClick={() => setShowModal(false)}
             className="absolute top-3 right-3"

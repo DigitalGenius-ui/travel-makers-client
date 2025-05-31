@@ -2,7 +2,6 @@ import { Image } from "@chakra-ui/react";
 import classNames from "classnames";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getSingleMoment } from "../../../../../../FetchData/User/UserDetailsClient";
 import { useParams } from "react-router-dom";
 import Head from "../../../../../../utils/Head";
 import Screen from "../../../../../../utils/Screen";
@@ -11,6 +10,7 @@ import ShareComment from "../Comment/ShareComment";
 import LikePost from "../LikePost/LikePost";
 import MentionedTrips from "./MentionTrips";
 import Loading from "../../../../../../Loading";
+import { getSingleMoment } from "../../../../../../api-call/user-api";
 
 const SinglePost = () => {
   const { id } = useParams();
@@ -42,7 +42,8 @@ const SinglePost = () => {
               style={{
                 backgroundImage: `linear-gradient(#0000009d, #000000fc), url(${activeImg})`,
               }}
-              className="flex-[1.5] bg-no-repeat bg-cover bg-center md:pt-[2rem] grid place-items-center max-h-[800px]">
+              className="flex-[1.5] bg-no-repeat bg-cover bg-center md:pt-[2rem] grid place-items-center max-h-[800px]"
+            >
               <Image
                 src={activeImg}
                 alt="post-img"

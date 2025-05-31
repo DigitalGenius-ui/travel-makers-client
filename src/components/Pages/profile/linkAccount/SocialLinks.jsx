@@ -8,10 +8,10 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { profileDetailsUpdate } from "../../../../FetchData/User/UserDetailsClient";
 import useCreateData from "../../../../Hooks/useCreateData";
 import Modal from "../../../../utils/Modal";
 import { SubmitButton } from "../../../../utils/SubmitButton";
+import { profileDetailsUpdate } from "../../../../api-call/user-api";
 
 const InputsArr = [
   { label: "Facebook Link", name: "facebook" },

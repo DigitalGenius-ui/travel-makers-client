@@ -4,8 +4,8 @@ import EditInputs from "./EditInput";
 import { SubmitButton } from "../../../../utils/SubmitButton";
 import ImagePicker from "./ImagePicker";
 import useCreateData from "../../../../Hooks/useCreateData";
-import { profileDetailsUpdate } from "../../../../FetchData/User/UserDetailsClient";
 import { useCurrentUser } from "../../../../Context/UserContext";
+import { profileDetailsUpdate } from "../../../../api-call/user-api";
 
 const MyProfile = () => {
   const [isEdit, setIsEdit] = useState(true);

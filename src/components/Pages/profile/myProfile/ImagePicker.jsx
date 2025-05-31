@@ -2,12 +2,9 @@ import { CloseButton } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import useCreateData from "../../../../Hooks/useCreateData";
-import {
-  profileDetailsUpdate,
-  updateProfileImage,
-} from "../../../../FetchData/User/UserDetailsClient";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { profileDetailsUpdate } from "../../../../api-call/user-api";
 
 const ImagePicker = ({ isEdit, setForm, form }) => {
   const [getImgUrl, setGetImgUrl] = useState("");
@@ -82,7 +79,8 @@ const ImagePicker = ({ isEdit, setForm, form }) => {
             className={`w-[7rem] h-[7rem] bg-gray-100 text-xs grid 
             place-items-center bg-no-repeat bg-cover mt-2 border
             ${classNames({ "opacity-45": loading })}
-            `}>
+            `}
+          >
             {!getImgUrl && !form.userImg && "Choose Image"}
           </div>
           {getImgUrl && (

@@ -1,55 +1,36 @@
-import React, { useState } from "react";
 import { Button } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import CardWrapper from "./CartWrapper";
 import Inputs from "./Inputs";
-import FormMessage from "./FormMessage";
 import { registerSchema } from "./Schemas";
 import { useMutation } from "@tanstack/react-query";
-import { createUser } from "../../FetchData/User/Auth";
-import ErrorApi from "../../utils/ErrorApi";
+import { createUser } from "../../api-call/auth-api";
+import { AUTH_KEY } from "../../constants/react-query";
+import { toast } from "react-toastify";
 
 const Register = () => {
-  const [message, setMessage] = useState({
-    success: "",
-    error: "",
-  });
-
   const { mutateAsync, isPending, isError, error } = useMutation({
-    mutationKey: ["user"],
+    mutationKey: [AUTH_KEY],
     mutationFn: createUser,
   });
 
-  if (isError) {
-    return <ErrorApi errorText={error.message} />;
-  }
-
   const handleSubmit = async (values) => {
-    setMessage({
-      error: "",
-      success: "",
-    });
-
-    const userData = await mutateAsync({
-      email: values.email,
-      password: values.password,
-    });
-
-    const data = userData?.data;
-
-    if (data.status === "ERROR") {
-      setMessage((prev) => ({ ...prev, error: data?.message }));
-      return;
+    await mutateAsync(values);
+    if (!isError) {
+      toast.success("Verify code has been sent to you email!");
     }
-
-    setMessage((prev) => ({ ...prev, success: data?.message }));
   };
+
+  const errorMessage = error?.response?.data?.message;
+  if (isError) {
+    toast.error(errorMessage);
+  }
 
   const formikConfigs = {
     initialValues: {
-      email: "",
-      password: "",
-      rePassword: "",
+      email: "admin@gmail.com",
+      password: "Admin@321",
+      confirmPassword: "Admin@321",
     },
     validationSchema: registerSchema,
     onSubmit: handleSubmit,
@@ -61,7 +42,8 @@ const Register = () => {
     <CardWrapper
       headText="Register"
       footLink="/auth/login"
-      footText="Already have an account?">
+      footText="Already have an account?"
+    >
       <form onSubmit={formik.handleSubmit} className="space-y-4 pb-4">
         <Inputs formik={formik} name="email" label="Email" type="email" />
         <Inputs
@@ -72,12 +54,10 @@ const Register = () => {
         />
         <Inputs
           formik={formik}
-          name="rePassword"
+          name="confirmPassword"
           label="Re-Password"
           type="password"
         />
-        <FormMessage type="error" messageText={message.error} />
-        <FormMessage type="success" messageText={message.success} />
         <Button
           isLoading={isPending}
           type="submit"
@@ -85,7 +65,8 @@ const Register = () => {
           w="100%"
           variant="solid"
           colorScheme="blue"
-          py="1.4rem">
+          py="1.4rem"
+        >
           Submit
         </Button>
       </form>

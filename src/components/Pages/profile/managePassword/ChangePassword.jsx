@@ -6,8 +6,8 @@ import { inputs } from "./data";
 import Inputs from "./Inputs";
 import { useParams } from "react-router-dom";
 import { SubmitButton } from "../../../../utils/SubmitButton";
-import { changeProfilePassword } from "../../../../FetchData/User/UserDetailsClient";
 import useCreateData from "../../../../Hooks/useCreateData";
+import { changeProfilePassword } from "../../../../api-call/user-api";
 
 const ChangePassword = () => {
   const [isEdit, setIsEdit] = useState(false);

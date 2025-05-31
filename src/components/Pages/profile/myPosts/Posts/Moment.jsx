@@ -3,7 +3,7 @@ import React from "react";
 import { ImLocation } from "react-icons/im";
 import { Link } from "react-router-dom";
 import RemoveBtn from "../../../../../utils/RemoveBtn";
-import { removeMoment } from "../../../../../FetchData/User/UserDetailsClient";
+import { removeMoment } from "../../../../../api-call/user-api";
 
 const Moment = ({ post }) => {
   const id = post?.id;
@@ -31,7 +31,8 @@ const Moment = ({ post }) => {
         </h3>
         <Link
           to={`/profile/posts/post/${post.id}`}
-          className="text-gray-500 text-xs line-clamp-4 hover:text-gray-400">
+          className="text-gray-500 text-xs line-clamp-4 hover:text-gray-400"
+        >
           {post.desc}. Read More...
         </Link>
       </div>

@@ -3,12 +3,12 @@ import Head from "../../../../utils/Head";
 import SliderDemo from "./ImageSlider/SliderDemo";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getSingleTour } from "../../../../FetchData/Tours/Tours";
 import Loading from "../../../../Loading";
 import ErrorApi from "../../../../utils/ErrorApi";
 import Details from "./TourDetails/Details";
 import Ticket from "./Tickets/Ticket";
 import Reviews from "./TourDetails/Reviews/Reviews";
+import { getSingleTour } from "../../../../api-call/tour-api";
 
 // AIzaSyBSeW5Vop-j-38qM3wlUijLtZGGYJjKcgg
 
@@ -67,7 +67,8 @@ const TourDetails = () => {
               loading="lazy"
               width="600"
               height="450"
-              style={{ border: 0, width: "100%" }}></iframe>
+              style={{ border: 0, width: "100%" }}
+            ></iframe>
           </div>
           <Reviews
             data={{

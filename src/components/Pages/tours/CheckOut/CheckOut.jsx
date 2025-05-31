@@ -4,9 +4,9 @@ import { FaCircleCheck } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { getStorage } from "../../../../Helpers/localStorage";
 import { useMutation } from "@tanstack/react-query";
-import { createTicket } from "../../../../FetchData/Tours/Tours";
 import { useCurrentUser } from "../../../../Context/UserContext";
 import ErrorApi from "../../../../utils/ErrorApi";
+import { createTicket } from "../../../../api-call/tour-api";
 
 const CheckOut = () => {
   const savedTicket = getStorage("ticket");
@@ -66,7 +66,8 @@ const CheckOut = () => {
             isLoading={isPending}
             type="button"
             onClick={saveTicket}
-            colorScheme="blue">
+            colorScheme="blue"
+          >
             Get Ticket
           </Button>
         ) : (

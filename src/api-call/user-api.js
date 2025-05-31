@@ -1,14 +1,13 @@
 import axios from "axios";
-
-// axios.defaults.withCredentials = true;
+import { API } from "../config/ApiClient";
 
 // get current user details
-export const getUserDetails = async (id) => {
+export const getCurrentUser = async () => {
   try {
-    const res = await axios.get(`/api/user/singleUser/${id}`);
-    return res;
+    const res = await API.get(`/user`);
+    return res.data;
   } catch (error) {
-    throw new Error(error.message);
+    throw error;
   }
 };
 

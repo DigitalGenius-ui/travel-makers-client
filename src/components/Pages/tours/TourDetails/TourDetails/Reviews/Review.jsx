@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import OutStanding from "../../../../../../utils/OutStanding";
 import ImageSlider from "../../ImageSlider/ImageSlider";
-import { removeTourReview } from "../../../../../../FetchData/Tours/Tours";
 import RemoveBtn from "../../../../../../utils/RemoveBtn";
 import { format } from "date-fns";
 import { useCurrentUser } from "../../../../../../Context/UserContext";
+import { removeTourReview } from "../../../../../../api-call/tour-api";
 
 const Review = ({ review }) => {
   const [showModal, setShowModal] = useState(false);
@@ -21,14 +21,16 @@ const Review = ({ review }) => {
         gap={6}
         alignItems="flex-start"
         flexDirection={{ base: "column", sm: "row" }}
-        position="relative">
+        position="relative"
+      >
         <Link
           to={
             userId === currentUser?.id
               ? `/profile/posts/${currentUser?.id}`
               : `/singleProfile/${userId}`
           }
-          className="flex items-center gap-3">
+          className="flex items-center gap-3"
+        >
           <Avatar name={`${firstName} ${lastName}`} src={userImg || ""} />
           <h2 className="text-sm font-bold">{`${firstName} ${lastName}`}</h2>
         </Link>

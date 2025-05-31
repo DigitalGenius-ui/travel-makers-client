@@ -3,16 +3,16 @@ import WhiteBg from "../.../../../../utils/WhiteBg";
 import UserDetails from "../profile/myPosts/UserDetails/UserDetails";
 import UserMoments from "../profile/myPosts/Posts/UserMoments";
 import { useQuery } from "@tanstack/react-query";
-import { getUserDetails } from "../../../FetchData/User/UserDetailsClient";
 import { useParams } from "react-router-dom";
 import Loading from "../../../Loading";
+import { getCurrentUser } from "../../../api-call/user-api";
 
 const SingleProfile = () => {
   const { id } = useParams();
 
   const { data, isPending } = useQuery({
     queryKey: ["user"],
-    queryFn: () => getUserDetails(id),
+    queryFn: getCurrentUser,
   });
 
   return (

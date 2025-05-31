@@ -17,6 +17,9 @@ import CreateReview from "./components/Pages/tours/TourDetails/TourDetails/write
 import SingleProfile from "./components/Pages/singleProfile/SingleProfile";
 import CheckOut from "./components/Pages/tours/CheckOut/CheckOut";
 import { useCurrentUser } from "./Context/UserContext";
+import EmailVerify from "./components/emailVerify";
+import ForgotPassword from "./components/Auth/ForgotPassword";
+import ResetPassword from "./components/Auth/ResetPassword";
 
 const App = () => {
   const { currentUser, isPending } = useCurrentUser();
@@ -31,6 +34,12 @@ const App = () => {
         <Route path="/" element={<Home />} />
         {!currentUser && <Route path="/auth/login" element={<Login />} />}
         {!currentUser && <Route path="/auth/register" element={<Register />} />}
+        {!currentUser && (
+          <Route path="/auth/fotgot/password" element={<ForgotPassword />} />
+        )}
+        {!currentUser && (
+          <Route path="/auth/password/reset" element={<ResetPassword />} />
+        )}
         <Route path="/tour/filtered/:tourCat" element={<FilterTours />} />
         <Route path="/allTours" element={<AllTours />} />
         <Route path="/tour/:id" element={<TourDetails />} />
@@ -49,6 +58,7 @@ const App = () => {
           <Route path="/profile/posts/createPost" element={<CreatePost />} />
         )}
         <Route path="/profile/posts/post/:id" element={<SinglePost />} />
+        <Route path="/email/verify/:code" element={<EmailVerify />} />
         <Route
           path="*"
           element={<Navigate to={currentUser ? "/" : "/auth/login"} />}

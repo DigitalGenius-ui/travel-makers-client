@@ -6,44 +6,34 @@ import CardWrapper from "./CartWrapper";
 import FormMessage from "./FormMessage";
 import { loginSchema } from "./Schemas";
 import { useMutation } from "@tanstack/react-query";
-import { loginUser } from "../../FetchData/User/Auth";
-import ErrorApi from "../../utils/ErrorApi";
-import { setStorage } from "../../Helpers/localStorage";
+import { loginUser } from "../../api-call/auth-api";
+import { AUTH_KEY } from "../../constants/react-query";
+import { toast } from "react-toastify";
+import useErrorToest from "../../Hooks/useErrorToest";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignIn = () => {
-  const [message, setMessage] = useState({
-    error: "",
-    success: "",
-  });
-
+  const navigate = useNavigate();
   const { mutateAsync, isPending, isError, error } = useMutation({
-    mutationKey: ["user"],
+    mutationKey: [AUTH_KEY],
     mutationFn: loginUser,
+    onSuccess: () => {
+      navigate("/", { replace: true });
+    },
   });
-
-  if (isError) {
-    return <ErrorApi errorText={error.message} />;
-  }
 
   const handleSubmit = async (values) => {
-    setMessage({
-      error: "",
-      success: "",
-    });
-
-    const userData = await mutateAsync({
+    await mutateAsync({
       email: values.email,
       password: values.password,
     });
 
-    if (userData?.data?.status === "ERROR") {
-      setMessage((prev) => ({ ...prev, error: userData?.data?.message }));
-      return;
+    if (!isError) {
+      toast.success("User is logged in!");
     }
-
-    setStorage({ item: userData?.data?.user.id, key: "user" });
-    window.location.replace("/");
   };
+
+  useErrorToest({ error, isError });
 
   const formikConfigs = {
     initialValues: {
@@ -59,7 +49,8 @@ const SignIn = () => {
     <CardWrapper
       headText="Welcome Back"
       footLink="/auth/register"
-      footText="Don't have an account?">
+      footText="Don't have an account?"
+    >
       <form onSubmit={formik.handleSubmit} className="space-y-4 pb-4">
         <Inputs name="email" formik={formik} label="Email" type="email" />
         <Inputs
@@ -68,7 +59,13 @@ const SignIn = () => {
           label="Password"
           type="password"
         />
-        <FormMessage type="error" messageText={message.error} />
+        <div className="w-full text-end">
+          <Link className="!text-center w-full" to={"/auth/fotgot/password"}>
+            <Button variant="link" fontSize="xs" fontWeight="400">
+              Forgot Password?
+            </Button>
+          </Link>
+        </div>
         <Button
           isLoading={isPending}
           type="submit"
@@ -76,7 +73,8 @@ const SignIn = () => {
           w="100%"
           variant="solid"
           colorScheme="blue"
-          py="1.4rem">
+          py="1.4rem"
+        >
           Submit
         </Button>
       </form>
