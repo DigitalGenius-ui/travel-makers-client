@@ -1,20 +1,10 @@
-import axios from "axios";
+import { API } from "../config/ApiClient";
 
 // get all tours data
 export const getTours = async () => {
   try {
-    const tours = await axios.get(`/api/tours`);
+    const tours = await API.get(`/tours`);
     return tours;
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
-
-// get single tour data
-export const getSingleTour = async (id) => {
-  try {
-    const tour = await axios.get(`/api/tours/${id}`);
-    return tour;
   } catch (error) {
     throw new Error(error.message);
   }
@@ -23,7 +13,7 @@ export const getSingleTour = async (id) => {
 // upload tours reviews images
 export const uploadImages = async (images) => {
   try {
-    const res = await axios.post("/api/tours/uploadImages", images);
+    const res = await API.post("/tours/uploadImages", images);
     return res.data;
   } catch (error) {
     throw new Error(error.message);
@@ -33,7 +23,7 @@ export const uploadImages = async (images) => {
 // create tour data tour data
 export const createTourReview = async (data) => {
   try {
-    const tour = await axios.post(`/api/tours/createReview`, data);
+    const tour = await API.post(`/tours/createReview`, data);
     return tour;
   } catch (error) {
     throw new Error(error.message);
@@ -43,7 +33,7 @@ export const createTourReview = async (data) => {
 // remove tour data tour data
 export const removeTourReview = async (id) => {
   try {
-    const tour = await axios.post(`/api/tours/removeReview/${id}`);
+    const tour = await API.post(`/tours/removeReview/${id}`);
     return tour;
   } catch (error) {
     throw new Error(error.message);
@@ -53,10 +43,7 @@ export const removeTourReview = async (id) => {
 //create payment data
 export const createCheckout = async (data) => {
   try {
-    const checkOut = await axios.post(
-      `/api/tours/create-checkout-session`,
-      data
-    );
+    const checkOut = await API.post(`/tours/create-checkout-session`, data);
     return checkOut;
   } catch (error) {
     throw new Error(error.message);
@@ -66,7 +53,7 @@ export const createCheckout = async (data) => {
 // create tickets
 export const createTicket = async (data) => {
   try {
-    const ticket = await axios.post("/api/tours/ticketSave", data);
+    const ticket = await API.post("/tours/ticketSave", data);
     return ticket.data;
   } catch (error) {
     throw new Error(error);

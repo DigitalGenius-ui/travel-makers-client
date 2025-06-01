@@ -1,12 +1,17 @@
+import { useToast } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { toast } from "react-toastify";
 
 const useErrorToest = ({ error, isError }) => {
   const message = error?.response?.data?.message;
+  const toast = useToast();
 
   useEffect(() => {
     if (isError) {
-      toast.error(message);
+      toast({
+        title: message,
+        status: "error",
+        isClosable: true,
+      });
     }
   }, [isError]);
 };

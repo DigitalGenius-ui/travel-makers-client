@@ -7,6 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { createUser } from "../../api-call/auth-api";
 import { AUTH_KEY } from "../../constants/react-query";
 import { toast } from "react-toastify";
+import useErrorToest from "../../Hooks/useErrorToest";
 
 const Register = () => {
   const { mutateAsync, isPending, isError, error } = useMutation({
@@ -21,10 +22,7 @@ const Register = () => {
     }
   };
 
-  const errorMessage = error?.response?.data?.message;
-  if (isError) {
-    toast.error(errorMessage);
-  }
+  useErrorToest({ error, isError });
 
   const formikConfigs = {
     initialValues: {

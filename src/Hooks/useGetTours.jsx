@@ -1,25 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import Loading from "../Loading";
-import ErrorApi from "../utils/ErrorApi";
 import { getTours } from "../api-call/tour-api";
+import { TOURS_KEY } from "../constants/react-query";
 
 const useGetTours = () => {
   const { data, isPending, isError, error } = useQuery({
-    queryKey: ["tours"],
+    queryKey: [TOURS_KEY],
     queryFn: getTours,
   });
 
-  if (isPending) {
-    return <Loading />;
-  }
-
-  if (isError) {
-    return <ErrorApi errorText={error.message} />;
-  }
-
   return {
-    tourData: data?.data?.getTours,
+    tourData: data,
+    isPending,
+    isError,
+    error,
   };
 };
 

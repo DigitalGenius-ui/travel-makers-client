@@ -14,6 +14,7 @@ import {
   createTourReview,
   uploadImages,
 } from "../../../../../../api-call/tour-api";
+import { TOURS_REVIEW_KEY } from "../../../../../../constants/react-query";
 
 const Form = () => {
   const { currentUser } = useCurrentUser();
@@ -24,41 +25,47 @@ const Form = () => {
   const navigate = useNavigate();
 
   const { submitForm } = useCreateData({
-    key: "review",
+    key: TOURS_REVIEW_KEY,
     func: createTourReview,
   });
 
   const handleSubmit = async (values, { resetForm }) => {
-    setLoading(true);
-    const { rating, review, reviewImages } = values;
-    const imagesLinks = await uploadImages(reviewImages);
+    try {
+      setLoading(true);
+      const { rating, review, reviewImages } = values;
+      const imagesLinks = await uploadImages(reviewImages);
+      console.log(imagesLinks);
 
-    // getting images links only
-    const images = imagesLinks.results.map((img) => img.secure_url);
+      // getting images links only
+      const images = imagesLinks.results.map((img) => img.secure_url);
 
-    const inputData = {
-      rating: rating.toString(),
-      text: review,
-      reviewImages: images,
-      toursId: id,
-      userId: currentUser?.id,
-    };
+      const inputData = {
+        rating: rating.toString(),
+        text: review,
+        reviewImages: images,
+        toursId: id,
+        userId: currentUser?.id,
+      };
 
-    await submitForm({
-      inputData: inputData,
-      dataMessage: "Review has been added",
-    });
+      await submitForm({
+        inputData: inputData,
+        dataMessage: "Review has been added",
+      });
 
-    resetForm({
-      values: {
-        rating: null,
-        review: "",
-        reviewImages: [],
-        termCondition: false,
-      },
-    });
-    navigate(`/tour/${id}#review`);
-    setLoading(false);
+      resetForm({
+        values: {
+          rating: null,
+          review: "",
+          reviewImages: [],
+          termCondition: false,
+        },
+      });
+      navigate(`/tour/${id}#review`);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      throw error;
+    }
   };
 
   const formikData = {

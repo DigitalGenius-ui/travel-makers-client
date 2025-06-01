@@ -59,10 +59,7 @@ const App = () => {
         )}
         <Route path="/profile/posts/post/:id" element={<SinglePost />} />
         <Route path="/email/verify/:code" element={<EmailVerify />} />
-        <Route
-          path="*"
-          element={<Navigate to={currentUser ? "/" : "/auth/login"} />}
-        />
+        <Route path="*" element={<Navigate to={currentUser && "/"} />} />
       </Route>
     </Routes>
   );

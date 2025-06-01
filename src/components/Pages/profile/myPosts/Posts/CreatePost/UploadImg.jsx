@@ -54,7 +54,8 @@ const UploadImg = ({ formik, imageName }) => {
             justifyContent: "center",
           }}
           className="bg-gray-100 shadow-sm cursor-pointer"
-          onClick={() => imgRef?.current?.click()}>
+          onClick={() => imgRef?.current?.click()}
+        >
           <div className="text-gray-500 flex items-center flex-col">
             <span style={{ fontSize: "3rem" }}>
               <FaCamera />
@@ -76,7 +77,8 @@ const UploadImg = ({ formik, imageName }) => {
         <div
           key={i}
           style={{ width: "10rem", height: "10rem" }}
-          className="relative border">
+          className="relative border"
+        >
           <Image
             w="100%"
             h="100%"
