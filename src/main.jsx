@@ -10,14 +10,14 @@ import { queryClient } from "./config/queryClient.js";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
-  <BrowserRouter>
-    <QueryClientProvider client={queryClient}>
+  <QueryClientProvider client={queryClient}>
+    <BrowserRouter>
       <ChakraProvider>
         <Wrapper>
           <App />
         </Wrapper>
       </ChakraProvider>
-    </QueryClientProvider>
-  </BrowserRouter>
+    </BrowserRouter>
+  </QueryClientProvider>
   // </React.StrictMode>
 );

@@ -7,10 +7,11 @@ import FormMessage from "./FormMessage";
 import { loginSchema } from "./Schemas";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../../api-call/auth-api";
-import { AUTH_KEY } from "../../constants/react-query";
+import { AUTH_KEY, USER_KEY } from "../../constants/react-query";
 import { toast } from "react-toastify";
 import useErrorToest from "../../Hooks/useErrorToest";
 import { Link, useNavigate } from "react-router-dom";
+import { queryClient } from "../../config/queryClient";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ const SignIn = () => {
     mutationKey: [AUTH_KEY],
     mutationFn: loginUser,
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [USER_KEY] });
       navigate("/", { replace: true });
     },
   });

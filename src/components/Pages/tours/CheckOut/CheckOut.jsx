@@ -1,46 +1,40 @@
 import { Button, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { FaCircleCheck } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getStorage } from "../../../../Helpers/localStorage";
 import { useMutation } from "@tanstack/react-query";
 import { useCurrentUser } from "../../../../Context/UserContext";
-import ErrorApi from "../../../../utils/ErrorApi";
 import { createTicket } from "../../../../api-call/tour-api";
+import useErrorToest from "../../../../Hooks/useErrorToest";
+import useCreateData from "../../../../Hooks/useCreateData";
+import { USER_KEY } from "../../../../constants/react-query";
 
 const CheckOut = () => {
   const savedTicket = getStorage("ticket");
   const { currentUser } = useCurrentUser();
 
-  const toast = useToast();
+  const navigate = useNavigate();
 
   const data = {
     userId: currentUser?.id,
     ...savedTicket,
   };
 
-  const { mutateAsync, isPending, isError, error } = useMutation({
-    mutationKey: ["user"],
-    mutationFn: createTicket,
+  const { submitForm, isPending } = useCreateData({
+    key: [USER_KEY],
+    func: createTicket,
   });
 
   const saveTicket = async () => {
-    try {
-      await mutateAsync(data);
-      localStorage.removeItem("ticket");
-      toast({
-        title: "Ticket number has been sent.",
-        status: "success",
-        isClosable: true,
-      });
-    } catch (error) {
-      throw new Error(error);
-    }
+    const ticketData = await submitForm({
+      inputData: data,
+      dataMessage: "Ticket has been sent to your email.",
+    });
+    localStorage.removeItem("ticket");
+    navigate(`/profile/booking/${ticketData?.userId}`);
   };
 
-  if (isError) {
-    return <ErrorApi errorText={error} />;
-  }
   return (
     <section className="h-[500px] grid place-items-center bg-darkBlue">
       <div className="w-[95%] md:w-[42rem] bg-white rounded-md p-5 text-center space-y-2">
@@ -48,7 +42,7 @@ const CheckOut = () => {
           <FaCircleCheck className="text-4xl text-emerald-700" />
         </span>
         <h1 className="flex items-center justify-center gap-1 text-xl text-emerald-700 font-semibold">
-          Payment Successful!
+          {!saveTicket ? "Ticket has been sent" : "Payment Successful!"}
         </h1>
         {savedTicket ? (
           <p className="text-sm sm:px-7">

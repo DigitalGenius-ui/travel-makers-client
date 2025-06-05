@@ -7,20 +7,17 @@ import Details from "./TourDetails/Details";
 import Ticket from "./Tickets/Ticket";
 import Reviews from "./TourDetails/Reviews/Reviews";
 import useGetTours from "../../../../Hooks/useGetTours";
-import useErrorToest from "../../../../Hooks/useErrorToest";
 
 // AIzaSyBSeW5Vop-j-38qM3wlUijLtZGGYJjKcgg
 
 const TourDetails = () => {
   const { id } = useParams();
 
-  const { tourData, isPending, isError, error } = useGetTours();
+  const { tourData, isPending } = useGetTours();
 
   const singleTour = tourData && tourData.find((tour) => tour.id === id);
 
   if (isPending) <Loading />;
-
-  useErrorToest({ error, isError });
 
   return (
     <section className="bg-darkBlue w-full">

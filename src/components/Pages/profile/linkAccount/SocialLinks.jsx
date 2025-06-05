@@ -12,6 +12,8 @@ import useCreateData from "../../../../Hooks/useCreateData";
 import Modal from "../../../../utils/Modal";
 import { SubmitButton } from "../../../../utils/SubmitButton";
 import { profileDetailsUpdate } from "../../../../api-call/user-api";
+import { USER_KEY } from "../../../../constants/react-query";
+import { useCurrentUser } from "../../../../Context/UserContext";
 
 const InputsArr = [
   { label: "Facebook Link", name: "facebook" },
@@ -20,8 +22,10 @@ const InputsArr = [
   { label: "X Media Link", name: "xMedia" },
 ];
 
-const SocialLinks = ({ showModal, setShowModal, getSocial }) => {
+const SocialLinks = ({ showModal, setShowModal }) => {
   const { id: userId } = useParams();
+  const { currentUser } = useCurrentUser();
+  const getSocial = currentUser?.profile;
 
   const [form, setForm] = useState({
     facebook: "",
@@ -52,14 +56,14 @@ const SocialLinks = ({ showModal, setShowModal, getSocial }) => {
   }, [getSocial, userId]);
 
   const { submitForm, isPending } = useCreateData({
-    key: "user",
+    key: { USER_KEY },
     func: profileDetailsUpdate,
   });
 
   const handleSubmit = async () => {
     await submitForm({
       inputData: form,
-      dataMessage: "social links are updated",
+      dataMessage: "Social links are updated",
     });
     setShowModal(false);
   };

@@ -31,7 +31,8 @@ const ProfileMenu = () => {
             />
             <div
               className={`py-3 border-b md:border-none md:block transition-all duration-500 !h-fit
-            ${classNames({ "hidden opacity-100": !responsiveMenu })}`}>
+            ${classNames({ "hidden opacity-100": !responsiveMenu })}`}
+            >
               {dropMenu.map((btn) => (
                 <Link
                   to={`${btn.path}/${currentUser?.id}`}
@@ -42,7 +43,8 @@ const ProfileMenu = () => {
                     btn.path.includes(pathName),
                 })}
                 
-                `}>
+                `}
+                >
                   {btn.title === "Profile" ? "My Profile" : btn.title}
                 </Link>
               ))}

@@ -1,12 +1,12 @@
-import { API } from "../config/ApiClient";
+import { API, publicAPI } from "../config/ApiClient";
 
 // get all tours data
 export const getTours = async () => {
   try {
-    const tours = await API.get(`/tours`);
+    const tours = await publicAPI.get(`/tours`);
     return tours;
   } catch (error) {
-    throw new Error(error.message);
+    throw error;
   }
 };
 
@@ -14,9 +14,9 @@ export const getTours = async () => {
 export const uploadImages = async (images) => {
   try {
     const res = await API.post("/tours/uploadImages", images);
-    return res.data;
+    return res;
   } catch (error) {
-    throw new Error(error.message);
+    throw error;
   }
 };
 
@@ -26,7 +26,7 @@ export const createTourReview = async (data) => {
     const tour = await API.post(`/tours/createReview`, data);
     return tour;
   } catch (error) {
-    throw new Error(error.message);
+    throw error;
   }
 };
 
@@ -36,7 +36,7 @@ export const removeTourReview = async (id) => {
     const tour = await API.post(`/tours/removeReview/${id}`);
     return tour;
   } catch (error) {
-    throw new Error(error.message);
+    throw error;
   }
 };
 
@@ -46,7 +46,7 @@ export const createCheckout = async (data) => {
     const checkOut = await API.post(`/tours/create-checkout-session`, data);
     return checkOut;
   } catch (error) {
-    throw new Error(error.message);
+    throw error;
   }
 };
 
@@ -54,8 +54,8 @@ export const createCheckout = async (data) => {
 export const createTicket = async (data) => {
   try {
     const ticket = await API.post("/tours/ticketSave", data);
-    return ticket.data;
+    return ticket;
   } catch (error) {
-    throw new Error(error);
+    throw error;
   }
 };

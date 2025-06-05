@@ -11,45 +11,37 @@ import { useNavigate } from "react-router-dom";
 import { createPostSchema } from "../../../InputsSchemas";
 import { useCurrentUser } from "../../../../../../Context/UserContext";
 import { uploadImages } from "../../../../../../api-call/tour-api";
+import { createMoment } from "../../../../../../api-call/user-api";
+import { USER_KEY } from "../../../../../../constants/react-query";
 
 const CreatePost = () => {
   const [loading, setIsLoading] = useState(false);
-  const { currentUser } = useCurrentUser();
   const { tourData } = useGetTours();
 
   const navigate = useNavigate();
 
   const { submitForm } = useCreateData({
-    key: "user",
+    key: USER_KEY,
     func: createMoment,
   });
 
   const handleSubmit = async (values) => {
-    try {
-      setIsLoading(true);
-      const { title, desc, location, postImages } = values;
-      const imagesLinks = await uploadImages(postImages);
+    setIsLoading(true);
+    const { title, desc, location, postImages } = values;
+    const imagesLinks = await uploadImages(postImages);
 
-      // getting images links
-      const images = imagesLinks.results.map((img) => img.secure_url);
+    // getting images links
+    if (imagesLinks.length === 0) return;
 
-      if (imagesLinks.length === 0) return;
-
-      const inputData = {
-        title,
-        desc,
-        location,
-        postImages: images,
-        userId: currentUser.id,
-        id: "",
-      };
-      await submitForm({ inputData, dataMessage: "Post has been created" });
-      navigate(-1);
-    } catch (error) {
-      throw new Error(error.message);
-    } finally {
-      setIsLoading(false);
-    }
+    const inputData = {
+      title,
+      desc,
+      location,
+      postImages: imagesLinks,
+    };
+    await submitForm({ inputData, dataMessage: "Post has been created" });
+    navigate(-1);
+    setIsLoading(false);
   };
 
   const formikConfigs = {

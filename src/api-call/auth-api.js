@@ -9,6 +9,15 @@ export const createUser = async (values) => {
   }
 };
 
+export const sendVerifyCode = async () => {
+  try {
+    const sendCode = await API.post(`/auth/send/verifyCode`);
+    return sendCode;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const verifyEmail = async (code) => {
   try {
     const verifyEmail = await API.get(`/auth/email/verify/${code}`);
@@ -56,7 +65,7 @@ export const resetPassword = async ({ verificationCode, password }) => {
 
 export const logOutUser = async () => {
   try {
-    const userLogOut = API.post(`/auth/logout`);
+    const userLogOut = await API.post(`/auth/logout`);
     return userLogOut;
   } catch (error) {
     throw error;

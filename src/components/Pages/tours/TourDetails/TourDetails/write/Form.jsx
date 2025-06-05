@@ -15,6 +15,8 @@ import {
   uploadImages,
 } from "../../../../../../api-call/tour-api";
 import { TOURS_REVIEW_KEY } from "../../../../../../constants/react-query";
+import { useMutation } from "@tanstack/react-query";
+import useErrorToest from "../../../../../../Hooks/useErrorToest";
 
 const Form = () => {
   const { currentUser } = useCurrentUser();
@@ -34,15 +36,11 @@ const Form = () => {
       setLoading(true);
       const { rating, review, reviewImages } = values;
       const imagesLinks = await uploadImages(reviewImages);
-      console.log(imagesLinks);
-
-      // getting images links only
-      const images = imagesLinks.results.map((img) => img.secure_url);
 
       const inputData = {
         rating: rating.toString(),
         text: review,
-        reviewImages: images,
+        reviewImages: imagesLinks,
         toursId: id,
         userId: currentUser?.id,
       };

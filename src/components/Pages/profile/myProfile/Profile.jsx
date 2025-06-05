@@ -1,18 +1,21 @@
 import { HStack } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import EditInputs from "./EditInput";
 import { SubmitButton } from "../../../../utils/SubmitButton";
 import ImagePicker from "./ImagePicker";
 import useCreateData from "../../../../Hooks/useCreateData";
 import { useCurrentUser } from "../../../../Context/UserContext";
 import { profileDetailsUpdate } from "../../../../api-call/user-api";
+import ErrorLabel from "../../../../utils/ErrorLabel";
+import { sendVerifyCode } from "../../../../api-call/auth-api";
+import { USER_KEY } from "../../../../constants/react-query";
 
 const MyProfile = () => {
   const [isEdit, setIsEdit] = useState(true);
   const { currentUser } = useCurrentUser();
   const profile = currentUser?.profile;
 
-  const userId = currentUser?.id;
+  const isUserVerified = currentUser?.verified;
 
   const [form, setForm] = useState({
     firstName: "",
@@ -20,7 +23,6 @@ const MyProfile = () => {
     birthDate: "",
     gender: "",
     userImg: "",
-    userId,
   });
 
   useEffect(() => {
@@ -33,21 +35,20 @@ const MyProfile = () => {
         birthDate: "",
         gender: "",
         userImg: "",
-        userId,
       });
     }
-  }, [profile, userId]);
+  }, [profile]);
 
-  const { submitForm, isPending } = useCreateData({
-    key: "user",
+  const { submitForm: handleUpdateProfile, isPending } = useCreateData({
+    key: USER_KEY,
     func: profileDetailsUpdate,
   });
 
   const handleSubmit = async () => {
     if (!isEdit) {
-      const { userImg, id, ...rest } = form;
+      const { userImg, id, followings, followers, ...rest } = form;
       // upload content to the server
-      await submitForm({
+      await handleUpdateProfile({
         inputData: rest,
         dataMessage: "Profile has been updated",
       });
@@ -60,11 +61,36 @@ const MyProfile = () => {
 
   const boxes = "flex md:items-center flex-col md:flex-row gap-3";
 
+  // send verify email
+
+  const { submitForm: handleVerify, isPending: verifyPending } = useCreateData({
+    key: USER_KEY,
+    func: sendVerifyCode,
+  });
+
+  const handleSendEmail = async () => {
+    await handleVerify({ dataMessage: "Verify email has been sent!" });
+  };
+
   return (
     <div className="space-y-5 spaces p-3 mt-3">
+      {!isUserVerified && (
+        <ErrorLabel
+          message={
+            <>
+              You havn't verified your account yet!
+              <button onClick={handleSendEmail} className="font-bold">
+                {verifyPending
+                  ? "Sending your code..."
+                  : "Click to verifiy your account"}
+              </button>
+            </>
+          }
+        />
+      )}
       <h2 className="font-semibold">Your Profile Details :</h2>
       {/* img input  */}
-      <ImagePicker setForm={setForm} form={form} isEdit={isEdit} />
+      <ImagePicker form={form} isEdit={isEdit} />
       <div className={boxes}>
         <EditInputs
           label="Last name"
@@ -100,7 +126,11 @@ const MyProfile = () => {
         />
       </div>
       <HStack spacing={4} alignItems="flex-start">
-        <SubmitButton isPending={isPending} onClick={handleSubmit}>
+        <SubmitButton
+          disabled={!isUserVerified}
+          isPending={isPending}
+          onClick={handleSubmit}
+        >
           {!isEdit ? "Save Changes" : "Edit"}
         </SubmitButton>
         {!isEdit && (

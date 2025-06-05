@@ -11,7 +11,7 @@ import { removeTourReview } from "../../../../../../api-call/tour-api";
 const Review = ({ review }) => {
   const [showModal, setShowModal] = useState(false);
   const { rating, user, reviewImages, text, userId, id } = review;
-  const { firstName, lastName, userImg } = user?.profile;
+  const { firstName, lastName } = user?.profile;
 
   const { currentUser } = useCurrentUser();
 
@@ -31,7 +31,10 @@ const Review = ({ review }) => {
           }
           className="flex items-center gap-3"
         >
-          <Avatar name={`${firstName} ${lastName}`} src={userImg || ""} />
+          <Avatar
+            name={`${firstName} ${lastName}`}
+            src={currentUser?.userImg || ""}
+          />
           <h2 className="text-sm font-bold">{`${firstName} ${lastName}`}</h2>
         </Link>
         <div className="space-y-2">

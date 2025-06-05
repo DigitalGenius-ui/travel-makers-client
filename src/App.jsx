@@ -20,14 +20,13 @@ import { useCurrentUser } from "./Context/UserContext";
 import EmailVerify from "./components/emailVerify";
 import ForgotPassword from "./components/Auth/ForgotPassword";
 import ResetPassword from "./components/Auth/ResetPassword";
+import Moments from "./components/Pages/moments/Moments";
 
 const App = () => {
   const { currentUser, isPending } = useCurrentUser();
-
   if (isPending) {
     return <Loading />;
   }
-
   return (
     <Routes>
       <Route path="/" element={<RouteWrapper />}>
@@ -59,7 +58,11 @@ const App = () => {
         )}
         <Route path="/profile/posts/post/:id" element={<SinglePost />} />
         <Route path="/email/verify/:code" element={<EmailVerify />} />
-        <Route path="*" element={<Navigate to={currentUser && "/"} />} />
+        <Route path="/moments" element={<Moments />} />
+        <Route
+          path="*"
+          element={<Navigate to={currentUser ? "/" : "/auth/login"} />}
+        />
       </Route>
     </Routes>
   );

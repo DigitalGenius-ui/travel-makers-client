@@ -30,7 +30,8 @@ const Header = () => {
       ${classNames({
         "translate-y-[-120px]": !isSmallScreen && isScroll,
         "bg-darkBlue": changeBg,
-      })}`}>
+      })}`}
+    >
       <Screen>
         <div className="flex items-center justify-between gap-3 h-[80px] 2xl:h-[120px]">
           <Link href="/">
@@ -45,7 +46,8 @@ const Header = () => {
             className={`flex flex-col md:flex-row items-center lg:items-initial justify-center 
             text-left gap-6 md:gap-4 text-3xl md:text-sm lg:text-md fixed md:relative inset-0 bg-darkBlue
             md:bg-transparent hide
-            ${classNames({ animated: menuOpen })}`}>
+            ${classNames({ animated: menuOpen })}`}
+          >
             {/* icons to close the bar  */}
             <IconButton
               onClick={() => setMenuOpen(false)}
@@ -65,7 +67,8 @@ const Header = () => {
                 className="relative before:absolute before:bottom-0 before:left-0 before:right-0
                 before:h-[1px] before:bg-white before:scale-0 before:hover:scale-100 before:transition-all
                 before:duration-500 hover:opacity-50 2xl:text-xl"
-                href={item.path}>
+                href={item.path}
+              >
                 {item.title}
               </a>
             ))}
@@ -79,7 +82,8 @@ const Header = () => {
             ) : (
               <button
                 onClick={() => navigate("/auth/login")}
-                className="capitalize text-sm 2xl:text-lg hover:opacity-70">
+                className="capitalize text-sm 2xl:text-lg hover:opacity-70"
+              >
                 sign in
               </button>
             )}

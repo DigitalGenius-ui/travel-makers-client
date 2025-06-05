@@ -1,14 +1,16 @@
-import { CloseButton } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState } from "react";
+import { IconButton, Tooltip } from "@chakra-ui/react";
+import { useRef, useState } from "react";
 import classNames from "classnames";
 import useCreateData from "../../../../Hooks/useCreateData";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-import { profileDetailsUpdate } from "../../../../api-call/user-api";
+import { updateProfileImage } from "../../../../api-call/user-api";
+import { USER_KEY } from "../../../../constants/react-query";
+import { useCurrentUser } from "../../../../Context/UserContext";
+import { FiUpload } from "react-icons/fi";
+import { IoCloseOutline } from "react-icons/io5";
 
-const ImagePicker = ({ isEdit, setForm, form }) => {
+const ImagePicker = ({ isEdit, form }) => {
+  const { currentUser } = useCurrentUser();
   const [getImgUrl, setGetImgUrl] = useState("");
-  const [loading, setLoading] = useState(false);
   const imgPick = useRef();
 
   const imagePicker = () => {
@@ -33,31 +35,22 @@ const ImagePicker = ({ isEdit, setForm, form }) => {
     }
   };
 
-  const { submitForm } = useCreateData({
-    key: "user",
-    func: profileDetailsUpdate,
+  const { submitForm, isPending } = useCreateData({
+    key: USER_KEY,
+    func: updateProfileImage,
   });
 
-  useEffect(() => {
-    (async () => {
-      setLoading(true);
-      if (getImgUrl) {
-        const res = await axios.post(`/api/user/uploadImage`, {
-          userImg: getImgUrl,
-        });
-        const values = {
-          userId: form.userId,
-          userImg: res.data.result.secure_url,
-        };
-        await submitForm({
-          inputData: values,
-          dataMessage: "Image has been updated!",
-        });
-      }
-      setLoading(false);
-      setGetImgUrl("");
-    })();
-  }, [getImgUrl]);
+  const userImg = getImgUrl;
+
+  const handleUpload = async () => {
+    if (getImgUrl) {
+      await submitForm({
+        dataMessage: "image profile has been updated!",
+        inputData: userImg,
+      });
+    }
+    setGetImgUrl("");
+  };
 
   return (
     <>
@@ -68,30 +61,47 @@ const ImagePicker = ({ isEdit, setForm, form }) => {
         type="file"
       />
       {!isEdit && (
-        <div className="relative w-fit">
-          <label className="text-xs text-gray-500">Choose Profile Image</label>
-          <div
-            onClick={imagePicker}
-            style={{
-              backgroundImage: `url(${getImgUrl || form.userImg})`,
-              cursor: "pointer",
-            }}
-            className={`w-[7rem] h-[7rem] bg-gray-100 text-xs grid 
-            place-items-center bg-no-repeat bg-cover mt-2 border
-            ${classNames({ "opacity-45": loading })}
-            `}
-          >
-            {!getImgUrl && !form.userImg && "Choose Image"}
+        <div className="flex gap-4">
+          <div className="relative w-fit">
+            <label className="text-xs text-gray-500">
+              Choose Profile Image
+            </label>
+            <div
+              onClick={imagePicker}
+              style={{
+                backgroundImage: `url(${
+                  getImgUrl || form.userImg || currentUser?.userImg
+                })`,
+                cursor: "pointer",
+              }}
+              className={`w-[7rem] h-[7rem] bg-gray-100 text-xs grid hover:opacity-80
+              place-items-center bg-no-repeat bg-cover mt-2 border
+              ${classNames({ "opacity-45 pointer-events-none": isPending })}
+              `}
+            >
+              {!getImgUrl && !form.userImg && "Choose Image"}
+            </div>
           </div>
-          {getImgUrl && (
-            <CloseButton
-              onClick={() => setGetImgUrl("")}
-              size="sm"
-              pos="absolute"
-              top={5}
-              right={0}
-            />
-          )}
+          <div className="space-x-2">
+            {getImgUrl && (
+              <>
+                <Tooltip label="Rest image">
+                  <IconButton size={"sm"} onClick={() => setGetImgUrl("")}>
+                    <IoCloseOutline size={20} />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip label="Upload Image">
+                  <IconButton
+                    onClick={handleUpload}
+                    size={"sm"}
+                    color={"green"}
+                  >
+                    <FiUpload />
+                  </IconButton>
+                </Tooltip>
+              </>
+            )}
+          </div>
         </div>
       )}
     </>

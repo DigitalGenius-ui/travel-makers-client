@@ -1,10 +1,10 @@
 {
   "nav": [
-    { "title": "Trips", "path": "#banner" },
-    { "title": "Recommended Tours", "path": "#tours" },
+    { "title": "Trips", "path": "#trips" },
+    { "title": "Recommended Tours", "path": "/allTours" },
     { "title": "Assistance", "path": "#assistance" },
     { "title": "Latest Packages", "path": "#packages" },
-    { "title": "Moments", "path": "#moments" }
+    { "title": "Moments", "path": "/moments" }
   ],
   "dropMenu": [
     { "title": "Profile", "path": "/profile/profileDetails" },

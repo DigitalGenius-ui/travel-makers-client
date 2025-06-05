@@ -5,7 +5,7 @@ import { API } from "../config/ApiClient";
 export const getCurrentUser = async () => {
   try {
     const res = await API.get(`/user`);
-    return res.data;
+    return res;
   } catch (error) {
     throw error;
   }
@@ -14,82 +14,82 @@ export const getCurrentUser = async () => {
 // update profile data
 export const profileDetailsUpdate = async (data) => {
   try {
-    const details = await axios.post(`/api/user/profile`, data);
+    const details = await API.post(`/user/profile`, data);
     return details;
   } catch (error) {
-    throw new Error(error.message);
+    throw error;
   }
 };
 
 // update profile image
 export const updateProfileImage = async (userImg) => {
   try {
-    const res = await axios.post(`/api/user/uploadImage`, { userImg });
-    return res.data;
+    const res = await API.post(`/user/uploadImage`, { userImg });
+    return res;
   } catch (error) {
-    throw new Error(error.message);
+    throw error;
   }
 };
 
 // create moment post
 export const createMoment = async (data) => {
   try {
-    const post = await axios.post(`/api/user/createPost`, data);
+    const post = await API.post(`/user/createPost`, data);
     return post;
   } catch (error) {
-    throw new Error(error.message);
+    throw error;
   }
 };
 
 // create moment post
 export const removeMoment = async (id) => {
   try {
-    const removePost = await axios.delete(`/api/user/removePost/${id}`);
+    const removePost = await API.delete(`/user/removePost/${id}`);
     return removePost;
   } catch (error) {
-    throw new Error(error.message);
+    throw error;
   }
 };
 
 // get single moment post
 export const getSingleMoment = async (id) => {
   try {
-    const singleMoment = await axios.get(`/api/user/singleMoment/${id}`);
+    const singleMoment = await API.get(`/user/singleMoment/${id}`);
     return singleMoment;
   } catch (error) {
-    throw new Error(error.message);
+    throw error;
   }
 };
 
 // create moment post comment
 export const momentPostCommentCreate = async (data) => {
   try {
-    const momentComment = await axios.post(`/api/user/createComment`, data);
+    const momentComment = await API.post(`/user/createComment`, data);
     return momentComment;
   } catch (error) {
-    throw new Error(error.message);
+    throw error;
   }
 };
 
 // create moment post comment
 export const momentPostCommentRemove = async (id) => {
   try {
-    const removeComment = await axios.delete(`/api/user/removeComment/${id}`);
+    const removeComment = await API.delete(`/user/removeComment/${id}`);
     return removeComment;
   } catch (error) {
-    throw new Error(error.message);
+    throw error;
   }
 };
 
 // change profile password
 export const changeProfilePassword = async (data) => {
   try {
-    const changePassword = await axios.put(
-      `/api/user/changePassword/${data.userId}`,
+    const changePassword = await API.put(
+      `/user/changePassword/${data.userId}`,
       data
     );
     return changePassword;
   } catch (error) {
-    throw new Error(error.message);
+    throw error;
   }
 };

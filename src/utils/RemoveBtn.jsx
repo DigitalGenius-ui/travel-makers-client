@@ -3,13 +3,14 @@ import { useCurrentUser } from "../Context/UserContext";
 import { Button, IconButton } from "@chakra-ui/react";
 import useCreateData from "../Hooks/useCreateData";
 import { HiDotsHorizontal } from "react-icons/hi";
+import { USER_KEY } from "../constants/react-query";
 
 const RemoveBtn = ({ removeFunc, itemToRemove, inputData, message }) => {
   const { currentUser } = useCurrentUser();
   const [showRemove, setShowRemove] = useState(false);
 
   const { submitForm, isPending } = useCreateData({
-    key: "user",
+    key: { USER_KEY },
     func: removeFunc,
   });
 
@@ -43,7 +44,8 @@ const RemoveBtn = ({ removeFunc, itemToRemove, inputData, message }) => {
           borderBottom="4px"
           borderLeft="2px"
           borderColor="black"
-          className="!absolute !top-7 !right-2 !px-[3rem]">
+          className="!absolute !top-7 !right-2 !px-[3rem]"
+        >
           Delete
         </Button>
       )}

@@ -8,13 +8,14 @@ import { useParams } from "react-router-dom";
 import { SubmitButton } from "../../../../utils/SubmitButton";
 import useCreateData from "../../../../Hooks/useCreateData";
 import { changeProfilePassword } from "../../../../api-call/user-api";
+import { USER_KEY } from "../../../../constants/react-query";
 
 const ChangePassword = () => {
   const [isEdit, setIsEdit] = useState(false);
   const { id: userId } = useParams();
 
   const { submitForm, isPending } = useCreateData({
-    key: "user",
+    key: [USER_KEY],
     func: changeProfilePassword,
   });
 

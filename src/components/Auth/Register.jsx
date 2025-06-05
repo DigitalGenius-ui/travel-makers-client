@@ -8,8 +8,11 @@ import { createUser } from "../../api-call/auth-api";
 import { AUTH_KEY } from "../../constants/react-query";
 import { toast } from "react-toastify";
 import useErrorToest from "../../Hooks/useErrorToest";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const { mutateAsync, isPending, isError, error } = useMutation({
     mutationKey: [AUTH_KEY],
     mutationFn: createUser,
@@ -17,6 +20,7 @@ const Register = () => {
 
   const handleSubmit = async (values) => {
     await mutateAsync(values);
+    navigate("/auth/login");
     if (!isError) {
       toast.success("Verify code has been sent to you email!");
     }

@@ -8,6 +8,7 @@ const UserReviews = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { currentUser } = useCurrentUser();
   const reviews = currentUser?.reviews;
+  console.log(currentUser);
 
   // pagination
   const itemsPerPage = 6;

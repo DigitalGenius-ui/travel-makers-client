@@ -11,16 +11,17 @@ const UserContext = ({ children }) => {
     queryFn: async () => {
       try {
         const res = await API.get(`/user`);
-        return res;
+        return res || null;
       } catch (error) {
         throw error;
       }
     },
     staleTime: Infinity,
+    retry: false,
   });
 
   return (
-    <UserAuth.Provider value={{ currentUser: data, isPending }}>
+    <UserAuth.Provider value={{ currentUser: data, isPending: isPending }}>
       {children}
     </UserAuth.Provider>
   );

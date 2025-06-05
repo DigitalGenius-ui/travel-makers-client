@@ -13,7 +13,7 @@ const Reviews = ({ data }) => {
   const { currentUser } = useCurrentUser();
 
   // for filtering data
-  const [allReviews, setAllReviews] = useState("");
+  const [allReviews, setAllReviews] = useState([]);
 
   useEffect(() => {
     if (data) {
@@ -39,13 +39,15 @@ const Reviews = ({ data }) => {
   return (
     <section
       id="review"
-      className="bg-white shadow-sm rounded-xl mt-[1rem] p-5">
+      className="bg-white shadow-sm rounded-xl mt-[1rem] p-5"
+    >
       <Flex
         alignItems={{ base: "start", md: "center" }}
         justifyContent="space-between"
         flexDirection={{ base: "column", md: "row" }}
         gap={4}
-        mb="2rem">
+        mb="2rem"
+      >
         <h2 className="font-bold text-lg sm:text-xl">Reviews of {title}</h2>
         {currentUser && (
           <Link to={`/tour/write/${tourId}`}>
@@ -54,7 +56,8 @@ const Reviews = ({ data }) => {
               colorScheme="blue"
               fontSize="sm"
               size="sm"
-              leftIcon={<HiMiniPencilSquare />}>
+              leftIcon={<HiMiniPencilSquare />}
+            >
               Write a Review
             </Button>
           </Link>

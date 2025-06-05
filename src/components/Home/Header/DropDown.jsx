@@ -11,30 +11,30 @@ import { dropMenu } from "../../../../HomeData.json";
 import { useMutation } from "@tanstack/react-query";
 import { useCurrentUser } from "../../../Context/UserContext";
 import { logOutUser } from "../../../api-call/auth-api";
+import { queryClient } from "../../../config/queryClient";
+import { USER_KEY } from "../../../constants/react-query";
 
 const DropDown = () => {
-  const { currentUser, isPending } = useCurrentUser();
-  const userImg = currentUser?.profile?.userImg;
+  const { currentUser } = useCurrentUser();
+  const userImg = currentUser?.userImg;
+  const fullName = `${currentUser?.firstName} ${currentUser?.firstName}`;
 
   const { mutateAsync } = useMutation({
-    mutationKey: ["user"],
     mutationFn: logOutUser,
+    onSuccess: () => {
+      queryClient.setQueryData([USER_KEY], null);
+    },
   });
 
   const signOut = async () => {
-    try {
-      await mutateAsync();
-      localStorage.clear();
-      window.location.reload();
-    } catch (error) {
-      throw new Error(error.message);
-    }
+    await mutateAsync();
+    localStorage.clear();
   };
 
   return (
     <Menu>
       <MenuButton>
-        <Avatar src={userImg} mt={2} name="milad amiri" size="sm" zIndex={10} />
+        <Avatar src={userImg} mt={2} name={fullName} size="sm" zIndex={10} />
       </MenuButton>
       <MenuList color="black" fontSize="0.9rem">
         <>

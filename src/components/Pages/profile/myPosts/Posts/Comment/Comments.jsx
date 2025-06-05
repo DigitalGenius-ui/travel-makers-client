@@ -5,8 +5,10 @@ import { HiDotsHorizontal } from "react-icons/hi";
 import useCreateData from "../../../../../../Hooks/useCreateData";
 import { Link } from "react-router-dom";
 import { momentPostCommentRemove } from "../../../../../../api-call/user-api";
+import { useCurrentUser } from "../../../../../../Context/UserContext";
 
 const Comments = ({ comment }) => {
+  const { currentUser } = useCurrentUser();
   const [showRemove, setShowRemove] = useState(false);
   const { profile } = comment?.user;
 
@@ -32,7 +34,7 @@ const Comments = ({ comment }) => {
           <Avatar
             name={`${profile?.firstName} ${profile?.lastName}`}
             size="sm"
-            src={profile?.userImg}
+            src={currentUser?.userImg}
           />
           <h2 className="text-xs font-bold">{`${profile?.firstName} ${profile?.lastName}`}</h2>
         </Link>

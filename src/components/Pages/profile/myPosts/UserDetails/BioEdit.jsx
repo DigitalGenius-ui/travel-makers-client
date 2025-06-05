@@ -4,6 +4,7 @@ import { SubmitButton } from "../../../../../utils/SubmitButton";
 import useCreateData from "../../../../../Hooks/useCreateData";
 import Modal from "../../../../../utils/Modal";
 import { profileDetailsUpdate } from "../../../../../api-call/user-api";
+import { USER_KEY } from "../../../../../constants/react-query";
 
 const BioEdit = ({ showModal, setShowModal, userId, bioText }) => {
   const [bio, setBio] = useState("");
@@ -17,19 +18,15 @@ const BioEdit = ({ showModal, setShowModal, userId, bioText }) => {
   }, [bioText]);
 
   const { isPending, submitForm } = useCreateData({
-    key: "user",
+    key: USER_KEY,
     func: profileDetailsUpdate,
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const inputData = { bio, userId };
-      await submitForm({ inputData, dataMessage: "Bio has been updated" });
-      setShowModal(false);
-    } catch (error) {
-      throw new Error(error.message);
-    }
+    const inputData = { bio };
+    await submitForm({ inputData, dataMessage: "Bio has been updated" });
+    setShowModal(false);
   };
   return (
     <Modal showModal={showModal}>

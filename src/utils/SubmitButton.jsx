@@ -7,6 +7,7 @@ export const SubmitButton = ({
   children,
   type,
   color,
+  ...rest
 }) => {
   return (
     <Button
@@ -17,7 +18,9 @@ export const SubmitButton = ({
       colorScheme={color || "blue"}
       size="sm"
       fontSize="xs"
-      px="1rem">
+      px="1rem"
+      {...rest}
+    >
       {children}
     </Button>
   );

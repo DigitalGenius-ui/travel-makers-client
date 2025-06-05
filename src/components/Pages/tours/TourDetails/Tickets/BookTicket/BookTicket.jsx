@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Button, Checkbox, Flex, useToast } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import Head from "../../../../../../utils/Head";
@@ -10,8 +9,9 @@ import TicketTypes from "./TicketTypes/TicketTypes";
 import Activity from "./Activity";
 import Contact from "./Contact/Contact";
 import { useBookingContext } from "../../../../../../Context/BookingContext";
-import { useMutation } from "@tanstack/react-query";
 import { createCheckout } from "../../../../../../api-call/tour-api";
+import useCreateData from "../../../../../../Hooks/useCreateData";
+import { USER_KEY } from "../../../../../../constants/react-query";
 
 const BookTicket = () => {
   const { tourId } = useParams();
@@ -23,9 +23,9 @@ const BookTicket = () => {
   const { setBookForm, bookForm, totalPrice, contactCode, setErrorMsg } =
     useBookingContext();
 
-  const { mutateAsync, isPending } = useMutation({
-    mutationKey: ["user"],
-    mutationFn: createCheckout,
+  const { submitForm, isPending } = useCreateData({
+    key: [USER_KEY],
+    func: createCheckout,
   });
 
   const bookTicket = async (e) => {
@@ -91,11 +91,13 @@ const BookTicket = () => {
       },
     ];
 
-    const res = await mutateAsync({ formItems });
-    if (res.status === 200) {
-      localStorage.setItem("ticket", JSON.stringify(bookData));
-      window.location.href = res?.data?.url;
-    }
+    const url = await submitForm({
+      inputData: formItems,
+      dataMessage: "Ticked payment is set!",
+    });
+
+    localStorage.setItem("ticket", JSON.stringify(bookData));
+    window.location.href = url;
   };
 
   return (

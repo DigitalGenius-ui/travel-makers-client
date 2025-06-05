@@ -24,10 +24,11 @@ const Traveler = ({ reviews }) => {
             profile?.userId === currentUser?.id
               ? `/profile/posts/${currentUser?.id}`
               : `/singleProfile/${profile?.userId}`
-          }>
+          }
+        >
           <HStack spacing={1} my="5px" fontSize="xs" fontWeight="bold">
             <Avatar
-              src={profile?.userImg || ""}
+              src={currentUser?.userImg || ""}
               size="xs"
               name={`${profile?.firstName} ${profile?.lastName}`}
             />

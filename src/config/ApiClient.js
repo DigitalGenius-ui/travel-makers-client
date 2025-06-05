@@ -1,6 +1,5 @@
 import axios from "axios";
 import { BACKEND_URL } from "../constants/env";
-import { queryClient } from "./queryClient";
 import { UNATHURIZED } from "../constants/react-query";
 
 const options = {
@@ -9,6 +8,11 @@ const options = {
 };
 
 export const API = axios.create(options);
+
+export const publicAPI = axios.create(options);
+publicAPI.interceptors.response.use((response) => {
+  return response.data;
+});
 
 const tokenRefreshClient = axios.create(options);
 tokenRefreshClient.interceptors.response.use((response) => {
@@ -25,19 +29,12 @@ API.interceptors.response.use(
     if (status === UNATHURIZED && data.errorCode === "TOKEN_NOT_FOUND") {
       try {
         // refresh the access token, then retry the original request
-        const token = await tokenRefreshClient.get("/auth/refresh");
-        console.log(token);
+        await tokenRefreshClient.get("/auth/refresh");
         await tokenRefreshClient(config);
       } catch (error) {
-        console.log(error);
-        queryClient.clear();
-        // navigate("/sign-in", {
-        //   state: {
-        //     redirect: window.location.pathname,
-        //   },
-        // });
-        return Promise.reject({ status, ...data });
+        throw error;
       }
     }
+    return Promise.reject({ status, ...data });
   }
 );

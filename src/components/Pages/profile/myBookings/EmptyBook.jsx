@@ -1,6 +1,8 @@
-import React from "react";
+import { Button, Image } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 const EmptyBook = () => {
+  const navigate = useNavigate();
   return (
     <div className="flex items-center flex-col sm:flex-row spaces">
       <Image
@@ -14,7 +16,12 @@ const EmptyBook = () => {
           time. You can search for bookings you made as a guest within the last
           year using your email address.
         </h3>
-        <Button fontSize="sm" variant="solid" colorScheme="blue">
+        <Button
+          onClick={() => navigate("/allTours")}
+          fontSize="sm"
+          variant="solid"
+          colorScheme="blue"
+        >
           Search Booking
         </Button>
       </div>

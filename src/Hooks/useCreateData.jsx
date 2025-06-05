@@ -1,11 +1,12 @@
 import { useToast } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import useErrorToest from "./useErrorToest";
 
 const useCreateData = ({ key, func }) => {
   const queryClient = useQueryClient();
   const toast = useToast();
 
-  const { mutateAsync, isPending } = useMutation({
+  const { mutateAsync, isPending, isError, error } = useMutation({
     mutationFn: func,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [key] });
@@ -13,25 +14,22 @@ const useCreateData = ({ key, func }) => {
   });
 
   const submitForm = async ({ inputData, dataMessage }) => {
-    try {
-      const { data } = await mutateAsync(inputData);
-      dataMessage &&
-        toast({
-          title: data.status === "SUCCESS" ? dataMessage : data.message,
-          status: data.status === "SUCCESS" ? "success" : "error",
-          duration: 3000,
-          isClosable: true,
-        });
-    } catch (error) {
+    const newData = inputData
+      ? await mutateAsync(inputData)
+      : await mutateAsync();
+
+    // toast notification
+    dataMessage &&
       toast({
-        title: error.message,
-        status: "error",
+        title: dataMessage,
+        status: "success",
         duration: 3000,
         isClosable: true,
       });
-      throw new Error(error.message);
-    }
+    return newData;
   };
+
+  useErrorToest({ isError, error });
 
   return { submitForm, isPending };
 };

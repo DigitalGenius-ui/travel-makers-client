@@ -11,16 +11,17 @@ import LikePost from "../LikePost/LikePost";
 import MentionedTrips from "./MentionTrips";
 import Loading from "../../../../../../Loading";
 import { getSingleMoment } from "../../../../../../api-call/user-api";
+import { POST_KEYS } from "../../../../../../constants/react-query";
 
 const SinglePost = () => {
   const { id } = useParams();
 
   const { data, isPending } = useQuery({
-    queryKey: ["user"],
+    queryKey: [POST_KEYS],
     queryFn: () => getSingleMoment(id),
   });
 
-  const postData = data?.data?.post;
+  const postData = data;
   const postImages = postData?.postImages;
 
   const [activeImg, setActiveImg] = useState("");

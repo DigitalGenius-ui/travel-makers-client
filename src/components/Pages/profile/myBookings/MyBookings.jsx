@@ -23,7 +23,7 @@ const MyBookings = () => {
     <section className="space-y-5 py-4 px-3 md:pr-3">
       <h3 className="text-xl font-bold pb-3">My Bookings :</h3>
       <div className="grid grid-cols-resCol tablet:flex flex-col flex-wrap gap-3">
-        {!bookings ? (
+        {bookings.length === 0 ? (
           <EmptyBook />
         ) : (
           newBooking.map((book) => <Bookings key={book.id} book={book} />)
