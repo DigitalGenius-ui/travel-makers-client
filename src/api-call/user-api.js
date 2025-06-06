@@ -1,10 +1,20 @@
 import axios from "axios";
-import { API } from "../config/ApiClient";
+import { API, publicAPI } from "../config/ApiClient";
 
 // get current user details
 export const getCurrentUser = async () => {
   try {
     const res = await API.get(`/user`);
+    return res;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// get user by id details
+export const getSingleUser = async (id) => {
+  try {
+    const res = await publicAPI.get(`/user/${id}`);
     return res;
   } catch (error) {
     throw error;

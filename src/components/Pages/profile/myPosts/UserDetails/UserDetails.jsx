@@ -16,7 +16,7 @@ const UserDetails = ({ detail }) => {
   return (
     <div className="px-3 md:px-0 py-3 md:spaces flex gap-3 border-b border-gray-300">
       <Avatar
-        src={currentUser?.userImg || ""}
+        src={detail?.userImg || ""}
         name={`${profile?.firstName} ${profile?.lastName}` || `User`}
       />
       <div className="flex-1 space-y-1">

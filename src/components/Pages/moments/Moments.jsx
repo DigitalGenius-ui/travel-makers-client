@@ -1,4 +1,3 @@
-import React from "react";
 import { useCurrentUser } from "../../../Context/UserContext";
 import { Avatar } from "@chakra-ui/react";
 import Screen from "../../../utils/Screen";

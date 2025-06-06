@@ -1,21 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { createContext, useContext } from "react";
 import { USER_KEY } from "../constants/react-query";
-import { API } from "../config/ApiClient";
+import { getCurrentUser } from "../api-call/user-api";
 
 const UserAuth = createContext();
 
 const UserContext = ({ children }) => {
   const { data, isPending } = useQuery({
     queryKey: [USER_KEY],
-    queryFn: async () => {
-      try {
-        const res = await API.get(`/user`);
-        return res || null;
-      } catch (error) {
-        throw error;
-      }
-    },
+    queryFn: getCurrentUser,
     staleTime: Infinity,
     retry: false,
   });

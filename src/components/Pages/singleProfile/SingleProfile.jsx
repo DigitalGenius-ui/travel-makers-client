@@ -5,14 +5,15 @@ import UserMoments from "../profile/myPosts/Posts/UserMoments";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import Loading from "../../../Loading";
-import { getCurrentUser } from "../../../api-call/user-api";
+import { getSingleUser } from "../../../api-call/user-api";
+import { USER_KEY } from "../../../constants/react-query";
 
 const SingleProfile = () => {
   const { id } = useParams();
 
   const { data, isPending } = useQuery({
-    queryKey: ["user"],
-    queryFn: getCurrentUser,
+    queryKey: [USER_KEY, id],
+    queryFn: async () => await getSingleUser(id),
   });
 
   return (
@@ -22,8 +23,8 @@ const SingleProfile = () => {
           <Loading />
         ) : data ? (
           <>
-            <UserDetails detail={data?.data?.user} />
-            <UserMoments moment={data?.data?.user} />
+            <UserDetails detail={data} />
+            <UserMoments moment={data} />
           </>
         ) : null}
       </div>

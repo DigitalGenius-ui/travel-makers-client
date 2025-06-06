@@ -1,13 +1,12 @@
 import { Avatar } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import Comments from "../Comment/Comments";
-import { useCurrentUser } from "../../../../../../Context/UserContext";
 
 const PostData = ({ getSinglePost }) => {
-  const { currentUser } = useCurrentUser();
   const profile = getSinglePost?.user?.profile;
+  const userImg = getSinglePost?.user?.userImg;
   const [showMore, setShowMore] = useState(500);
   const comments = getSinglePost?.comments;
 
@@ -19,7 +18,7 @@ const PostData = ({ getSinglePost }) => {
       >
         <Avatar
           name={`${profile?.firstName} ${profile?.lastName}`}
-          src={currentUser?.userImg}
+          src={userImg}
           size="sm"
         />
         <h3 className="font-bold">{`${profile?.firstName} ${profile?.lastName}`}</h3>

@@ -6,6 +6,7 @@ import { useCurrentUser } from "../../../../../Context/UserContext";
 
 const Traveler = ({ reviews }) => {
   const profile = reviews[0]?.user?.profile;
+  const userImg = reviews[0]?.user?.userImg;
   const { currentUser } = useCurrentUser();
 
   return (
@@ -28,7 +29,7 @@ const Traveler = ({ reviews }) => {
         >
           <HStack spacing={1} my="5px" fontSize="xs" fontWeight="bold">
             <Avatar
-              src={currentUser?.userImg || ""}
+              src={userImg || ""}
               size="xs"
               name={`${profile?.firstName} ${profile?.lastName}`}
             />

@@ -31,10 +31,7 @@ const Review = ({ review }) => {
           }
           className="flex items-center gap-3"
         >
-          <Avatar
-            name={`${firstName} ${lastName}`}
-            src={currentUser?.userImg || ""}
-          />
+          <Avatar name={`${firstName} ${lastName}`} src={user?.userImg || ""} />
           <h2 className="text-sm font-bold">{`${firstName} ${lastName}`}</h2>
         </Link>
         <div className="space-y-2">
