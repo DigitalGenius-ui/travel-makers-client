@@ -12,9 +12,10 @@ const UserContext = ({ children }) => {
     staleTime: Infinity,
     retry: false,
   });
-
   return (
-    <UserAuth.Provider value={{ currentUser: data, isPending: isPending }}>
+    <UserAuth.Provider
+      value={{ currentUser: data?.user, isPending: isPending }}
+    >
       {children}
     </UserAuth.Provider>
   );

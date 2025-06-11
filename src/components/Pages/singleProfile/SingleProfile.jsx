@@ -1,4 +1,3 @@
-import React from "react";
 import WhiteBg from "../.../../../../utils/WhiteBg";
 import UserDetails from "../profile/myPosts/UserDetails/UserDetails";
 import UserMoments from "../profile/myPosts/Posts/UserMoments";
@@ -15,6 +14,8 @@ const SingleProfile = () => {
     queryKey: [USER_KEY, id],
     queryFn: async () => await getSingleUser(id),
   });
+
+  console.log(data);
 
   return (
     <WhiteBg>

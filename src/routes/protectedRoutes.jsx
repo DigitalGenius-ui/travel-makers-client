@@ -1,0 +1,34 @@
+import React from "react";
+import { Route } from "react-router-dom";
+import CreateReview from "../components/Pages/tours/TourDetails/TourDetails/write/CreateReview";
+import CheckOut from "../components/Pages/tours/CheckOut/CheckOut";
+import ProfileMenu from "../components/Pages/profile/ProfileMenu";
+import MyProfile from "../components/Pages/profile/myProfile/Profile";
+import MyBookings from "../components/Pages/profile/myBookings/MyBookings";
+import MyPosts from "../components/Pages/profile/myPosts/MyPosts";
+import ChangePassword from "../components/Pages/profile/managePassword/ChangePassword";
+import LinkedAccounts from "../components/Pages/profile/linkAccount/LinkAccounts";
+import CreatePost from "../components/Pages/profile/myPosts/Posts/CreatePost/CreatePost";
+import ManageUsers from "../components/Pages/profile/isAdmin/ManageUsers";
+import ManageTickets from "../components/Pages/profile/isAdmin/ManageTickets";
+
+export const protectedRoutes = (isAdmin) => {
+  return [
+    <Route key="write" path="/tour/write/:id" element={<CreateReview />} />,
+    <Route key="checkout" path="/checkout/success" element={<CheckOut />} />,
+    <Route key="profile" path="/profile/" element={<ProfileMenu />}>
+      {isAdmin && (
+        <>
+          <Route path="users/:id" element={<ManageUsers />} />,
+          <Route path="tickets/:id" element={<ManageTickets />} />
+        </>
+      )}
+      <Route path="profileDetails/:id" element={<MyProfile />} />
+      <Route path="booking/:id" element={<MyBookings />} />,
+      <Route path="posts/:id" element={<MyPosts />} />,
+      <Route path="password/:id" element={<ChangePassword />} />,
+      <Route path="accounts/:id" element={<LinkedAccounts />} />,
+    </Route>,
+    <Route path="/profile/posts/createPost" element={<CreatePost />} />,
+  ];
+};

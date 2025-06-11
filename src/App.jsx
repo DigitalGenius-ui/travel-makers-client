@@ -1,68 +1,29 @@
 import { Suspense } from "react";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-import Home from "./components/Home/Home";
 import Header from "./components/Home/Header/Header";
 import Footer from "./components/Home/Footer/Footer";
 import Loading from "./Loading";
-import Login from "./components/Auth/Login";
-import Register from "./components/Auth/Register";
-import AllTours from "./components/Home/RecommendedTours/AllTours";
-import FilterTours from "./components/Home/Destinations/FilterTours";
-import TourDetails from "./components/Pages/tours/TourDetails/TourDetails";
-import BookTicket from "./components/Pages/tours/TourDetails/Tickets/BookTicket/BookTicket";
-import ProfileMenu from "./components/Pages/profile/ProfileMenu";
-import CreatePost from "./components/Pages/profile/myPosts/Posts/CreatePost/CreatePost";
-import SinglePost from "./components/Pages/profile/myPosts/Posts/SinglePost/SinglePost";
-import CreateReview from "./components/Pages/tours/TourDetails/TourDetails/write/CreateReview";
-import SingleProfile from "./components/Pages/singleProfile/SingleProfile";
-import CheckOut from "./components/Pages/tours/CheckOut/CheckOut";
 import { useCurrentUser } from "./Context/UserContext";
-import EmailVerify from "./components/emailVerify";
-import ForgotPassword from "./components/Auth/ForgotPassword";
-import ResetPassword from "./components/Auth/ResetPassword";
-import Moments from "./components/Pages/moments/Moments";
+import NotFound from "./not-found";
+import { publicToutes } from "./routes/PublicToutes";
+import { protectedRoutes } from "./routes/ProtectedRoutes";
+import { authRoutes } from "./routes/AuthRoutes";
 
 const App = () => {
   const { currentUser, isPending } = useCurrentUser();
+
   if (isPending) {
     return <Loading />;
   }
+
+  const isAdmin = currentUser?.role === "ADMIN";
   return (
     <Routes>
       <Route path="/" element={<RouteWrapper />}>
-        <Route path="/" element={<Home />} />
-        {!currentUser && <Route path="/auth/login" element={<Login />} />}
-        {!currentUser && <Route path="/auth/register" element={<Register />} />}
-        {!currentUser && (
-          <Route path="/auth/fotgot/password" element={<ForgotPassword />} />
-        )}
-        {!currentUser && (
-          <Route path="/auth/password/reset" element={<ResetPassword />} />
-        )}
-        <Route path="/tour/filtered/:tourCat" element={<FilterTours />} />
-        <Route path="/allTours" element={<AllTours />} />
-        <Route path="/tour/:id" element={<TourDetails />} />
-        <Route path="/tour/Book/:tourId" element={<BookTicket />} />
-        {currentUser && (
-          <Route path="/tour/write/:id" element={<CreateReview />} />
-        )}
-        {currentUser && (
-          <Route path="/checkout/success" element={<CheckOut />} />
-        )}
-        {/* public profile  */}
-        <Route path="/singleProfile/:id" element={<SingleProfile />} />
-        {/* protected profile  */}
-        {currentUser && <Route path="/profile/*" element={<ProfileMenu />} />}
-        {currentUser && (
-          <Route path="/profile/posts/createPost" element={<CreatePost />} />
-        )}
-        <Route path="/profile/posts/post/:id" element={<SinglePost />} />
-        <Route path="/email/verify/:code" element={<EmailVerify />} />
-        <Route path="/moments" element={<Moments />} />
-        <Route
-          path="*"
-          element={<Navigate to={currentUser ? "/" : "/auth/login"} />}
-        />
+        {publicToutes}
+        {currentUser && protectedRoutes(isAdmin)}
+        {authRoutes(currentUser)}
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );

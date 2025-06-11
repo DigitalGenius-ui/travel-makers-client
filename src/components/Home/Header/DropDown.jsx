@@ -5,6 +5,7 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
+  useToast,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { dropMenu } from "../../../../HomeData.json";
@@ -13,13 +14,15 @@ import { useCurrentUser } from "../../../Context/UserContext";
 import { logOutUser } from "../../../api-call/auth-api";
 import { queryClient } from "../../../config/queryClient";
 import { USER_KEY } from "../../../constants/react-query";
+import useErrorToest from "../../../Hooks/useErrorToest";
 
 const DropDown = () => {
   const { currentUser } = useCurrentUser();
+  const toast = useToast();
   const userImg = currentUser?.userImg;
   const fullName = `${currentUser?.firstName} ${currentUser?.firstName}`;
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isError, error } = useMutation({
     mutationFn: logOutUser,
     onSuccess: () => {
       queryClient.setQueryData([USER_KEY], null);
@@ -27,9 +30,19 @@ const DropDown = () => {
   });
 
   const signOut = async () => {
-    await mutateAsync();
-    localStorage.clear();
+    const data = await mutateAsync();
+    if (data) {
+      localStorage.clear();
+      toast({
+        title: "User is logged out",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
   };
+
+  useErrorToest({ isError, error });
 
   return (
     <Menu>
@@ -37,12 +50,6 @@ const DropDown = () => {
         <Avatar src={userImg} mt={2} name={fullName} size="sm" zIndex={10} />
       </MenuButton>
       <MenuList color="black" fontSize="0.9rem">
-        <>
-          <Link href={`/admin/dashboard/${currentUser?.id}`}>
-            <MenuItem>Dashboard</MenuItem>
-          </Link>
-          <MenuDivider />
-        </>
         {dropMenu.slice(0, 3).map((item) => (
           <Link key={item.title} to={`${item.path}/${currentUser?.id}`}>
             <MenuItem>{item.title}</MenuItem>

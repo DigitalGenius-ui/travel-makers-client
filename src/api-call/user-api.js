@@ -14,7 +14,7 @@ export const getCurrentUser = async () => {
 // get user by id details
 export const getSingleUser = async (id) => {
   try {
-    const res = await publicAPI.get(`/user/${id}`);
+    const res = await publicAPI.get(`/user/getSingleUser/${id}`);
     return res;
   } catch (error) {
     throw error;
