@@ -9,7 +9,7 @@ const useCreateData = ({ key, func }) => {
   const { mutateAsync, isPending, isError, error } = useMutation({
     mutationFn: func,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [key] });
+      return queryClient.invalidateQueries({ queryKey: [key] });
     },
   });
 

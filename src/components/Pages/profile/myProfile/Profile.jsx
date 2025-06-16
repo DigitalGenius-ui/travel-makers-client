@@ -15,7 +15,7 @@ const MyProfile = () => {
   const { currentUser } = useCurrentUser();
   const profile = currentUser?.profile;
 
-  const isUserVerified = currentUser?.verified;
+  const isUserVerified = currentUser?.verified === "true";
 
   const [form, setForm] = useState({
     firstName: "",

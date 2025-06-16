@@ -3,32 +3,31 @@ import EmptyMessage from "../EmptyMessage";
 import { useCurrentUser } from "../../../../../Context/UserContext";
 import Pagination from "../../../../../utils/Pagination";
 import Review from "../../../tours/TourDetails/TourDetails/Reviews/Review";
+import { useQuery } from "@tanstack/react-query";
+import { REVIEW_KEYS } from "../../../../../constants/react-query";
+import { getUserReviews } from "../../../../../api-call/user-api";
 
 const UserReviews = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { currentUser } = useCurrentUser();
-  const reviews = currentUser?.reviews;
-  console.log(currentUser);
 
-  // pagination
-  const itemsPerPage = 6;
-  const lastPageIndex = currentPage * itemsPerPage;
-  const firstPageIndex = lastPageIndex - itemsPerPage;
+  const { data, isPending } = useQuery({
+    queryKey: [REVIEW_KEYS, currentPage],
+    queryFn: async () => getUserReviews(currentPage),
+  });
 
-  const totalPages = Math.ceil(reviews?.length / itemsPerPage);
-
-  const newReview = reviews?.slice(firstPageIndex, lastPageIndex);
+  const reviews = data?.reviews || [];
 
   return (
     <>
       {reviews?.length > 0 ? (
-        newReview?.map((review) => <Review review={review} key={review.id} />)
+        reviews?.map((review) => <Review review={review} key={review.id} />)
       ) : (
         <EmptyMessage getUser={currentUser} text="comments" />
       )}
-      {reviews.length > itemsPerPage && (
+      {data?.totalPages > 1 && (
         <Pagination
-          totalPages={totalPages}
+          totalPages={data?.totalPages}
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}
         />

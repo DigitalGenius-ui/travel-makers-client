@@ -21,6 +21,36 @@ export const getSingleUser = async (id) => {
   }
 };
 
+// get all users
+export const getAllUsers = async (page) => {
+  try {
+    const res = await API.get(`/user/getAllUsers?page=${page}`);
+    return res;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// update profile data
+export const userDetailsUpdate = async (data) => {
+  try {
+    const details = await API.post(`/user/updateUserDetails`, data);
+    return details;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// remove user
+export const removeUser = async (id) => {
+  try {
+    const details = await API.delete(`/user/removeUser/${id}`);
+    return details;
+  } catch (error) {
+    throw error;
+  }
+};
+
 // update profile data
 export const profileDetailsUpdate = async (data) => {
   try {
@@ -99,6 +129,36 @@ export const changeProfilePassword = async (data) => {
       data
     );
     return changePassword;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// get booking
+export const getBooking = async (page) => {
+  try {
+    const booking = await API.get(`/user/getUserBooking?page=${page}`);
+    return booking;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// get Moments
+export const getMoments = async (page) => {
+  try {
+    const moments = await API.get(`/user/getUserMoments?page=${page}`);
+    return moments;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// get getUserReviews
+export const getUserReviews = async (page) => {
+  try {
+    const reviews = await API.get(`/user/getUserReviews?page=${page}`);
+    return reviews;
   } catch (error) {
     throw error;
   }

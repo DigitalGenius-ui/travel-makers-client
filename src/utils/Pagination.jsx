@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/react";
-import React from "react";
+import { useEffect } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const Pagination = ({ totalPages, setCurrentPage, currentPage }) => {
@@ -14,8 +14,31 @@ const Pagination = ({ totalPages, setCurrentPage, currentPage }) => {
   };
 
   const selectPageNumber = (i) => {
-    setCurrentPage(i + 1);
+    setCurrentPage(i);
   };
+
+  const getTotalButtons = () => {
+    let totalButtons = [];
+    let maxBtns = 5;
+
+    let startPage = Math.max(currentPage - Math.floor(maxBtns / 2), 1);
+    let endPage = startPage + maxBtns - 1;
+
+    if (endPage > totalPages) {
+      endPage = totalPages;
+      startPage = Math.max(endPage - maxBtns + 1, 1);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      totalButtons.push(i);
+    }
+
+    return totalButtons;
+  };
+
+  useEffect(() => {
+    getTotalButtons();
+  }, []);
 
   return (
     <div className="space-x-2 pb-8 text-right">
@@ -23,23 +46,26 @@ const Pagination = ({ totalPages, setCurrentPage, currentPage }) => {
         isDisabled={currentPage === 1}
         onClick={decreasePage}
         size="sm"
-        colorScheme="blue">
+        colorScheme="blue"
+      >
         <IoIosArrowBack />
       </Button>
-      {Array.from({ length: totalPages }).map((_, i) => (
+      {getTotalButtons().map((item, i) => (
         <Button
-          key={i}
-          onClick={() => selectPageNumber(i)}
+          key={`page-${item}`}
+          onClick={() => selectPageNumber(item)}
           size="sm"
-          colorScheme={currentPage === i + 1 ? "blue" : "gray"}>
-          {i + 1}
+          colorScheme={currentPage === item ? "blue" : "gray"}
+        >
+          {item}
         </Button>
       ))}
       <Button
         isDisabled={currentPage === totalPages}
         onClick={increasePage}
         size="sm"
-        colorScheme="blue">
+        colorScheme="blue"
+      >
         <IoIosArrowForward />
       </Button>
     </div>

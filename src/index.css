@@ -39,7 +39,7 @@ body {
   @apply px-6 py-3;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 768px) {
   .hide {
     clip-path: circle(0% at 100% 0);
     transition: all 400ms ease-in-out;

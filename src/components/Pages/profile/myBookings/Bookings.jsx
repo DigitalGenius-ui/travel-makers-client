@@ -6,7 +6,8 @@ const Bookings = ({ book }) => {
   return (
     <div
       className="border border-gray-200 rounded-md w-full tablet:h-[10rem] 
-      overflow-hidden flex flex-col tablet:flex-row gap-2 bg-gray-100/80">
+      overflow-hidden flex flex-col tablet:flex-row gap-2 bg-gray-100/80"
+    >
       <img
         className="sm:h-[10rem] tablet:h-full tablet:w-[13rem] object-cover"
         src={book?.tourImage}
@@ -30,11 +31,9 @@ const Bookings = ({ book }) => {
       <div className="p-3 flex flex-col items-center tablet:justify-between">
         <h2 className="text-xl font-bold text-black/70">{book?.travelDate}</h2>
         <HStack>
-          {/* ${book?.ticketVerified ? "" : "bg-yellow-500"} */}
           <span
             className={`w-[0.9rem] h-[0.9rem] rounded-full bg-gray-500 inline-block
-            ${classNames({ "bg-yellow-500": !book?.ticketVerified })}
-            `}
+            ${classNames({ "bg-yellow-500": !book?.ticketVerified })}`}
           />
           <h2 className="text-sm">
             {book?.ticketVerified ? "Expired" : "Not verified yet"}

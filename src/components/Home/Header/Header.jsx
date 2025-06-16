@@ -20,7 +20,7 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { currentUser, isPending } = useCurrentUser();
 
-  const [isSmallScreen] = useMediaQuery("(max-width: 760px)");
+  const [isSmallScreen] = useMediaQuery("(max-width: 765px)");
 
   const navigate = useNavigate();
 
