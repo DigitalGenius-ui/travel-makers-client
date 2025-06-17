@@ -1,15 +1,12 @@
-import React from "react";
 import CardWrapper from "./CartWrapper";
 import Inputs from "./Inputs";
 import { Button } from "@chakra-ui/react";
 import { useFormik } from "formik";
-import * as yup from "yup";
-import { useMutation } from "@tanstack/react-query";
 import { AUTH_KEY } from "../../constants/react-query";
 import { passwordValidation } from "./Schemas";
 import { resetPassword } from "../../api-call/auth-api";
-import useErrorToest from "../../Hooks/useErrorToest";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import useCreateData from "../../Hooks/useCreateData";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
@@ -22,26 +19,22 @@ const ResetPassword = () => {
 
   const validLink = code && exp && exp > now;
 
-  const { mutateAsync, isPending, isError, error } = useMutation({
-    mutationKey: [AUTH_KEY],
-    mutationFn: resetPassword,
-    onSuccess: () => {
-      navigate("/auth/login", { replace: true });
-    },
+  const { submitForm, isPending } = useCreateData({
+    key: AUTH_KEY,
+    func: resetPassword,
   });
 
   const handleSubmit = async (values) => {
-    await mutateAsync({
-      password: values.password,
-      verificationCode: code,
+    await submitForm({
+      inputData: {
+        password: values.password,
+        code: code,
+      },
+      dataMessage: "Password has been reseted successfully!",
     });
 
-    if (!isError) {
-      toast.success("Password has been reseted!");
-    }
+    navigate("/auth/login", { replace: true });
   };
-
-  useErrorToest({ error, isError });
 
   const formikConfigs = {
     initialValues: {

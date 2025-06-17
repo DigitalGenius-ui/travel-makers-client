@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useCurrentUser } from "../Context/UserContext";
 import { Button, IconButton } from "@chakra-ui/react";
 import useCreateData from "../Hooks/useCreateData";
 import { HiDotsHorizontal } from "react-icons/hi";
-import { USER_KEY } from "../constants/react-query";
+import { MOMENTS_KEYS } from "../constants/react-query";
 
 const RemoveBtn = ({ removeFunc, itemToRemove, inputData, message }) => {
   const { currentUser } = useCurrentUser();
   const [showRemove, setShowRemove] = useState(false);
 
   const { submitForm, isPending } = useCreateData({
-    key: { USER_KEY },
+    key: MOMENTS_KEYS,
     func: removeFunc,
   });
 

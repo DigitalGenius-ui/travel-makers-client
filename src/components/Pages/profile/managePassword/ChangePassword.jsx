@@ -15,7 +15,7 @@ const ChangePassword = () => {
   const { id: userId } = useParams();
 
   const { submitForm, isPending } = useCreateData({
-    key: [USER_KEY],
+    key: USER_KEY,
     func: changeProfilePassword,
   });
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { HStack } from "@chakra-ui/react";
 import classNames from "classnames";
 import UserMoments from "./Posts/UserMoments";
@@ -28,7 +28,8 @@ const Menu = () => {
               ${classNames({
                 "!text-blue-600 border-b-2 border-blue-600":
                   activeLink.title === item.title,
-              })}`}>
+              })}`}
+          >
             {item.title}
           </button>
         ))}

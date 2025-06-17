@@ -15,8 +15,6 @@ import {
   uploadImages,
 } from "../../../../../../api-call/tour-api";
 import { TOURS_REVIEW_KEY } from "../../../../../../constants/react-query";
-import { useMutation } from "@tanstack/react-query";
-import useErrorToest from "../../../../../../Hooks/useErrorToest";
 
 const Form = () => {
   const { currentUser } = useCurrentUser();

@@ -1,12 +1,9 @@
-import { Button, useToast } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { Button } from "@chakra-ui/react";
 import { FaCircleCheck } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { getStorage } from "../../../../Helpers/localStorage";
-import { useMutation } from "@tanstack/react-query";
 import { useCurrentUser } from "../../../../Context/UserContext";
 import { createTicket } from "../../../../api-call/tour-api";
-import useErrorToest from "../../../../Hooks/useErrorToest";
 import useCreateData from "../../../../Hooks/useCreateData";
 import { USER_KEY } from "../../../../constants/react-query";
 
@@ -22,7 +19,7 @@ const CheckOut = () => {
   };
 
   const { submitForm, isPending } = useCreateData({
-    key: [USER_KEY],
+    key: USER_KEY,
     func: createTicket,
   });
 

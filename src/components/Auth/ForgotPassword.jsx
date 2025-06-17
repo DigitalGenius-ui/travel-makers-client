@@ -1,31 +1,24 @@
 import CardWrapper from "./CartWrapper";
 import Inputs from "./Inputs";
 import { useFormik } from "formik";
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "react-toastify";
 import { AUTH_KEY } from "../../constants/react-query";
 import { forgotPassword } from "../../api-call/auth-api";
-import useErrorToest from "../../Hooks/useErrorToest";
 import * as yup from "yup";
 import { Button } from "@chakra-ui/react";
+import useCreateData from "../../Hooks/useCreateData";
 
 const ForgotPassword = () => {
-  const { mutateAsync, isPending, isError, error } = useMutation({
-    mutationKey: [AUTH_KEY],
-    mutationFn: forgotPassword,
+  const { submitForm, isPending } = useCreateData({
+    key: AUTH_KEY,
+    func: forgotPassword,
   });
 
   const handleSubmit = async (values) => {
-    await mutateAsync({
-      email: values.email,
+    await submitForm({
+      inputData: { email: values.email },
+      dataMessage: "Reset link is send to your email!",
     });
-
-    if (!isError) {
-      toast.success("Reset link is send to your email!");
-    }
   };
-
-  useErrorToest({ error, isError });
 
   const formikConfigs = {
     initialValues: {

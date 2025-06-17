@@ -24,7 +24,7 @@ const BookTicket = () => {
     useBookingContext();
 
   const { submitForm, isPending } = useCreateData({
-    key: [USER_KEY],
+    key: USER_KEY,
     func: createCheckout,
   });
 

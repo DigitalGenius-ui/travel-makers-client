@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Avatar, IconButton } from "@chakra-ui/react";
 import { CiEdit } from "react-icons/ci";
 import BioEdit from "./BioEdit";
@@ -10,13 +10,14 @@ const UserDetails = ({ detail }) => {
   const { currentUser } = useCurrentUser();
   const profile = currentUser?.profile ?? detail?.profile;
 
-  const moments = currentUser?.moments ?? detail?.moments;
   const { id: userId } = useParams();
+
+  const profileImg = currentUser?.userImg || detail?.userImg;
 
   return (
     <div className="px-3 md:px-0 py-3 md:spaces flex gap-3 border-b border-gray-300">
       <Avatar
-        src={detail?.userImg || ""}
+        src={profileImg || ""}
         name={`${profile?.firstName} ${profile?.lastName}` || `User`}
       />
       <div className="flex-1 space-y-1">
@@ -24,8 +25,7 @@ const UserDetails = ({ detail }) => {
           profile?.lastName || ""
         }`}</h2>
         <p className="text-xs">
-          {`${moments?.length} Posts | ${profile?.followings?.length} 
-          Followings | ${profile?.followers?.length} Followers`}
+          {`${profile?.followings?.length} Followings | ${profile?.followers?.length} Followers`}
         </p>
         <div className="flex items-center justify-between">
           <p className="text-xs sm:text-sm flex-1 line-clamp-2 first-letter:uppercase">

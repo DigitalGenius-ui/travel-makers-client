@@ -145,9 +145,9 @@ export const getBooking = async (page) => {
 };
 
 // get Moments
-export const getMoments = async (page) => {
+export const getMoments = async (page, id) => {
   try {
-    const moments = await API.get(`/user/getUserMoments?page=${page}`);
+    const moments = await API.get(`/user/getUserMoments/${id}?page=${page}`);
     return moments;
   } catch (error) {
     throw error;

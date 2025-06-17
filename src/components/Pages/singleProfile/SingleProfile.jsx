@@ -15,8 +15,6 @@ const SingleProfile = () => {
     queryFn: async () => await getSingleUser(id),
   });
 
-  console.log(data);
-
   return (
     <WhiteBg>
       <div className="space-y-2">

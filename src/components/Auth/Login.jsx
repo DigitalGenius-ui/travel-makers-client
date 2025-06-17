@@ -1,44 +1,32 @@
-import { Button, useToast } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import Inputs from "./Inputs";
 import CardWrapper from "./CartWrapper";
 import { loginSchema } from "./Schemas";
-import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../../api-call/auth-api";
-import { AUTH_KEY, USER_KEY } from "../../constants/react-query";
-import useErrorToest from "../../Hooks/useErrorToest";
+import { USER_KEY } from "../../constants/react-query";
 import { Link, useNavigate } from "react-router-dom";
-import { queryClient } from "../../config/queryClient";
+import useCreateData from "../../Hooks/useCreateData";
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const toast = useToast();
-  const { mutateAsync, isPending, isError, error } = useMutation({
-    mutationKey: [AUTH_KEY],
-    mutationFn: loginUser,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [USER_KEY] });
-      navigate("/", { replace: true });
-    },
+
+  const { submitForm, isPending } = useCreateData({
+    key: USER_KEY,
+    func: loginUser,
   });
 
   const handleSubmit = async (values) => {
-    await mutateAsync({
-      email: values.email,
-      password: values.password,
+    await submitForm({
+      inputData: {
+        email: values.email,
+        password: values.password,
+      },
+      dataMessage: "User is logged in!",
     });
 
-    if (!isError) {
-      toast({
-        title: "User is logged in!",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      });
-    }
+    navigate("/", { replace: true });
   };
-
-  useErrorToest({ error, isError });
 
   const formikConfigs = {
     initialValues: {

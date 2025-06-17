@@ -56,7 +56,7 @@ const SocialLinks = ({ showModal, setShowModal }) => {
   }, [getSocial, userId]);
 
   const { submitForm, isPending } = useCreateData({
-    key: { USER_KEY },
+    key: USER_KEY,
     func: profileDetailsUpdate,
   });
 

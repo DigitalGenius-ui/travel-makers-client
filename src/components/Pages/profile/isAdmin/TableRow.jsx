@@ -26,12 +26,12 @@ const TableRow = ({ user }) => {
   });
 
   const { submitForm: updateUser, isPending: userPending } = useCreateData({
-    key: [USERS_KEYS],
+    key: USERS_KEYS,
     func: userDetailsUpdate,
   });
 
   const { submitForm: deletUser, isPending: deletePending } = useCreateData({
-    key: [USERS_KEYS],
+    key: USERS_KEYS,
     func: removeUser,
   });
 
@@ -101,7 +101,9 @@ const TableRow = ({ user }) => {
             </MenuButton>
             <MenuList color="black" fontSize="0.9rem">
               <MenuItem onClick={() => setEdit(true)}>Edit</MenuItem>
-              <MenuItem onClick={handleDelete}>Delete</MenuItem>
+              <MenuItem onClick={handleDelete}>
+                {deletePending ? "Deleting..." : "Delete"}
+              </MenuItem>
             </MenuList>
           </Menu>
         ) : (

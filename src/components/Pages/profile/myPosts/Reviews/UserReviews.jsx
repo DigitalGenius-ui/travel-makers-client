@@ -6,6 +6,8 @@ import Review from "../../../tours/TourDetails/TourDetails/Reviews/Review";
 import { useQuery } from "@tanstack/react-query";
 import { REVIEW_KEYS } from "../../../../../constants/react-query";
 import { getUserReviews } from "../../../../../api-call/user-api";
+import { ReviewLoading } from "../../../../../utils/Loadings";
+import { useParams } from "react-router-dom";
 
 const UserReviews = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,7 +22,9 @@ const UserReviews = () => {
 
   return (
     <>
-      {reviews?.length > 0 ? (
+      {isPending ? (
+        <ReviewLoading />
+      ) : reviews?.length > 0 ? (
         reviews?.map((review) => <Review review={review} key={review.id} />)
       ) : (
         <EmptyMessage getUser={currentUser} text="comments" />
