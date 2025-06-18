@@ -32,3 +32,16 @@ export const BookingLoading = () => {
     </div>
   );
 };
+
+export const TableLoading = () => {
+  return (
+    <>
+      {Array.from({ length: 3 }).map((_, i) => (
+        <div key={i} className="p-3 space-y-4">
+          <div className="w-full h-4 bg-gray-300 animate-pulse rounded-sm" />
+          <div className="w-full h-20 bg-gray-300 animate-pulse rounded-sm" />
+        </div>
+      ))}
+    </>
+  );
+};

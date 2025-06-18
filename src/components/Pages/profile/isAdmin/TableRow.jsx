@@ -1,22 +1,33 @@
 import {
   Avatar,
   Button,
+  IconButton,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
   Select,
+  Tooltip,
 } from "@chakra-ui/react";
-import { format } from "date-fns";
+import { format, isAfter, parse } from "date-fns";
 import { useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegSave } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import useCreateData from "../../../../Hooks/useCreateData";
-import { USERS_KEYS } from "../../../../constants/react-query";
-import { removeUser, userDetailsUpdate } from "../../../../api-call/user-api";
+import { TICKETS_KEYS, USERS_KEYS } from "../../../../constants/react-query";
+import {
+  removeUser,
+  removeUserTicket,
+  updateUserTickets,
+  userDetailsUpdate,
+} from "../../../../api-call/user-api";
+import Bookings from "../myBookings/Bookings";
+import { IoIosArrowDown } from "react-icons/io";
+import clsx from "clsx";
+import { parsDateHandler } from "../../../../utils/Date";
 
-const TableRow = ({ user }) => {
+export const UserTableRow = ({ user }) => {
   const [edit, setEdit] = useState(false);
 
   const [data, setData] = useState({
@@ -51,10 +62,7 @@ const TableRow = ({ user }) => {
     setEdit(false);
   };
   return (
-    <tr
-      key={user._id}
-      className="border-b border-slate-200 hover:bg-gray-50 text-sm"
-    >
+    <tr className="border-b border-slate-200 hover:bg-gray-50 text-sm">
       <td className="p-2">
         <Avatar src={user?.userImg} size="sm" />
       </td>
@@ -93,12 +101,19 @@ const TableRow = ({ user }) => {
         )}
       </td>
       <td className="p-2">{format(user?.createAt, "LLL dd, yyyy")}</td>
-      <td>
+      <td className="!w-full !h-[3rem] flex justify-center items-center">
         {!edit ? (
           <Menu>
-            <MenuButton className="w-full py-2 !grid !place-items-center">
-              <BsThreeDots />
-            </MenuButton>
+            <MenuButton
+              as={IconButton}
+              icon={
+                <Tooltip label="edit">
+                  <BsThreeDots />
+                </Tooltip>
+              }
+              variant="outline"
+              size={"sm"}
+            />
             <MenuList color="black" fontSize="0.9rem">
               <MenuItem onClick={() => setEdit(true)}>Edit</MenuItem>
               <MenuItem onClick={handleDelete}>
@@ -130,4 +145,172 @@ const TableRow = ({ user }) => {
   );
 };
 
-export default TableRow;
+export const TicketsTableRow = ({ ticket }) => {
+  const [open, setOpen] = useState("");
+  const [edit, setEdit] = useState(false);
+
+  const {
+    firstName,
+    lastName,
+    email,
+    phone,
+    ticketVerified,
+    createAt,
+    verifyNumber,
+    travelDate,
+    id,
+  } = ticket;
+
+  const { parsDate } = parsDateHandler(travelDate);
+  const isTicketExpired = isAfter(new Date(), parsDate);
+
+  // convet date
+  const year = new Date().getFullYear();
+  const parsedDate = parse(
+    `${travelDate} ${year}`,
+    "EEE, MMM dd yyyy",
+    new Date()
+  );
+  const formattedDate = format(parsedDate, "yyyy-MM-dd");
+
+  const [data, setData] = useState({
+    ticketVerified,
+    travelDate: formattedDate,
+    id,
+  });
+
+  const handleOpen = (num) => {
+    setOpen((prev) => (prev !== num ? num : ""));
+  };
+
+  const { submitForm, isPending } = useCreateData({
+    key: TICKETS_KEYS,
+    func: updateUserTickets,
+  });
+
+  const { submitForm: removeTicket, isPending: isRemoving } = useCreateData({
+    key: TICKETS_KEYS,
+    func: removeUserTicket,
+  });
+
+  const handleUpdate = async () => {
+    await submitForm({
+      inputData: {
+        ...data,
+        travelDate: format(data.travelDate, "E, MMM dd"),
+      },
+      dataMessage: "Ticket has been updated!",
+    });
+  };
+
+  const handleRemove = async () => {
+    await removeTicket({
+      inputData: id,
+      dataMessage: "Ticket has been removed!",
+    });
+  };
+  return (
+    <>
+      <tr className="border-b border-slate-200 hover:bg-gray-50 text-sm">
+        <td className="p-2">{`${firstName} ${lastName}`}</td>
+        <td className="p-2">{email}</td>
+        <td className="p-2">{phone}</td>
+        <td className="p-2">{ticketVerified ? "true" : "false"}</td>
+        <td className="p-2">{format(createAt, "LLL dd, yyyy")}</td>
+        <td className="p-2 clear-startw-full h-ful grid place-items-center">
+          <Tooltip label="expand more">
+            <Button
+              onClick={() => handleOpen(verifyNumber)}
+              variant="outline"
+              size={"sm"}
+            >
+              <span
+                className={clsx(
+                  `transition-all duration-500`,
+                  open === verifyNumber && "rotate-180"
+                )}
+              >
+                <IoIosArrowDown />
+              </span>
+            </Button>
+          </Tooltip>
+        </td>
+      </tr>
+      {open === verifyNumber && (
+        <tr className="bg-amber-50/40">
+          <td colSpan={6} className={"p-4"}>
+            <div className="py-4 w-full flex items-end justify-end gap-3">
+              {edit && (
+                <>
+                  <Button
+                    onClick={handleRemove}
+                    variant={"solid"}
+                    size={"sm"}
+                    colorScheme="red"
+                  >
+                    {isRemoving ? "Deleting..." : "Delete"}
+                  </Button>
+                  <Button
+                    onClick={handleUpdate}
+                    variant={"solid"}
+                    size={"sm"}
+                    colorScheme="green"
+                  >
+                    {isPending ? "Saving..." : "Save"}
+                  </Button>
+                </>
+              )}
+              <Button
+                onClick={() => setEdit((prev) => !prev)}
+                variant={"solid"}
+                size={"sm"}
+                colorScheme="blue"
+              >
+                {edit ? "Close Edit" : "Edit"}
+              </Button>
+            </div>
+            {edit && (
+              <div className="p-6 flex items-center gap-4">
+                <div className="space-y-3">
+                  <h2>Is ticket Verified?</h2>
+                  <Select
+                    disabled={isTicketExpired}
+                    bg="white"
+                    value={data.ticketVerified}
+                    onChange={(e) =>
+                      setData((prev) => ({
+                        ...prev,
+                        ticketVerified: e.target.value,
+                      }))
+                    }
+                    size="sm"
+                  >
+                    <option value="true">true</option>
+                    <option value="false">false</option>
+                  </Select>
+                </div>
+                <div className="space-y-3">
+                  <h2>Trip date :</h2>
+                  <input
+                    disabled={isTicketExpired}
+                    className="border border-gray-200 p-1 text-sm rounded-sm"
+                    value={data.travelDate}
+                    type="date"
+                    min={format(new Date(), "yyyy-MM-dd")}
+                    onChange={(e) =>
+                      setData((prev) => ({
+                        ...prev,
+                        travelDate: e.target.value,
+                      }))
+                    }
+                  />
+                </div>
+              </div>
+            )}
+            <Bookings book={ticket} isTicketExpired={isTicketExpired} />
+          </td>
+        </tr>
+      )}
+    </>
+  );
+};

@@ -26,10 +26,7 @@ API.interceptors.response.use(
   async (error) => {
     const { config, response } = error;
     const { status, data } = response || {};
-    if (
-      (status === UNATHURIZED && data.errorCode === "TOKEN_NOT_FOUND") ||
-      "INVALID_TOKEN"
-    ) {
+    if (data.errorCode === "TOKEN_NOT_FOUND" || "INVALID_TOKEN") {
       try {
         // refresh the access token, then retry the original request
         await tokenRefreshClient.get("/auth/refresh");

@@ -9,6 +9,8 @@ const Traveler = ({ reviews }) => {
   const userImg = reviews[0]?.user?.userImg;
   const { currentUser } = useCurrentUser();
 
+  const text = reviews[0]?.text;
+
   return (
     <div className="py-2 border-t border-gray-400">
       <div className="bg-blue-100 p-3 rounded-md">
@@ -41,7 +43,9 @@ const Traveler = ({ reviews }) => {
             />
           </HStack>
         </Link>
-        <p className="text-sm text-gray-600">{reviews[0]?.text}</p>
+        <p className="text-sm text-gray-600">
+          {`${text.length > 200 ? text.substring(0, 200) + "..." : text}`}
+        </p>
       </div>
     </div>
   );

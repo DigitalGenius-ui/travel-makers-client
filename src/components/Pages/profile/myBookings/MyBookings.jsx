@@ -10,10 +10,11 @@ import { BookingLoading } from "../../../../utils/Loadings";
 const MyBookings = () => {
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
+  const limit = 4;
 
   const { data, isPending } = useQuery({
-    queryKey: [BOOKING_KEYS, currentPage],
-    queryFn: async () => getBooking(currentPage),
+    queryKey: [BOOKING_KEYS, currentPage, limit],
+    queryFn: async () => getBooking(currentPage, limit),
   });
 
   return (

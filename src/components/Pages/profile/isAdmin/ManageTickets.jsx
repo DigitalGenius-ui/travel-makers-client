@@ -1,22 +1,34 @@
-import React from "react";
 import Pagination from "../../../../utils/Pagination";
 import Table from "../../../../utils/Table";
+import { useQuery } from "@tanstack/react-query";
+import { TICKETS_KEYS } from "../../../../constants/react-query";
+import { getUserTickets } from "../../../../api-call/user-api";
+import { TicketsTableRow } from "./TableRow";
+import { useState } from "react";
 
-const th = ["Avatar", "Email", "Verified", "Role", "Created", "Actions"];
+const th = ["Owner", "Email", "Phone", "Verified", "Created", "Actions"];
 
 const ManageTickets = () => {
+  const [page, setPage] = useState(1);
+  let limit = 8;
+
+  const { data, isPending } = useQuery({
+    queryKey: [TICKETS_KEYS, page, limit],
+    queryFn: async () => await getUserTickets(page, limit),
+  });
+
   return (
     <section className="!p-4">
-      <Table title={"Manage Users"} th={th}>
-        {data?.users?.length === 0 && (
+      <Table isPending={isPending} title={"Manage Tickets"} th={th}>
+        {data?.tickets?.length === 0 && (
           <tr>
             <td colSpan="6" className="text-center py-4">
-              No users found.
+              No ticket is found.
             </td>
           </tr>
         )}
-        {data?.users?.map((user, i) => (
-          <TableRow key={`${user.id}_${i}`} user={user} />
+        {data?.tickets?.map((ticket, i) => (
+          <TicketsTableRow key={`${ticket.id}_${i}`} ticket={ticket} />
         ))}
       </Table>
       <div className="!pt-5">

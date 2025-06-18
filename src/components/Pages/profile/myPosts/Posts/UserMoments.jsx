@@ -12,12 +12,13 @@ import { CartLoading } from "../../../../../utils/Loadings";
 
 const UserMoments = ({ moment }) => {
   const [page, setPage] = useState(1);
+  const limit = 4;
   const { currentUser } = useCurrentUser();
   const { id: userId } = useParams();
 
   const { data, isPending } = useQuery({
-    queryKey: [MOMENTS_KEYS, page],
-    queryFn: async () => getMoments(page, userId),
+    queryKey: [MOMENTS_KEYS, page, limit],
+    queryFn: async () => getMoments(page, userId, limit),
   });
 
   const moments = data?.moments ?? moment?.moments;

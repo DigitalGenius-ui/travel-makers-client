@@ -6,6 +6,7 @@ import useCreateData from "../../../../../../Hooks/useCreateData";
 import { Link } from "react-router-dom";
 import { momentPostCommentRemove } from "../../../../../../api-call/user-api";
 import { useCurrentUser } from "../../../../../../Context/UserContext";
+import { POST_KEYS } from "../../../../../../constants/react-query";
 
 const Comments = ({ comment }) => {
   const { currentUser } = useCurrentUser();
@@ -13,7 +14,7 @@ const Comments = ({ comment }) => {
   const { profile } = comment?.user;
 
   const { submitForm, isPending } = useCreateData({
-    key: "user",
+    key: POST_KEYS,
     func: momentPostCommentRemove,
   });
 
@@ -28,7 +29,7 @@ const Comments = ({ comment }) => {
     <section>
       <div className="flex items-center justify-between relative">
         <Link
-          to={`/profile/${comment?.userId}`}
+          to={`/singleProfile/${comment?.userId}`}
           className="flex items-center gap-2"
         >
           <Avatar

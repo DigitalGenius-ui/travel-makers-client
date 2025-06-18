@@ -63,7 +63,8 @@ const DatePicker = () => {
           prevEl: ".nextDate",
           nextEl: ".prevDate",
         }}
-        modules={[Navigation]}>
+        modules={[Navigation]}
+      >
         {allDays.map((day, i) => (
           <SwiperSlide key={i}>
             <SingleDate day={day} price={300} />
@@ -99,7 +100,8 @@ const SingleDate = ({ day, price }) => {
       ${classNames({
         "border-blue-700 text-blue-800 bg-blue-100/40":
           bookForm.date === pickDate,
-      })}`}>
+      })}`}
+    >
       {isToday(new Date(day)) && (
         <p className="absolute top-[-1rem] bg-blue-200 left-0 text-xs rounded-md px-3 py-1">
           Today

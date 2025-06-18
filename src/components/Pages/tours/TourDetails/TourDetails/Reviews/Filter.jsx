@@ -28,7 +28,8 @@ const Filter = ({ reviews, setAllReviews }) => {
           colorScheme={item === active ? "blue" : "gray"}
           textTransform="capitalize"
           size="sm"
-          key={i}>
+          key={i}
+        >
           {item}
         </Button>
       ))}

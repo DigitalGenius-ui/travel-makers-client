@@ -46,10 +46,10 @@ const MyProfile = () => {
 
   const handleSubmit = async () => {
     if (!isEdit) {
-      const { userImg, id, followings, followers, ...rest } = form;
+      const { firstName, lastName, birthDate, gender, userImg } = form;
       // upload content to the server
       await handleUpdateProfile({
-        inputData: rest,
+        inputData: { firstName, lastName, birthDate, gender, userImg },
         dataMessage: "Profile has been updated",
       });
 

@@ -22,9 +22,9 @@ export const getSingleUser = async (id) => {
 };
 
 // get all users
-export const getAllUsers = async (page) => {
+export const getAllUsers = async (page, limit) => {
   try {
-    const res = await API.get(`/user/getAllUsers?page=${page}`);
+    const res = await API.get(`/user/getAllUsers?page=${page}&limit=${limit}`);
     return res;
   } catch (error) {
     throw error;
@@ -135,9 +135,11 @@ export const changeProfilePassword = async (data) => {
 };
 
 // get booking
-export const getBooking = async (page) => {
+export const getBooking = async (page, limit) => {
   try {
-    const booking = await API.get(`/user/getUserBooking?page=${page}`);
+    const booking = await API.get(
+      `/user/getUserBooking?page=${page}&limit=${limit}`
+    );
     return booking;
   } catch (error) {
     throw error;
@@ -145,9 +147,11 @@ export const getBooking = async (page) => {
 };
 
 // get Moments
-export const getMoments = async (page, id) => {
+export const getMoments = async (page, id, limit) => {
   try {
-    const moments = await API.get(`/user/getUserMoments/${id}?page=${page}`);
+    const moments = await API.get(
+      `/user/getUserMoments/${id}?page=${page}&limit=${limit}`
+    );
     return moments;
   } catch (error) {
     throw error;
@@ -155,10 +159,44 @@ export const getMoments = async (page, id) => {
 };
 
 // get getUserReviews
-export const getUserReviews = async (page) => {
+export const getUserReviews = async (page, limit) => {
   try {
-    const reviews = await API.get(`/user/getUserReviews?page=${page}`);
+    const reviews = await API.get(
+      `/user/getUserReviews?page=${page}&limit=${limit}`
+    );
     return reviews;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// get all tickets
+export const getUserTickets = async (page, limit) => {
+  try {
+    const tickets = await API.get(
+      `/user/getAllTickets?page=${page}&limit=${limit}`
+    );
+    return tickets;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// update ticket
+export const updateUserTickets = async (data) => {
+  try {
+    const update = await API.post(`/user/updateUserTicket`, data);
+    return update;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// remove ticket
+export const removeUserTicket = async (id) => {
+  try {
+    const remove = await API.delete(`/user/removeUserTicket/${id}`);
+    return remove;
   } catch (error) {
     throw error;
   }

@@ -9,6 +9,7 @@ import { useCurrentUser } from "../../../../../../Context/UserContext";
 import { removeTourReview } from "../../../../../../api-call/tour-api";
 
 const Review = ({ review }) => {
+  const [showMore, setShowMore] = useState(200);
   const [showModal, setShowModal] = useState(false);
   const { rating, user, reviewImages, text, userId, id } = review;
   const { firstName, lastName } = user?.profile;
@@ -20,7 +21,7 @@ const Review = ({ review }) => {
       <Flex
         gap={6}
         alignItems="flex-start"
-        flexDirection={{ base: "column", sm: "row" }}
+        flexDirection={{ base: "column", md: "row" }}
         position="relative"
       >
         <Link
@@ -41,7 +42,19 @@ const Review = ({ review }) => {
               {format(review?.createAt, "PP")}
             </span>
           </div>
-          <p>{text}</p>
+          <div className="space-x-3">
+            {text.length > 200 ? text.substring(0, showMore) : text}
+            {text.length > 200 && (
+              <button
+                className="text-gray-500 pl-1 text-sm"
+                onClick={() =>
+                  setShowMore((prev) => (prev === 200 ? text.length : 200))
+                }
+              >
+                {showMore === 200 ? "show more..." : "show less..."}
+              </button>
+            )}
+          </div>
           {reviewImages.length > 0 && (
             <div className="flex items-center gap-1 flex-wrap">
               {reviewImages.slice(0, 6).map((img, i) => (

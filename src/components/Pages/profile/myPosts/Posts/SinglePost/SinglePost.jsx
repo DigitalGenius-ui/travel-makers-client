@@ -1,6 +1,6 @@
 import { Image } from "@chakra-ui/react";
 import classNames from "classnames";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import Head from "../../../../../../utils/Head";
@@ -45,11 +45,13 @@ const SinglePost = () => {
               }}
               className="flex-[1.5] bg-no-repeat bg-cover bg-center md:pt-[2rem] grid place-items-center max-h-[800px]"
             >
-              <Image
-                src={activeImg}
-                alt="post-img"
-                className="max-w-full h-[500px] object-scale-down"
-              />
+              {activeImg !== "" && (
+                <Image
+                  src={activeImg}
+                  alt="post-img"
+                  className="max-w-full h-[500px] object-scale-down"
+                />
+              )}
               <div className="max-w-full overflow-auto flex flex-col justify-center items-center py-2">
                 <h2 className="text-white text-xl pb-2">
                   {postImages?.indexOf(activeImg) + 1}/{postImages?.length}

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import useCreateData from "../../../../../../Hooks/useCreateData";
 import { useCurrentUser } from "../../../../../../Context/UserContext";
 import { momentPostCommentCreate } from "../../../../../../api-call/user-api";
+import { POST_KEYS } from "../../../../../../constants/react-query";
 
 const ShareComment = () => {
   const { id: postId } = useParams();
@@ -11,7 +12,7 @@ const ShareComment = () => {
 
   const [comment, setComment] = useState("");
   const { submitForm, isPending } = useCreateData({
-    key: "user",
+    key: POST_KEYS,
     func: momentPostCommentCreate,
   });
 

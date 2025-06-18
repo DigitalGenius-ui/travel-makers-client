@@ -11,11 +11,12 @@ import { useParams } from "react-router-dom";
 
 const UserReviews = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const limit = 4;
   const { currentUser } = useCurrentUser();
 
   const { data, isPending } = useQuery({
-    queryKey: [REVIEW_KEYS, currentPage],
-    queryFn: async () => getUserReviews(currentPage),
+    queryKey: [REVIEW_KEYS, currentPage, limit],
+    queryFn: async () => getUserReviews(currentPage, limit),
   });
 
   const reviews = data?.reviews || [];
