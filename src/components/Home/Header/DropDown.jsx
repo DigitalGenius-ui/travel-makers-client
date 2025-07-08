@@ -53,7 +53,7 @@ const DropDown = () => {
       </MenuButton>
       <MenuList color="black" fontSize="0.9rem">
         {isAdmin && (
-          <Link to={`dashboard/${currentUser?.id}`}>
+          <Link to={`/dashboard/${currentUser?.id}`}>
             <MenuItem>Dashboard</MenuItem>
           </Link>
         )}

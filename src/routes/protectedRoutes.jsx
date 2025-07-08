@@ -11,9 +11,18 @@ import LinkedAccounts from "../components/Pages/profile/linkAccount/LinkAccounts
 import CreatePost from "../components/Pages/profile/myPosts/Posts/CreatePost/CreatePost";
 import ManageUsers from "../components/Pages/profile/isAdmin/ManageUsers";
 import ManageTickets from "../components/Pages/profile/isAdmin/ManageTickets";
+import DashboardLayout from "../pages/Dashboard/DashboardLayout";
+import Dashboard from "../pages/Dashboard/pages/Dashboard";
 
 export const protectedRoutes = (isAdmin) => {
   return [
+    <Route key="dashboard" path="dashboard/:id" element={<DashboardLayout />}>
+      {isAdmin && (
+        <>
+          <Route index element={<Dashboard />} />
+        </>
+      )}
+    </Route>,
     <Route key="write" path="/tour/write/:id" element={<CreateReview />} />,
     <Route key="checkout" path="/checkout/success" element={<CheckOut />} />,
     <Route key="profile" path="/profile/" element={<ProfileMenu />}>

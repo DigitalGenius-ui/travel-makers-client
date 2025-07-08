@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Navigate, Outlet, Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import Header from "./components/Home/Header/Header";
 import Footer from "./components/Home/Footer/Footer";
 import Loading from "./Loading";

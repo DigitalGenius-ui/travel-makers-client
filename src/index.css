@@ -23,6 +23,15 @@ body {
   transform: translate(-50%, -50%);
 }
 
+.box {
+  @apply grid gap-4;
+}
+
+.recharts-wrapper:focus,
+.recharts-surface:focus {
+  outline: none;
+}
+
 /* pages white bg with border radius. Refer to ticket, write and booking pages  */
 .roundedBg {
   @apply bg-gray-100 rounded-se-2xl rounded-ss-2xl;
