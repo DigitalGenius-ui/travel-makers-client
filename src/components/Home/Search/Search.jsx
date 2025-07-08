@@ -10,6 +10,7 @@ import React, { useEffect, useState } from "react";
 import Screen from "../../../utils/Screen";
 import useGetTours from "../../../Hooks/useGetTours";
 import { Link } from "react-router-dom";
+import useDebounce from "../../../Hooks/useDebounce";
 
 const Search = () => {
   const { tourData } = useGetTours();
@@ -17,11 +18,23 @@ const Search = () => {
   const [searchInput, setSearchInput] = useState("");
   const [titles, setTitles] = useState([]);
 
+  const debounce = useDebounce();
+
   useEffect(() => {
-    const filterData = tourData?.filter((item) =>
-      item.title.toLowerCase().startsWith(searchInput.toLowerCase())
-    );
-    setTitles(filterData);
+    const search = () => {
+      if (!searchInput.trim()) {
+        setTitles([]);
+        return;
+      }
+
+      const filterData = tourData?.filter((item) =>
+        item.title.toLowerCase().startsWith(searchInput.toLowerCase())
+      );
+      setTitles(filterData);
+    };
+
+    const debounceSearch = debounce(search, 1000);
+    debounceSearch();
   }, [searchInput, setTitles, tourData]);
 
   return (
@@ -34,7 +47,8 @@ const Search = () => {
             mt={{ base: "0.5rem", "2xl": "1.5rem" }}
             pl={{ "2xl": "2rem" }}
             color="white"
-            outline="none">
+            outline="none"
+          >
             <Icon as={IoSearch} />
           </InputLeftElement>
           <Input
@@ -48,15 +62,17 @@ const Search = () => {
             className="!bg-gradient !text-white"
           />
         </InputGroup>
-        {searchInput !== "" && titles.length > 0 && (
+        {searchInput !== "" && titles?.length > 0 && (
           <div
             className="bg-white absolute top-full left-0 right-0 shadow-lg
-          flex flex-col z-[9999] rounded-md overflow-hidden">
+          flex flex-col z-[9999] rounded-md overflow-hidden"
+          >
             {titles?.map((item) => (
               <Link
                 to={`/tour/${item.id}`}
                 className="p-1 py-2 hover:bg-gray-200 w-full text-left text-sm"
-                key={item.id}>
+                key={item.id}
+              >
                 {item.title}
               </Link>
             ))}

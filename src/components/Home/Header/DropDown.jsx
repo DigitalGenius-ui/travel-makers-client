@@ -44,12 +44,19 @@ const DropDown = () => {
 
   useErrorToest({ isError, error });
 
+  const isAdmin = currentUser?.role === "ADMIN";
+
   return (
     <Menu>
       <MenuButton>
         <Avatar src={userImg} mt={2} name={fullName} size="sm" zIndex={10} />
       </MenuButton>
       <MenuList color="black" fontSize="0.9rem">
+        {isAdmin && (
+          <Link to={`dashboard/${currentUser?.id}`}>
+            <MenuItem>Dashboard</MenuItem>
+          </Link>
+        )}
         {dropMenu.slice(0, 3).map((item) => (
           <Link key={item.title} to={`${item.path}/${currentUser?.id}`}>
             <MenuItem>{item.title}</MenuItem>
