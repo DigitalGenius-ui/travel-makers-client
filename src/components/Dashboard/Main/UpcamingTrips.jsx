@@ -29,7 +29,7 @@ const Tour = () => {
   return (
     <div className="flex gap-2 cursor-pointer hover:bg-blue-100 p-2 rounded-md group">
       <img
-        className="size-20 rounded-md object-cover"
+        className="size-16 rounded-md object-cover"
         src="/help.jpg"
         alt="tour-img"
       />
@@ -43,6 +43,8 @@ const Tour = () => {
             <AvatarGroup size="xs" max={2}>
               <Avatar name="Kent Dodds" src="https://bit.ly/kent-c-dodds" />
               <Avatar name="Ryan Florence" src="/male.jpg" />
+              <Avatar name="Segun Adebayo" src="/female.jpg" />
+              <Avatar name="Segun Adebayo" src="/female.jpg" />
               <Avatar name="Segun Adebayo" src="/female.jpg" />
             </AvatarGroup>
           </div>

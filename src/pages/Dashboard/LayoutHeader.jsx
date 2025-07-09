@@ -1,6 +1,6 @@
 import React from "react";
 import { useCurrentUser } from "../../Context/UserContext";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { IoSearchOutline } from "react-icons/io5";
 import { IoIosNotificationsOutline } from "react-icons/io";
 
@@ -17,9 +17,9 @@ const LayoutHeader = () => {
 
   const profileImg =
     !currentUser?.userImg && userGender === "male"
-      ? "/male.png"
+      ? "/male.jpg"
       : !currentUser?.userImg && userGender === "female"
-      ? "/female.png"
+      ? "/female.jpg"
       : currentUser?.userImg;
   return (
     <div className="py-5 flex items-center justify-between">
@@ -47,7 +47,10 @@ const LayoutHeader = () => {
           </p>
         </div>
         {/* user profile  */}
-        <div className="flex gap-2">
+        <Link
+          to={`/profile/profileDetails/${currentUser?.id}`}
+          className="flex gap-2"
+        >
           <img
             className="size-12 object-cover rounded-md"
             src={profileImg}
@@ -59,7 +62,7 @@ const LayoutHeader = () => {
               {role.toLowerCase()}
             </p>
           </div>
-        </div>
+        </Link>
       </div>
     </div>
   );

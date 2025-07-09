@@ -1,4 +1,3 @@
-import React from "react";
 import { parsDateHandler } from "./Date";
 import { isAfter } from "date-fns";
 import clsx from "clsx";
@@ -11,17 +10,17 @@ const colors = {
 
 const TicketStatus = ({ status, travelDate }) => {
   const { parsDate } = parsDateHandler(travelDate);
-  const isTicketExpired = isAfter(new Date(), parsDate);
+  const isTicketExpired =
+    isAfter(new Date(), parsDate) && status !== "verified";
 
   return (
     <p
       className={clsx(
         "font-bold p-1 px-2 rounded-md uppercase w-fit text-xs border",
-        colors[status],
-        isTicketExpired && "bg-gray-500"
+        isTicketExpired ? "bg-gray-500 text-gray-200" : colors[status]
       )}
     >
-      {status}
+      {isTicketExpired ? "Expired" : status}
     </p>
   );
 };

@@ -25,7 +25,8 @@ const SideBar = () => {
             to={`${item.path}/${currentUser?.id}`}
             className={clsx(
               "flex items-center gap-5 p-3 rounded-md text-gray-800",
-              path === item.path && "bg-blue-500 text-white"
+              path === item.path && "bg-blue-500 text-white",
+              path !== item.path && "hover:bg-blue-100"
             )}
           >
             <span>{item.icon}</span>
@@ -34,7 +35,7 @@ const SideBar = () => {
         ))}
       </div>
       <div className="mt-20">
-        <button className="flex items-center gap-5 p-3 rounded-md text-gray-800">
+        <button className="flex items-center gap-5 p-3 rounded-md text-gray-800 hover:bg-blue-100 w-full">
           <span>
             <IoLogOutOutline size={23} />
           </span>
