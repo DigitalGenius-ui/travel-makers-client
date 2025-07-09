@@ -14,18 +14,19 @@ import { useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegSave } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
-import useCreateData from "../../../../Hooks/useCreateData";
-import { TICKETS_KEYS, USERS_KEYS } from "../../../../constants/react-query";
+import useCreateData from "../../../Hooks/useCreateData";
+import { TICKETS_KEYS, USERS_KEYS } from "../../../constants/react-query";
 import {
   removeUser,
   removeUserTicket,
   updateUserTickets,
   userDetailsUpdate,
-} from "../../../../api-call/user-api";
-import Bookings from "../myBookings/Bookings";
+} from "../../../api-call/user-api";
+import Bookings from "../../Pages/profile/myBookings/Bookings";
 import { IoIosArrowDown } from "react-icons/io";
 import clsx from "clsx";
-import { parsDateHandler } from "../../../../utils/Date";
+import { parsDateHandler } from "../../../utils/Date";
+import TicketStatus from "../../../utils/TicketStatus";
 
 export const UserTableRow = ({ user }) => {
   const [edit, setEdit] = useState(false);
@@ -154,7 +155,7 @@ export const TicketsTableRow = ({ ticket }) => {
     lastName,
     email,
     phone,
-    ticketVerified,
+    status,
     createAt,
     verifyNumber,
     travelDate,
@@ -174,7 +175,7 @@ export const TicketsTableRow = ({ ticket }) => {
   const formattedDate = format(parsedDate, "yyyy-MM-dd");
 
   const [data, setData] = useState({
-    ticketVerified,
+    status,
     travelDate: formattedDate,
     id,
   });
@@ -209,13 +210,16 @@ export const TicketsTableRow = ({ ticket }) => {
       dataMessage: "Ticket has been removed!",
     });
   };
+
   return (
     <>
       <tr className="border-b border-slate-200 hover:bg-gray-50 text-sm">
         <td className="p-2">{`${firstName} ${lastName}`}</td>
         <td className="p-2">{email}</td>
         <td className="p-2">{phone}</td>
-        <td className="p-2">{ticketVerified ? "true" : "false"}</td>
+        <td className="">
+          <TicketStatus status={status} travelDate={travelDate} />
+        </td>
         <td className="p-2">{format(createAt, "LLL dd, yyyy")}</td>
         <td className="p-2 clear-startw-full h-ful grid place-items-center">
           <Tooltip label="expand more">
@@ -236,6 +240,7 @@ export const TicketsTableRow = ({ ticket }) => {
           </Tooltip>
         </td>
       </tr>
+      {/* edit part  */}
       {open === verifyNumber && (
         <tr className="bg-amber-50/40">
           <td colSpan={6} className={"p-4"}>
@@ -243,6 +248,7 @@ export const TicketsTableRow = ({ ticket }) => {
               {edit && (
                 <>
                   <Button
+                    disabled={isRemoving}
                     onClick={handleRemove}
                     variant={"solid"}
                     size={"sm"}
@@ -255,6 +261,7 @@ export const TicketsTableRow = ({ ticket }) => {
                     variant={"solid"}
                     size={"sm"}
                     colorScheme="green"
+                    disabled={isPending}
                   >
                     {isPending ? "Saving..." : "Save"}
                   </Button>
@@ -269,6 +276,7 @@ export const TicketsTableRow = ({ ticket }) => {
                 {edit ? "Close Edit" : "Edit"}
               </Button>
             </div>
+            {/* edit part  */}
             {edit && (
               <div className="p-6 flex items-center gap-4">
                 <div className="space-y-3">
@@ -276,17 +284,18 @@ export const TicketsTableRow = ({ ticket }) => {
                   <Select
                     disabled={isTicketExpired}
                     bg="white"
-                    value={data.ticketVerified}
+                    value={data.status}
                     onChange={(e) =>
                       setData((prev) => ({
                         ...prev,
-                        ticketVerified: e.target.value,
+                        status: e.target.value,
                       }))
                     }
                     size="sm"
                   >
-                    <option value="true">true</option>
-                    <option value="false">false</option>
+                    <option value="verified">Verify</option>
+                    <option value="pending">Pending</option>
+                    <option value="canceled">Cancel</option>
                   </Select>
                 </div>
                 <div className="space-y-3">

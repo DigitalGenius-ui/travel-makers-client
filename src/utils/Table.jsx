@@ -1,14 +1,27 @@
+import { Button } from "@chakra-ui/react";
 import { TableLoading } from "./Loadings";
 
-const Table = ({ children, title, th, isPending }) => {
+const Table = ({ children, title, th, isPending, viewAll }) => {
   return (
-    <>
-      <h1
-        className="border border-slate-200 p-5 rounded-t-lg text-lg bg-slate-100 
-        text-gray-700 uppercase font-semibold"
+    <div>
+      <div
+        className="flex items-center justify-between bg-slate-100 
+        border border-slate-200 p-5 rounded-t-lg "
       >
-        {title}
-      </h1>
+        <h1 className="text-lg uppercase font-semibold text-gray-700">
+          {title}
+        </h1>
+        {viewAll && (
+          <Button
+            variant={"solid"}
+            bgColor={"blue.500"}
+            color={"white"}
+            size={"sm"}
+          >
+            View All
+          </Button>
+        )}
+      </div>
       {isPending ? (
         <TableLoading />
       ) : (
@@ -27,7 +40,7 @@ const Table = ({ children, title, th, isPending }) => {
           </table>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

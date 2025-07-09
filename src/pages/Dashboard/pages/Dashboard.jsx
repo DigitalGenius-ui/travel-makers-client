@@ -3,6 +3,7 @@ import Insight from "../../../components/Dashboard/Main/Insight";
 import Charts from "../../../components/Dashboard/Main/Charts";
 import Trips from "../../../components/Dashboard/Main/Trips";
 import Messages from "../../../components/Dashboard/Main/Messages";
+import RecentBookings from "../../../components/Dashboard/Main/RecentBookings";
 
 const Dashboard = () => {
   return (
@@ -14,6 +15,7 @@ const Dashboard = () => {
           <Trips />
           <Messages />
         </div>
+        <RecentBookings />
       </div>
       <div className="flex-1"></div>
     </section>

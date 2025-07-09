@@ -1,5 +1,6 @@
 import { HStack } from "@chakra-ui/react";
 import clsx from "clsx";
+import TicketStatus from "../../../../utils/TicketStatus";
 
 const Bookings = ({ book, isTicketExpired }) => {
   if (!book) return;
@@ -11,7 +12,7 @@ const Bookings = ({ book, isTicketExpired }) => {
     lastName,
     tickets,
     travelDate,
-    ticketVerified,
+    status,
     verifyNumber,
     totalPrice,
   } = book;
@@ -41,23 +42,7 @@ const Bookings = ({ book, isTicketExpired }) => {
       <div className="p-3 flex flex-col items-center tablet:justify-between">
         <h2 className="text-xl font-bold text-black/70">{travelDate}</h2>
         <HStack>
-          <span
-            className={clsx(
-              `w-[0.9rem] h-[0.9rem] rounded-full inline-block`,
-              isTicketExpired && !ticketVerified
-                ? "bg-gray-500"
-                : !ticketVerified
-                ? "bg-yellow-500"
-                : "bg-green-500"
-            )}
-          />
-          <h2 className="text-sm">
-            {isTicketExpired && !ticketVerified
-              ? "Ticket is Expired"
-              : ticketVerified
-              ? "Verified"
-              : "Not verified yet"}
-          </h2>
+          <TicketStatus travelDate={travelDate} status={status} />
         </HStack>
       </div>
     </div>

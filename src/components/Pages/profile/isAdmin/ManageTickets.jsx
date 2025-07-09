@@ -3,7 +3,7 @@ import Table from "../../../../utils/Table";
 import { useQuery } from "@tanstack/react-query";
 import { TICKETS_KEYS } from "../../../../constants/react-query";
 import { getUserTickets } from "../../../../api-call/user-api";
-import { TicketsTableRow } from "./TableRow";
+import { TicketsTableRow } from "../../../Dashboard/Main/TableRow";
 import { useState } from "react";
 
 const th = ["Owner", "Email", "Phone", "Verified", "Created", "Actions"];

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { USERS_KEYS } from "../../../../constants/react-query";
 import { getAllUsers } from "../../../../api-call/user-api";
 import { useState } from "react";
-import { UserTableRow } from "./TableRow";
+import { UserTableRow } from "../../../Dashboard/Main/TableRow";
 import Pagination from "../../../../utils/Pagination";
 import Table from "../../../../utils/Table";
 
