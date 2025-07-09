@@ -12,7 +12,8 @@ const TourCard = ({ item }) => {
   return (
     <Link
       to={`/tour/${item.id}`}
-      className="shadow-xl hover:opacity-80 cursor-pointer bg-white">
+      className="shadow-xl hover:opacity-80 cursor-pointer !bg-white"
+    >
       {/* card image   */}
       <div
         style={{
@@ -20,14 +21,16 @@ const TourCard = ({ item }) => {
             item.tourImages && item.tourImages[0]
           })`,
         }}
-        className="relative h-[17rem] md:h-[13rem] 2xl:h-[16rem] bg-cover bg-no-repeat bg-center">
+        className="relative h-[17rem] md:h-[13rem] 2xl:h-[16rem] bg-cover bg-no-repeat bg-center"
+      >
         <div className="absolute top-3 left-3 text-white">
           <Stars review={item?.reviews?.length} />
         </div>
         {isNewTour && (
           <span
             className="bg-gradient rounded-full px-[1rem] py-[0.3rem] text-white text-xs
-            uppercase absolute -bottom-3 left-4">
+            uppercase absolute -bottom-3 left-4"
+          >
             New Tour
           </span>
         )}
@@ -38,12 +41,14 @@ const TourCard = ({ item }) => {
         <Flex
           justifyContent="space-between"
           alignItems="center"
-          color="gray.600">
+          color="gray.600"
+        >
           <Flex
             flexDirection="column"
             textTransform="capitalize"
             gap={1}
-            fontWeight="bold">
+            fontWeight="bold"
+          >
             <HStack spacing={2}>
               <Icon as={FaUserFriends} fontSize={16} color="blue.600" />
               <span className="text-xs">{item.category}</span>
@@ -63,7 +68,8 @@ const TourCard = ({ item }) => {
             textAlign="center"
             borderLeft="1px solid gray"
             px="1rem"
-            pt="0.5rem">
+            pt="0.5rem"
+          >
             <Text textTransform="uppercase" fontSize="0.8rem" fontWeight="bold">
               start package
             </Text>

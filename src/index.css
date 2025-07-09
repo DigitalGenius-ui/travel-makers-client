@@ -24,12 +24,16 @@ body {
 }
 
 .box {
-  @apply grid gap-4;
+  @apply grid gap-4 grid-cols-[repeat(auto-fit,_minmax(100px,_1fr))];
 }
 
-.recharts-wrapper:focus,
-.recharts-surface:focus {
+.recharts-wrapper *:focus {
   outline: none;
+}
+
+/* dashboard boxes  */
+.dash-box {
+  @apply border border-gray-200 rounded-md p-3;
 }
 
 /* pages white bg with border radius. Refer to ticket, write and booking pages  */

@@ -10,7 +10,7 @@ const DashboardLayout = () => {
       <PageBanner title={"Dashboard"} />
       <section className="flex gap-4">
         <SideBar />
-        <div className="flex-[4] pr-5">
+        <div className="flex-[6] pr-5">
           <LayoutHeader />
           <Outlet />
         </div>

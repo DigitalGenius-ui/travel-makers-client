@@ -6,7 +6,7 @@ import { TfiMoney } from "react-icons/tfi";
 
 const Insight = () => {
   return (
-    <section className="box grid-cols-[repeat(auto-fit,_minmax(100px,_1fr))]">
+    <section className="box">
       <InsightCard
         title={"Total Booking"}
         amount={1000}
