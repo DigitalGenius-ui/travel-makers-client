@@ -112,9 +112,14 @@ const TourCard = ({ item }) => {
             per person
           </span>
         </p>
-        <button className="bg-blue-400 text-xs rounded-md p-2 text-white">
+        <Button
+          variant={"solid"}
+          bgColor={"blue.500"}
+          size={"xs"}
+          color={"white"}
+        >
           See Details
-        </button>
+        </Button>
       </div>
     </div>
   );

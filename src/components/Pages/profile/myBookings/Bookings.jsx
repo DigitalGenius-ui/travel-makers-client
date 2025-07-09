@@ -2,7 +2,7 @@ import { HStack } from "@chakra-ui/react";
 import clsx from "clsx";
 import TicketStatus from "../../../../utils/TicketStatus";
 
-const Bookings = ({ book, isTicketExpired }) => {
+const Bookings = ({ book }) => {
   if (!book) return;
 
   const {

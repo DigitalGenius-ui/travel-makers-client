@@ -301,7 +301,6 @@ export const TicketsTableRow = ({ ticket }) => {
                 <div className="space-y-3">
                   <h2>Trip date :</h2>
                   <input
-                    disabled={isTicketExpired}
                     className="border border-gray-200 p-1 text-sm rounded-sm"
                     value={data.travelDate}
                     type="date"
@@ -316,7 +315,7 @@ export const TicketsTableRow = ({ ticket }) => {
                 </div>
               </div>
             )}
-            <Bookings book={ticket} isTicketExpired={isTicketExpired} />
+            <Bookings book={ticket} />
           </td>
         </tr>
       )}
