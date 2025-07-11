@@ -59,6 +59,7 @@ const ImagePicker = ({ isEdit, form }) => {
         ref={imgPick}
         hidden
         type="file"
+        accept="image/*"
       />
       {!isEdit && (
         <div className="flex gap-4">

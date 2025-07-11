@@ -4,7 +4,7 @@ import { CiCalendarDate } from "react-icons/ci";
 
 const UpcamingTrips = () => {
   return (
-    <section className="dash-box !p-1">
+    <section className="flex-1 dash-box !p-1">
       <div className="flex items-center justify-between p-2">
         <h1 className="font-semibold text-gray-700 text-sm">Upcoming Trips</h1>
         <IconButton

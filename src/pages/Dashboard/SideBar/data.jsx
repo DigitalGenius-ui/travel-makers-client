@@ -7,21 +7,45 @@ import { GrGallery } from "react-icons/gr";
 import { LuMessageSquareDashed } from "react-icons/lu";
 import { GrLike } from "react-icons/gr";
 
-export const sideBarMenu = [
+export const sideBarMenu = (isMobile) => [
   {
     title: "Dashboard",
     path: "/dashboard",
-    icon: <LuLayoutDashboard size={19} />,
+    icon: <LuLayoutDashboard size={isMobile ? 23 : 19} />,
   },
-  { title: "Packages", path: "/packages", icon: <TbPackages size={19} /> },
-  { title: "Bookings", path: "/bookings", icon: <LuBookmarkCheck size={19} /> },
-  { title: "Travlers", path: "/travlers", icon: <MdTravelExplore size={19} /> },
-  { title: "Guides", path: "/guides", icon: <RiGuideFill size={19} /> },
-  { title: "Gallery", path: "/gallery", icon: <GrGallery size={19} /> },
+  {
+    title: "Packages",
+    path: "/packages",
+    icon: <TbPackages size={isMobile ? 23 : 19} />,
+  },
+  {
+    title: "Bookings",
+    path: "/bookings",
+    icon: <LuBookmarkCheck size={isMobile ? 23 : 19} />,
+  },
+  {
+    title: "Travlers",
+    path: "/travlers",
+    icon: <MdTravelExplore size={isMobile ? 23 : 19} />,
+  },
+  {
+    title: "Guides",
+    path: "/guides",
+    icon: <RiGuideFill size={isMobile ? 23 : 19} />,
+  },
+  {
+    title: "Gallery",
+    path: "/gallery",
+    icon: <GrGallery size={isMobile ? 23 : 19} />,
+  },
   {
     title: "Messages",
     path: "/messages",
-    icon: <LuMessageSquareDashed size={19} />,
+    icon: <LuMessageSquareDashed size={isMobile ? 23 : 19} />,
   },
-  { title: "Feadbacks", path: "/feadbacks", icon: <GrLike size={19} /> },
+  {
+    title: "Feadbacks",
+    path: "/feadbacks",
+    icon: <GrLike size={isMobile ? 23 : 19} />,
+  },
 ];

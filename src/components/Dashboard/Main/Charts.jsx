@@ -117,7 +117,7 @@ const Charts = () => {
             </MenuItem>
           </CustomeMenu>
         </div>
-        <div className="flex items-center">
+        <div className="flex flex-col xs:flex-row gap-3 items-center">
           <div className="flex-1 w-full h-64 flex items-center justify-center">
             <PieChart width={120} height={120}>
               <Pie
@@ -147,7 +147,7 @@ const Charts = () => {
     );
   };
   return (
-    <section className="flex gap-4 w-full">
+    <section className="flex flex-col md:flex-row gap-4 w-full">
       {/* revenue overview  */}
       {revenue()}
       {/* top distinations  */}

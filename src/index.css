@@ -24,7 +24,16 @@ body {
 }
 
 .box {
-  @apply grid gap-4 grid-cols-[repeat(auto-fit,_minmax(100px,_1fr))];
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 700px) {
+  .box {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .recharts-wrapper *:focus {

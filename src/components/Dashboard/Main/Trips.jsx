@@ -19,7 +19,7 @@ const Trips = () => {
   const { tourData } = useGetTours();
   const totalTrips = () => {
     return (
-      <div className="dash-box flex items-center gap-3">
+      <div className="dash-box flex flex-col sm:flex-row sm:items-center gap-3">
         <div className="flex items-center gap-3">
           <span className="size-14 bg-blue-50 rounded-md flex items-center justify-center text-blue-500">
             <PiAirplaneTiltLight size={28} />
@@ -35,7 +35,7 @@ const Trips = () => {
             <div className="flex-1 h-4 bg-blue-200" />
             <div className="flex-1 h-4 bg-blue-300 rounded-e-sm" />
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col xs:flex-row xs:items-center xs:justify-between">
             <TripsCalcs title="Done" amount={250} />
             <TripsCalcs title="Booked" amount={50} />
             <TripsCalcs title="Canceled" amount={350} />
@@ -98,7 +98,7 @@ const TourCard = ({ item }) => {
           {category}
         </p>
       </div>
-      <h1 className="font-bold text-sm text-gray-700">{city}</h1>
+      <h1 className="font-bold text-sm text-gray-700 line-clamp-1">{city}</h1>
       <div className="flex items-center gap-1 text-gray-600">
         <span>
           <FaRegClock size={12} />

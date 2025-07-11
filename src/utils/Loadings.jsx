@@ -45,3 +45,17 @@ export const TableLoading = () => {
     </>
   );
 };
+
+export const UserDashLoading = () => {
+  return (
+    <div className="flex gap-2 mt-3">
+      <div>
+        <div className="size-10 rounded-full bg-gray-300 animate-pulse" />
+      </div>
+      <div className="flex flex-col flex-1 gap-1">
+        <div className="w-full h-5 bg-gray-300 animate-pulse" />
+        <div className="w-full h-8 bg-gray-300 animate-pulse" />
+      </div>
+    </div>
+  );
+};

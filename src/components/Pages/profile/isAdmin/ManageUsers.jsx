@@ -1,22 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
-import { USERS_KEYS } from "../../../../constants/react-query";
-import { getAllUsers } from "../../../../api-call/user-api";
 import { useState } from "react";
 import { UserTableRow } from "../../../Dashboard/Main/TableRow";
 import Pagination from "../../../../utils/Pagination";
 import Table from "../../../../utils/Table";
+import useGetAllUsers from "../../../../Hooks/useGetAllUsers";
 
 const ManageUsers = () => {
   const [page, setPage] = useState(1);
   const limit = 7;
 
-  const { data, isPending } = useQuery({
-    queryKey: [USERS_KEYS, page, limit],
-    queryFn: async () => await getAllUsers(page, limit),
-    placeholderData: {
-      keepPreviousData: true,
-    },
-  });
+  const { data, isPending } = useGetAllUsers({ page, limit });
 
   const th = ["Avatar", "Email", "Verified", "Role", "Created", "Actions"];
 

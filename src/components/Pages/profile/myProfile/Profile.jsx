@@ -46,10 +46,10 @@ const MyProfile = () => {
 
   const handleSubmit = async () => {
     if (!isEdit) {
-      const { firstName, lastName, birthDate, gender, userImg } = form;
+      const { firstName, lastName, birthDate, gender } = form;
       // upload content to the server
       await handleUpdateProfile({
-        inputData: { firstName, lastName, birthDate, gender, userImg },
+        inputData: { firstName, lastName, birthDate, gender },
         dataMessage: "Profile has been updated",
       });
 
@@ -71,6 +71,11 @@ const MyProfile = () => {
   const handleSendEmail = async () => {
     await handleVerify({ dataMessage: "Verify email has been sent!" });
   };
+
+  // make sure the user is at least 16 years old
+  const today = new Date();
+  today.setFullYear(today.getFullYear() - 16);
+  const formatted = today.toISOString().split("T")[0];
 
   return (
     <div className="space-y-5 spaces p-3 mt-3">
@@ -115,6 +120,7 @@ const MyProfile = () => {
           setForm={setForm}
           form={form}
           isActive={isEdit}
+          max={formatted}
         />
         <EditInputs
           label="Gender"

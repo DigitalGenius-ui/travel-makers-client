@@ -25,8 +25,8 @@ const Table = ({ children, title, th, isPending, viewAll }) => {
       {isPending ? (
         <TableLoading />
       ) : (
-        <div className="border border-slate-200 p-2">
-          <table className="w-full text-left">
+        <div className="border  border-slate-200 p-2">
+          <table className="w-full !max-w-[50rem] overflow-auto text-left">
             <thead>
               <tr className="bg-gray-100">
                 {th.map((header, index) => (

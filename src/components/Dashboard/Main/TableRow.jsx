@@ -213,7 +213,7 @@ export const TicketsTableRow = ({ ticket }) => {
 
   return (
     <>
-      <tr className="border-b border-slate-200 hover:bg-gray-50 text-sm">
+      <tr className="-w-[]border-b border-slate-200 hover:bg-gray-50 text-sm">
         <td className="p-2">{`${firstName} ${lastName}`}</td>
         <td className="p-2">{email}</td>
         <td className="p-2">{phone}</td>

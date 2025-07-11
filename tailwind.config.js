@@ -24,7 +24,8 @@ export default {
         page: "'Anton', sans-serif",
       },
       screens: {
-        tablet: "1090px",
+        tablet: "1200px",
+        xs: "420px",
       },
     },
   },

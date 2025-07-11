@@ -10,6 +10,7 @@ const EditInputs = ({
   hidden,
   form,
   setForm,
+  max,
 }) => {
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -18,7 +19,8 @@ const EditInputs = ({
     <FormControl
       isDisabled={isActive}
       isRequired={true}
-      className="flex flex-col gap-1 w-full">
+      className="flex flex-col gap-1 w-full"
+    >
       {label && (
         <FormLabel className="text-gray-500 !text-xs">{label}</FormLabel>
       )}
@@ -33,6 +35,7 @@ const EditInputs = ({
           placeholder={label + "..."}
           variant="filled"
           type={type || "text"}
+          max={type === "date" ? max : undefined}
         />
       ) : (
         <Select
@@ -40,7 +43,8 @@ const EditInputs = ({
           onChange={handleChange}
           name={name}
           placeholder="Select Gender"
-          className="!w-full !text-xs">
+          className="!w-full !text-xs"
+        >
           {gender.map((item, i) => (
             <option className="!w-full" value={item} key={i}>
               {item}

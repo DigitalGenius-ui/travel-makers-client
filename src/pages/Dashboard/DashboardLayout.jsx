@@ -8,11 +8,13 @@ const DashboardLayout = () => {
   return (
     <>
       <PageBanner title={"Dashboard"} />
-      <section className="flex gap-4">
+      <section className="flex gap-4 relative">
         <SideBar />
-        <div className="flex-[6] pr-5">
-          <LayoutHeader />
-          <Outlet />
+        <div className="overflow-auto pl-[5rem] tablet:pl-0 flex-[5.5] pr-5">
+          <div className="!min-w-[600px] md:!min-w-auto">
+            <LayoutHeader />
+            <Outlet />
+          </div>
         </div>
       </section>
     </>

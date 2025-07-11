@@ -1,4 +1,4 @@
-import { parse } from "date-fns";
+import { formatDistanceToNow, parse } from "date-fns";
 
 export const parsDateHandler = (date) => {
   // convet date
@@ -8,4 +8,8 @@ export const parsDateHandler = (date) => {
   return {
     parsDate,
   };
+};
+
+export const dateEgoFormatter = (date) => {
+  return formatDistanceToNow(date, { addSuffix: true });
 };
