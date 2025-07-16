@@ -1,7 +1,7 @@
 import useGetAllUsers from "../../../Hooks/useGetAllUsers";
 import { Avatar } from "@chakra-ui/react";
 import { dateEgoFormatter } from "../../../utils/Date";
-import { UserDashLoading } from "../../../utils/Loadings";
+import { VerticaleCardLoading } from "../../../utils/Loadings";
 
 const RecentTravlers = () => {
   const limit = 7;
@@ -12,7 +12,7 @@ const RecentTravlers = () => {
       <h1 className="font-semibold text-gray-700">Recent Users</h1>
       <div>
         {isPending ? (
-          <UserDashLoading />
+          <VerticaleCardLoading />
         ) : (
           <div className="space-y-3 mt-3">
             {data?.users?.map((user) => (

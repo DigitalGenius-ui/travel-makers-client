@@ -26,7 +26,7 @@ const Table = ({ children, title, th, isPending, viewAll }) => {
         <TableLoading />
       ) : (
         <div className="border  border-slate-200 p-2">
-          <table className="w-full !max-w-[50rem] overflow-auto text-left">
+          <table className="w-full text-left">
             <thead>
               <tr className="bg-gray-100">
                 {th.map((header, index) => (

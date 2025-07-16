@@ -46,7 +46,7 @@ export const TableLoading = () => {
   );
 };
 
-export const UserDashLoading = () => {
+export const VerticaleCardLoading = () => {
   return (
     <div className="flex gap-2 mt-3">
       <div>

@@ -80,7 +80,6 @@ const Charts = () => {
                 content={({ active, payload, label }) => {
                   if (!active || !payload || !payload.length) return null;
                   const point = payload[0];
-                  console.log(point);
 
                   return (
                     <div

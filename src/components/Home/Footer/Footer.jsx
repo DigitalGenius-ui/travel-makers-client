@@ -9,7 +9,7 @@ import SocialButton from "../../../utils/SocialButtons";
 
 const Footer = () => {
   return (
-    <div className="bg-darkBlue py-[3rem]">
+    <div className="bg-darkBlue py-[3rem] relative !-z-1">
       <Screen>
         <div className="flex justify-between flex-col sm:flex-row flex-wrap gap-7">
           <div className="space-y-5">

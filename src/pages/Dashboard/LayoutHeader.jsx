@@ -1,7 +1,6 @@
 import React from "react";
 import { useCurrentUser } from "../../Context/UserContext";
 import { Link, useLocation } from "react-router-dom";
-import { IoSearchOutline } from "react-icons/io5";
 import { IoIosNotificationsOutline } from "react-icons/io";
 
 const LayoutHeader = () => {
@@ -25,15 +24,6 @@ const LayoutHeader = () => {
     <div className="py-5 flex items-center justify-between">
       <h1 className="capitalize font-bold text-gray-700">{path}</h1>
       <div className="flex items-center gap-5">
-        {/* search input  */}
-        <div className="flex items-center gap-2 bg-gray-100 p-[10px] rounded-md">
-          <IoSearchOutline size={20} />
-          <input
-            className="outline-none bg-transparent text-sm"
-            type="text"
-            placeholder="search..."
-          />
-        </div>
         {/* notification  */}
         <div className="relative bg-gray-100 size-10 rounded-md flex items-center justify-center">
           <button>

@@ -13,13 +13,17 @@ import ManageUsers from "../components/Pages/profile/isAdmin/ManageUsers";
 import ManageTickets from "../components/Pages/profile/isAdmin/ManageTickets";
 import DashboardLayout from "../pages/Dashboard/DashboardLayout";
 import Dashboard from "../pages/Dashboard/pages/Dashboard";
+import Packages from "../pages/Dashboard/pages/Packages";
+import Bookings from "../pages/Dashboard/pages/Bookings";
 
 export const protectedRoutes = (isAdmin) => {
   return [
-    <Route key="dashboard" path="dashboard/:id" element={<DashboardLayout />}>
+    <Route key="dashboard" path="/" element={<DashboardLayout />}>
       {isAdmin && (
         <>
-          <Route index element={<Dashboard />} />
+          <Route path="dashboard/:id" element={<Dashboard />} />
+          <Route path="packages/:id" element={<Packages />} />
+          <Route path="bookings/:id" element={<Bookings />} />
         </>
       )}
     </Route>,

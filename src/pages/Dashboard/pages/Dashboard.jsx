@@ -19,7 +19,7 @@ const Dashboard = () => {
         </div>
         <RecentBookings />
       </div>
-      <div className="flex-1 flex flex-col sm:flex-row gap-3 xl:flex-col">
+      <div className="flex-1 flex flex-col sm:flex-row gap-3 xl:flex-col h-fit">
         <UpcamingTrips />
         <RecentTravlers />
       </div>
