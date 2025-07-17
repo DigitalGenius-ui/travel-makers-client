@@ -22,7 +22,7 @@ import {
   updateUserTickets,
   userDetailsUpdate,
 } from "../../../api-call/user-api";
-import Bookings from "../../Pages/profile/myBookings/Bookings";
+import Bookings from "../../Pages/profile/myBookings/TicketCard";
 import { IoIosArrowDown } from "react-icons/io";
 import clsx from "clsx";
 import { parsDateHandler } from "../../../utils/Date";

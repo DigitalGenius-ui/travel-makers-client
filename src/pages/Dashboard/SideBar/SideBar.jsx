@@ -82,7 +82,7 @@ const SideBar = () => {
       id="sidebar"
       className={clsx(
         `absolute top-0 bottom-0 p-2 border-r border-gray-300 flex flex-col bg-white !z-10
-        transition-all duration-500`
+        transition-all duration-500 overflow-hidden`
       )}
     >
       <div

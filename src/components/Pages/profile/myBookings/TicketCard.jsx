@@ -1,8 +1,7 @@
 import { HStack } from "@chakra-ui/react";
-import clsx from "clsx";
 import TicketStatus from "../../../../utils/TicketStatus";
 
-const Bookings = ({ book }) => {
+const TicketCard = ({ book }) => {
   if (!book) return;
 
   const {
@@ -49,7 +48,7 @@ const Bookings = ({ book }) => {
   );
 };
 
-export default Bookings;
+export default TicketCard;
 
 const UserDetail = ({ title, detail }) => {
   return (

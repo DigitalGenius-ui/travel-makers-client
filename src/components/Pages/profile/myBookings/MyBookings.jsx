@@ -1,6 +1,6 @@
 import { useState } from "react";
 import EmptyBook from "./EmptyBook";
-import Bookings from "./Bookings";
+import TicketCard from "./TicketCard";
 import Pagination from "../../../../utils/Pagination";
 import { useQuery } from "@tanstack/react-query";
 import { BOOKING_KEYS } from "../../../../constants/react-query";
@@ -26,7 +26,7 @@ const MyBookings = () => {
         ) : data?.bookings.length === 0 ? (
           <EmptyBook />
         ) : (
-          data?.bookings.map((book) => <Bookings key={book.id} book={book} />)
+          data?.bookings.map((book) => <TicketCard key={book.id} book={book} />)
         )}
       </div>
       {data?.totalPages > 1 && (
