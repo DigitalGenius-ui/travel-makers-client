@@ -1,5 +1,6 @@
 import { HStack } from "@chakra-ui/react";
 import TicketStatus from "../../../../utils/TicketStatus";
+import { format } from "date-fns";
 
 const TicketCard = ({ book }) => {
   if (!book) return;
@@ -15,6 +16,8 @@ const TicketCard = ({ book }) => {
     verifyNumber,
     totalPrice,
   } = book;
+
+  const formateDate = format(travelDate, "E, MMM dd, yy");
 
   return (
     <div
@@ -39,7 +42,7 @@ const TicketCard = ({ book }) => {
         </div>
       </div>
       <div className="p-3 flex flex-col items-center tablet:justify-between">
-        <h2 className="text-xl font-bold text-black/70">{travelDate}</h2>
+        <h2 className="text-xl font-bold text-black/70">{formateDate}</h2>
         <HStack>
           <TicketStatus travelDate={travelDate} status={status} />
         </HStack>

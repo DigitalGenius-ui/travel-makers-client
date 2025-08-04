@@ -20,11 +20,18 @@ import SliderArrow from "../../../../../../utils/SliderArros";
 const DatePicker = () => {
   const { errorMsg } = useBookingContext();
 
+  const now = new Date();
   let today = startOfToday();
 
   const allDays = eachDayOfInterval({
     start: today,
     end: endOfWeek(endOfMonth(today)),
+  }).map((day) => {
+    const newDate = new Date(day);
+    newDate.setHours(now.getHours());
+    newDate.setMinutes(now.getMinutes());
+    newDate.setSeconds(now.getSeconds());
+    return newDate;
   });
 
   return (
@@ -91,11 +98,17 @@ export default DatePicker;
 
 const SingleDate = ({ day, price }) => {
   const { bookForm, setBookForm } = useBookingContext();
-  const pickDate = format(day, "E, MMM dd");
+  const pickDate = format(day, "E, MMM dd, yyyy");
+
+  const handleSelectDate = () => {
+    const pickDate2 = format(day, "E, MMM dd HH:mm:ss");
+    const bookTime = pickDate2.split(" ").slice(3).join("");
+    setBookForm((prev) => ({ ...prev, date: pickDate, bookTime }));
+  };
 
   return (
     <div
-      onClick={() => setBookForm((prev) => ({ ...prev, date: pickDate }))}
+      onClick={handleSelectDate}
       className={`border border-gray-600 w-full rounded-md px-2 md:px-3 py-4 cursor-pointer relative
       ${classNames({
         "border-blue-700 text-blue-800 bg-blue-100/40":

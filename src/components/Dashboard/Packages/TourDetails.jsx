@@ -71,7 +71,7 @@ const TourDetails = ({ activePackage, isPending }) => {
         <h2 className="uppercase text-gray-500 text-sm">includes</h2>
         <div className="box mt-4">
           {Array.from({ length: 5 }).map((_, i) => (
-            <div className="flex gap-1">
+            <div key={i} className="flex gap-1">
               <span className="mt-1 size-4 bg-blue-500 text-white flex items-center justify-center rounded-full">
                 <IoIosCheckmark size={25} />
               </span>

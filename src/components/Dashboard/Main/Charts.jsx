@@ -77,7 +77,7 @@ const Charts = () => {
                 stroke="0"
               />
               <Tooltip
-                content={({ active, payload, label }) => {
+                content={({ active, payload }) => {
                   if (!active || !payload || !payload.length) return null;
                   const point = payload[0];
 

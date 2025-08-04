@@ -4,6 +4,7 @@ import CustomeMenu from "../../../utils/CustomeMenu";
 import { Button, MenuItem } from "@chakra-ui/react";
 import useGetTours from "../../../Hooks/useGetTours";
 import { FaRegClock } from "react-icons/fa";
+import { useState } from "react";
 
 const TripsCalcs = ({ title, amount }) => {
   return (
@@ -17,6 +18,7 @@ const TripsCalcs = ({ title, amount }) => {
 
 const Trips = () => {
   const { tourData } = useGetTours();
+  const [travelFilter, setTravelFilter] = useState("island tour");
   const totalTrips = () => {
     return (
       <div className="dash-box flex flex-col sm:flex-row sm:items-center gap-3">
@@ -51,11 +53,11 @@ const Trips = () => {
         <div className="flex items-center justify-between">
           <h1 className="font-semibold">Travel Packages</h1>
           <div className="flex items-center gap-2">
-            <CustomeMenu value={"Latest"} variant={"outline"}>
-              <MenuItem minH="48px">
-                <span>Fluffybuns the Destroyer</span>
-              </MenuItem>
-            </CustomeMenu>
+            <CustomeMenu
+              value={travelFilter}
+              onChange={(e) => setTravelFilter(e.target.value)}
+              menus={["island tour", "mountin tour"]}
+            />
             <Button variant={"outline"} size={"sm"}>
               View All
             </Button>

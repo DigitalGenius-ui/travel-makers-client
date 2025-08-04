@@ -1,5 +1,6 @@
-import { createTheme, ThemeProvider } from "@mui/material";
 import { MaterialReactTable } from "material-react-table";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import PropTypes from "prop-types";
 
 // to get the auto suggestion
 
@@ -12,12 +13,7 @@ import { MaterialReactTable } from "material-react-table";
  */
 
 const TravleMakersTable = ({ columns, data, ...others }) => {
-  const tableTheme = createTheme({
-    palette: {
-      mode: "light",
-    },
-  });
-
+  const tableTheme = createTheme();
   return (
     <ThemeProvider theme={tableTheme}>
       <MaterialReactTable
@@ -25,11 +21,20 @@ const TravleMakersTable = ({ columns, data, ...others }) => {
         data={data}
         initialState={{
           showGlobalFilter: true,
+          pagination: { pageSize: 25, pageIndex: 2 },
+        }}
+        muiPaginationProps={{
+          rowsPerPageOptions: [5, 10, 20],
         }}
         {...others}
       />
     </ThemeProvider>
   );
+};
+
+TravleMakersTable.propTypes = {
+  columns: PropTypes.any,
+  data: PropTypes.any,
 };
 
 export default TravleMakersTable;

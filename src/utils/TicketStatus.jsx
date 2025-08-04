@@ -20,7 +20,7 @@ const TicketStatus = ({ status, travelDate }) => {
         isTicketExpired ? "bg-gray-500 text-gray-200" : colors[status]
       )}
     >
-      {isTicketExpired ? "Expired" : status}
+      {isTicketExpired ? "expired" : status}
     </p>
   );
 };

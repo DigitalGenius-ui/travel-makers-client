@@ -8,6 +8,7 @@ const BookingContext = ({ children }) => {
   const [contactCode, setContactCode] = useState("+1");
   const [bookForm, setBookForm] = useState({
     date: "",
+    bookTime: "",
     child: 0,
     adult: 0,
     firstName: "",
@@ -34,7 +35,8 @@ const BookingContext = ({ children }) => {
 
         totalPrice,
         setTotalPrice,
-      }}>
+      }}
+    >
       {children}
     </TravelMaker.Provider>
   );

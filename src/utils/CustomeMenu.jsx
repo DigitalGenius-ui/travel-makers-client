@@ -1,21 +1,32 @@
-import { Button, Menu, MenuButton, MenuList } from "@chakra-ui/react";
-import { ChevronDownIcon } from "@chakra-ui/icons";
+import { createTheme, MenuItem, Select, ThemeProvider } from "@mui/material";
 
-const CustomeMenu = ({ value, children, variant }) => {
+const theme = createTheme({
+  typography: {
+    body1: {
+      fontSize: "14px",
+    },
+  },
+});
+const CustomeMenu = ({ value, menus = [], onChange, variant }) => {
   return (
-    <Menu>
-      <MenuButton
-        variant={variant ?? "outline"}
-        color={!variant && "white"}
-        bgColor={!variant && "blue.500"}
-        size={"sm"}
-        as={Button}
-        rightIcon={<ChevronDownIcon />}
+    <ThemeProvider theme={theme}>
+      <Select
+        variant={variant ?? "outlined"}
+        value={value}
+        onChange={onChange}
+        size="small"
       >
-        {value}
-      </MenuButton>
-      <MenuList>{children}</MenuList>
-    </Menu>
+        {menus.map((item, i) => (
+          <MenuItem
+            key={item + i}
+            value={item}
+            sx={{ textTransform: "capitalize" }}
+          >
+            {item}
+          </MenuItem>
+        ))}
+      </Select>
+    </ThemeProvider>
   );
 };
 

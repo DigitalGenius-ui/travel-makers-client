@@ -171,10 +171,10 @@ export const getUserReviews = async (page, limit) => {
 };
 
 // get all tickets
-export const getUserTickets = async (page, limit) => {
+export const getUserTickets = async (page, limit, search) => {
   try {
     const tickets = await API.get(
-      `/user/getAllTickets?page=${page}&limit=${limit}`
+      `/user/getAllTickets?page=${page}&limit=${limit}&search=${search}`
     );
     return tickets;
   } catch (error) {
