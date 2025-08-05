@@ -22,6 +22,7 @@ import {
 import TicketStatus from "../../../utils/TicketStatus";
 import { MRT_GlobalFilterTextField } from "material-react-table";
 import CustomeMenu from "../../../utils/CustomeMenu";
+import Insight from "../../../components/Dashboard/Main/Insight";
 
 const Bookings = () => {
   const [pagination, setPagination] = useState({
@@ -225,12 +226,9 @@ const Bookings = () => {
     );
   };
 
-  useEffect(() => {
-    console.log(pagination);
-  }, [pagination]);
-
   return (
-    <div className="my-5">
+    <div className="my-5 space-y-4">
+      <Insight booking={true} />
       <TravleMakersTable
         columns={columns}
         data={newData || []}

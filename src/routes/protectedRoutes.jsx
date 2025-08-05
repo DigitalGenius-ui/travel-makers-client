@@ -1,4 +1,3 @@
-import React from "react";
 import { Route } from "react-router-dom";
 import CreateReview from "../components/Pages/tours/TourDetails/TourDetails/write/CreateReview";
 import CheckOut from "../components/Pages/tours/CheckOut/CheckOut";
@@ -15,6 +14,7 @@ import DashboardLayout from "../pages/Dashboard/DashboardLayout";
 import Dashboard from "../pages/Dashboard/pages/Dashboard";
 import Packages from "../pages/Dashboard/pages/Packages";
 import Bookings from "../pages/Dashboard/pages/Bookings";
+import Travlers from "../pages/Dashboard/pages/Travlers";
 
 export const protectedRoutes = (isAdmin) => {
   return [
@@ -24,6 +24,7 @@ export const protectedRoutes = (isAdmin) => {
           <Route path="dashboard/:id" element={<Dashboard />} />
           <Route path="packages/:id" element={<Packages />} />
           <Route path="bookings/:id" element={<Bookings />} />
+          <Route path="travlers/:id" element={<Travlers />} />
         </>
       )}
     </Route>,
@@ -42,6 +43,10 @@ export const protectedRoutes = (isAdmin) => {
       <Route path="password/:id" element={<ChangePassword />} />,
       <Route path="accounts/:id" element={<LinkedAccounts />} />,
     </Route>,
-    <Route path="/profile/posts/createPost" element={<CreatePost />} />,
+    <Route
+      key={"createPost"}
+      path="/profile/posts/createPost"
+      element={<CreatePost />}
+    />,
   ];
 };
