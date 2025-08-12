@@ -1,12 +1,11 @@
-import React from "react";
 import { getAllUsers } from "../api-call/user-api";
 import { useQuery } from "@tanstack/react-query";
 import { USERS_KEYS } from "../constants/react-query";
 
-const useGetAllUsers = ({ page = 1, limit = 8 }) => {
-  const { data, isPending } = useQuery({
-    queryKey: [USERS_KEYS, page, limit],
-    queryFn: async () => await getAllUsers(page, limit),
+const useGetAllUsers = ({ page = 1, limit = 8, type, search }) => {
+  const { data, isPending, isFetching } = useQuery({
+    queryKey: [USERS_KEYS, page, limit, type, search],
+    queryFn: async () => await getAllUsers(page, limit, type, search),
     placeholderData: {
       keepPreviousData: true,
     },
@@ -15,6 +14,7 @@ const useGetAllUsers = ({ page = 1, limit = 8 }) => {
   return {
     data,
     isPending,
+    isFetching,
   };
 };
 

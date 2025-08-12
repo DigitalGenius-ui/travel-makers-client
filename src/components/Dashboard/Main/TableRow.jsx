@@ -26,7 +26,7 @@ import Bookings from "../../Pages/profile/myBookings/TicketCard";
 import { IoIosArrowDown } from "react-icons/io";
 import clsx from "clsx";
 import { parsDateHandler } from "../../../utils/Date";
-import TicketStatus from "../../../utils/TicketStatus";
+import { TicketStatus } from "../../../utils/StatusBox";
 
 export const UserTableRow = ({ user }) => {
   const [edit, setEdit] = useState(false);

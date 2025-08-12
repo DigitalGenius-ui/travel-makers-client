@@ -50,18 +50,18 @@ const UserCard = ({ user }) => {
   );
 };
 
-const verifyLebale = (isVerified) => {
+const lableStyle = {
+  VERIFIED: "text-green-500 text-xs border border-green-300 bg-green-100 px-1",
+  BLOCKED:
+    "text-red-500 text-xs border border-red-300 bg-red-100 px-1 relative -top-1",
+  UNVERIFIED:
+    "text-gray-500 text-xs border border-gray-300 bg-gray-100 px-1 relative -top-1",
+};
+
+const verifyLebale = (status) => {
   return (
     <div className="absolute right-0">
-      {isVerified ? (
-        <p className="text-green-500 text-xs border border-green-300 bg-green-100 px-1">
-          Verified
-        </p>
-      ) : (
-        <span className="text-red-500 text-xs border border-red-300 bg-red-100 px-1 relative -top-1">
-          Unverified
-        </span>
-      )}
+      <p className={lableStyle[status]}>{status}</p>
     </div>
   );
 };

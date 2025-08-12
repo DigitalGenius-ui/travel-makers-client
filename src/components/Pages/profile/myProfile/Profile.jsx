@@ -15,7 +15,7 @@ const MyProfile = () => {
   const { currentUser } = useCurrentUser();
   const profile = currentUser?.profile;
 
-  const isUserVerified = currentUser?.verified === "true";
+  const isUserVerified = currentUser?.verified === "VERIFIED";
 
   const [form, setForm] = useState({
     firstName: "",
@@ -83,7 +83,7 @@ const MyProfile = () => {
         <ErrorLabel
           message={
             <>
-              You havn't verified your account yet!
+              You havn&apos;t verified your account yet!
               <button onClick={handleSendEmail} className="font-bold">
                 {verifyPending
                   ? "Sending your code..."

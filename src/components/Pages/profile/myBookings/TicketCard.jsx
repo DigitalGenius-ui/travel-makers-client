@@ -1,5 +1,5 @@
 import { HStack } from "@chakra-ui/react";
-import TicketStatus from "../../../../utils/TicketStatus";
+import { TicketStatus } from "../../../../utils/StatusBox";
 import { format } from "date-fns";
 
 const TicketCard = ({ book }) => {

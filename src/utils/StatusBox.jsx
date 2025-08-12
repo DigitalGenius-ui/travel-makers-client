@@ -8,7 +8,7 @@ const colors = {
   canceled: "bg-rose-200 text-rose-500 border-rose-300",
 };
 
-const TicketStatus = ({ status, travelDate }) => {
+export const TicketStatus = ({ status, travelDate }) => {
   const { parsDate } = parsDateHandler(travelDate);
   const isTicketExpired =
     isAfter(new Date(), parsDate) && status !== "verified";
@@ -25,4 +25,21 @@ const TicketStatus = ({ status, travelDate }) => {
   );
 };
 
-export default TicketStatus;
+const userStatusColor = {
+  VERIFIED: "bg-green-200 text-green-600 border-green-300",
+  UNVERIFIED: "bg-gray-500 text-gray-200",
+  BLOCKED: "bg-rose-200 text-rose-500 border-rose-300",
+};
+
+export const UserStatus = ({ status }) => {
+  return (
+    <p
+      className={clsx(
+        "font-bold p-1 px-2 rounded-md uppercase w-fit text-xs border",
+        userStatusColor[status]
+      )}
+    >
+      {status}
+    </p>
+  );
+};

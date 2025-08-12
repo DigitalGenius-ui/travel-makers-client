@@ -19,7 +19,7 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import TicketStatus from "../../../utils/TicketStatus";
+import { TicketStatus } from "../../../utils/StatusBox";
 import { MRT_GlobalFilterTextField } from "material-react-table";
 import CustomeMenu from "../../../utils/CustomeMenu";
 import Insight from "../../../components/Dashboard/Main/Insight";
@@ -32,7 +32,7 @@ const Bookings = () => {
 
   const [globalFilter, setGlobalFilter] = useState("");
 
-  const { data, isPending } = useTicketsData(
+  const { data, isPending, isFetching } = useTicketsData(
     pagination.pageSize,
     pagination.pageIndex,
     globalFilter
@@ -46,17 +46,21 @@ const Bookings = () => {
 
   const columns = useMemo(
     () => [
-      textColumn("owner", "Owner", 30, false, "text", true, false),
-      textColumn("email", "Email", 30, false, "text", true, false),
-      {
+      textColumn({
+        accessorKey: "owner",
+        header: "Owner",
+        enableSorting: true,
+      }),
+      textColumn({
+        accessorKey: "email",
+        header: "Email",
+        enableSorting: true,
+      }),
+      textColumn({
         accessorKey: "status",
         header: "Status",
-        size: 40,
-        filterVariant: "text",
         enableSorting: true,
-        enableColumnFilter: true,
-        Cell: ({ row }) => {
-          const rowData = row.original;
+        render: ({ rowData }) => {
           return (
             <TicketStatus
               status={rowData.status}
@@ -64,17 +68,17 @@ const Bookings = () => {
             />
           );
         },
-      },
-      textColumn(
-        "ticketNumber",
-        "Ticket Number",
-        30,
-        false,
-        "text",
-        true,
-        false
-      ),
-      dateColumn("createAt", "Created", 30, false, "text", true, false),
+      }),
+      textColumn({
+        accessorKey: "ticketNumber",
+        header: "Ticket Number",
+        enableSorting: true,
+      }),
+      dateColumn({
+        accessorKey: "createAt",
+        header: "Created",
+        enableSorting: true,
+      }),
     ],
     []
   );
@@ -232,13 +236,14 @@ const Bookings = () => {
       <TravleMakersTable
         columns={columns}
         data={newData || []}
+        isPending={isPending}
         renderDetailPanel={({ row }) => renderDetails({ row: row?.original })}
         manualPagination={true}
         rowCount={data?.totalTickets}
         onPaginationChange={setPagination}
         onGlobalFilterChange={setGlobalFilter}
         paginationDisplayMode="default"
-        state={{ pagination, globalFilter, showProgressBars: isPending }}
+        state={{ pagination, globalFilter, showProgressBars: isFetching }}
         renderTopToolbar={({ table }) => renderToolbar({ table })}
       />
     </div>
