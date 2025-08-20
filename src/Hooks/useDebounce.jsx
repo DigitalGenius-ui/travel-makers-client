@@ -1,5 +1,3 @@
-import React from "react";
-
 const useDebounce = () => {
   const debounce = (func, delay) => {
     let timer;

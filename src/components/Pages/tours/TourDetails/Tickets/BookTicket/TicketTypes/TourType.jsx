@@ -53,7 +53,8 @@ const TourType = ({ title }) => {
       <div className="flex items-center justify-between">
         <h2
           className={`font-bold capitalize text-lg md:text-xl 
-        ${classNames({ "text-red-500": errorMsg === "ticket" })}`}>
+        ${classNames({ "text-red-500": errorMsg === "ticket" })}`}
+        >
           {title} Ticket
         </h2>
         <HStack spacing={3}>
@@ -87,11 +88,14 @@ const TourType = ({ title }) => {
           mt="1rem"
           alignItems="flex-start"
           fontWeight="semibold"
-          cursor="pointer">
+          cursor="pointer"
+        >
           <p className="text-[0.7rem] text-gray-600">
             <FaRegUser className="inline-block mr-2 text-[0.9rem]" />
-            Age: 1–12 years old (Refers to travelers' ages on the date of
-            travel. Age is calculated according to date of birth.)
+            Age: 1–12 years old (
+            {`Refers to travelers' ages on the date of
+            travel. Age is calculated according to date of birth.`}
+            )
           </p>
           <p className="text-[0.7rem] text-gray-600">
             <IoInformationCircleOutline className="inline-block mr-2 text-[1rem]" />

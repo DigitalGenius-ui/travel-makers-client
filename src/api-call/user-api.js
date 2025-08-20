@@ -11,7 +11,7 @@ export const getSingleUser = async (id) => {
 };
 
 // get all users
-export const getAllUsers = (page, limit, type = "manage", search) => {
+export const getAllUsers = (page, limit, type, search) => {
   return API.get(
     `/user/getAllUsers?page=${page}&limit=${limit}&type=${type}&search=${search}`
   );

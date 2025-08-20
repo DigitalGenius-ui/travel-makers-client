@@ -1,5 +1,4 @@
 import { Checkbox } from "@chakra-ui/react";
-import React from "react";
 
 const TermAndCondition = ({ formik }) => {
   return (
@@ -13,10 +12,11 @@ const TermAndCondition = ({ formik }) => {
         onBlur={formik.handleBlur}
         name="termCondition"
         py="1rem"
-        w="100%">
+        w="100%"
+      >
         <p className="text-sm text-gray-500">
           By uploading these photos, I affirm that they belong to me and that I
-          agree to be bound by Trip.com's
+          agree to be bound by Trip.com&apos;s
           <button className="text-blue-500">Terms & Conditions</button> &
           <button className="text-blue-500 pl-1">Community Rules</button> .
         </p>

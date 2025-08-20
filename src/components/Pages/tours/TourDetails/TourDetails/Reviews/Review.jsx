@@ -12,7 +12,7 @@ const Review = ({ review }) => {
   const [showMore, setShowMore] = useState(200);
   const [showModal, setShowModal] = useState(false);
   const { rating, user, reviewImages, text, userId, id } = review;
-  const { firstName, lastName } = user?.profile;
+  const { firstName, lastName } = user?.profile || {};
 
   const { currentUser } = useCurrentUser();
 

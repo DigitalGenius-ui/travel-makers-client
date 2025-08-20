@@ -11,7 +11,7 @@ import { POST_KEYS } from "../../../../../../constants/react-query";
 const Comments = ({ comment }) => {
   const { currentUser } = useCurrentUser();
   const [showRemove, setShowRemove] = useState(false);
-  const { profile } = comment?.user;
+  const { profile } = comment?.user || {};
 
   const { submitForm, isPending } = useCreateData({
     key: POST_KEYS,

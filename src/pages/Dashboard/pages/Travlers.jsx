@@ -15,19 +15,18 @@ const roleSelectOptions = ["USER", "ADMIN", "EDITOR"];
 const Travlers = () => {
   const [globalFilter, setGlobalFilter] = useState("");
   const [pagination, setPagination] = useState({
-    pageIndex: 1,
+    pageIndex: 0,
     pageSize: 5,
   });
 
-  const { pageIndex, pageSize } = pagination;
-  const type = "travler";
-
+  const { pageIndex: page, pageSize: limit } = pagination;
   const { data, isPending, isFetching } = useGetAllUsers({
-    pageIndex,
-    pageSize,
-    type,
+    page,
+    limit,
+    type: "travler",
     search: globalFilter,
   });
+
   const newData = data?.users?.map((item) => {
     const profile = item?.profile;
     // console.log(item);
@@ -131,7 +130,6 @@ const Travlers = () => {
   });
 
   const handleSaveUser = async ({ table, values }) => {
-    console.log(values);
     await updateUser({
       inputData: {
         userId: values.id,

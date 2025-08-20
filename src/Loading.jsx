@@ -27,7 +27,4 @@ const Loading = () => {
     </Modal>
   );
 };
-{
-}
-
 export default Loading;

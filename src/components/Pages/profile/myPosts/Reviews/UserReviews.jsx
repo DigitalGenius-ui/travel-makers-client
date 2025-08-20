@@ -7,7 +7,6 @@ import { useQuery } from "@tanstack/react-query";
 import { REVIEW_KEYS } from "../../../../../constants/react-query";
 import { getUserReviews } from "../../../../../api-call/user-api";
 import { ReviewLoading } from "../../../../../utils/Loadings";
-import { useParams } from "react-router-dom";
 
 const UserReviews = () => {
   const [currentPage, setCurrentPage] = useState(1);

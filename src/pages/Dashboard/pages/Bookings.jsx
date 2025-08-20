@@ -23,8 +23,11 @@ import { TicketStatus } from "../../../utils/StatusBox";
 import { MRT_GlobalFilterTextField } from "material-react-table";
 import CustomeMenu from "../../../utils/CustomeMenu";
 import Insight from "../../../components/Dashboard/Main/Insight";
+import { useNavigate, useParams } from "react-router-dom";
 
-const Bookings = () => {
+const Bookings = ({ mainBooking }) => {
+  const navigate = useNavigate();
+  const { id } = useParams();
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 5,
@@ -213,31 +216,42 @@ const Bookings = () => {
     return (
       <div className="p-5 flex items-center gap-2 justify-end">
         <MRT_GlobalFilterTextField table={table} />
-        <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-          <InputLabel id="status-select-small-label">Status</InputLabel>
-          <Select
-            value={globalFilter}
-            onChange={(e) => setGlobalFilter(e.target.value)}
-            size="small"
-            labelId="status-select-small-label"
+        {!mainBooking ? (
+          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+            <InputLabel id="status-select-small-label">Status</InputLabel>
+            <Select
+              value={globalFilter}
+              onChange={(e) => setGlobalFilter(e.target.value)}
+              size="small"
+              labelId="status-select-small-label"
+            >
+              <MenuItem value="verified">Verify</MenuItem>
+              <MenuItem value="pending">Pending</MenuItem>
+              <MenuItem value="canceled">Cancel</MenuItem>
+            </Select>
+          </FormControl>
+        ) : (
+          <Button
+            onClick={() => navigate(`/bookings/${id}`)}
+            variant="contained"
+            color="primary"
           >
-            <MenuItem value="verified">Verify</MenuItem>
-            <MenuItem value="pending">Pending</MenuItem>
-            <MenuItem value="canceled">Cancel</MenuItem>
-          </Select>
-        </FormControl>
+            See All Bookings
+          </Button>
+        )}
       </div>
     );
   };
 
   return (
     <div className="my-5 space-y-4">
-      <Insight booking={true} />
+      {!mainBooking && <Insight booking={true} />}
       <TravleMakersTable
         columns={columns}
         data={newData || []}
         isPending={isPending}
         renderDetailPanel={({ row }) => renderDetails({ row: row?.original })}
+        enablePagination={mainBooking ? false : true}
         manualPagination={true}
         rowCount={data?.totalTickets}
         onPaginationChange={setPagination}

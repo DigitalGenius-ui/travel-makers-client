@@ -4,8 +4,11 @@ import { dateEgoFormatter } from "../../../utils/Date";
 import { VerticaleCardLoading } from "../../../utils/Loadings";
 
 const RecentTravlers = () => {
-  const limit = 7;
-  const { data, isPending } = useGetAllUsers({ limit });
+  const { data, isPending } = useGetAllUsers({
+    page: 0,
+    limit: 7,
+    type: "travler",
+  });
 
   return (
     <section className="flex-1 dash-box">

@@ -1,7 +1,7 @@
 import { PiAirplaneTiltLight } from "react-icons/pi";
 import ColorBox from "../../../utils/ColorBox";
 import CustomeMenu from "../../../utils/CustomeMenu";
-import { Button, MenuItem } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import useGetTours from "../../../Hooks/useGetTours";
 import { FaRegClock } from "react-icons/fa";
 import { useState } from "react";

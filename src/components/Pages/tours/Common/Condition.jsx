@@ -1,4 +1,4 @@
-import { Button, CloseButton } from "@chakra-ui/react";
+import { CloseButton } from "@chakra-ui/react";
 import React from "react";
 import Modal from "../../../../utils/Modal";
 import { ticketCondition } from "../../../../../HomeData.json";

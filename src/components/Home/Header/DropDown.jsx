@@ -7,7 +7,12 @@ import {
   MenuDivider,
   useToast,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import { dropMenu } from "../../../../HomeData.json";
 import { useMutation } from "@tanstack/react-query";
 import { useCurrentUser } from "../../../Context/UserContext";
@@ -17,6 +22,7 @@ import { USER_KEY } from "../../../constants/react-query";
 import useErrorToest from "../../../Hooks/useErrorToest";
 
 const DropDown = () => {
+  const pathName = useLocation().pathname.split("/").slice(0, -1).join("/");
   const { currentUser } = useCurrentUser();
   const toast = useToast();
   const userImg = currentUser?.userImg;
@@ -54,12 +60,16 @@ const DropDown = () => {
       <MenuList color="black" fontSize="0.9rem">
         {isAdmin && (
           <Link to={`/dashboard/${currentUser?.id}`}>
-            <MenuItem>Dashboard</MenuItem>
+            <MenuItem bg={pathName === "/dashboard" && "blue.100"}>
+              Dashboard
+            </MenuItem>
           </Link>
         )}
         {dropMenu.slice(0, 3).map((item) => (
           <Link key={item.title} to={`${item.path}/${currentUser?.id}`}>
-            <MenuItem>{item.title}</MenuItem>
+            <MenuItem bg={pathName === item.path && "blue.100"}>
+              {item.title}
+            </MenuItem>
           </Link>
         ))}
         <MenuDivider />

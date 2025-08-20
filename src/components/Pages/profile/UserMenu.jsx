@@ -1,5 +1,4 @@
 import { IconButton } from "@chakra-ui/react";
-import React from "react";
 import { CgMenuLeft } from "react-icons/cg";
 import { FaUserAlt } from "react-icons/fa";
 

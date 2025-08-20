@@ -6,7 +6,7 @@ import Modal from "../../../../../utils/Modal";
 import { profileDetailsUpdate } from "../../../../../api-call/user-api";
 import { USER_KEY } from "../../../../../constants/react-query";
 
-const BioEdit = ({ showModal, setShowModal, userId, bioText }) => {
+const BioEdit = ({ showModal, setShowModal, bioText }) => {
   const [bio, setBio] = useState("");
 
   useEffect(() => {

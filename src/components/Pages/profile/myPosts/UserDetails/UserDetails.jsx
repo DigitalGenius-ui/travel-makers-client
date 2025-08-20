@@ -13,12 +13,13 @@ const UserDetails = ({ detail }) => {
   const { id: userId } = useParams();
 
   const profileImg = currentUser?.userImg || detail?.userImg;
+  const { firstName, lastName } = profile || {};
 
   return (
     <div className="px-3 md:px-0 py-3 md:spaces flex gap-3 border-b border-gray-300">
       <Avatar
         src={profileImg || ""}
-        name={`${profile?.firstName} ${profile?.lastName}` || `User`}
+        name={`${firstName || ""} ${lastName || ""}`.trim() || "User"}
       />
       <div className="flex-1 space-y-1">
         <h2 className="capitalize">{`${profile?.firstName || "User"} ${

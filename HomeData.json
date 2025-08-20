@@ -13,10 +13,6 @@
     { "title": "Manage password", "path": "/profile/password" },
     { "title": "Linked accounts", "path": "/profile/accounts" }
   ],
-  "dashBoardMenu": [
-    { "title": "Users", "path": "/profile/users" },
-    { "title": "Tickets", "path": "/profile/tickets" }
-  ],
   "support": [
     { "text": "Blog", "path": "/" },
     { "text": "Help", "path": "/" },

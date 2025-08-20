@@ -125,8 +125,8 @@ const BookTicket = () => {
               <section className="secondBg rounded-md !top-[-1.7rem] space-y-4 !z-[30]">
                 <div className="space-y-2">
                   <p className="text-[0.8rem]">
-                    By proceeding, I acknowledge that I have read and agree to
-                    Travel.com's
+                    {`By proceeding, I acknowledge that I have read and agree to
+                    Travel.com's`}
                     <span className="text-blue-500 ml-1">Terms of Use</span> and
                     <span className="text-blue-500 ml-1">
                       Privacy Statement

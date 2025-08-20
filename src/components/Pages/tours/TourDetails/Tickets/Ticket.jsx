@@ -28,12 +28,15 @@ const Ticket = ({ title, singleTour, tourTitle }) => {
   return (
     <section
       className="flex md:items-center justify-between flex-col md:flex-row 
-        border-t border-gray-400 py-4 gap-3">
+        border-t border-gray-400 py-4 gap-3"
+    >
       <div>
         <h2 className="text-md font-bold pb-1 capitalize">{title} Ticket</h2>
         <p className="text-sm md:w-[14rem] lg:w-[20rem]">
-          Age: {age} (Refers to travelers' ages on the date of travel. Age is
-          calculated according to date of birth.)
+          Age: {age} (
+          {`Refers to travelers' ages on the date of travel. Age is
+          calculated according to date of birth.`}
+          )
         </p>
       </div>
       <div className="space-y-1">
@@ -49,7 +52,8 @@ const Ticket = ({ title, singleTour, tourTitle }) => {
         />
         <button
           onClick={() => setShowModal(true)}
-          className="text-sm hover:text-red-500 cursor-pointer">
+          className="text-sm hover:text-red-500 cursor-pointer"
+        >
           41 Booked Booking | Information
         </button>
       </div>
@@ -59,7 +63,8 @@ const Ticket = ({ title, singleTour, tourTitle }) => {
           onClick={handleBook}
           variant="solid"
           colorScheme="blue"
-          px="2rem">
+          px="2rem"
+        >
           Book
         </Button>
       </div>

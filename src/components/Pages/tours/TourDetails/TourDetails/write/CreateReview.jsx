@@ -22,7 +22,7 @@ const CreateReview = () => {
           <ErrorLabel
             message={
               <>
-                You havn't set profile yet!
+                You havn&apos;t set profile yet!
                 <Link
                   to={`/profile/profileDetails/${currentUser.id}`}
                   className="font-bold"

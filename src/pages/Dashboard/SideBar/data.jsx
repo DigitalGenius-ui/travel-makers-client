@@ -44,8 +44,8 @@ export const sideBarMenu = (isMobile) => [
     icon: <LuMessageSquareDashed size={isMobile ? 23 : 19} />,
   },
   {
-    title: "Feadbacks",
-    path: "/feadbacks",
+    title: "Feedbacks",
+    path: "/feedbacks",
     icon: <GrLike size={isMobile ? 23 : 19} />,
   },
 ];

@@ -9,7 +9,6 @@ import LocationDrop from "./LocationDrop";
 import TermAndCondition from "../../../../../../utils/TermAndCondition";
 import { useNavigate } from "react-router-dom";
 import { createPostSchema } from "../../../InputsSchemas";
-import { useCurrentUser } from "../../../../../../Context/UserContext";
 import { uploadImages } from "../../../../../../api-call/tour-api";
 import { createMoment } from "../../../../../../api-call/user-api";
 import { USER_KEY } from "../../../../../../constants/react-query";

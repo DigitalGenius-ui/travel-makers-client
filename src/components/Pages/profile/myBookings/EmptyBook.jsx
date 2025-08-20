@@ -12,9 +12,9 @@ const EmptyBook = () => {
       />
       <div className="space-y-5">
         <h3 className="font-bold text-black/70">
-          You don't have any bookings or we can't access your bookings at this
+          {`You don't have any bookings or we can't access your bookings at this
           time. You can search for bookings you made as a guest within the last
-          year using your email address.
+          year using your email address.`}
         </h3>
         <Button
           onClick={() => navigate("/allTours")}

@@ -40,7 +40,7 @@ const TravleMakersTable = ({ columns, data, isPending, ...others }) => {
           data={data}
           initialState={{
             showGlobalFilter: true,
-            pagination: { pageSize: 25, pageIndex: 2 },
+            pagination: { pageSize: 25, pageIndex: 1 },
           }}
           muiPaginationProps={{
             rowsPerPageOptions: [5, 10, 20],

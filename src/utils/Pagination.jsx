@@ -50,7 +50,7 @@ const Pagination = ({ totalPages, setCurrentPage, currentPage }) => {
       >
         <IoIosArrowBack />
       </Button>
-      {getTotalButtons().map((item, i) => (
+      {getTotalButtons().map((item) => (
         <Button
           key={`page-${item}`}
           onClick={() => selectPageNumber(item)}
