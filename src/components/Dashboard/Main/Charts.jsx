@@ -34,13 +34,15 @@ const data2 = [
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
+const menus = ["weekly", "monthly", "yearly"];
+
 const Charts = () => {
-  const revenue = () => {
+  function revenue() {
     return (
       <div className="flex-[1.2] dash-box">
         <div className="flex items-center justify-between">
           <h1 className="font-semibold">Revenue Overview</h1>
-          <CustomeMenu value={"weekly"}>
+          <CustomeMenu value={"weekly"} menus={menus}>
             <MenuItem minH="48px">
               <span>Fluffybuns the Destroyer</span>
             </MenuItem>
@@ -104,13 +106,14 @@ const Charts = () => {
         </div>
       </div>
     );
-  };
-  const topDistinations = () => {
+  }
+
+  function topDistinations() {
     return (
       <section className="flex-1 dash-box">
         <div className="flex items-center justify-between">
           <h1 className="font-semibold">Top Destinations</h1>
-          <CustomeMenu value={"weekly"}>
+          <CustomeMenu value={"weekly"} menus={menus}>
             <MenuItem minH="48px">
               <span>Fluffybuns the Destroyer</span>
             </MenuItem>
@@ -144,7 +147,7 @@ const Charts = () => {
         </div>
       </section>
     );
-  };
+  }
   return (
     <section className="flex flex-col md:flex-row gap-4 w-full">
       {/* revenue overview  */}

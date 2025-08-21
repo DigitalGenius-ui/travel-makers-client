@@ -1,12 +1,13 @@
 import { Button } from "@chakra-ui/react";
 
-export const SubmitButton = ({
+export const ActionButton = ({
   isPending,
   onClick,
   variant,
   children,
   type,
   color,
+  size = "sm",
   ...rest
 }) => {
   return (
@@ -16,7 +17,7 @@ export const SubmitButton = ({
       variant={variant || "solid"}
       type={type}
       colorScheme={color || "blue"}
-      size="sm"
+      size={size}
       fontSize="xs"
       px="1rem"
       {...rest}

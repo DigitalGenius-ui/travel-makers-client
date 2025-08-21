@@ -1,4 +1,11 @@
-import { createTheme, MenuItem, Select, ThemeProvider } from "@mui/material";
+import {
+  createTheme,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  ThemeProvider,
+} from "@mui/material";
 
 const theme = createTheme({
   typography: {
@@ -10,22 +17,26 @@ const theme = createTheme({
 const CustomeMenu = ({ value, menus = [], onChange, variant }) => {
   return (
     <ThemeProvider theme={theme}>
-      <Select
-        variant={variant ?? "outlined"}
-        value={value}
-        onChange={onChange}
-        size="small"
-      >
-        {menus.map((item, i) => (
-          <MenuItem
-            key={item + i}
-            value={item}
-            sx={{ textTransform: "capitalize" }}
-          >
-            {item}
-          </MenuItem>
-        ))}
-      </Select>
+      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+        <InputLabel id={`select-small-label`}>Select</InputLabel>
+        <Select
+          variant={variant ?? "outlined"}
+          value={value}
+          onChange={onChange}
+          size="small"
+          labelId={`select-small-label`}
+        >
+          {menus.map((item, i) => (
+            <MenuItem
+              key={item + i}
+              value={item}
+              sx={{ textTransform: "capitalize" }}
+            >
+              {item}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
     </ThemeProvider>
   );
 };

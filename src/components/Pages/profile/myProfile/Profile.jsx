@@ -1,7 +1,7 @@
 import { HStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import EditInputs from "./EditInput";
-import { SubmitButton } from "../../../../utils/SubmitButton";
+import { ActionButton } from "../../../../utils/ActionButton";
 import ImagePicker from "./ImagePicker";
 import useCreateData from "../../../../Hooks/useCreateData";
 import { useCurrentUser } from "../../../../Context/UserContext";
@@ -125,24 +125,24 @@ const MyProfile = () => {
         <EditInputs
           label="Gender"
           name={"gender"}
-          gender={!isEdit ? ["Male", "Female"] : null}
+          gender={!isEdit ? ["male", "female"] : null}
           setForm={setForm}
           form={form}
           isActive={isEdit}
         />
       </div>
       <HStack spacing={4} alignItems="flex-start">
-        <SubmitButton
+        <ActionButton
           disabled={!isUserVerified}
           isPending={isPending}
           onClick={handleSubmit}
         >
           {!isEdit ? "Save Changes" : "Edit"}
-        </SubmitButton>
+        </ActionButton>
         {!isEdit && (
-          <SubmitButton onClick={() => setIsEdit(true)} variant="outline">
+          <ActionButton onClick={() => setIsEdit(true)} variant="outline">
             cancel
-          </SubmitButton>
+          </ActionButton>
         )}
       </HStack>
     </div>

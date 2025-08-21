@@ -1,6 +1,6 @@
 import { CloseButton, Flex, Textarea } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { SubmitButton } from "../../../../../utils/SubmitButton";
+import { ActionButton } from "../../../../../utils/ActionButton";
 import useCreateData from "../../../../../Hooks/useCreateData";
 import Modal from "../../../../../utils/Modal";
 import { profileDetailsUpdate } from "../../../../../api-call/user-api";
@@ -51,12 +51,12 @@ const BioEdit = ({ showModal, setShowModal, bioText }) => {
             name="bio"
           />
           <Flex justifyContent="flex-end" gap={2}>
-            <SubmitButton onClick={() => setShowModal(false)}>
+            <ActionButton onClick={() => setShowModal(false)}>
               Leave
-            </SubmitButton>
-            <SubmitButton isPending={isPending} type="submit">
+            </ActionButton>
+            <ActionButton isPending={isPending} type="submit">
               Submit
-            </SubmitButton>
+            </ActionButton>
           </Flex>
         </form>
       </div>

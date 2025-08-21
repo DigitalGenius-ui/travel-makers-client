@@ -1,7 +1,7 @@
 import { Image, useToast } from "@chakra-ui/react";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { SubmitButton } from "../../../../utils/SubmitButton";
+import { ActionButton } from "../../../../utils/ActionButton";
 
 const EmptyMessage = ({ text, getUser }) => {
   const toast = useToast();
@@ -29,7 +29,7 @@ const EmptyMessage = ({ text, getUser }) => {
       />
       <p className="text-black/70 text-sm pb-3">No {text} yet</p>
       {getUser && getUser?.id === userId && (
-        <SubmitButton onClick={handleClick}>Create New Post</SubmitButton>
+        <ActionButton onClick={handleClick}>Create New Post</ActionButton>
       )}
     </section>
   );

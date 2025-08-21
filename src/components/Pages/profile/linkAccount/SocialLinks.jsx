@@ -10,7 +10,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useCreateData from "../../../../Hooks/useCreateData";
 import Modal from "../../../../utils/Modal";
-import { SubmitButton } from "../../../../utils/SubmitButton";
+import { ActionButton } from "../../../../utils/ActionButton";
 import { profileDetailsUpdate } from "../../../../api-call/user-api";
 import { USER_KEY } from "../../../../constants/react-query";
 import { useCurrentUser } from "../../../../Context/UserContext";
@@ -85,9 +85,9 @@ const SocialLinks = ({ showModal, setShowModal }) => {
                 setForm={setForm}
               />
             ))}
-            <SubmitButton isPending={isPending} onClick={handleSubmit}>
+            <ActionButton isPending={isPending} onClick={handleSubmit}>
               Submit
-            </SubmitButton>
+            </ActionButton>
           </VStack>
         </div>
       </section>

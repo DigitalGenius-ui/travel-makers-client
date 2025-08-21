@@ -11,14 +11,7 @@ import {
 } from "../../../api-call/user-api";
 import TicketCard from "../../../components/Pages/profile/myBookings/TicketCard";
 import { TICKETS_KEYS } from "../../../constants/react-query";
-import {
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { TicketStatus } from "../../../utils/StatusBox";
 import { MRT_GlobalFilterTextField } from "material-react-table";
 import CustomeMenu from "../../../utils/CustomeMenu";
@@ -88,7 +81,9 @@ const Bookings = ({ mainBooking }) => {
 
   const [edit, setEdit] = useState(false);
 
-  const renderDetails = ({ row }) => {
+  const menus = ["verified", "pending", "canceled"];
+
+  function renderDetails({ row }) {
     const { status, travelDate, id } = row;
 
     const { parsDate } = parsDateHandler(travelDate);
@@ -178,7 +173,7 @@ const Bookings = ({ mainBooking }) => {
               <CustomeMenu
                 disabled={isTicketExpired}
                 value={data.status}
-                menus={["verified", "pending", "canceled"]}
+                menus={menus}
                 onChange={(e) =>
                   setData((prev) => ({
                     ...prev,
@@ -210,26 +205,20 @@ const Bookings = ({ mainBooking }) => {
         <TicketCard book={row} />
       </>
     );
-  };
+  }
 
-  const renderToolbar = ({ table }) => {
+  function renderToolbar({ table }) {
     return (
       <div className="p-5 flex items-center gap-2 justify-end">
         <MRT_GlobalFilterTextField table={table} />
         {!mainBooking ? (
-          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-            <InputLabel id="status-select-small-label">Status</InputLabel>
-            <Select
+          <>
+            <CustomeMenu
               value={globalFilter}
               onChange={(e) => setGlobalFilter(e.target.value)}
-              size="small"
-              labelId="status-select-small-label"
-            >
-              <MenuItem value="verified">Verify</MenuItem>
-              <MenuItem value="pending">Pending</MenuItem>
-              <MenuItem value="canceled">Cancel</MenuItem>
-            </Select>
-          </FormControl>
+              menus={menus}
+            />
+          </>
         ) : (
           <Button
             onClick={() => navigate(`/bookings/${id}`)}
@@ -241,7 +230,7 @@ const Bookings = ({ mainBooking }) => {
         )}
       </div>
     );
-  };
+  }
 
   return (
     <div className="my-5 space-y-4">

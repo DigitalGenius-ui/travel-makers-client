@@ -2,6 +2,7 @@ import React from "react";
 import { useCurrentUser } from "../../Context/UserContext";
 import { Link, useLocation } from "react-router-dom";
 import { IoIosNotificationsOutline } from "react-icons/io";
+import { gender } from "../../constants/assets";
 
 const LayoutHeader = () => {
   const { currentUser } = useCurrentUser();
@@ -14,12 +15,10 @@ const LayoutHeader = () => {
   const username = `${profile?.firstName} ${profile?.lastName}`;
   const role = currentUser?.role;
 
-  const profileImg =
-    !currentUser?.userImg && userGender === "male"
-      ? "/male.jpg"
-      : !currentUser?.userImg && userGender === "female"
-      ? "/female.jpg"
-      : currentUser?.userImg;
+  const profileImg = !currentUser?.userImg
+    ? gender[userGender]
+    : currentUser?.userImg;
+
   return (
     <div className="py-5 flex items-center justify-between">
       <h1 className="capitalize font-bold text-gray-700">{path}</h1>

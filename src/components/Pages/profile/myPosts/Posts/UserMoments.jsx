@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Moment from "./Moment";
 import EmptyMessage from "../EmptyMessage";
-import { SubmitButton } from "../../../../../utils/SubmitButton";
+import { ActionButton } from "../../../../../utils/ActionButton";
 import { useCurrentUser } from "../../../../../Context/UserContext";
 import { useQuery } from "@tanstack/react-query";
 import { MOMENTS_KEYS } from "../../../../../constants/react-query";
@@ -33,7 +33,7 @@ const UserMoments = ({ moment }) => {
           <h1 className="font-bold">{`${firstName} currently has (${moments?.length}) posts :`}</h1>
           {currentUser && currentUser?.id === userId && (
             <Link to="/profile/posts/createPost">
-              <SubmitButton>Create New Post</SubmitButton>
+              <ActionButton>Create New Post</ActionButton>
             </Link>
           )}
         </div>

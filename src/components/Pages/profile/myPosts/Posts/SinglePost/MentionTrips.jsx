@@ -2,7 +2,7 @@ import { HStack, Image } from "@chakra-ui/react";
 import { IoLocationOutline } from "react-icons/io5";
 import useGetTours from "../../../../../../Hooks/useGetTours";
 import { Link } from "react-router-dom";
-import { SubmitButton } from "../../../../../../utils/SubmitButton";
+import { ActionButton } from "../../../../../../utils/ActionButton";
 
 const MentionedTrips = ({ getSinglePost }) => {
   const location = getSinglePost?.location;
@@ -29,7 +29,7 @@ const MentionedTrips = ({ getSinglePost }) => {
             </span>
           </HStack>
           <Link className="inline-block" to={`/tour/${trip?.id}`}>
-            <SubmitButton>Review Tour</SubmitButton>
+            <ActionButton>Review Tour</ActionButton>
           </Link>
         </div>
       </div>

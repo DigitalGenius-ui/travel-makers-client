@@ -1,5 +1,4 @@
-import React from "react";
-import { SubmitButton } from "../../../../utils/SubmitButton";
+import { ActionButton } from "../../../../utils/ActionButton";
 import { useCurrentUser } from "../../../../Context/UserContext";
 
 const Boxes = ({ item, setShowModal }) => {
@@ -16,12 +15,12 @@ const Boxes = ({ item, setShowModal }) => {
     >
       <span className="text-4xl">{icon}</span>
       <p className="text-sm text-gray-600 capitalize">{title}</p>
-      <SubmitButton
+      <ActionButton
         onClick={() => setShowModal(true)}
         color={isConnected ? "gray" : "blue"}
       >
         {isConnected ? "UnLink" : "Link"}
-      </SubmitButton>
+      </ActionButton>
     </div>
   );
 };

@@ -4,7 +4,7 @@ import CustomeMenu from "../../../utils/CustomeMenu";
 import { Button } from "@chakra-ui/react";
 import useGetTours from "../../../Hooks/useGetTours";
 import { FaRegClock } from "react-icons/fa";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 const TripsCalcs = ({ title, amount }) => {
   return (
@@ -18,8 +18,9 @@ const TripsCalcs = ({ title, amount }) => {
 
 const Trips = () => {
   const { tourData } = useGetTours();
-  const [travelFilter, setTravelFilter] = useState("island tour");
-  const totalTrips = () => {
+  const [travelFilter, setTravelFilter] = useState("");
+
+  function totalTrips() {
     return (
       <div className="dash-box flex flex-col sm:flex-row sm:items-center gap-3">
         <div className="flex items-center gap-3">
@@ -45,9 +46,13 @@ const Trips = () => {
         </div>
       </div>
     );
-  };
+  }
 
-  const travelPackages = () => {
+  function travelPackages() {
+    const menus = useMemo(() => {
+      return [...new Set(tourData?.map((item) => item.category))];
+    }, [tourData]);
+
     return (
       <div className="dash-box space-y-3">
         <div className="flex items-center justify-between">
@@ -56,7 +61,7 @@ const Trips = () => {
             <CustomeMenu
               value={travelFilter}
               onChange={(e) => setTravelFilter(e.target.value)}
-              menus={["island tour", "mountin tour"]}
+              menus={menus}
             />
             <Button variant={"outline"} size={"sm"}>
               View All
@@ -70,7 +75,7 @@ const Trips = () => {
         </div>
       </div>
     );
-  };
+  }
   return (
     <section className="flex-[2.5] space-y-5">
       {totalTrips()}

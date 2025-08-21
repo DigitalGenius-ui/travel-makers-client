@@ -5,7 +5,7 @@ import { changePasswordSchema } from "../InputsSchemas";
 import { inputs } from "./data";
 import Inputs from "./Inputs";
 import { useParams } from "react-router-dom";
-import { SubmitButton } from "../../../../utils/SubmitButton";
+import { ActionButton } from "../../../../utils/ActionButton";
 import useCreateData from "../../../../Hooks/useCreateData";
 import { changeProfilePassword } from "../../../../api-call/user-api";
 import { USER_KEY } from "../../../../constants/react-query";
@@ -57,19 +57,19 @@ const ChangePassword = () => {
         ))}
         {isEdit && (
           <HStack spacing={3}>
-            <SubmitButton isPending={isPending} type="submit">
+            <ActionButton isPending={isPending} type="submit">
               Change Password
-            </SubmitButton>
-            <SubmitButton onClick={() => setIsEdit(false)} variant="outline">
+            </ActionButton>
+            <ActionButton onClick={() => setIsEdit(false)} variant="outline">
               Cancel
-            </SubmitButton>
+            </ActionButton>
           </HStack>
         )}
       </form>
       {!isEdit && (
-        <SubmitButton onClick={() => setIsEdit(true)}>
+        <ActionButton onClick={() => setIsEdit(true)}>
           Change Password
-        </SubmitButton>
+        </ActionButton>
       )}
     </div>
   );
