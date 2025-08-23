@@ -25,6 +25,7 @@ const CustomeMenu = ({ value, menus = [], onChange, variant }) => {
           onChange={onChange}
           size="small"
           labelId={`select-small-label`}
+          sx={{ textTransform: "capitalize" }}
         >
           {menus.map((item, i) => (
             <MenuItem

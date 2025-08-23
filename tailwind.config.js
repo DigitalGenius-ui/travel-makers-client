@@ -18,6 +18,7 @@ export default {
       },
       colors: {
         darkBlue: "#04246b",
+        btnBlue: "#3182ce",
       },
       fontFamily: {
         banner: "'Montserrat', sans-serif",
