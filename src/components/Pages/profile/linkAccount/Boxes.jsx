@@ -14,7 +14,7 @@ const Boxes = ({ item, setShowModal }) => {
     hover:bg-gray-100 py-4"
     >
       <span className="text-4xl">{icon}</span>
-      <p className="text-sm text-gray-600 capitalize">{title}</p>
+      <p className="text-sm text-darkText capitalize">{title}</p>
       <ActionButton
         onClick={() => setShowModal(true)}
         color={isConnected ? "gray" : "blue"}

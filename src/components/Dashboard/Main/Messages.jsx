@@ -28,7 +28,7 @@ const Message = () => {
       <Avatar src="/male.png" size={"sm"} />
       <div className="flex-1">
         <h1 className="font-semibold text-gray-700 text-sm">Milad Amiri</h1>
-        <p className="text-xs text-gray-600 line-clamp-1">{message}</p>
+        <p className="text-xs text-darkText line-clamp-1">{message}</p>
       </div>
       <div className="flex items-end flex-col gap-1 text-xs">
         <p className="text-blue-600">2:30 AM</p>

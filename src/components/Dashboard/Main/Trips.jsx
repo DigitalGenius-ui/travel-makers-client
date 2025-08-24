@@ -106,7 +106,7 @@ const TourCard = ({ item }) => {
         </p>
       </div>
       <h1 className="font-bold text-sm text-gray-700 line-clamp-1">{city}</h1>
-      <div className="flex items-center gap-1 text-gray-600">
+      <div className="flex items-center gap-1 text-darkText">
         <span>
           <FaRegClock size={12} />
         </span>
@@ -115,7 +115,7 @@ const TourCard = ({ item }) => {
       <div className="flex items-end justify-between gap-1 !mt-3">
         <p className="text-md font-semibold leading-tight">
           ${price}
-          <span className="block text-[10px] text-gray-600 font-normal">
+          <span className="block text-[10px] text-darkText font-normal">
             per person
           </span>
         </p>

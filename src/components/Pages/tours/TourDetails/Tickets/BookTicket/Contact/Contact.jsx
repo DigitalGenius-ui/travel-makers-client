@@ -1,5 +1,4 @@
 import { Flex, Input, InputGroup } from "@chakra-ui/react";
-import React from "react";
 import Selects from "./Selects";
 import { useBookingContext } from "../../../../../../../Context/BookingContext";
 

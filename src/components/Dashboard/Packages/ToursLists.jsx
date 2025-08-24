@@ -69,7 +69,7 @@ const Tour = ({ tour, setActivePackage, activePackage }) => {
       />
       <div className="flex-1">
         <h1 className="line-clamp-1 font-semibold">{title}</h1>
-        <div className="flex items-center gap-1 text-xs text-gray-600">
+        <div className="flex items-center gap-1 text-xs text-darkText">
           <p className="flex items-center bg-gray-100 p-1 rounded-md group-hover:bg-white">
             <HiOutlineLocationMarker /> Melbourn / Australia
           </p>
@@ -86,7 +86,7 @@ const Tour = ({ tour, setActivePackage, activePackage }) => {
           </p>
           <p>
             <span className="text-xl text-blue-500">${price}</span>/
-            <span className="text-gray-600">person</span>
+            <span className="text-darkText">person</span>
           </p>
         </div>
       </div>

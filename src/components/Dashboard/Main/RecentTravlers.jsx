@@ -45,7 +45,7 @@ const UserCard = ({ user }) => {
         <h2 className="text-gray-800 font-semibold text-sm line-clamp-1">
           {userName || user?.email.substring(0, 10)}
         </h2>
-        <p className="text-gray-600 text-xs">
+        <p className="text-darkText text-xs">
           Created on {dateEgoFormatter(user?.createAt)}
         </p>
       </div>

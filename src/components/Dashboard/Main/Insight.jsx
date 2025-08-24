@@ -142,7 +142,7 @@ const InsightCard = ({ title, amount, estimate, icon, booking }) => {
           )}
         >
           <div className="w-full">
-            <h3 className="text-gray-600 text-sm capitalize">{title}</h3>
+            <h3 className="text-darktext text-sm capitalize">{title}</h3>
             <p className="text-xl font-bold">{amount}</p>
           </div>
           <p
@@ -154,7 +154,7 @@ const InsightCard = ({ title, amount, estimate, icon, booking }) => {
               <FaArrowTrendUp />
               {estimate}%
             </span>
-            {booking && <span className="text-gray-600">from last week</span>}
+            {booking && <span className="text-darkText">from last week</span>}
           </p>
         </div>
       </div>

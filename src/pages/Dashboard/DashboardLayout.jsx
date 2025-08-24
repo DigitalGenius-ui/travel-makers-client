@@ -4,6 +4,8 @@ import PageBanner from "../../utils/PageBanner";
 import LayoutHeader from "./LayoutHeader";
 import clsx from "clsx";
 
+const grayPages = { packages: "packages", gallery: "gallery" };
+
 const DashboardLayout = () => {
   const page = useLocation().pathname.split("/")[1];
 
@@ -13,7 +15,7 @@ const DashboardLayout = () => {
       <section
         className={clsx(
           "flex gap-4 relative min-h-[130vh]",
-          page === "packages" ? "bg-gray-100" : "bg-white"
+          grayPages[page] ? "bg-gray-100" : "bg-white"
         )}
       >
         <SideBar />

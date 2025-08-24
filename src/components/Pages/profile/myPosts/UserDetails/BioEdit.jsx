@@ -40,7 +40,7 @@ const BioEdit = ({ showModal, setShowModal, bioText }) => {
             className="absolute top-3 right-3"
           />
           <h2 className="text-2xl font-semibold">Add Bio</h2>
-          <p className="text-gray-600">Introduce yourself to other travelers</p>
+          <p className="text-darkText">Introduce yourself to other travelers</p>
           <Textarea
             value={bio}
             onChange={(e) => setBio(e.target.value)}

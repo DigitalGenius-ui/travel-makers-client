@@ -7,7 +7,7 @@ export default function NotFound() {
       <div className="shadow-md bg-white rounded-lg p-2 w-[30rem] text-center space-y-5 !py-8">
         <h1 className="text-9xl font-bold text-blue-700">404</h1>
         <h2 className="text-3xl font-bold">Oops! Page Not Found</h2>
-        <p className="px-5 text-lg text-gray-600">
+        <p className="px-5 text-lg text-darkText">
           {`The page you're looking for seems to have gone on a little adventure.
           Don't worry, we'll help you find your way back home.`}
         </p>

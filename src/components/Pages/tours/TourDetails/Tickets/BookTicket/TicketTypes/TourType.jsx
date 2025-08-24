@@ -90,14 +90,14 @@ const TourType = ({ title }) => {
           fontWeight="semibold"
           cursor="pointer"
         >
-          <p className="text-[0.7rem] text-gray-600">
+          <p className="text-[0.7rem] text-darkText">
             <FaRegUser className="inline-block mr-2 text-[0.9rem]" />
             Age: 1–12 years old (
             {`Refers to travelers' ages on the date of
             travel. Age is calculated according to date of birth.`}
             )
           </p>
-          <p className="text-[0.7rem] text-gray-600">
+          <p className="text-[0.7rem] text-darkText">
             <IoInformationCircleOutline className="inline-block mr-2 text-[1rem]" />
             Ready to Use Immediately |
             <span className="text-orange-600">Non-refundable</span> | Ticket

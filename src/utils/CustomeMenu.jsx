@@ -17,7 +17,10 @@ const theme = createTheme({
 const CustomeMenu = ({ value, menus = [], onChange, variant }) => {
   return (
     <ThemeProvider theme={theme}>
-      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+      <FormControl
+        sx={{ m: 1, minWidth: 120, backgroundColor: "white" }}
+        size="small"
+      >
         <InputLabel id={`select-small-label`}>Select</InputLabel>
         <Select
           variant={variant ?? "outlined"}

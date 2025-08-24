@@ -75,7 +75,7 @@ const TourDetails = ({ activePackage, isPending }) => {
               <span className="mt-1 size-4 bg-blue-500 text-white flex items-center justify-center rounded-full">
                 <IoIosCheckmark size={25} />
               </span>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-darkText">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
               </p>
             </div>
@@ -137,14 +137,14 @@ const ScheduleBox = () => (
     <div className="border-l border-gray-400 pl-3 pt-2 pb-8 text-sm space-y-3">
       <div className="space-y-1">
         <h5 className="capitalize text-gray-400 text-xs">activity:</h5>
-        <p className="text-gray-600">
+        <p className="text-darkText">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed hic
           sapiente vero?
         </p>
       </div>
       <div className="space-y-1">
         <h5 className="capitalize text-gray-400 text-xs">evening:</h5>
-        <p className="text-gray-600">
+        <p className="text-darkText">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed hic
           sapiente vero?
         </p>

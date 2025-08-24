@@ -43,7 +43,7 @@ const Traveler = ({ reviews }) => {
             />
           </HStack>
         </Link>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-darkText">
           {`${text.length > 200 ? text.substring(0, 200) + "..." : text}`}
         </p>
       </div>
