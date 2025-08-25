@@ -1,5 +1,5 @@
 import useGetTours from "../../../Hooks/useGetTours";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Pagination from "../../../utils/Pagination";
 import { CartLoading } from "../../../utils/Loadings";
 import SearchInput from "../../../utils/SearchInput";
@@ -8,6 +8,7 @@ import { RxComponent2 } from "react-icons/rx";
 import { IoIosMenu } from "react-icons/io";
 import clsx from "clsx";
 import { GalleryCard } from "../../../components/Dashboard/Gallery/GalleryCard";
+import useDebounce from "../../../Hooks/useDebounce";
 
 const cardsRows = [
   { title: "grid", icon: <RxComponent2 size={20} /> },
@@ -30,8 +31,12 @@ const styles = {
 
 const Gallery = () => {
   const [sort, setSort] = useState("A - Z");
-  const [search, setSearch] = useState("");
+  const [searchInput, setSearchInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [filterData, setFilterData] = useState([]);
   const [row, setRow] = useState("grid");
+
+  const debounce = useDebounce();
 
   const [currentPage, setCurrentPage] = useState(1);
   const { tourData, isPending } = useGetTours();
@@ -39,9 +44,35 @@ const Gallery = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const totalPages = Math.ceil(tourData?.length / itemsPerPage);
+  const totalPages = Math.ceil(filterData?.length / itemsPerPage);
 
-  const newTours = tourData?.slice(indexOfFirstItem, indexOfLastItem);
+  useEffect(() => {
+    setLoading(true);
+    const search = () => {
+      let data = tourData;
+
+      if (sort === "A - Z") {
+        data = data?.sort((a, b) => a.title.localeCompare(b.title));
+      } else if (sort === "Z - A") {
+        data = data?.sort((a, b) => b.title.localeCompare(a.title));
+      }
+
+      if (searchInput.trim()) {
+        data = data.filter((item) =>
+          item.title.toLowerCase().startsWith(searchInput.toLowerCase())
+        );
+        setCurrentPage(1);
+      }
+
+      setFilterData(data);
+      setLoading(false);
+    };
+
+    const debounceSearch = debounce(search, 1000);
+    debounceSearch();
+  }, [searchInput, setFilterData, tourData, sort, setCurrentPage]);
+
+  const newTours = filterData?.slice(indexOfFirstItem, indexOfLastItem);
 
   function gallHeader() {
     const menus = ["A - Z", "Z - A"];
@@ -49,8 +80,8 @@ const Gallery = () => {
       <div className="my-[1rem] flex items-center justify-between">
         <div className="flex-1">
           <SearchInput
-            value={search}
-            setSearch={(e) => setSearch(e.target.value)}
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
             bg={"white"}
             placeholder="Search by location..."
           />
@@ -87,25 +118,31 @@ const Gallery = () => {
 
   return (
     <section className="mb-[2rem] space-y-5">
-      {isPending ? (
-        <>
+      {gallHeader()}
+      {(loading ?? isPending) ? (
+        <div style={styles["grid"]}>
           {Array.from({ length: 8 }).map((_, i) => (
             <CartLoading key={i} />
           ))}
-        </>
+        </div>
       ) : (
         <>
-          {gallHeader()}
-          <article style={styles[row]}>
-            {newTours.map((tour) => (
-              <GalleryCard tour={tour} key={tour.id} row={row} />
-            ))}
-          </article>
-          <Pagination
-            totalPages={totalPages}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
+          {filterData?.length > 0 ? (
+            <>
+              <article style={styles[row]}>
+                {newTours?.map((tour) => (
+                  <GalleryCard tour={tour} key={tour.id} row={row} />
+                ))}
+              </article>
+              <Pagination
+                totalPages={totalPages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
+            </>
+          ) : (
+            <p>No record is found!</p>
+          )}
         </>
       )}
     </section>

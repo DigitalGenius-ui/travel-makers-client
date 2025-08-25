@@ -3,13 +3,36 @@ import { GrMapLocation } from "react-icons/gr";
 import ImageSlider from "../../Pages/tours/TourDetails/ImageSlider/ImageSlider";
 import { useState } from "react";
 import clsx from "clsx";
+import { IoMdTime } from "react-icons/io";
+import { GiWorld } from "react-icons/gi";
+import { MdAttachMoney } from "react-icons/md";
 
 export const GalleryCard = ({ tour, row }) => {
   const [showModal, setShowModal] = useState("");
-  const { title, address, tourImages, description } = tour;
-  const newAddress = address.split(",")[0];
+  const {
+    title,
+    address,
+    tourImages,
+    description,
+    tourDuration,
+    country,
+    price,
+  } = tour;
+
+  const tourDetails = {
+    duration: `${tourDuration} hours`,
+    country: country,
+    price: `${price}$`,
+  };
+
+  const detailsIcon = {
+    duration: <IoMdTime />,
+    country: <GiWorld />,
+    price: <MdAttachMoney />,
+  };
 
   const vertical = row === "vertical";
+  const newAddress = !vertical ? address.split(",")[0] : address;
   return (
     <>
       <div
@@ -45,7 +68,24 @@ export const GalleryCard = ({ tour, row }) => {
               <BiDotsVerticalRounded />
             </button>
           </div>
-          {vertical && <p className="justify-self-end">{description}</p>}
+          {vertical && (
+            <div className="space-y-2 mt-1">
+              <p className="justify-self-end">{description}</p>
+              <div className="flex items-center gap-4">
+                {Object.entries(tourDetails).map(([key, value]) => (
+                  <div
+                    key={key}
+                    className="flex items-center gap-[2px] text-darkText text-xs capitalize"
+                  >
+                    <span className={clsx(key === "price" && "text-green-800")}>
+                      {detailsIcon[key]}
+                    </span>
+                    <span>{`${key} : ${value}`}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
       {showModal && (
