@@ -5,9 +5,9 @@ import Footer from "./components/Home/Footer/Footer";
 import Loading from "./Loading";
 import { useCurrentUser } from "./Context/UserContext";
 import NotFound from "./not-found";
-import { publicToutes } from "./routes/PublicToutes";
-import { protectedRoutes } from "./routes/ProtectedRoutes";
-import { authRoutes } from "./routes/AuthRoutes";
+import { authRoutes } from "./routes/authRoutes";
+// import { publicToutes } from "./routes/PublicToutes";
+// import { protectedRoutes } from "./routes/ProtectedRoutes";
 
 const App = () => {
   const { currentUser, isPending } = useCurrentUser();
@@ -20,10 +20,10 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<RouteWrapper />}>
-        {publicToutes}
-        {currentUser && protectedRoutes(isAdmin)}
+        {/* {publicToutes} */}
+        {/* {currentUser && protectedRoutes(isAdmin)} */}
         {authRoutes(currentUser)}
-        <Route path="*" element={<NotFound />} />
+        {/* <Route path="*" element={<NotFound />} /> */}
       </Route>
     </Routes>
   );

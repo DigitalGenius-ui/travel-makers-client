@@ -41,11 +41,12 @@
     "react-spinners": "^0.17.0",
     "recharts": "^3.0.2",
     "swiper": "^11.2.8",
+    "typescript": "^5.9.2",
     "yup": "^1.6.1"
   },
   "devDependencies": {
-    "@types/react": "^19.1.6",
-    "@types/react-dom": "^19.1.5",
+    "@types/react": "^19.1.11",
+    "@types/react-dom": "^19.1.8",
     "@vitejs/plugin-react": "^4.5.0",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.32.0",

@@ -4,7 +4,7 @@ import ForgotPassword from "../components/Auth/ForgotPassword";
 import ResetPassword from "../components/Auth/ResetPassword";
 import Login from "../components/Auth/Login";
 
-export const authRoutes = (currentUser) => [
+export const authRoutes = (currentUser: any) => [
   <Route
     key="login"
     path="/auth/login"
