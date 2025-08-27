@@ -9,7 +9,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useCreateData from "../../../../Hooks/useCreateData";
-import Modal from "../../../../utils/Modal";
+import CustomeModal from "../../../../utils/CustomeModal";
 import { ActionButton } from "../../../../utils/ActionButton";
 import { profileDetailsUpdate } from "../../../../api-call/user-api";
 import { USER_KEY } from "../../../../constants/react-query";
@@ -69,7 +69,7 @@ const SocialLinks = ({ showModal, setShowModal }) => {
   };
 
   return (
-    <Modal showModal={showModal}>
+    <CustomeModal showModal={showModal}>
       <section className="w-full h-screen grid place-items-center">
         <div className="w-[90%] md:w-[33rem] bg-white p-4 rounded-md relative">
           <Flex alignItems="center" justifyContent="space-between">
@@ -91,7 +91,7 @@ const SocialLinks = ({ showModal, setShowModal }) => {
           </VStack>
         </div>
       </section>
-    </Modal>
+    </CustomeModal>
   );
 };
 

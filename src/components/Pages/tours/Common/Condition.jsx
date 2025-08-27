@@ -1,12 +1,12 @@
 import { CloseButton } from "@chakra-ui/react";
 import React from "react";
-import Modal from "../../../../utils/Modal";
+import CustomeModal from "../../../../utils/CustomeModal";
 import { ticketCondition } from "../../../../../HomeData.json";
 import Screen from "../../../../utils/Screen";
 
 const Conditions = ({ showModal, setShowModal, title, tourTitle }) => {
   return (
-    <Modal showModal={showModal}>
+    <CustomeModal showModal={showModal}>
       <Screen>
         <div className="bg-white h-fit p-4 relative">
           <h2 className="text-lg font-bold">Booking Information</h2>
@@ -43,7 +43,7 @@ const Conditions = ({ showModal, setShowModal, title, tourTitle }) => {
           />
         </div>
       </Screen>
-    </Modal>
+    </CustomeModal>
   );
 };
 

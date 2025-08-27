@@ -2,7 +2,7 @@ import { CloseButton, Flex, Textarea } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { ActionButton } from "../../../../../utils/ActionButton";
 import useCreateData from "../../../../../Hooks/useCreateData";
-import Modal from "../../../../../utils/Modal";
+import CustomeModal from "../../../../../utils/CustomeModal";
 import { profileDetailsUpdate } from "../../../../../api-call/user-api";
 import { USER_KEY } from "../../../../../constants/react-query";
 
@@ -29,7 +29,7 @@ const BioEdit = ({ showModal, setShowModal, bioText }) => {
     setShowModal(false);
   };
   return (
-    <Modal showModal={showModal}>
+    <CustomeModal showModal={showModal}>
       <div className="grid place-items-center w-full h-screen">
         <form
           onSubmit={handleSubmit}
@@ -60,7 +60,7 @@ const BioEdit = ({ showModal, setShowModal, bioText }) => {
           </Flex>
         </form>
       </div>
-    </Modal>
+    </CustomeModal>
   );
 };
 

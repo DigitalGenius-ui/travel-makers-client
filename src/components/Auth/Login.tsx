@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import Inputs from "./Inputs";
 import CardWrapper from "./CartWrapper";
 import { loginSchema } from "./Schemas";
-import { loginUser } from "../../api-call/auth-api";
+import { loginType, loginUser } from "../../api-call/auth-api";
 import { USER_KEY } from "../../constants/react-query";
 import { Link, useNavigate } from "react-router-dom";
 import useCreateData from "../../Hooks/useCreateData";
@@ -16,11 +16,11 @@ const SignIn = () => {
     func: loginUser,
   });
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (value: loginType) => {
     await submitForm({
       inputData: {
-        email: values.email,
-        password: values.password,
+        email: value.email,
+        password: value.password,
       },
       dataMessage: "User is logged in!",
     });

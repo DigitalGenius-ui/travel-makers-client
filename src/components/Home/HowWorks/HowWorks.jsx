@@ -10,7 +10,8 @@ const HowWorks = () => {
       <Flex
         mb="4rem"
         gap={{ base: "3rem", lg: "0.5rem" }}
-        flexDirection={{ base: "column", lg: "row" }}>
+        flexDirection={{ base: "column", lg: "row" }}
+      >
         <Box mr={{ base: "auto", lg: "3rem" }}>
           <Heading as="h2" fontSize="2rem">
             How it works ?
@@ -25,7 +26,8 @@ const HowWorks = () => {
           alignItems={{ base: "start", md: "center" }}
           gap={2}
           justifyContent="space-between"
-          flexDirection={{ base: "column", md: "row" }}>
+          flexDirection={{ base: "column", md: "row" }}
+        >
           <IconBox
             icon={<GrMapLocation />}
             title="search"
@@ -54,7 +56,8 @@ const IconBox = ({ icon, title, tag }) => {
     <div className="flex items-center gap-2">
       <div
         className="w-[4rem] h-[4rem] rounded-full grid place-items-center bg-gradient
-      text-white text-2xl">
+      text-white text-2xl"
+      >
         {icon}
       </div>
       <div>

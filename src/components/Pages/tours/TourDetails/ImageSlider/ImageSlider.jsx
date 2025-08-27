@@ -9,7 +9,7 @@ import { MdZoomInMap } from "react-icons/md";
 
 import classNames from "classnames";
 import SliderArrow from "../../../../../utils/SliderArros";
-import Modal from "../../../../../utils/Modal";
+import CustomeModal from "../../../../../utils/CustomeModal";
 
 const ImageSlider = ({ showModal, setShowModal, tourImages }) => {
   const [gallery, setGallery] = useState(0);
@@ -27,7 +27,7 @@ const ImageSlider = ({ showModal, setShowModal, tourImages }) => {
   }, [gallery]);
 
   return (
-    <Modal showModal={showModal}>
+    <CustomeModal showModal={showModal}>
       <div className="gallery w-[95%] md:w-[90%] lg:w-[85%] h-screen bg-white mx-auto relative">
         <CloseButton
           onClick={() => setShowModal(false)}
@@ -89,7 +89,8 @@ const ImageSlider = ({ showModal, setShowModal, tourImages }) => {
           {/* lower images  */}
           <div
             className="flex items-center gap-3 overflow-x-scroll mt-5"
-            ref={lowerGalleryRef}>
+            ref={lowerGalleryRef}
+          >
             {tourImages.map((img, i) => (
               <Image
                 onClick={() => setGallery(i)}
@@ -121,7 +122,7 @@ const ImageSlider = ({ showModal, setShowModal, tourImages }) => {
           </div>
         )}
       </div>
-    </Modal>
+    </CustomeModal>
   );
 };
 

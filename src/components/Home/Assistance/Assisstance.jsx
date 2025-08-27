@@ -8,7 +8,8 @@ const Assistance = () => {
     <div
       id="assistance"
       className="bg-assistance bg-no-repeat bg-cover bg-center h-[450px] 2xl:h-[500px] mb-[2rem]
-      flex flex-col justify-center">
+      flex flex-col justify-center"
+    >
       <Screen>
         <div className="flex flex-col gap-6 text-white">
           <h2 className="text-4xl sm:text-5xl font-bold">Need Assistance</h2>
@@ -23,7 +24,8 @@ const Assistance = () => {
               variant="solid"
               size="sm"
               mt="1rem"
-              zIndex={0}>
+              zIndex={0}
+            >
               VIEW OFFERS
             </Button>
             <Text mt="4">

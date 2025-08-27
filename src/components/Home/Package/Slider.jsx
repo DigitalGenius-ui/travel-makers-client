@@ -27,7 +27,8 @@ const Slider = () => {
     <>
       <div
         id="packages"
-        className="flex justify-between flex-col sm:flex-row sm:items-center gap-3">
+        className="flex justify-between flex-col sm:flex-row sm:items-center gap-3"
+      >
         <h2 className="text-[1.2rem] 2xl:text-[2rem] font-bold">
           Latest Packages
         </h2>
@@ -65,7 +66,8 @@ const Slider = () => {
                 spaceBetween: 15,
               },
             }}
-            modules={[Navigation]}>
+            modules={[Navigation]}
+          >
             {data?.map((item, i) => (
               <SwiperSlide key={i} className="bg-white shadow-xl">
                 <TourCard item={item} />

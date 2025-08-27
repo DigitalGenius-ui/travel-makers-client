@@ -6,7 +6,7 @@ import Loading from "./Loading";
 import { useCurrentUser } from "./Context/UserContext";
 import NotFound from "./not-found";
 import { authRoutes } from "./routes/authRoutes";
-// import { publicToutes } from "./routes/PublicToutes";
+import { publicToutes } from "./routes/publicToutes";
 // import { protectedRoutes } from "./routes/ProtectedRoutes";
 
 const App = () => {
@@ -20,7 +20,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<RouteWrapper />}>
-        {/* {publicToutes} */}
+        {publicToutes}
         {/* {currentUser && protectedRoutes(isAdmin)} */}
         {authRoutes(currentUser)}
         {/* <Route path="*" element={<NotFound />} /> */}

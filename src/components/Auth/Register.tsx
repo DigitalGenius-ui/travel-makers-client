@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import CardWrapper from "./CartWrapper";
 import Inputs from "./Inputs";
 import { registerSchema } from "./Schemas";
-import { createUser } from "../../api-call/auth-api";
+import { createUser, registerType } from "../../api-call/auth-api";
 import { USER_KEY } from "../../constants/react-query";
 import { useNavigate } from "react-router-dom";
 import useCreateData from "../../Hooks/useCreateData";
@@ -16,7 +16,7 @@ const Register = () => {
     func: createUser,
   });
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values: registerType) => {
     await submitForm({
       inputData: values,
       dataMessage: "Verify code has been sent to you email!",
