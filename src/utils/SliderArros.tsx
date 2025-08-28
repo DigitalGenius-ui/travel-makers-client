@@ -4,8 +4,8 @@ import { JSXElementConstructor, ReactElement, ReactNode } from "react";
 type slideProps = {
   icon: ReactElement<unknown, string | JSXElementConstructor<any>> | undefined;
   className: string;
-  onClick: () => void;
-  variant: string;
+  onClick?: () => void;
+  variant?: string;
 };
 
 const SliderArrow = ({ icon, className, onClick, variant }: slideProps) => {

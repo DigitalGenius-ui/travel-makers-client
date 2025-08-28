@@ -16,12 +16,18 @@ export type getAllUserProps = {
   page: number;
   limit: number;
   type: string;
-  search: string;
+  search?: string;
 };
-export const getAllUsers = ({ page, limit, type, search }: getAllUserProps) => {
-  return API.get(
+export const getAllUsers = async ({
+  page,
+  limit,
+  type,
+  search,
+}: getAllUserProps) => {
+  const res = await API.get(
     `/user/getAllUsers?page=${page}&limit=${limit}&type=${type}&search=${search}`
   );
+  return res.data;
 };
 
 // update profile data
@@ -92,10 +98,41 @@ export const getUserReviews = async (page, limit) => {
 };
 
 // get all tickets
-export const getUserTickets = async (page, limit, search) => {
-  return await API.get(
+
+export type bookingTypes = {
+  tickets: {
+    id: string;
+    title: string;
+    firstName: string;
+    lastName: string;
+    phone: string;
+    email: string;
+    travelDate: Date;
+    tickets: {
+      adult: number;
+      child: number;
+    };
+    totalPrice: string;
+    tourImage: string;
+    status: "pending" | "canceled" | "verified";
+    verifyNumber: string;
+    userId: string;
+    createAt: Date;
+    updatedAt: Date;
+  };
+  totalPages: number;
+  totalTickets: number;
+};
+
+export const getUserTickets = async (
+  page: number,
+  limit: number,
+  search: string
+) => {
+  const res = await API.get<bookingTypes[]>(
     `/user/getAllTickets?page=${page}&limit=${limit}&search=${search}`
   );
+  return res.data;
 };
 
 // update ticket

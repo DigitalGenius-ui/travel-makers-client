@@ -9,14 +9,14 @@ import ChangePassword from "../components/Pages/profile/managePassword/ChangePas
 import LinkedAccounts from "../components/Pages/profile/linkAccount/LinkAccounts";
 import CreatePost from "../components/Pages/profile/myPosts/Posts/CreatePost/CreatePost";
 import DashboardLayout from "../pages/Dashboard/DashboardLayout";
-import Dashboard from "../pages/Dashboard/pages/Dashboard";
-import Packages from "../pages/Dashboard/pages/Packages";
-import Bookings from "../pages/Dashboard/pages/Bookings";
-import Travlers from "../pages/Dashboard/pages/Travlers";
-import Guides from "../pages/Dashboard/pages/Guides";
-import Gallery from "../pages/Dashboard/pages/Gallery";
-import Messages from "../pages/Dashboard/pages/Messages";
-import FeedBacks from "../pages/Dashboard/pages/FeedBacks";
+import Dashboard from "../pages/Dashboard/Dashboard";
+import Packages from "../pages/Dashboard/Packages";
+import Bookings from "../pages/Dashboard/Bookings";
+import Travlers from "../pages/Dashboard/Travlers";
+import Guides from "../pages/Dashboard/Guides";
+import Gallery from "../pages/Dashboard/Gallery";
+import Messages from "../pages/Dashboard/Messages";
+import FeedBacks from "../pages/Dashboard/FeedBacks";
 
 export const protectedRoutes = (isAdmin: boolean) => {
   return [

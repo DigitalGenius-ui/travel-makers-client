@@ -13,9 +13,7 @@ const useGetAllUsers = ({
   const { data, isPending, isFetching } = useQuery({
     queryKey: [USERS_KEYS, page, limit, type, search],
     queryFn: async () => await getAllUsers({ page, limit, type, search }),
-    placeholderData: {
-      keepPreviousData: true,
-    },
+    placeholderData: (previousData) => previousData,
   });
   console.log(data);
 

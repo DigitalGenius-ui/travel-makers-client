@@ -2,7 +2,7 @@ import { Route } from "react-router-dom";
 import SingleProfile from "../components/Pages/singleProfile/SingleProfile";
 import SinglePost from "../components/Pages/profile/myPosts/Posts/SinglePost/SinglePost";
 import EmailVerify from "../components/EmailVerify";
-import Moments from "../components/Pages/moments/Moments";
+import Moments from "../pages/Moments/Moments";
 import AllTours from "../components/Home/RecommendedTours/AllTours";
 import FilterTours from "../components/Home/Destinations/FilterTours";
 import TourDetails from "../components/Pages/tours/TourDetails/TourDetails";

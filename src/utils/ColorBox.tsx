@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import React from "react";
 
-const ColorBox = ({ className }: { className: string }) => {
+const ColorBox = ({ className }: { className?: string }) => {
   return <p className={clsx(`size-2.5 bg-blue-400 rounded-sm`, className)} />;
 };
 

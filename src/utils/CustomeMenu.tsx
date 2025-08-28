@@ -18,14 +18,22 @@ const theme = createTheme({
 type menuProps = {
   value: string;
   menus: string[];
-  onChange: () => void;
-  variant: "outlined" | "filled" | "standard" | undefined;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+  variant?: "outlined" | "filled" | "standard" | undefined;
+  disabled?: boolean;
 };
 
-const CustomeMenu = ({ value, menus = [], onChange, variant }: menuProps) => {
+const CustomeMenu = ({
+  value,
+  menus = [],
+  setValue,
+  variant,
+  disabled,
+}: menuProps) => {
   return (
     <ThemeProvider theme={theme}>
       <FormControl
+        disabled={disabled}
         sx={{ m: 1, minWidth: 120, backgroundColor: "white" }}
         size="small"
       >
@@ -33,7 +41,7 @@ const CustomeMenu = ({ value, menus = [], onChange, variant }: menuProps) => {
         <Select
           variant={variant ?? "outlined"}
           value={value}
-          onChange={onChange}
+          onChange={(e) => setValue(e.target.value)}
           size="small"
           labelId={`select-small-label`}
           sx={{ textTransform: "capitalize" }}

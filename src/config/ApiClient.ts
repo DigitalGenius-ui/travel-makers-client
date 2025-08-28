@@ -20,7 +20,7 @@ tokenRefreshClient.interceptors.response.use((response) => {
 
 API.interceptors.response.use(
   (response) => {
-    return response.data;
+    return response;
   },
   async (error) => {
     let { config, response } = error;
