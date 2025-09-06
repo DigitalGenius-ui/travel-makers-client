@@ -8,12 +8,12 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import useCreateData from "../../../../Hooks/useCreateData";
+import useCreateData from "../../../../hooks/useCreateData";
 import CustomeModal from "../../../../utils/CustomeModal";
 import { ActionButton } from "../../../../utils/ActionButton";
 import { profileDetailsUpdate } from "../../../../api-call/user-api";
 import { USER_KEY } from "../../../../constants/react-query";
-import { useCurrentUser } from "../../../../Context/UserContext";
+import { useCurrentUser } from "../../../../context/UserContext";
 
 type lables = "Facebook Link" | "LinkedIn" | "Instagram Link" | "X Media Link";
 type names = "facebook" | "linkedIn" | "instagram" | "xMedia";
@@ -126,7 +126,7 @@ type inputsProps = {
 
 const Inputs = ({ item, form, setForm }: inputsProps) => {
   const { label, name } = item;
-  let error = form[name] && !form[name].startsWith("https://");
+  const error = form[name] && !form[name].startsWith("https://");
 
   return (
     <FormControl>

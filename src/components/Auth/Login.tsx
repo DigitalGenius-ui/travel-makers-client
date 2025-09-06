@@ -6,7 +6,7 @@ import { loginSchema } from "./Schemas";
 import { type loginType, loginUser } from "../../api-call/auth-api";
 import { USER_KEY } from "../../constants/react-query";
 import { Link, useNavigate } from "react-router-dom";
-import useCreateData from "../../Hooks/useCreateData";
+import useCreateData from "../../hooks/useCreateData";
 
 const SignIn = () => {
   const navigate = useNavigate();

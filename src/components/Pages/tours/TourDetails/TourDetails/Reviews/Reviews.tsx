@@ -5,7 +5,7 @@ import Filter from "./Filter";
 import Review from "./Review";
 import { Link } from "react-router-dom";
 import OutStanding from "../../../../../../utils/OutStanding";
-import { useCurrentUser } from "../../../../../../Context/UserContext";
+import { useCurrentUser } from "../../../../../../context/UserContext";
 import Pagination from "../../../../../../utils/Pagination";
 
 type reviewsProps = {

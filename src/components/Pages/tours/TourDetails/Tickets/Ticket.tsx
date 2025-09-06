@@ -4,7 +4,7 @@ import { BsTicketDetailed } from "react-icons/bs";
 import React, { useCallback, useState } from "react";
 import { Button } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useBookingContext } from "../../../../../Context/BookingContext";
+import { useBookingContext } from "../../../../../context/BookingContext";
 import Conditions from "../../Common/Condition";
 
 type ticketType = {

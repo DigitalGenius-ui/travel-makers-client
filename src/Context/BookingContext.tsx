@@ -5,7 +5,7 @@ import React, {
   useState,
 } from "react";
 
-type bookForm = {
+type bookFormType = {
   date: string;
   bookTime: string;
   child: number;
@@ -23,8 +23,8 @@ type contextType = {
   errorMsg: string;
   setErrorMsg: React.Dispatch<SetStateAction<string>>;
 
-  bookForm: bookForm;
-  setBookForm: React.Dispatch<SetStateAction<bookForm>>;
+  bookForm: bookFormType;
+  setBookForm: React.Dispatch<SetStateAction<bookFormType>>;
   contactCode: string;
   setContactCode: React.Dispatch<SetStateAction<string>>;
 
@@ -39,7 +39,7 @@ const BookingContext = ({ children }: { children: React.ReactNode }) => {
   const [errorMsg, setErrorMsg] = useState("");
 
   const [contactCode, setContactCode] = useState("+1");
-  const [bookForm, setBookForm] = useState<bookForm>({
+  const [bookForm, setBookForm] = useState<bookFormType>({
     date: "",
     bookTime: "",
     child: 0,

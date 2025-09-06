@@ -1,4 +1,4 @@
-import { getAllUserProps, getAllUsers } from "../api-call/user-api";
+import { type getAllUserProps, getAllUsers } from "../api-call/user-api";
 import { useQuery } from "@tanstack/react-query";
 import { USERS_KEYS } from "../constants/react-query";
 

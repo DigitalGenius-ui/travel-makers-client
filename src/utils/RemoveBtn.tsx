@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useCurrentUser } from "../Context/UserContext";
+import { useCurrentUser } from "../context/UserContext";
 import { Button, IconButton } from "@chakra-ui/react";
-import useCreateData from "../Hooks/useCreateData";
+import useCreateData from "../hooks/useCreateData";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { MOMENTS_KEYS } from "../constants/react-query";
 

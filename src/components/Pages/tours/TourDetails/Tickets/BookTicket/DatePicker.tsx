@@ -11,7 +11,7 @@ import { Navigation } from "swiper/modules";
 import { Flex } from "@chakra-ui/react";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import classNames from "classnames";
-import { useBookingContext } from "../../../../../../Context/BookingContext";
+import { useBookingContext } from "../../../../../../context/BookingContext";
 import SliderArrow from "../../../../../../utils/SliderArros";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -20,7 +20,7 @@ const DatePicker = () => {
   const { errorMsg } = useBookingContext();
 
   const now = new Date();
-  let today = startOfToday();
+  const today = startOfToday();
 
   const allDays = eachDayOfInterval({
     start: today,

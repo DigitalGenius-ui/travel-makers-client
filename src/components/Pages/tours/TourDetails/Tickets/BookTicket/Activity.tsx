@@ -2,7 +2,7 @@ import { Button, Flex, Input } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { RiUserUnfollowLine } from "react-icons/ri";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import { useBookingContext } from "../../../../../../Context/BookingContext";
+import { useBookingContext } from "../../../../../../context/BookingContext";
 import classNames from "classnames";
 
 const Activity = () => {

@@ -1,7 +1,7 @@
 import { CloseButton, Flex, Textarea } from "@chakra-ui/react";
 import React, { useEffect, useState, type SetStateAction } from "react";
 import { ActionButton } from "../../../../../utils/ActionButton";
-import useCreateData from "../../../../../Hooks/useCreateData";
+import useCreateData from "../../../../../hooks/useCreateData";
 import CustomeModal from "../../../../../utils/CustomeModal";
 import { profileDetailsUpdate } from "../../../../../api-call/user-api";
 import { USER_KEY } from "../../../../../constants/react-query";

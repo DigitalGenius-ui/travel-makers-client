@@ -1,13 +1,13 @@
 import { Flex } from "@chakra-ui/react";
-import React, { useEffect, useMemo } from "react";
-import { useBookingContext } from "../../../../../../Context/BookingContext";
+import { useEffect, useMemo } from "react";
+import { useBookingContext } from "../../../../../../context/BookingContext";
 
 const TotalPrice = ({
   bookPrice,
   ticketTitle,
 }: {
   bookPrice: number;
-  ticketTitle: string;
+  ticketTitle: string | undefined;
 }) => {
   const {
     sortTitle,
@@ -43,7 +43,7 @@ const TotalPrice = ({
 
   // getting adult and child total prices
   let adultTotal = bookPrice * count.adult;
-  let childTotal = childPrice * count.child;
+  const childTotal = childPrice * count.child;
 
   // set the total price for global state
   useEffect(() => {
@@ -61,7 +61,7 @@ const TotalPrice = ({
         <Prices key={2} title={ticketTitle} price={bookPrice} />
 
         {sortedPrice.map((comp) => {
-          const title = comp.props.title;
+          const title = comp.props.title as "child" | "adult";
           return (
             <div className={count[title] <= 0 ? "hidden" : "block"} key={title}>
               {comp}
@@ -79,7 +79,7 @@ const Prices = ({
   title,
   price,
 }: {
-  title: string;
+  title: string | undefined;
   price: string | number;
 }) => {
   return (

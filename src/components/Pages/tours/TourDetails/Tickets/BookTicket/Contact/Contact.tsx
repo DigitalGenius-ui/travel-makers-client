@@ -1,6 +1,6 @@
 import { Flex, Input, InputGroup } from "@chakra-ui/react";
 import Selects from "./Selects";
-import { useBookingContext } from "../../../../../../../Context/BookingContext";
+import { useBookingContext } from "../../../../../../../context/BookingContext";
 
 const Contact = () => {
   const { bookForm, setBookForm, contactCode, setContactCode, errorMsg } =

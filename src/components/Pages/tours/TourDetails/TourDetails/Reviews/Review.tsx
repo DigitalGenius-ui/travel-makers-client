@@ -5,7 +5,7 @@ import OutStanding from "../../../../../../utils/OutStanding";
 import ImageSlider from "../../ImageSlider/ImageSlider";
 import RemoveBtn from "../../../../../../utils/RemoveBtn";
 import { format } from "date-fns";
-import { useCurrentUser } from "../../../../../../Context/UserContext";
+import { useCurrentUser } from "../../../../../../context/UserContext";
 import { removeTourReview } from "../../../../../../api-call/tour-api";
 
 const Review = ({ review }) => {

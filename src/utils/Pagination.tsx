@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/react";
-import { Dispatch, useEffect } from "react";
+import { type Dispatch, useEffect } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 type paginateProps = {
@@ -27,8 +27,8 @@ const Pagination = ({
   };
 
   const getTotalButtons = () => {
-    let totalButtons = [];
-    let maxBtns = 5;
+    const totalButtons = [];
+    const maxBtns = 5;
 
     let startPage = Math.max(currentPage - Math.floor(maxBtns / 2), 1);
     let endPage = startPage + maxBtns - 1;

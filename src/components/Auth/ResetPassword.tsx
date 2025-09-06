@@ -6,7 +6,7 @@ import { AUTH_KEY } from "../../constants/react-query";
 import { passwordValidation } from "./Schemas";
 import { resetPassword } from "../../api-call/auth-api";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import useCreateData from "../../Hooks/useCreateData";
+import useCreateData from "../../hooks/useCreateData";
 
 const ResetPassword = () => {
   const navigate = useNavigate();

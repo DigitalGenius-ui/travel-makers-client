@@ -3,7 +3,7 @@ import { Button } from "@chakra-ui/react";
 import { AUTH_KEY } from "../constants/react-query";
 import { verifyEmail } from "../api-call/auth-api";
 import { useNavigate, useParams } from "react-router-dom";
-import useCreateData from "../Hooks/useCreateData";
+import useCreateData from "../hooks/useCreateData";
 
 const EmailVerify = () => {
   const { code } = useParams();

@@ -5,7 +5,7 @@ import "swiper/css/navigation";
 import { Flex, IconButton, Icon } from "@chakra-ui/react";
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import useGetTours from "../../../Hooks/useGetTours";
+import useGetTours from "../../../hooks/useGetTours";
 
 const Slider = () => {
   const { tourData } = useGetTours();

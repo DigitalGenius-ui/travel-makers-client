@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiFillLike } from "react-icons/ai";
-import { useCurrentUser } from "../../../../../../Context/UserContext";
+import { useCurrentUser } from "../../../../../../context/UserContext";
 
 type likesProps = {
   likes: number;

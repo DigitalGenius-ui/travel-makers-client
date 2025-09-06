@@ -1,11 +1,11 @@
 import { useMemo, useState } from "react";
 import TravleMakersTable from "../../components/Table/TravelMakersTable";
-import useGetAllUsers from "../../Hooks/useGetAllUsers";
+import useGetAllUsers from "../../hooks/useGetAllUsers";
 import { MRT_GlobalFilterTextField } from "material-react-table";
 import { Avatar, Button, MenuItem } from "@mui/material";
 import { dateColumn, textColumn } from "../../components/Table/textColumn";
 import { UserStatus } from "../../utils/StatusBox";
-import useCreateData from "../../Hooks/useCreateData";
+import useCreateData from "../../hooks/useCreateData";
 import { USERS_KEYS } from "../../constants/react-query";
 import { userDetailsUpdate } from "../../api-call/user-api";
 

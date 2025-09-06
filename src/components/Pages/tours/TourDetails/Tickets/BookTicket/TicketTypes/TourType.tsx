@@ -6,9 +6,9 @@ import { FiMinus } from "react-icons/fi";
 import React, { useCallback, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { IoInformationCircleOutline } from "react-icons/io5";
-import { useBookingContext } from "../../../../../../../Context/BookingContext";
+import { useBookingContext } from "../../../../../../../context/BookingContext";
 import Conditions from "../../../../Common/Condition";
-import useGetTours from "../../../../../../../Hooks/useGetTours";
+import useGetTours from "../../../../../../../hooks/useGetTours";
 import { useParams } from "react-router-dom";
 import classNames from "classnames";
 

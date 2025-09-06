@@ -1,4 +1,4 @@
-import useGetAllUsers from "../../../Hooks/useGetAllUsers";
+import useGetAllUsers from "../../../hooks/useGetAllUsers";
 import { Avatar } from "@chakra-ui/react";
 import { dateEgoFormatter } from "../../../utils/Date";
 import { VerticaleCardLoading } from "../../../utils/Loadings";

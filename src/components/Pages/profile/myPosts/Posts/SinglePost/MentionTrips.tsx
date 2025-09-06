@@ -1,6 +1,6 @@
 import { HStack, Image } from "@chakra-ui/react";
 import { IoLocationOutline } from "react-icons/io5";
-import useGetTours from "../../../../../../Hooks/useGetTours";
+import useGetTours from "../../../../../../hooks/useGetTours";
 import { Link } from "react-router-dom";
 import { ActionButton } from "../../../../../../utils/ActionButton";
 

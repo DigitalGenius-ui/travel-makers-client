@@ -8,9 +8,9 @@ import {
 import { IoSearch } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import Screen from "../../utils/Screen";
-import useGetTours from "../../Hooks/useGetTours";
+import useGetTours from "../../hooks/useGetTours";
 import { Link } from "react-router-dom";
-import useDebounce from "../../Hooks/useDebounce";
+import useDebounce from "../../hooks/useDebounce";
 import { type tourType } from "../../api-call/tour-api";
 
 const Search = () => {

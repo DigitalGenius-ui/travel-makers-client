@@ -1,8 +1,8 @@
 import { Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import useCreateData from "../../../../../../Hooks/useCreateData";
-import { useCurrentUser } from "../../../../../../Context/UserContext";
+import useCreateData from "../../../../../../hooks/useCreateData";
+import { useCurrentUser } from "../../../../../../context/UserContext";
 import { momentPostCommentCreate } from "../../../../../../api-call/user-api";
 import { POST_KEYS } from "../../../../../../constants/react-query";
 

@@ -3,7 +3,7 @@ import { Avatar, IconButton } from "@chakra-ui/react";
 import { CiEdit } from "react-icons/ci";
 import BioEdit from "./BioEdit";
 import { useParams } from "react-router-dom";
-import { useCurrentUser } from "../../../../../Context/UserContext";
+import { useCurrentUser } from "../../../../../context/UserContext";
 
 const UserDetails = ({ detail }) => {
   const [showModal, setShowModal] = useState(false);

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Moment from "./Moment";
 import EmptyMessage from "../EmptyMessage";
 import { ActionButton } from "../../../../../utils/ActionButton";
-import { useCurrentUser } from "../../../../../Context/UserContext";
+import { useCurrentUser } from "../../../../../context/UserContext";
 import { useQuery } from "@tanstack/react-query";
 import { MOMENTS_KEYS } from "../../../../../constants/react-query";
 import { getMoments } from "../../../../../api-call/user-api";
@@ -43,7 +43,7 @@ const UserMoments = ({ moment }: { moment: any }) => {
           {isPending ? (
             <CartLoading />
           ) : moments?.length > 0 ? (
-            moments?.map((post) => <Moment post={post} key={post.id} />)
+            moments?.map((post: any) => <Moment post={post} key={post.id} />)
           ) : (
             <EmptyMessage text="posts" getUser={currentUser} />
           )}

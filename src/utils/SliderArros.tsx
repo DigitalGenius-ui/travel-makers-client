@@ -1,5 +1,5 @@
 import { IconButton } from "@chakra-ui/react";
-import { JSXElementConstructor, ReactElement, ReactNode } from "react";
+import { type JSXElementConstructor, type ReactElement } from "react";
 
 type slideProps = {
   icon: ReactElement<unknown, string | JSXElementConstructor<any>> | undefined;

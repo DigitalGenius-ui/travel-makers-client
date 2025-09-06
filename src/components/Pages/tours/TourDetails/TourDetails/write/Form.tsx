@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BiSolidMessageAltDots } from "react-icons/bi";
 import { Button } from "@chakra-ui/react";
 import Rating from "./Rating";
@@ -8,11 +8,12 @@ import classNames from "classnames";
 import { useNavigate, useParams } from "react-router-dom";
 import UploadImg from "../../../../profile/myPosts/Posts/CreatePost/UploadImg";
 import TermAndCondition from "../../../../../../utils/TermAndCondition";
-import useCreateData from "../../../../../../Hooks/useCreateData";
-import { useCurrentUser } from "../../../../../../Context/UserContext";
+import useCreateData from "../../../../../../hooks/useCreateData";
+import { useCurrentUser } from "../../../../../../context/UserContext";
 import {
   createTourReview,
   uploadImages,
+  type createTourProps,
 } from "../../../../../../api-call/tour-api";
 import { TOURS_REVIEW_KEY } from "../../../../../../constants/react-query";
 
@@ -41,7 +42,7 @@ const Form = () => {
       const { rating, review, reviewImages } = values;
       const imagesLinks = await uploadImages(reviewImages);
 
-      const inputData = {
+      const inputData: createTourProps = {
         rating: rating.toString(),
         text: review,
         reviewImages: imagesLinks,

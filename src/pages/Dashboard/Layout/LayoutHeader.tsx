@@ -1,5 +1,5 @@
 import React from "react";
-import { useCurrentUser } from "../../../Context/UserContext";
+import { useCurrentUser } from "../../../context/UserContext";
 import { Link, useLocation } from "react-router-dom";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { gender } from "../../../constants/assets";

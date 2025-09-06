@@ -1,9 +1,9 @@
 import { Button } from "@chakra-ui/react";
 import { FaCircleCheck } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
-import { useCurrentUser } from "../../../../Context/UserContext";
+import { useCurrentUser } from "../../../../context/UserContext";
 import { createTicket } from "../../../../api-call/tour-api";
-import useCreateData from "../../../../Hooks/useCreateData";
+import useCreateData from "../../../../hooks/useCreateData";
 import { USER_KEY } from "../../../../constants/react-query";
 
 const CheckOut = () => {

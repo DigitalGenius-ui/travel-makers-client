@@ -1,9 +1,9 @@
 import Head from "../../../../../../utils/Head";
 import WhiteBg from "../../../../../../utils/WhiteBg";
 import { Link, useParams } from "react-router-dom";
-import useGetTours from "../../../../../../Hooks/useGetTours";
+import useGetTours from "../../../../../../hooks/useGetTours";
 import Form from "./Form";
-import { useCurrentUser } from "../../../../../../Context/UserContext";
+import { useCurrentUser } from "../../../../../../context/UserContext";
 import ErrorLabel from "../../../../../../utils/ErrorLabel";
 
 const CreateReview = () => {

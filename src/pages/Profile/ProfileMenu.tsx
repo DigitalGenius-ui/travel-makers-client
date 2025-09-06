@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import classNames from "classnames";
 import { dropMenu } from "../../../HomeData.json";
-import { useCurrentUser } from "../../Context/UserContext";
+import { useCurrentUser } from "../../context/UserContext";
 import PageBanner from "../../utils/PageBanner";
 import Screen from "../../utils/Screen";
 import UserMenu from "../../components/Pages/profile/UserMenu";

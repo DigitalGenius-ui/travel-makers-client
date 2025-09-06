@@ -7,17 +7,18 @@ import {
   MenuDivider,
   useToast,
 } from "@chakra-ui/react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { dropMenu } from "../../../../HomeData.json";
 import { useMutation } from "@tanstack/react-query";
-import { useCurrentUser } from "../../../Context/UserContext";
+import { useCurrentUser } from "../../../context/UserContext";
 import { logOutUser } from "../../../api-call/auth-api";
 import { queryClient } from "../../../config/queryClient";
 import { USER_KEY } from "../../../constants/react-query";
-import useErrorToest from "../../../Hooks/useErrorToest";
+import useErrorToest from "../../../hooks/useErrorToest";
 import { gender } from "../../../constants/assets";
 
 const DropDown = () => {
+  const navigate = useNavigate();
   const pathName = useLocation().pathname.split("/").slice(0, -1).join("/");
   const { currentUser } = useCurrentUser();
   const toast = useToast();
@@ -43,12 +44,13 @@ const DropDown = () => {
         isClosable: true,
       });
     }
+    navigate("/");
   };
 
   useErrorToest({ isError, error });
 
   const isAdmin = currentUser?.role === "ADMIN";
-  const userGender = profile?.gender;
+  const userGender = profile?.gender as "male" | "female";
 
   const profileImg = !userImg ? gender[userGender] : userImg;
 

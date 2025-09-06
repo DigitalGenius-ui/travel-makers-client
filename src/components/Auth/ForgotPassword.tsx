@@ -5,7 +5,7 @@ import { AUTH_KEY } from "../../constants/react-query";
 import { forgotPassword } from "../../api-call/auth-api";
 import * as yup from "yup";
 import { Button } from "@chakra-ui/react";
-import useCreateData from "../../Hooks/useCreateData";
+import useCreateData from "../../hooks/useCreateData";
 
 const ForgotPassword = () => {
   const { submitForm, isPending } = useCreateData({

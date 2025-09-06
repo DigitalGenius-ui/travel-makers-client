@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import PageBanner from "../../../utils/PageBanner";
-import useGetTours from "../../../Hooks/useGetTours";
+import useGetTours from "../../../hooks/useGetTours";
 import TourCard from "./TourCard";
 import Screen from "../../../utils/Screen";
 import Pagination from "../../../utils/Pagination";

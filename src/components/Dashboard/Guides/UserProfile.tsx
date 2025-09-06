@@ -1,6 +1,5 @@
 import { format } from "date-fns";
-import { ReactElement } from "react";
-import { IconType } from "react-icons/lib";
+import { type IconType } from "react-icons/lib";
 import { MdWorkOutline } from "react-icons/md";
 
 export const WorkExperience = ({ item }: { item: any }) => {

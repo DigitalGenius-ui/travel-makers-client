@@ -1,10 +1,10 @@
 import { IconButton, Tooltip } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import classNames from "classnames";
-import useCreateData from "../../../../Hooks/useCreateData";
+import useCreateData from "../../../../hooks/useCreateData";
 import { updateProfileImage } from "../../../../api-call/user-api";
 import { USER_KEY } from "../../../../constants/react-query";
-import { useCurrentUser } from "../../../../Context/UserContext";
+import { useCurrentUser } from "../../../../context/UserContext";
 import { FiUpload } from "react-icons/fi";
 import { IoCloseOutline } from "react-icons/io5";
 

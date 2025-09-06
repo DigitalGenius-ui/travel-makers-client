@@ -16,12 +16,11 @@ import { POST_KEYS } from "../../../../../../constants/react-query";
 const SinglePost = () => {
   const { id } = useParams();
 
-  const { data, isPending } = useQuery({
+  const { data: postData, isPending } = useQuery({
     queryKey: [POST_KEYS],
     queryFn: async () => await getSingleMoment(id),
   });
 
-  const postData = data;
   const postImages = postData?.postImages;
 
   const [activeImg, setActiveImg] = useState("");
@@ -74,12 +73,12 @@ const SinglePost = () => {
               </div>
             </div>
             <div className="flex-1 overflow-y-auto scroll">
-              <PostData getSinglePost={postData} />
+              {postData && <PostData getSinglePost={postData} />}
               <div className="flex items-center gap-2 p-3 border border-gray-300 rounded-md mt-3">
                 <ShareComment />
                 <LikePost likes={0} momentId={postData?.id} />
               </div>
-              <MentionedTrips location={postData.location} />
+              <MentionedTrips location={postData?.location} />
             </div>
           </div>
         </Screen>

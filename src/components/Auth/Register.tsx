@@ -6,7 +6,7 @@ import { registerSchema } from "./Schemas";
 import { createUser, type registerType } from "../../api-call/auth-api";
 import { USER_KEY } from "../../constants/react-query";
 import { useNavigate } from "react-router-dom";
-import useCreateData from "../../Hooks/useCreateData";
+import useCreateData from "../../hooks/useCreateData";
 
 const Register = () => {
   const navigate = useNavigate();

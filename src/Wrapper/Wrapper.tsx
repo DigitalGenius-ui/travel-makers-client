@@ -1,6 +1,6 @@
 import React from "react";
-import BookingContext from "../Context/BookingContext";
-import UserContext from "../Context/UserContext";
+import BookingContext from "../context/BookingContext";
+import UserContext from "../context/UserContext";
 import ScrollToTop from "../ScrollToTop";
 import { ToastContainer } from "react-toastify";
 

@@ -3,7 +3,7 @@ import React, { useState, type SetStateAction } from "react";
 import { BsEmojiSmile } from "react-icons/bs";
 
 type emoji = "☹️" | "😑" | "🙂" | "😁" | "😘";
-let emojis: emoji[] = ["☹️", "😑", "🙂", "😁", "😘"];
+const emojis: emoji[] = ["☹️", "😑", "🙂", "😁", "😘"];
 
 type ratingProps = {
   ratingCount: number | null;

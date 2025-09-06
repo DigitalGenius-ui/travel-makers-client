@@ -1,5 +1,5 @@
 import { ActionButton } from "../../../../utils/ActionButton";
-import { useCurrentUser } from "../../../../Context/UserContext";
+import { useCurrentUser } from "../../../../context/UserContext";
 import type { ReactNode } from "react";
 
 type boxesType = {

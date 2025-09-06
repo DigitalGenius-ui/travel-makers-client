@@ -34,25 +34,54 @@ export const uploadImages = async (images: string[]) => {
 };
 
 // create tour data tour data
-export const createTourReview = async (data) => {
+export type createTourProps = {
+  rating: string;
+  text: string;
+  reviewImages: string[];
+  toursId: string | undefined;
+  userId: string;
+};
+export const createTourReview = async (data: createTourProps) => {
   const tour = await API.post(`/tours/createReview`, data);
-  return tour;
+  return tour.data;
 };
 
 // remove tour data tour data
-export const removeTourReview = async (id) => {
+export const removeTourReview = async (id: string) => {
   const tour = await API.post(`/tours/removeReview/${id}`);
-  return tour;
+  return tour.data;
 };
 
 //create payment data
-export const createCheckout = async (data: any) => {
+export type checkoutType = {
+  name: string;
+  image: string | undefined;
+  description: string | undefined;
+  price: number;
+  quantity: number;
+  id: string | undefined;
+};
+export const createCheckout = async (data: checkoutType[]) => {
   const checkOut = await API.post(`/tours/create-checkout-session`, data);
   return checkOut.data;
 };
 
 // create tickets
-export const createTicket = async (data) => {
+export type createTicketType = {
+  totalPrice: number;
+  phone: string;
+  userId: string | undefined;
+  tourImage: string | undefined;
+  title: string | undefined;
+  date: string;
+  bookTime: string;
+  child: number;
+  adult: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+};
+export const createTicket = async (data: createTicketType) => {
   const ticket = await API.post("/tours/ticketSave", data);
   return ticket.data;
 };

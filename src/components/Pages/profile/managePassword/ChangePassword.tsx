@@ -6,7 +6,7 @@ import { inputs } from "./data";
 import Inputs from "./Inputs";
 import { useParams } from "react-router-dom";
 import { ActionButton } from "../../../../utils/ActionButton";
-import useCreateData from "../../../../Hooks/useCreateData";
+import useCreateData from "../../../../hooks/useCreateData";
 import { changeProfilePassword } from "../../../../api-call/user-api";
 import { USER_KEY } from "../../../../constants/react-query";
 

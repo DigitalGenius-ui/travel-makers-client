@@ -170,7 +170,6 @@ const DistinatoinBox = ({
   title: string;
   participents: string;
 }) => {
-  const color = "";
   return (
     <div className="flex gap-2">
       <ColorBox className="mt-2" />

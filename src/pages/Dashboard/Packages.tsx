@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import TourDetails from "../../components/Dashboard/Packages/TourDetails";
 import ToursLists from "../../components/Dashboard/Packages/ToursLists";
-import useGetTours from "../../Hooks/useGetTours";
+import useGetTours from "../../hooks/useGetTours";
 
 const Packages = () => {
   const { tourData, isPending } = useGetTours();

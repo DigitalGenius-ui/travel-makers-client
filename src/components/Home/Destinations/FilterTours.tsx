@@ -1,7 +1,7 @@
 import React from "react";
 import PageBanner from "../../../utils/PageBanner";
 import { useParams } from "react-router-dom";
-import useGetTours from "../../../Hooks/useGetTours";
+import useGetTours from "../../../hooks/useGetTours";
 import TourCard from "../RecommendedTours/TourCard";
 import Screen from "../../../utils/Screen";
 

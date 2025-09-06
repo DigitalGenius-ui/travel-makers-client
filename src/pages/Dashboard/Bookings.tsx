@@ -1,20 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
 import TravleMakersTable from "../../components/Table/TravelMakersTable";
-import useTicketsData from "../../Hooks/useTicketsData";
+import useTicketsData from "../../hooks/useTicketsData";
 import { dateColumn, textColumn } from "../../components/Table/textColumn";
 import { parsDateHandler } from "../../utils/Date";
 import { format, isAfter } from "date-fns";
-import useCreateData from "../../Hooks/useCreateData";
+import useCreateData from "../../hooks/useCreateData";
 import { removeUserTicket, updateUserTickets } from "../../api-call/user-api";
 import TicketCard from "../../components/Pages/profile/myBookings/TicketCard";
 import { TICKETS_KEYS } from "../../constants/react-query";
 import { Button, TextField } from "@mui/material";
 import { TicketStatus } from "../../utils/StatusBox";
-import {
-  type MRT_ColumnDef,
-  MRT_GlobalFilterTextField,
-  type MRT_Row,
-} from "material-react-table";
+import { MRT_GlobalFilterTextField } from "material-react-table";
 import CustomeMenu from "../../utils/CustomeMenu";
 import Insight from "../../components/Dashboard/Main/Insight";
 import { useNavigate, useParams } from "react-router-dom";

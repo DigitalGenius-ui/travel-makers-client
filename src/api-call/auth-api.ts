@@ -8,7 +8,7 @@ export type registerType = {
 
 export const createUser = async (values: registerType) => {
   const userRegister = await API.post(`/auth/register`, values);
-  return userRegister;
+  return userRegister.data;
 };
 
 export const sendVerifyCode = async () => {
@@ -18,7 +18,7 @@ export const sendVerifyCode = async () => {
 
 export const verifyEmail = async (code: string | undefined) => {
   const verifyEmail = await API.get(`/auth/email/verify/${code}`);
-  return verifyEmail;
+  return verifyEmail.data;
 };
 
 export type loginType = { email: string; password: string };
@@ -28,12 +28,12 @@ export const loginUser = async ({ email, password }: loginType) => {
     email,
     password,
   });
-  return userLogin;
+  return userLogin.data;
 };
 
 export const forgotPassword = async (email: { email: string }) => {
   const forgorPas = await API.post(`/auth/forgot/password`, email);
-  return forgorPas;
+  return forgorPas.data;
 };
 
 export const resetPassword = async ({
@@ -47,10 +47,10 @@ export const resetPassword = async ({
     verificationCode: code,
     password,
   });
-  return reset;
+  return reset.data;
 };
 
 export const logOutUser = async () => {
   const userLogOut = await API.post(`/auth/logout`);
-  return userLogOut;
+  return userLogOut.data;
 };

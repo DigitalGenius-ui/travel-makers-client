@@ -8,7 +8,7 @@ import { Flex } from "@chakra-ui/react";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
 // import FilterBtn from "./FilterBtn";
-import useGetTours from "../../../Hooks/useGetTours";
+import useGetTours from "../../../hooks/useGetTours";
 import SliderArrow from "../../../utils/SliderArros";
 import TourCard from "../RecommendedTours/TourCard";
 import FilterBtn from "./FilterBtn";

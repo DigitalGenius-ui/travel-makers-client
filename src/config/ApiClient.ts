@@ -23,8 +23,8 @@ API.interceptors.response.use(
     return response;
   },
   async (error) => {
-    let { config, response } = error;
-    let { status, data } = response || {};
+    const { config, response } = error;
+    const { status, data } = response || {};
     if (
       data?.errorCode === "TOKEN_NOT_FOUND" ||
       data?.errorCode === "INVALID_TOKEN"

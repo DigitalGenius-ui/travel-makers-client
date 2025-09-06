@@ -1,5 +1,5 @@
-import useGetTours from "../../Hooks/useGetTours";
-import { useEffect, useState } from "react";
+import useGetTours from "../../hooks/useGetTours";
+import { useEffect, useState, type CSSProperties } from "react";
 import Pagination from "../../utils/Pagination";
 import { CartLoading } from "../../utils/Loadings";
 import SearchInput from "../../utils/SearchInput";
@@ -8,14 +8,15 @@ import { RxComponent2 } from "react-icons/rx";
 import { IoIosMenu } from "react-icons/io";
 import clsx from "clsx";
 import { GalleryCard } from "../../components/Dashboard/Gallery/GalleryCard";
-import useDebounce from "../../Hooks/useDebounce";
+import useDebounce from "../../hooks/useDebounce";
+import type { tourType } from "../../api-call/tour-api";
 
-const cardsRows = [
+const cardsRows: { title: "grid" | "vertical"; icon: React.ReactNode }[] = [
   { title: "grid", icon: <RxComponent2 size={20} /> },
   { title: "vertical", icon: <IoIosMenu size={20} /> },
 ];
 
-const styles = {
+const styles: { vertical: CSSProperties; grid: CSSProperties } = {
   vertical: {
     display: "flex",
     flexDirection: "column",
@@ -33,8 +34,10 @@ const Gallery = () => {
   const [sort, setSort] = useState("A - Z");
   const [searchInput, setSearchInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [filterData, setFilterData] = useState([]);
-  const [row, setRow] = useState("grid");
+  const [filterData, setFilterData] = useState<tourType[] | undefined>(
+    [] as tourType[]
+  );
+  const [row, setRow] = useState<"grid" | "vertical">("grid");
 
   const debounce = useDebounce();
 
@@ -44,7 +47,7 @@ const Gallery = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const totalPages = Math.ceil(filterData?.length / itemsPerPage);
+  const totalPages = Math.ceil(filterData?.length! / itemsPerPage);
 
   useEffect(() => {
     setLoading(true);
@@ -58,7 +61,7 @@ const Gallery = () => {
       }
 
       if (searchInput.trim()) {
-        data = data.filter((item) =>
+        data = data?.filter((item) =>
           item.title.toLowerCase().startsWith(searchInput.toLowerCase())
         );
         setCurrentPage(1);
@@ -70,7 +73,7 @@ const Gallery = () => {
 
     const debounceSearch = debounce(search, 1000);
     debounceSearch();
-  }, [searchInput, setFilterData, tourData, sort, setCurrentPage]);
+  }, [searchInput, setFilterData, tourData, sort, setCurrentPage, debounce]);
 
   const newTours = filterData?.slice(indexOfFirstItem, indexOfLastItem);
 
@@ -90,11 +93,7 @@ const Gallery = () => {
           {/* sort  */}
           <div className="flex items-center gap-1">
             <p className="text-darkText">Sort by:</p>
-            <CustomeMenu
-              menus={menus}
-              value={sort}
-              onChange={(e) => setSort(e.target.value)}
-            />
+            <CustomeMenu menus={menus} value={sort} setValue={setSort} />
           </div>
           {/* verticla and horisoltel style  */}
           <div className=" bg-white rounded-md overflow-hidden shadow-lg">
@@ -127,7 +126,7 @@ const Gallery = () => {
         </div>
       ) : (
         <>
-          {filterData?.length > 0 ? (
+          {filterData?.length! > 0 ? (
             <>
               <article style={styles[row]}>
                 {newTours?.map((tour) => (

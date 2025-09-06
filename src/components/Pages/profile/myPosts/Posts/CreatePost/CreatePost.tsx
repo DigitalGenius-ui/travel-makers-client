@@ -1,8 +1,8 @@
 import { Button, Input, Textarea } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import useGetTours from "../../../../../../Hooks/useGetTours";
-import useCreateData from "../../../../../../Hooks/useCreateData";
+import useGetTours from "../../../../../../hooks/useGetTours";
+import useCreateData from "../../../../../../hooks/useCreateData";
 import WhiteBg from "../../../../../../utils/WhiteBg";
 import UploadImg from "./UploadImg";
 import LocationDrop from "./LocationDrop";
@@ -10,7 +10,10 @@ import TermAndCondition from "../../../../../../utils/TermAndCondition";
 import { useNavigate } from "react-router-dom";
 import { createPostSchema } from "../../../InputsSchemas";
 import { uploadImages } from "../../../../../../api-call/tour-api";
-import { createMoment } from "../../../../../../api-call/user-api";
+import {
+  createMoment,
+  type createMomentType,
+} from "../../../../../../api-call/user-api";
 import { USER_KEY } from "../../../../../../constants/react-query";
 
 const CreatePost = () => {
@@ -24,19 +27,12 @@ const CreatePost = () => {
     func: createMoment,
   });
 
-  type submitProps = {
-    title: string;
-    desc: string;
-    location: string;
-    postImages: string[];
-  };
-
   const handleSubmit = async ({
     title,
     desc,
     location,
     postImages,
-  }: submitProps) => {
+  }: createMomentType) => {
     setIsLoading(true);
     const imagesLinks = await uploadImages(postImages);
 

@@ -2,10 +2,10 @@ import { Avatar, Button, IconButton } from "@chakra-ui/react";
 import { format } from "date-fns";
 import React, { useState } from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
-import useCreateData from "../../../../../../Hooks/useCreateData";
+import useCreateData from "../../../../../../hooks/useCreateData";
 import { Link } from "react-router-dom";
 import { momentPostCommentRemove } from "../../../../../../api-call/user-api";
-import { useCurrentUser } from "../../../../../../Context/UserContext";
+import { useCurrentUser } from "../../../../../../context/UserContext";
 import { POST_KEYS } from "../../../../../../constants/react-query";
 
 const Comments = ({ comment }: { comment: any }) => {

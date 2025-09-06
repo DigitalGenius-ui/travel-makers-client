@@ -1,4 +1,4 @@
-import { useCurrentUser } from "../../Context/UserContext";
+import { useCurrentUser } from "../../context/UserContext";
 import { Avatar } from "@chakra-ui/react";
 import Screen from "../../utils/Screen";
 

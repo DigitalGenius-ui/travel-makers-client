@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import EmptyMessage from "../EmptyMessage";
-import { useCurrentUser } from "../../../../../Context/UserContext";
+import { useCurrentUser } from "../../../../../context/UserContext";
 import Pagination from "../../../../../utils/Pagination";
 import Review from "../../../tours/TourDetails/TourDetails/Reviews/Review";
 import { useQuery } from "@tanstack/react-query";

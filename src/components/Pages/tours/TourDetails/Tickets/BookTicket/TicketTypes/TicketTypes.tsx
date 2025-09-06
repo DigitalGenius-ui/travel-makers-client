@@ -1,9 +1,9 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { SlCalender } from "react-icons/sl";
 import { IoIosArrowDropup } from "react-icons/io";
 import { IoIosArrowDropdown } from "react-icons/io";
 import { Button } from "@chakra-ui/react";
-import { useBookingContext } from "../../../../../../../Context/BookingContext";
+import { useBookingContext } from "../../../../../../../context/BookingContext";
 import TourType from "./TourType";
 
 const TicketTypes = ({ bookPrice }: { bookPrice: number }) => {

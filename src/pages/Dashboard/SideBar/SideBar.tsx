@@ -1,7 +1,7 @@
 import { sideBarMenu } from "./data";
 import { Link, useLocation } from "react-router-dom";
 import clsx from "clsx";
-import { useCurrentUser } from "../../../Context/UserContext";
+import { useCurrentUser } from "../../../context/UserContext";
 import { IoLogOutOutline } from "react-icons/io5";
 import { IoLocation } from "react-icons/io5";
 import { IoIosArrowBack } from "react-icons/io";
@@ -9,7 +9,7 @@ import { IconButton, Tooltip } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import useWindowSize from "../../../Hooks/useWindowSize";
+import useWindowSize from "../../../hooks/useWindowSize";
 
 const SideBar = () => {
   const [showMenu, setShowMenu] = useState(false);

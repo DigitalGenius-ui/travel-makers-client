@@ -6,7 +6,7 @@ import Loading from "../../../../Loading";
 import Details from "./TourDetails/Details";
 import Ticket from "./Tickets/Ticket";
 import Reviews from "./TourDetails/Reviews/Reviews";
-import useGetTours from "../../../../Hooks/useGetTours";
+import useGetTours from "../../../../hooks/useGetTours";
 
 // AIzaSyBSeW5Vop-j-38qM3wlUijLtZGGYJjKcgg
 

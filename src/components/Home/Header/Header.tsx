@@ -12,8 +12,8 @@ import { nav } from "../../../../HomeData.json";
 import DropDown from "./DropDown";
 import { useNavigate } from "react-router-dom";
 import Screen from "../../../utils/Screen";
-import useHeaderScroll from "../../../Hooks/useHeaderScroll";
-import { useCurrentUser } from "../../../Context/UserContext";
+import useHeaderScroll from "../../../hooks/useHeaderScroll";
+import { useCurrentUser } from "../../../context/UserContext";
 
 const Header = () => {
   const { isScroll, changeBg } = useHeaderScroll();

@@ -1,6 +1,6 @@
 import React from "react";
 import TourCard from "./TourCard";
-import useGetTours from "../../../Hooks/useGetTours";
+import useGetTours from "../../../hooks/useGetTours";
 import Screen from "../../../utils/Screen";
 import Title from "../../../utils/Title";
 import { CartLoading } from "../../../utils/Loadings";

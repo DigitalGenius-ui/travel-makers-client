@@ -2,15 +2,19 @@ import { Box, Button, Checkbox, Flex, useToast } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import Head from "../../../../../../utils/Head";
 import Screen from "../../../../../../utils/Screen";
-import useGetTours from "../../../../../../Hooks/useGetTours";
+import useGetTours from "../../../../../../hooks/useGetTours";
 import TotalPrice from "./TotalPrice";
 import DatePicker from "./DatePicker";
 import TicketTypes from "./TicketTypes/TicketTypes";
 import Activity from "./Activity";
 import Contact from "./Contact/Contact";
-import { useBookingContext } from "../../../../../../Context/BookingContext";
-import { createCheckout } from "../../../../../../api-call/tour-api";
-import useCreateData from "../../../../../../Hooks/useCreateData";
+import { useBookingContext } from "../../../../../../context/BookingContext";
+import {
+  createCheckout,
+  type checkoutType,
+  type createTicketType,
+} from "../../../../../../api-call/tour-api";
+import useCreateData from "../../../../../../hooks/useCreateData";
 import { USER_KEY } from "../../../../../../constants/react-query";
 import type React from "react";
 
@@ -64,7 +68,7 @@ const BookTicket = () => {
 
     const { phone, sendDeal, ...rest } = bookForm;
 
-    const bookData = {
+    const bookData: createTicketType = {
       totalPrice,
       phone: `${contactCode} ${phone}`,
       ...rest,
@@ -73,7 +77,7 @@ const BookTicket = () => {
       title: singleBooking?.title,
     };
 
-    const formItems = [
+    const formItems: checkoutType[] = [
       {
         name: "Child Ticket",
         image: singleBooking?.tourImages[0],

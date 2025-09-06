@@ -2,7 +2,7 @@ import { Avatar, Button, Flex, HStack } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
 import OutStanding from "../../../../../utils/OutStanding";
-import { useCurrentUser } from "../../../../../Context/UserContext";
+import { useCurrentUser } from "../../../../../context/UserContext";
 
 const Traveler = ({ reviews }) => {
   const profile = reviews[0]?.user?.profile;

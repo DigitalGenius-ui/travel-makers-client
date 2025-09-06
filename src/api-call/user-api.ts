@@ -2,11 +2,12 @@ import { API, publicAPI } from "../config/ApiClient";
 
 // get current user details
 export const getCurrentUser = async () => {
-  return await API.get(`/user`);
+  const res = await API.get(`/user`);
+  return res.data;
 };
 
 // get user by id details
-export type userType = {}; // todo
+// export type userType = {}; // todo
 export const getSingleUser = async (id: string | undefined) => {
   const res = await publicAPI.get(`/user/getSingleUser/${id}`);
   return res.data;
@@ -32,33 +33,58 @@ export const getAllUsers = async ({
 };
 
 // update profile data
-export const userDetailsUpdate = async (data) => {
-  return await API.post(`/user/updateUserDetails`, data);
+type detailsUpdateType = {
+  userId: string;
+  role: "USER" | "ADMIN" | "EDITOR";
+  verified: boolean;
+};
+export const userDetailsUpdate = async (data: detailsUpdateType) => {
+  const res = await API.post(`/user/updateUserDetails`, data);
+  return res.data;
 };
 
 // remove user
-export const removeUser = async (id) => {
-  return await API.delete(`/user/removeUser/${id}`);
+export const removeUser = async (id: string) => {
+  const res = await API.delete(`/user/removeUser/${id}`);
+  return res.data;
 };
 
 // update profile data
-export const profileDetailsUpdate = async (data) => {
-  return await API.post(`/user/profile`, data);
+type profileType = {
+  firstName?: string;
+  lastName?: string;
+  birthDate?: string;
+  gender?: string;
+  userImg?: string;
+  bio?: string;
+};
+export const profileDetailsUpdate = async (data: profileType) => {
+  const res = await API.post(`/user/profile`, data);
+  return res.data;
 };
 
 // update profile image
-export const updateProfileImage = async (userImg) => {
-  return await API.post(`/user/uploadImage`, { userImg });
+export const updateProfileImage = async (userImg: string) => {
+  const res = await API.post(`/user/uploadImage`, { userImg });
+  return res.data;
 };
 
 // create moment post
-export const createMoment = async (data) => {
-  return await API.post(`/user/createPost`, data);
+export type createMomentType = {
+  title: string;
+  desc: string;
+  location: string;
+  postImages: string[];
+};
+export const createMoment = async (data: createMomentType) => {
+  const res = await API.post(`/user/createPost`, data);
+  return res.data;
 };
 
 // create moment post
 export const removeMoment = async (id: string) => {
-  return await API.delete(`/user/removePost/${id}`);
+  const res = await API.delete(`/user/removePost/${id}`);
+  return res.data;
 };
 
 // get single moment post
@@ -68,17 +94,29 @@ export const getSingleMoment = async (id: string | undefined) => {
 };
 
 // create moment post comment
-export const momentPostCommentCreate = async (data) => {
-  return await API.post(`/user/createComment`, data);
+type commentType = {
+  comment: string;
+  userId: string;
+  momentId: string | undefined;
+};
+export const momentPostCommentCreate = async (data: commentType) => {
+  const res = await API.post(`/user/createComment`, data);
+  return res.data;
 };
 
 // create moment post comment
-export const momentPostCommentRemove = async (id) => {
-  return await API.delete(`/user/removeComment/${id}`);
+export const momentPostCommentRemove = async (id: string) => {
+  const res = await API.delete(`/user/removeComment/${id}`);
+  return res.data;
 };
 
 // change profile password
-export const changeProfilePassword = async (data) => {
+type passType = {
+  currentPassword: string;
+  newPassword: string;
+  userId: string;
+};
+export const changeProfilePassword = async (data: passType) => {
   return await API.put(`/user/changePassword/${data.userId}`, data);
 };
 
@@ -170,11 +208,18 @@ export const getUserTickets = async (
 };
 
 // update ticket
-export const updateUserTickets = async (data) => {
-  return await API.post(`/user/updateUserTicket`, data);
+type userTicketType = {
+  status: "pending" | "canceled" | "verified";
+  travelDate: string;
+  id: string;
+};
+export const updateUserTickets = async (data: userTicketType) => {
+  const res = await API.post(`/user/updateUserTicket`, data);
+  return res.data;
 };
 
 // remove ticket
-export const removeUserTicket = async (id) => {
-  return await API.delete(`/user/removeUserTicket/${id}`);
+export const removeUserTicket = async (id: string) => {
+  const res = await API.delete(`/user/removeUserTicket/${id}`);
+  return res.data;
 };
