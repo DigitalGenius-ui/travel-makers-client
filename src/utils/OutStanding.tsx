@@ -1,5 +1,4 @@
 import { Badge, HStack, Text } from "@chakra-ui/react";
-import React from "react";
 
 const ratingText: Record<number, string> = {
   1: "Poor",
@@ -10,8 +9,8 @@ const ratingText: Record<number, string> = {
 };
 
 type outStandingProps = {
-  fontSize: number;
-  size: number;
+  fontSize: string;
+  size: string;
   rating: number;
 };
 

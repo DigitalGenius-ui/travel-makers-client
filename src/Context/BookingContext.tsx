@@ -1,6 +1,6 @@
 import React, {
   createContext,
-  SetStateAction,
+  type SetStateAction,
   useContext,
   useState,
 } from "react";

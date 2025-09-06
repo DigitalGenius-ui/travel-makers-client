@@ -1,6 +1,7 @@
 import { InfoOutlineIcon } from "@chakra-ui/icons";
+import type { ReactNode } from "react";
 
-const ErrorLabel = ({ message }: { message: string }) => {
+const ErrorLabel = ({ message }: { message: ReactNode }) => {
   return (
     <div className="grid place-items-center">
       <div

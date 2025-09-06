@@ -7,8 +7,9 @@ export const getCurrentUser = async () => {
 
 // get user by id details
 export type userType = {}; // todo
-export const getSingleUser = async (id: string) => {
-  return await publicAPI.get(`/user/getSingleUser/${id}`);
+export const getSingleUser = async (id: string | undefined) => {
+  const res = await publicAPI.get(`/user/getSingleUser/${id}`);
+  return res.data;
 };
 
 // get all users
@@ -61,8 +62,9 @@ export const removeMoment = async (id: string) => {
 };
 
 // get single moment post
-export const getSingleMoment = async (id) => {
-  return await API.get(`/user/singleMoment/${id}`);
+export const getSingleMoment = async (id: string | undefined) => {
+  const res = await API.get(`/user/singleMoment/${id}`);
+  return res.data;
 };
 
 // create moment post comment
@@ -81,20 +83,52 @@ export const changeProfilePassword = async (data) => {
 };
 
 // get booking
-export const getBooking = async (page, limit) => {
-  return await API.get(`/user/getUserBooking?page=${page}&limit=${limit}`);
+// export type bookingType = {
+//   bookings: {
+//     id: string;
+//     title: string;
+//     firstName: string;
+//     lastName: string;
+//     phone: string;
+//     email: string;
+//     travelDate: string;
+//     tickets: {
+//       adult: number;
+//       child: number;
+//     };
+//     totalPrice: string;
+//     tourImage: string;
+//     status: "pending" | "canceled" | "verified";
+//     verifyNumber: string;
+//     userId: string;
+//     createAt: Date;
+//     updatedAt: Date;
+//   }[];
+//   totalPages: number;
+// };
+export const getBooking = async (page: number, limit: number) => {
+  const res = await API.get<any>(
+    `/user/getUserBooking?page=${page}&limit=${limit}`
+  );
+  return res.data;
 };
 
 // get Moments
-export const getMoments = async (page, id, limit) => {
-  return await API.get(
+export const getMoments = async (
+  page: number,
+  id: string | undefined,
+  limit: number
+) => {
+  const res = await API.get(
     `/user/getUserMoments/${id}?page=${page}&limit=${limit}`
   );
+  return res.data;
 };
 
 // get getUserReviews
-export const getUserReviews = async (page, limit) => {
-  return await API.get(`/user/getUserReviews?page=${page}&limit=${limit}`);
+export const getUserReviews = async (page: number, limit: number) => {
+  const res = await API.get(`/user/getUserReviews?page=${page}&limit=${limit}`);
+  return res.data;
 };
 
 // get all tickets

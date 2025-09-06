@@ -4,7 +4,7 @@ import CustomeMenu from "../../../utils/CustomeMenu";
 import { Button } from "@chakra-ui/react";
 import { FaRegClock } from "react-icons/fa";
 import { useMemo, useState } from "react";
-import useGetTours from "@/Hooks/useGetTours";
+import useGetTours from "../../../Hooks/useGetTours";
 
 const TripsCalcs = ({ title, amount }: { title: string; amount: number }) => {
   return (

@@ -1,5 +1,5 @@
 import { IconButton } from "@chakra-ui/react";
-import { Dispatch, SetStateAction } from "react";
+import { type Dispatch, type SetStateAction } from "react";
 import { CgMenuLeft } from "react-icons/cg";
 import { FaUserAlt } from "react-icons/fa";
 

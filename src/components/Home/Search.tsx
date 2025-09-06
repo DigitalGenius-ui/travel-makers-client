@@ -11,14 +11,14 @@ import Screen from "../../utils/Screen";
 import useGetTours from "../../Hooks/useGetTours";
 import { Link } from "react-router-dom";
 import useDebounce from "../../Hooks/useDebounce";
-import { tourData } from "../../api-call/tour-api";
+import { type tourType } from "../../api-call/tour-api";
 
 const Search = () => {
   const { tourData } = useGetTours();
 
   const [searchInput, setSearchInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [titles, setTitles] = useState<tourData[] | undefined>([]);
+  const [titles, setTitles] = useState<tourType[] | undefined>([]);
 
   const debounce = useDebounce();
 

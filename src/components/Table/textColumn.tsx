@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { MRT_RowData } from "material-react-table";
+import { type MRT_RowData } from "material-react-table";
 
 type textProps = {
   accessorKey: string;

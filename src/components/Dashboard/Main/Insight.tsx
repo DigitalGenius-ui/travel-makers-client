@@ -5,9 +5,9 @@ import { TfiMoney } from "react-icons/tfi";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { FaArrowTrendDown } from "react-icons/fa6";
 import { AreaChart, Area, Tooltip, ResponsiveContainer } from "recharts";
-import { ReactElement } from "react";
+import { type ReactElement } from "react";
 
-const Insight = ({ booking }: { booking: any }) => {
+const Insight = ({ booking }: { booking?: boolean }) => {
   const totalBookings = 1000;
   const newCustomer = 1000;
   const totalEarnings = 2000;

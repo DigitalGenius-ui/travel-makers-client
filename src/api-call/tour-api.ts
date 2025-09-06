@@ -1,7 +1,7 @@
 import { API, publicAPI } from "../config/ApiClient";
 
 // get all tours data
-export type tourData = {
+export type tourType = {
   id: string;
   title: string;
   open_time: Date;
@@ -10,6 +10,7 @@ export type tourData = {
   phone_number: string;
   number_of_tickets: number;
   description: string;
+  userId: string;
   country: string;
   city: string;
   price: number;
@@ -22,14 +23,14 @@ export type tourData = {
 };
 
 export const getTours = async () => {
-  const tours = await publicAPI.get<tourData[]>(`/tours`);
+  const tours = await publicAPI.get<tourType[]>(`/tours`);
   return tours.data;
 };
 
 // upload tours reviews images
 export const uploadImages = async (images: string[]) => {
   const res = await API.post("/tours/uploadImages", images);
-  return res;
+  return res.data;
 };
 
 // create tour data tour data
@@ -45,13 +46,13 @@ export const removeTourReview = async (id) => {
 };
 
 //create payment data
-export const createCheckout = async (data) => {
+export const createCheckout = async (data: any) => {
   const checkOut = await API.post(`/tours/create-checkout-session`, data);
-  return checkOut;
+  return checkOut.data;
 };
 
 // create tickets
 export const createTicket = async (data) => {
   const ticket = await API.post("/tours/ticketSave", data);
-  return ticket;
+  return ticket.data;
 };

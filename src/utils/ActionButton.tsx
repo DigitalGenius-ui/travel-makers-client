@@ -1,38 +1,30 @@
-import { Button } from "@chakra-ui/react";
-import { ReactNode } from "react";
+import { Button, type ButtonProps } from "@chakra-ui/react";
+import { type ReactNode } from "react";
 
-type actionsButton = {
-  isPending: boolean;
+type actionsButton = ButtonProps & {
   onClick: () => void;
-  variant: string;
   children: ReactNode;
-  type: "button" | "submit" | "reset" | undefined;
-  color: string;
-  size: string;
-  rest: any;
+  isPending?: boolean;
+  color?: string;
 };
 
 export const ActionButton = ({
-  isPending,
   onClick,
-  variant,
   children,
-  type,
+  isPending,
   color,
-  size = "sm",
-  ...rest
+  ...props
 }: actionsButton) => {
   return (
     <Button
       isLoading={isPending}
       onClick={onClick}
-      variant={variant || "solid"}
-      type={type}
+      variant={props.variant || "solid"}
       colorScheme={color || "blue"}
-      size={size}
+      size={props.size ?? "sm"}
       fontSize="xs"
       px="1rem"
-      {...rest}
+      {...props}
     >
       {children}
     </Button>

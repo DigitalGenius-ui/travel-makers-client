@@ -4,9 +4,9 @@ import { GrMapLocation } from "react-icons/gr";
 import { FaRegClock } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Stars from "../../../utils/stars";
-import { tourData } from "../../../api-call/tour-api";
+import { type tourType } from "../../../api-call/tour-api";
 
-const TourCard = ({ item }: { item: tourData }) => {
+const TourCard = ({ item }: { item: tourType }) => {
   const isNewTour =
     new Date(item.createAt) >= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
 

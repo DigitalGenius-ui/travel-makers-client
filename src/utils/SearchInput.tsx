@@ -3,9 +3,9 @@ import { CiSearch } from "react-icons/ci";
 
 type searchInputProps = {
   value: string;
-  onChange: () => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
-  bg: "white";
+  bg?: "white";
 };
 
 const SearchInput = ({

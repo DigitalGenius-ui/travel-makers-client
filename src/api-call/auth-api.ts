@@ -5,6 +5,7 @@ export type registerType = {
   password: string;
   confirmPassword: string;
 };
+
 export const createUser = async (values: registerType) => {
   const userRegister = await API.post(`/auth/register`, values);
   return userRegister;
@@ -12,7 +13,7 @@ export const createUser = async (values: registerType) => {
 
 export const sendVerifyCode = async () => {
   const sendCode = await API.post(`/auth/send/verifyCode`);
-  return sendCode;
+  return sendCode.data;
 };
 
 export const verifyEmail = async (code: string | undefined) => {

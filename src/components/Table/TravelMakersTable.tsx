@@ -1,7 +1,7 @@
 import {
   MaterialReactTable,
-  MRT_ColumnDef,
-  MRT_RowData,
+  type MRT_ColumnDef,
+  type MRT_RowData,
 } from "material-react-table";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import PropTypes from "prop-types";

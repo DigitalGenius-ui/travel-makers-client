@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import CardWrapper from "./CartWrapper";
 import Inputs from "./Inputs";
 import { registerSchema } from "./Schemas";
-import { createUser, registerType } from "../../api-call/auth-api";
+import { createUser, type registerType } from "../../api-call/auth-api";
 import { USER_KEY } from "../../constants/react-query";
 import { useNavigate } from "react-router-dom";
 import useCreateData from "../../Hooks/useCreateData";

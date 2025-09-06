@@ -2,7 +2,7 @@ import { useToast } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useErrorToest from "./useErrorToest";
 
-const useCreateData = <TData, TVariable = void>({
+const useCreateData = <TData, TVariable = {}>({
   key,
   func,
 }: {

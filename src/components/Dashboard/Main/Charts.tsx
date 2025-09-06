@@ -1,4 +1,3 @@
-import { MenuItem } from "@chakra-ui/icons";
 import { format } from "date-fns";
 import {
   LineChart,

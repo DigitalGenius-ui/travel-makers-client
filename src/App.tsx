@@ -7,7 +7,7 @@ import NotFound from "./not-found";
 import { authRoutes } from "./routes/authRoutes";
 import { publicToutes } from "./routes/publicToutes";
 import Footer from "./components/Home/Footer";
-// import { protectedRoutes } from "./routes/ProtectedRoutes";
+import { protectedRoutes } from "./routes/protectedRoutes";
 
 const App = () => {
   const { currentUser, isPending } = useCurrentUser();
@@ -21,9 +21,9 @@ const App = () => {
     <Routes>
       <Route path="/" element={<RouteWrapper />}>
         {publicToutes}
-        {/* {currentUser && protectedRoutes(isAdmin)} */}
+        {currentUser && protectedRoutes(isAdmin)}
         {authRoutes(currentUser)}
-        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );
