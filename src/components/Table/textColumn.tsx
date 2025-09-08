@@ -1,31 +1,32 @@
 import { format } from "date-fns";
-import { type MRT_RowData } from "material-react-table";
+import { type MRT_ColumnDef, type MRT_RowData } from "material-react-table";
+import type { ReactNode } from "react";
 
-type textProps = {
+type FilterVariant = MRT_ColumnDef<any>["filterVariant"];
+
+type textProps<TData extends MRT_RowData> = {
   accessorKey: string;
   header: string;
   size?: number;
   enableColumnFilter?: boolean;
-  filterVariant?: string;
+  filterVariant?: FilterVariant;
   enableSorting?: boolean;
   enableEditing?: boolean;
-  render?: (data: MRT_RowData) => void;
+  render?: (params: { cellValue: ReactNode; rowData: TData }) => ReactNode;
   editVariant?: "text" | "select" | undefined;
-  other?: any;
 };
 
-export const textColumn = ({
+export const textColumn = <T extends MRT_RowData>({
   accessorKey,
   header,
   size = 40,
   enableColumnFilter = false,
-  filterVariant = "auto",
+  filterVariant = "text",
   enableSorting = true,
   enableEditing = false,
   render,
   editVariant = "text",
-  ...other
-}: textProps) => {
+}: textProps<T>): MRT_ColumnDef<T> => {
   return {
     accessorKey,
     header,
@@ -37,7 +38,6 @@ export const textColumn = ({
     editVariant,
     minSize: size,
     maxSize: size > 100 ? size - 70 : size,
-    ...other,
     Cell: ({ renderedCellValue: cellValue, row }) => {
       const rowData = row.original;
       return <>{render ? render({ cellValue, rowData }) : (cellValue ?? "")}</>;
@@ -45,15 +45,25 @@ export const textColumn = ({
   };
 };
 
-export const dateColumn = ({
+type dateColType = {
+  accessorKey: string;
+  header: string;
+  size?: number;
+  enableColumnFilter?: boolean;
+  filterVariant?: FilterVariant;
+  enableSorting?: boolean;
+  enableEditing?: boolean;
+};
+
+export const dateColumn = <T extends MRT_RowData>({
   accessorKey,
   header,
   size = 40,
   enableColumnFilter = false,
-  filterVariant = "auto",
+  filterVariant = "text",
   enableSorting = false,
   enableEditing = false,
-}) => {
+}: dateColType): MRT_ColumnDef<T> => {
   return {
     accessorKey,
     header,
@@ -65,8 +75,15 @@ export const dateColumn = ({
     minSize: size,
     maxSize: size > 100 ? size - 70 : size,
     Cell: ({ renderedCellValue }) => {
-      const formateDate = format(renderedCellValue, "E, MMM dd, yy");
-      return <span>{formateDate}</span>;
+      if (
+        typeof renderedCellValue === "string" ||
+        renderedCellValue instanceof Date
+      ) {
+        const date = new Date(renderedCellValue);
+        const formatted = format(date, "E, MMM dd, yy");
+        return <span>{formatted}</span>;
+      }
+      return <span>{renderedCellValue ?? ""}</span>;
     },
   };
 };

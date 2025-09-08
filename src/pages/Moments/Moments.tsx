@@ -4,7 +4,8 @@ import Screen from "../../utils/Screen";
 
 const Moments = () => {
   const { currentUser } = useCurrentUser();
-  const fullName = `${currentUser?.firstName} ${currentUser?.firstName}`;
+  const { profile } = currentUser;
+  const fullName = `${profile?.firstName} ${profile?.firstName}`;
   return (
     <section className="bg-darkBlue w-full">
       <Screen>

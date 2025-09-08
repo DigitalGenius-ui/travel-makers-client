@@ -5,7 +5,9 @@ import {
   MenuItem,
   Select,
   ThemeProvider,
+  type SelectChangeEvent,
 } from "@mui/material";
+import type { SetStateAction } from "react";
 
 const theme = createTheme({
   typography: {
@@ -15,13 +17,25 @@ const theme = createTheme({
   },
 });
 
-type menuProps = {
+type BaseProps = {
   value: string;
   menus: string[];
-  setValue: React.Dispatch<React.SetStateAction<string>>;
   variant?: "outlined" | "filled" | "standard" | undefined;
   disabled?: boolean;
 };
+
+// Either `setValue` or `onChange` must be provided
+type WithSetValue = {
+  setValue: React.Dispatch<SetStateAction<string>>;
+  onChange?: never;
+};
+
+type WithOnChange = {
+  onChange: (e: SelectChangeEvent<string>) => void;
+  setValue?: never;
+};
+
+type menuProps = BaseProps & (WithSetValue | WithOnChange);
 
 const CustomeMenu = ({
   value,
@@ -29,6 +43,7 @@ const CustomeMenu = ({
   setValue,
   variant,
   disabled,
+  onChange,
 }: menuProps) => {
   return (
     <ThemeProvider theme={theme}>
@@ -41,7 +56,14 @@ const CustomeMenu = ({
         <Select
           variant={variant ?? "outlined"}
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => {
+            if (setValue) {
+              setValue(e.target.value);
+            }
+            if (onChange) {
+              onChange(e);
+            }
+          }}
           size="small"
           labelId={`select-small-label`}
           sx={{ textTransform: "capitalize" }}

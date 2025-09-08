@@ -1,9 +1,9 @@
 import { Button } from "@chakra-ui/react";
-import { type Dispatch, useEffect } from "react";
+import { type Dispatch } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 type paginateProps = {
-  totalPages: number;
+  totalPages: number | undefined;
   setCurrentPage: Dispatch<React.SetStateAction<number>>;
   currentPage: number;
 };
@@ -12,6 +12,8 @@ const Pagination = ({
   setCurrentPage,
   currentPage,
 }: paginateProps) => {
+  if (!totalPages) return;
+
   const decreasePage = () => {
     setCurrentPage((prev) => (prev > 1 ? prev - 1 : 1));
   };
@@ -44,10 +46,6 @@ const Pagination = ({
 
     return totalButtons;
   };
-
-  useEffect(() => {
-    getTotalButtons();
-  }, []);
 
   return (
     <div className="space-x-2 pb-8 text-right">

@@ -15,7 +15,6 @@ const useGetAllUsers = ({
     queryFn: async () => await getAllUsers({ page, limit, type, search }),
     placeholderData: (previousData) => previousData,
   });
-  console.log(data);
 
   return {
     data,

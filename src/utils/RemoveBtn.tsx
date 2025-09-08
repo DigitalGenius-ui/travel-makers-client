@@ -13,7 +13,7 @@ const RemoveBtn = <TItem extends WithUserId, Tfunc, TInput>({
   inputData,
   message,
 }: {
-  removeFunc: (tVariable?: any) => Promise<Tfunc>;
+  removeFunc: (tVariable: TInput) => Promise<Tfunc>;
   itemToRemove: TItem;
   inputData: TInput;
   message: string;

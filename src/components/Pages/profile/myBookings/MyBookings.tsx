@@ -26,12 +26,12 @@ const MyBookings = () => {
         ) : data?.bookings.length === 0 ? (
           <EmptyBook />
         ) : (
-          data?.bookings.map((book: any) => (
-            <TicketCard key={book.id} book={book} />
+          data?.bookings.map((book) => (
+            <TicketCard key={book.id} bookedTicket={book} />
           ))
         )}
       </div>
-      {data?.totalPages > 1 && (
+      {(data?.totalPages ?? 0) > 1 && (
         <Pagination
           totalPages={data?.totalPages}
           setCurrentPage={setCurrentPage}

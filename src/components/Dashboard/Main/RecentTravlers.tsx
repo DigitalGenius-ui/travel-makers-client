@@ -2,6 +2,7 @@ import useGetAllUsers from "../../../hooks/useGetAllUsers";
 import { Avatar } from "@chakra-ui/react";
 import { dateEgoFormatter } from "../../../utils/Date";
 import { VerticaleCardLoading } from "../../../utils/Loadings";
+import type { userWithProfileType } from "../../../types/user-type";
 
 const RecentTravlers = () => {
   const { data, isPending } = useGetAllUsers({
@@ -9,6 +10,8 @@ const RecentTravlers = () => {
     limit: 7,
     type: "travler",
   });
+
+  if (!data) return;
 
   return (
     <section className="flex-1 dash-box">
@@ -18,8 +21,8 @@ const RecentTravlers = () => {
           <VerticaleCardLoading />
         ) : (
           <div className="space-y-3 mt-3">
-            {data?.users?.map((user: any) => (
-              <UserCard user={user} key={user.id} />
+            {data?.users?.map((user) => (
+              <UserCard user={user} key={user?.id} />
             ))}
           </div>
         )}
@@ -30,8 +33,12 @@ const RecentTravlers = () => {
 
 export default RecentTravlers;
 
-const UserCard = ({ user }: { user: any }) => {
-  const { profile } = user;
+type userCardType = {
+  user: userWithProfileType;
+};
+
+const UserCard = ({ user }: userCardType) => {
+  const profile = user?.profile;
 
   const userName =
     profile !== null && `${profile?.firstName} ${profile?.lastName}`;

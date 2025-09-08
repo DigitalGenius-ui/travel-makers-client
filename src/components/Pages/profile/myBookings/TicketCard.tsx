@@ -1,9 +1,10 @@
 import { HStack } from "@chakra-ui/react";
 import { TicketStatus } from "../../../../utils/StatusBox";
 import { format } from "date-fns";
+import type { ticketsType } from "../../../../types/tours-type";
 
-const TicketCard = ({ book }: { book: any }) => {
-  if (!book) return;
+const TicketCard = ({ bookedTicket }: { bookedTicket: ticketsType }) => {
+  if (!bookedTicket) return;
 
   const {
     tourImage,
@@ -15,7 +16,7 @@ const TicketCard = ({ book }: { book: any }) => {
     status,
     verifyNumber,
     totalPrice,
-  } = book;
+  } = bookedTicket;
 
   const formateDate = format(travelDate, "E, MMM dd, yy");
 
@@ -53,7 +54,13 @@ const TicketCard = ({ book }: { book: any }) => {
 
 export default TicketCard;
 
-const UserDetail = ({ title, detail }) => {
+const UserDetail = ({
+  title,
+  detail,
+}: {
+  title: string;
+  detail: string | number;
+}) => {
   return (
     <div className="flex items-center gap-2 text-sm">
       <h3 className="font-medium text-black/70">{title} :</h3>

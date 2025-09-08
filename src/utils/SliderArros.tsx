@@ -1,8 +1,8 @@
 import { IconButton } from "@chakra-ui/react";
-import { type JSXElementConstructor, type ReactElement } from "react";
+import { type ReactElement } from "react";
 
 type slideProps = {
-  icon: ReactElement<unknown, string | JSXElementConstructor<any>> | undefined;
+  icon: ReactElement;
   className: string;
   onClick?: () => void;
   variant?: string;

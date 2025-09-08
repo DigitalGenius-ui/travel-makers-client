@@ -2,7 +2,7 @@ import { useToast } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useErrorToest from "./useErrorToest";
 
-const useCreateData = <TData, TVariable = {}>({
+const useCreateData = <TData, TVariable>({
   key,
   func,
 }: {
@@ -26,17 +26,17 @@ const useCreateData = <TData, TVariable = {}>({
     inputData: TVariable;
     dataMessage: string;
   }) => {
-    const newData = await mutateAsync(inputData);
+    await mutateAsync(inputData);
 
     // toast notification
-    dataMessage &&
+    if (dataMessage) {
       toast({
         title: dataMessage,
         status: "success",
         duration: 3000,
         isClosable: true,
       });
-    return newData;
+    }
   };
 
   useErrorToest({ isError, error });

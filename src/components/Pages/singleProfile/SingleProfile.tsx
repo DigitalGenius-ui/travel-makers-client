@@ -23,7 +23,7 @@ const SingleProfile = () => {
         ) : data ? (
           <>
             <UserDetails detail={data} />
-            <UserMoments moment={data} />
+            <UserMoments userData={data} />
           </>
         ) : null}
       </div>

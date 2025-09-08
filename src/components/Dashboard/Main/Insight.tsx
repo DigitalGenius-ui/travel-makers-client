@@ -3,11 +3,10 @@ import { SlCalender } from "react-icons/sl";
 import { PiUserCircleCheck } from "react-icons/pi";
 import { TfiMoney } from "react-icons/tfi";
 import { FaArrowTrendUp } from "react-icons/fa6";
-import { FaArrowTrendDown } from "react-icons/fa6";
 import { AreaChart, Area, Tooltip, ResponsiveContainer } from "recharts";
 import { type ReactElement } from "react";
 
-const Insight = ({ booking }: { booking?: boolean }) => {
+const Insight = ({ isBooking }: { isBooking?: boolean }) => {
   const totalBookings = 1000;
   const newCustomer = 1000;
   const totalEarnings = 2000;
@@ -19,21 +18,21 @@ const Insight = ({ booking }: { booking?: boolean }) => {
         amount={totalBookings}
         estimate={2.4}
         icon={<SlCalender size={21} />}
-        booking={booking}
+        isBooking={isBooking}
       />
       <InsightCard
         title={"Total new customers"}
         amount={newCustomer}
         estimate={2.4}
         icon={<PiUserCircleCheck size={25} />}
-        booking={booking}
+        isBooking={isBooking}
       />
       <InsightCard
         title={"Total earnings"}
         amount={totalEarnings}
         estimate={2.4}
         icon={<TfiMoney size={22} />}
-        booking={booking}
+        isBooking={isBooking}
       />
     </section>
   );
@@ -90,7 +89,7 @@ type InsightProps = {
   amount: number;
   estimate: number;
   icon: ReactElement;
-  booking: any;
+  isBooking: boolean | undefined;
 };
 
 const InsightCard = ({
@@ -98,7 +97,7 @@ const InsightCard = ({
   amount,
   estimate,
   icon,
-  booking,
+  isBooking,
 }: InsightProps) => {
   const chart = () => (
     <div
@@ -137,14 +136,14 @@ const InsightCard = ({
     <div
       className={clsx(
         "bg-blue-100 rounded-md p-3 relative flex flex-col tablet:items-end tablet:flex-row",
-        !booking && "items-start md:items-end"
+        !isBooking && "items-start md:items-end"
       )}
     >
       {/* icon  */}
       <div
         className={clsx(
           `flex-1 flex flex-row gap-3`,
-          booking && "flex-col justify-between"
+          isBooking && "flex-col justify-between"
         )}
       >
         <span className="size-12 bg-white flex items-center justify-center rounded-md text-blue-500">
@@ -153,7 +152,7 @@ const InsightCard = ({
         <div
           className={clsx(
             `w-full space-y-2`,
-            !booking && "flex items-end justify-between"
+            !isBooking && "flex items-end justify-between"
           )}
         >
           <div className="w-full">
@@ -169,11 +168,11 @@ const InsightCard = ({
               <FaArrowTrendUp />
               {estimate}%
             </span>
-            {booking && <span className="text-darkText">from last week</span>}
+            {isBooking && <span className="text-darkText">from last week</span>}
           </p>
         </div>
       </div>
-      {booking && chart()}
+      {isBooking && chart()}
     </div>
   );
 };

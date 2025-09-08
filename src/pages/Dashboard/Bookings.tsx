@@ -8,12 +8,17 @@ import useCreateData from "../../hooks/useCreateData";
 import { removeUserTicket, updateUserTickets } from "../../api-call/user-api";
 import TicketCard from "../../components/Pages/profile/myBookings/TicketCard";
 import { TICKETS_KEYS } from "../../constants/react-query";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, type SelectChangeEvent } from "@mui/material";
 import { TicketStatus } from "../../utils/StatusBox";
-import { MRT_GlobalFilterTextField } from "material-react-table";
+import {
+  MRT_GlobalFilterTextField,
+  type MRT_ColumnDef,
+  type MRT_TableInstance,
+} from "material-react-table";
 import CustomeMenu from "../../utils/CustomeMenu";
 import Insight from "../../components/Dashboard/Main/Insight";
 import { useNavigate, useParams } from "react-router-dom";
+import type { statusType, ticketsType } from "../../types/tours-type";
 
 type bookingProps = {
   mainBooking?: boolean;
@@ -35,13 +40,13 @@ const Bookings = ({ mainBooking }: bookingProps) => {
     globalFilter
   );
 
-  const newData = data?.tickets?.map((item: any) => ({
+  const newData = data?.tickets?.map((item) => ({
     ...item,
     owner: `${item.firstName} ${item.lastName}`,
     ticketNumber: item.verifyNumber,
   }));
 
-  const columns = useMemo(
+  const columns = useMemo<MRT_ColumnDef<ticketsType>[]>(
     () => [
       textColumn({
         accessorKey: "owner",
@@ -84,7 +89,8 @@ const Bookings = ({ mainBooking }: bookingProps) => {
 
   const menus = ["verified", "pending", "canceled"];
 
-  function renderDetails({ row }) {
+  // table details
+  function RenderDetails({ row }: { row: { original: ticketsType } }) {
     const { status, travelDate, id } = row.original;
 
     const { parsDate } = parsDateHandler(travelDate);
@@ -175,10 +181,10 @@ const Bookings = ({ mainBooking }: bookingProps) => {
                 disabled={isTicketExpired}
                 value={data.status}
                 menus={menus}
-                onChange={(e) =>
+                onChange={(e: SelectChangeEvent<string>) =>
                   setData((prev) => ({
                     ...prev,
-                    status: e.target.value,
+                    status: e.target.value as statusType,
                   }))
                 }
               />
@@ -203,12 +209,12 @@ const Bookings = ({ mainBooking }: bookingProps) => {
             </div>
           </div>
         )}
-        <TicketCard book={row} />
+        <TicketCard ticket={row} />
       </>
     );
   }
 
-  function renderToolbar({ table }: { table: any }) {
+  function renderToolbar({ table }: { table: MRT_TableInstance<ticketsType> }) {
     return (
       <div className="p-5 flex items-center gap-2 justify-end">
         <MRT_GlobalFilterTextField table={table} />
@@ -235,12 +241,12 @@ const Bookings = ({ mainBooking }: bookingProps) => {
 
   return (
     <div className="my-5 space-y-4">
-      {!mainBooking && <Insight booking={true} />}
+      {!mainBooking && <Insight isBooking={true} />}
       <TravleMakersTable
         columns={columns}
         data={newData || []}
         isPending={isPending}
-        renderDetailPanel={({ row }) => renderDetails({ row: row })}
+        renderDetailPanel={({ row }) => <RenderDetails row={row} />}
         enablePagination={mainBooking ? false : true}
         manualPagination={true}
         rowCount={data?.totalTickets}

@@ -1,18 +1,19 @@
-import React from "react";
 import { Button, HStack } from "@chakra-ui/react";
+import type { SetStateAction } from "react";
+import type { tourWithReviwes } from "../../../api-call/tour-api";
 
 type filterProps = {
-  getData: any;
-  setData: any;
+  getTourData: tourWithReviwes[] | undefined;
+  setData: React.Dispatch<SetStateAction<tourWithReviwes[] | undefined>>;
 };
 
-const FilterBtn = ({ getData, setData }: filterProps) => {
+const FilterBtn = ({ getTourData, setData }: filterProps) => {
   const filterBtn = ["12", "24"];
   const uniqueDuration = new Set(filterBtn);
 
   const filterData = (btn: string) => {
-    const newData = getData.filter((item) => item.tourDuration === btn);
-    setData(newData);
+    const newData = getTourData?.filter((item) => item.tourDuration === btn);
+    setData(newData!);
   };
 
   return (

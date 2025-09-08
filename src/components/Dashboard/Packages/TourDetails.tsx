@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { type ReactElement } from "react";
 import Stars from "../../../utils/stars";
 import { Button } from "@chakra-ui/react";
 import { HiOutlineLocationMarker } from "react-icons/hi";
@@ -6,12 +6,13 @@ import { GiDuration } from "react-icons/gi";
 import { LuUsersRound } from "react-icons/lu";
 import { MdAttachMoney } from "react-icons/md";
 import { IoIosCheckmark } from "react-icons/io";
+import type { tourWithReviwes } from "../../../api-call/tour-api";
 
 const TourDetails = ({
   activePackage,
   isPending,
 }: {
-  activePackage: any;
+  activePackage: tourWithReviwes;
   isPending: boolean;
 }) => {
   const { title, description, tourImages, reviews, price } = activePackage;

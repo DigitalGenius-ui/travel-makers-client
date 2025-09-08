@@ -6,9 +6,10 @@ import clsx from "clsx";
 import { IoMdTime } from "react-icons/io";
 import { GiWorld } from "react-icons/gi";
 import { MdAttachMoney } from "react-icons/md";
+import type { tourType } from "../../../types/tours-type";
 
 type galleryProps = {
-  tour: any;
+  tour: tourType;
   row: string;
 };
 export const GalleryCard = ({ tour, row }: galleryProps) => {

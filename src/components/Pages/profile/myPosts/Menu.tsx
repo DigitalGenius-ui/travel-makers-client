@@ -6,17 +6,17 @@ import UserReviews from "./Reviews/UserReviews";
 
 type menuType = {
   title: string;
-  comp: React.JSXElementConstructor<any>;
+  comp: React.ReactElement;
 };
 
 const menu: menuType[] = [
   {
     title: "trip moments",
-    comp: UserMoments,
+    comp: <UserMoments />,
   },
   {
     title: "reviews",
-    comp: UserReviews,
+    comp: <UserReviews />,
   },
 ];
 
@@ -39,7 +39,7 @@ const Menu = () => {
           </button>
         ))}
       </HStack>
-      {<activeLink.comp />}
+      {activeLink.comp}
     </div>
   );
 };

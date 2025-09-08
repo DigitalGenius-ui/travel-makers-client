@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { BiSolidMessageAltDots } from "react-icons/bi";
 import { IoCallOutline } from "react-icons/io5";
-import { gender } from "../../../constants/assets";
+import { genderImg } from "../../../constants/assets";
 
 type guidType = {
   item: any;
@@ -13,7 +13,7 @@ const Guide = ({ item, setActiveGuide, activeGuide }: guidType) => {
   const { fullName, email, phoneNumber, userImg, role, id } = item;
 
   const userGender = item.gender as "male" | "female";
-  const profileImg = !userImg ? gender[userGender] : userImg;
+  const profileImg = !userImg ? genderImg[userGender] : userImg;
   return (
     <div
       onClick={() => setActiveGuide(item)}

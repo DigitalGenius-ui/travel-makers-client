@@ -1,29 +1,12 @@
 import { API, publicAPI } from "../config/ApiClient";
+import type { tourReview, tourType } from "../types/tours-type";
 
 // get all tours data
-export type tourType = {
-  id: string;
-  title: string;
-  open_time: Date;
-  close_time: string;
-  address: string;
-  phone_number: string;
-  number_of_tickets: number;
-  description: string;
-  userId: string;
-  country: string;
-  city: string;
-  price: number;
-  category: string;
-  iframe_map: string;
-  tourImages: string[];
-  tourDuration: string;
-  createAt: Date;
-  updatedAt: Date;
+export type tourWithReviwes = tourType & {
+  reviews: tourReview[];
 };
-
 export const getTours = async () => {
-  const tours = await publicAPI.get<tourType[]>(`/tours`);
+  const tours = await publicAPI.get<tourWithReviwes[]>(`/tours`);
   return tours.data;
 };
 
@@ -39,7 +22,7 @@ export type createTourProps = {
   text: string;
   reviewImages: string[];
   toursId: string | undefined;
-  userId: string;
+  userId: string | undefined;
 };
 export const createTourReview = async (data: createTourProps) => {
   const tour = await API.post(`/tours/createReview`, data);

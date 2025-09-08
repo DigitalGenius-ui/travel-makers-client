@@ -3,8 +3,9 @@ import { ImLocation } from "react-icons/im";
 import { Link } from "react-router-dom";
 import RemoveBtn from "../../../../../utils/RemoveBtn";
 import { removeMoment } from "../../../../../api-call/user-api";
+import type { userMomentType } from "../../../../../types/user-type";
 
-const Moment = ({ post }: { post: any }) => {
+const Moment = ({ post }: { post: userMomentType }) => {
   const id = post?.id;
   return (
     <div className="border border-gray-400 rounded-md bg-white relative w-full lg:max-w-[22rem] overflow-hidden">

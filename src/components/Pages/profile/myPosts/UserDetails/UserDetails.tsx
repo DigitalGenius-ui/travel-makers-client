@@ -4,15 +4,16 @@ import { CiEdit } from "react-icons/ci";
 import BioEdit from "./BioEdit";
 import { useParams } from "react-router-dom";
 import { useCurrentUser } from "../../../../../context/UserContext";
+import type { singleUserApiType } from "../../../../../api-call/user-api";
 
-const UserDetails = ({ detail }) => {
+const UserDetails = ({ detail }: { detail: singleUserApiType }) => {
   const [showModal, setShowModal] = useState(false);
   const { currentUser } = useCurrentUser();
-  const profile = currentUser?.profile ?? detail?.profile;
+  const profile = detail?.profile;
 
   const { id: userId } = useParams();
 
-  const profileImg = currentUser?.userImg || detail?.userImg;
+  const profileImg = detail?.userImg;
   const { firstName, lastName } = profile || {};
 
   return (
@@ -48,7 +49,6 @@ const UserDetails = ({ detail }) => {
         <BioEdit
           showModal={showModal}
           setShowModal={setShowModal}
-          userId={userId}
           bioText={profile?.bio}
         />
       )}

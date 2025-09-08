@@ -5,12 +5,15 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import { IoTimeOutline } from "react-icons/io5";
 import { RiStarSFill } from "react-icons/ri";
 import clsx from "clsx";
+import type { tourReview, tourType } from "../../../types/tours-type";
+import type { tourWithReviwes } from "../../../api-call/tour-api";
+import type { SetStateAction } from "react";
 
 type tourListsProps = {
-  tourData: any;
+  tourData: tourWithReviwes[] | undefined;
   isPending: boolean;
-  setActivePackage: any;
-  activePackage: any;
+  setActivePackage: React.Dispatch<SetStateAction<tourWithReviwes>>;
+  activePackage: tourWithReviwes;
 };
 
 const ToursLists = ({
@@ -59,12 +62,14 @@ const ToursLists = ({
 
 export default ToursLists;
 
-type tourType = {
-  tour: any;
-  setActivePackage: any;
-  activePackage: any;
+type tourProps = {
+  tour: tourType & {
+    reviews: tourReview[];
+  };
+  setActivePackage: React.Dispatch<SetStateAction<tourWithReviwes>>;
+  activePackage: tourWithReviwes;
 };
-const Tour = ({ tour, setActivePackage, activePackage }: tourType) => {
+const Tour = ({ tour, setActivePackage, activePackage }: tourProps) => {
   const { title, price, reviews, tourImages } = tour;
   return (
     <div

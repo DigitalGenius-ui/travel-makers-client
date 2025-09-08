@@ -1,4 +1,3 @@
-import React from "react";
 import { FaRegHeart } from "react-icons/fa6";
 import Address from "./Address";
 import Traveler from "./Traveler";

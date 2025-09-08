@@ -6,11 +6,14 @@ import { ActionButton } from "../../../../../utils/ActionButton";
 import { useCurrentUser } from "../../../../../context/UserContext";
 import { useQuery } from "@tanstack/react-query";
 import { MOMENTS_KEYS } from "../../../../../constants/react-query";
-import { getMoments } from "../../../../../api-call/user-api";
+import {
+  getMoments,
+  type singleUserApiType,
+} from "../../../../../api-call/user-api";
 import Pagination from "../../../../../utils/Pagination";
 import { CartLoading } from "../../../../../utils/Loadings";
 
-const UserMoments = ({ moment }: { moment: any }) => {
+const UserMoments = ({ userData }: { userData?: singleUserApiType }) => {
   const [page, setPage] = useState(1);
   const limit = 4;
   const { currentUser } = useCurrentUser();
@@ -21,10 +24,10 @@ const UserMoments = ({ moment }: { moment: any }) => {
     queryFn: async () => await getMoments(page, userId, limit),
   });
 
-  const moments = data?.moments ?? moment?.moments;
+  const moments = data?.moments ?? userData?.moments;
 
   const firstName =
-    currentUser?.profile?.firstName ?? moment?.profile?.firstName;
+    currentUser?.profile?.firstName ?? userData?.profile?.firstName;
 
   return (
     <>

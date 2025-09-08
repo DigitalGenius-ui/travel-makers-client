@@ -32,7 +32,7 @@ const Slider = () => {
         <h2 className="text-[1.2rem] 2xl:text-[2rem] font-bold">
           Latest Packages
         </h2>
-        <FilterBtn getData={tourData} setData={setData} />
+        <FilterBtn getTourData={tourData} setData={setData} />
       </div>
       <div className="py-[2rem]">
         <Flex gap={3} justifyContent="center" alignItems="center">

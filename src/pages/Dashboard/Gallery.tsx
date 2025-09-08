@@ -47,7 +47,7 @@ const Gallery = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const totalPages = Math.ceil(filterData?.length! / itemsPerPage);
+  const totalPages = Math.ceil((filterData?.length ?? 0) / itemsPerPage);
 
   useEffect(() => {
     setLoading(true);
@@ -126,7 +126,7 @@ const Gallery = () => {
         </div>
       ) : (
         <>
-          {filterData?.length! > 0 ? (
+          {(filterData?.length ?? 0) > 0 ? (
             <>
               <article style={styles[row]}>
                 {newTours?.map((tour) => (

@@ -1,15 +1,25 @@
 import { API, publicAPI } from "../config/ApiClient";
+import type { statusType, ticketsType } from "../types/tours-type";
+import type {
+  userMomentType,
+  userType,
+  userWithProfileType,
+} from "../types/user-type";
 
 // get current user details
 export const getCurrentUser = async () => {
-  const res = await API.get(`/user`);
+  const res = await API.get<userType>(`/user`);
   return res.data;
 };
 
 // get user by id details
-// export type userType = {}; // todo
+export type singleUserApiType = userWithProfileType & {
+  moments: userMomentType;
+};
 export const getSingleUser = async (id: string | undefined) => {
-  const res = await publicAPI.get(`/user/getSingleUser/${id}`);
+  const res = await publicAPI.get<singleUserApiType>(
+    `/user/getSingleUser/${id}`
+  );
   return res.data;
 };
 
@@ -20,13 +30,18 @@ export type getAllUserProps = {
   type: string;
   search?: string;
 };
+
+export type allUsersType = {
+  users: userWithProfileType[];
+  totalPages: number;
+};
 export const getAllUsers = async ({
   page,
   limit,
   type,
   search,
 }: getAllUserProps) => {
-  const res = await API.get(
+  const res = await API.get<allUsersType>(
     `/user/getAllUsers?page=${page}&limit=${limit}&type=${type}&search=${search}`
   );
   return res.data;
@@ -121,31 +136,12 @@ export const changeProfilePassword = async (data: passType) => {
 };
 
 // get booking
-// export type bookingType = {
-//   bookings: {
-//     id: string;
-//     title: string;
-//     firstName: string;
-//     lastName: string;
-//     phone: string;
-//     email: string;
-//     travelDate: string;
-//     tickets: {
-//       adult: number;
-//       child: number;
-//     };
-//     totalPrice: string;
-//     tourImage: string;
-//     status: "pending" | "canceled" | "verified";
-//     verifyNumber: string;
-//     userId: string;
-//     createAt: Date;
-//     updatedAt: Date;
-//   }[];
-//   totalPages: number;
-// };
+type getBookingType = {
+  bookings: ticketsType[];
+  totalPages: number;
+};
 export const getBooking = async (page: number, limit: number) => {
-  const res = await API.get<any>(
+  const res = await API.get<getBookingType>(
     `/user/getUserBooking?page=${page}&limit=${limit}`
   );
   return res.data;
@@ -170,38 +166,12 @@ export const getUserReviews = async (page: number, limit: number) => {
 };
 
 // get all tickets
-
-export type bookingTypes = {
-  tickets: {
-    id: string;
-    title: string;
-    firstName: string;
-    lastName: string;
-    phone: string;
-    email: string;
-    travelDate: Date;
-    tickets: {
-      adult: number;
-      child: number;
-    };
-    totalPrice: string;
-    tourImage: string;
-    status: "pending" | "canceled" | "verified";
-    verifyNumber: string;
-    userId: string;
-    createAt: Date;
-    updatedAt: Date;
-  };
-  totalPages: number;
-  totalTickets: number;
-};
-
 export const getUserTickets = async (
   page: number,
   limit: number,
   search: string
 ) => {
-  const res = await API.get<bookingTypes[]>(
+  const res = await API.get<ticketsType & { totalTickets: number }>(
     `/user/getAllTickets?page=${page}&limit=${limit}&search=${search}`
   );
   return res.data;
@@ -209,7 +179,7 @@ export const getUserTickets = async (
 
 // update ticket
 type userTicketType = {
-  status: "pending" | "canceled" | "verified";
+  status: statusType;
   travelDate: string;
   id: string;
 };

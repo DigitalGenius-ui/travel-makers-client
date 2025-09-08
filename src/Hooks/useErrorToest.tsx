@@ -23,7 +23,7 @@ const useErrorToest = ({ error, isError }: erroType) => {
         isClosable: true,
       });
     }
-  }, [isError]);
+  }, [isError, toast, message]);
 };
 
 export default useErrorToest;

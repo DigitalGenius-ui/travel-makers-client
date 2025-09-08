@@ -15,7 +15,7 @@ import { logOutUser } from "../../../api-call/auth-api";
 import { queryClient } from "../../../config/queryClient";
 import { USER_KEY } from "../../../constants/react-query";
 import useErrorToest from "../../../hooks/useErrorToest";
-import { gender } from "../../../constants/assets";
+import { genderImg } from "../../../constants/assets";
 
 const DropDown = () => {
   const navigate = useNavigate();
@@ -52,7 +52,7 @@ const DropDown = () => {
   const isAdmin = currentUser?.role === "ADMIN";
   const userGender = profile?.gender as "male" | "female";
 
-  const profileImg = !userImg ? gender[userGender] : userImg;
+  const profileImg = !userImg ? genderImg[userGender] : userImg;
 
   return (
     <Menu>

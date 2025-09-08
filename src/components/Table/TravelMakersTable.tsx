@@ -2,6 +2,7 @@ import {
   MaterialReactTable,
   type MRT_ColumnDef,
   type MRT_RowData,
+  type MRT_TableOptions,
 } from "material-react-table";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import PropTypes from "prop-types";
@@ -18,19 +19,18 @@ import clsx from "clsx";
  * } & Partial<import('material-react-table').MRT_TableOptions<T>>} props
  */
 
-type tableProps<TColumns, TData, TOther> = {
-  columns: MRT_ColumnDef<MRT_RowData, TColumns>[];
-  data: MRT_RowData[];
+type tableProps<T extends MRT_RowData> = {
+  columns: MRT_ColumnDef<T>[];
+  data: T[];
   isPending: boolean;
-  others: TOther;
-};
+} & Partial<MRT_TableOptions<T>>;
 
-const TravleMakersTable = <TColumns, TData, TOther>({
+const TravleMakersTable = <T extends MRT_RowData>({
   columns,
   data,
   isPending,
   ...others
-}: tableProps<TColumns, TData, TOther>) => {
+}: tableProps<T>) => {
   const tableTheme = createTheme();
   return (
     <ThemeProvider theme={tableTheme}>

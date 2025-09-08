@@ -3,7 +3,7 @@ import CustomeMenu from "../../utils/CustomeMenu";
 import { ActionButton } from "../../utils/ActionButton";
 import { AddIcon } from "@chakra-ui/icons";
 import { tourGuids } from "../../constants/TourGuids";
-import { gender } from "../../constants/assets";
+import { genderImg } from "../../constants/assets";
 import { BiSolidMessageAltDots } from "react-icons/bi";
 import { IoCallOutline } from "react-icons/io5";
 import { MdWorkOutline } from "react-icons/md";
@@ -41,7 +41,12 @@ const Guides = () => {
             onChange={(e) => setGlobalFilter(e.target.value)}
             menus={menus}
           />
-          <ActionButton fontSize="sm" size="md" leftIcon={<AddIcon />}>
+          <ActionButton
+            onClick={() => console.log("clicked!!!")}
+            fontSize="sm"
+            size="md"
+            leftIcon={<AddIcon />}
+          >
             Add Guide
           </ActionButton>
         </div>
@@ -52,7 +57,7 @@ const Guides = () => {
   function profileDetails() {
     const {
       userImg,
-      gender: userGender,
+      gender,
       fullName,
       role,
       yearsOfEx,
@@ -64,7 +69,9 @@ const Guides = () => {
       experiences,
     } = activeGuide;
 
-    const profileImg = !userImg ? gender[userGender] : userImg;
+    const userGender = gender as "male" | "female";
+
+    const profileImg = !userImg ? genderImg[userGender] : userImg;
     return (
       <>
         {/* banner and user profile img  */}

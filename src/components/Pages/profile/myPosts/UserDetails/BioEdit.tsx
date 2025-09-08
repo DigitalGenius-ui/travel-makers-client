@@ -9,7 +9,7 @@ import { USER_KEY } from "../../../../../constants/react-query";
 type bioProps = {
   showModal: boolean;
   setShowModal: React.Dispatch<SetStateAction<boolean>>;
-  bioText: string;
+  bioText: string | undefined;
 };
 const BioEdit = ({ showModal, setShowModal, bioText }: bioProps) => {
   const [bio, setBio] = useState("");

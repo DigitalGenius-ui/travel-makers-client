@@ -1,4 +1,4 @@
-export const gender: Record<"male" | "female", string> = {
+export const genderImg: Record<"male" | "female", string> = {
   male: "/male.jpg",
   female: "/female.jpg",
 };

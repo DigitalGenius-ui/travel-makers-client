@@ -3,7 +3,7 @@ const useDebounce = () => {
     func: T,
     delay: number
   ) => {
-    let timer: any;
+    let timer: number;
 
     return function (...args: Parameters<T>) {
       clearTimeout(timer);

@@ -1,8 +1,7 @@
-import React from "react";
 import { useCurrentUser } from "../../../context/UserContext";
 import { Link, useLocation } from "react-router-dom";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import { gender } from "../../../constants/assets";
+import { genderImg } from "../../../constants/assets";
 
 const LayoutHeader = () => {
   const { currentUser } = useCurrentUser();
@@ -16,7 +15,7 @@ const LayoutHeader = () => {
   const role = currentUser?.role;
 
   const profileImg = !currentUser?.userImg
-    ? gender[userGender]
+    ? genderImg[userGender]
     : currentUser?.userImg;
 
   return (
