@@ -6,10 +6,11 @@ import { Button } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useBookingContext } from "../../../../../context/BookingContext";
 import Conditions from "../../Common/Condition";
+import type { tourType } from "../../../../../types/tours-type";
 
 type ticketType = {
   title: "adult" | "child";
-  singleTour: any;
+  singleTour: tourType;
   tourTitle: string;
 };
 

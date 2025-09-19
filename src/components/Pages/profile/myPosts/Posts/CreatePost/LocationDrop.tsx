@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { tourType } from "../../../../../../api-call/tour-api";
+import type { tourType } from "../../../../../../types/tours-type";
 
 type locationProps = {
   formik: any;

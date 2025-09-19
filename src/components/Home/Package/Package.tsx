@@ -1,4 +1,3 @@
-import React from "react";
 import Screen from "../../../utils/Screen";
 import Slider from "./Slider";
 

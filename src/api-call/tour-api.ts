@@ -44,8 +44,15 @@ export type checkoutType = {
   quantity: number;
   id: string | undefined;
 };
+
+type createCheckoutApiType = {
+  url: string;
+};
 export const createCheckout = async (data: checkoutType[]) => {
-  const checkOut = await API.post(`/tours/create-checkout-session`, data);
+  const checkOut = await API.post<createCheckoutApiType>(
+    `/tours/create-checkout-session`,
+    data
+  );
   return checkOut.data;
 };
 

@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import TourDetails from "../../components/Dashboard/Packages/TourDetails";
 import ToursLists from "../../components/Dashboard/Packages/ToursLists";
 import useGetTours from "../../hooks/useGetTours";
+import type { tourWithReviwes } from "../../api-call/tour-api";
 
 const Packages = () => {
   const { tourData, isPending } = useGetTours();
-  const [activePackage, setActivePackage] = useState({});
+  const [activePackage, setActivePackage] = useState<tourWithReviwes>(
+    {} as tourWithReviwes
+  );
 
   useEffect(() => {
     if (tourData && tourData.length > 0) {

@@ -9,7 +9,7 @@ import { IoIosMenu } from "react-icons/io";
 import clsx from "clsx";
 import { GalleryCard } from "../../components/Dashboard/Gallery/GalleryCard";
 import useDebounce from "../../hooks/useDebounce";
-import type { tourType } from "../../api-call/tour-api";
+import type { tourType } from "../../types/tours-type";
 
 const cardsRows: { title: "grid" | "vertical"; icon: React.ReactNode }[] = [
   { title: "grid", icon: <RxComponent2 size={20} /> },
@@ -34,12 +34,8 @@ const Gallery = () => {
   const [sort, setSort] = useState("A - Z");
   const [searchInput, setSearchInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [filterData, setFilterData] = useState<tourType[] | undefined>(
-    [] as tourType[]
-  );
+  const [filterData, setFilterData] = useState<tourType[] | undefined>([]);
   const [row, setRow] = useState<"grid" | "vertical">("grid");
-
-  const debounce = useDebounce();
 
   const [currentPage, setCurrentPage] = useState(1);
   const { tourData, isPending } = useGetTours();
@@ -50,6 +46,7 @@ const Gallery = () => {
   const totalPages = Math.ceil((filterData?.length ?? 0) / itemsPerPage);
 
   useEffect(() => {
+    const debounce = useDebounce();
     setLoading(true);
     const search = () => {
       let data = tourData;
@@ -73,7 +70,7 @@ const Gallery = () => {
 
     const debounceSearch = debounce(search, 1000);
     debounceSearch();
-  }, [searchInput, setFilterData, tourData, sort, setCurrentPage, debounce]);
+  }, [searchInput, setFilterData, tourData, sort, setCurrentPage]);
 
   const newTours = filterData?.slice(indexOfFirstItem, indexOfLastItem);
 

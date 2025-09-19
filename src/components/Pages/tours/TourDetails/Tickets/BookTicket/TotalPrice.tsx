@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useBookingContext } from "../../../../../../context/BookingContext";
 
 const TotalPrice = ({
@@ -42,12 +42,12 @@ const TotalPrice = ({
   }, [sortTitle, bookPrice, childPrice, count.adult, count.child]);
 
   // getting adult and child total prices
-  let adultTotal = bookPrice * count.adult;
+  const adultTotal = useRef(bookPrice * count.adult);
   const childTotal = childPrice * count.child;
 
   // set the total price for global state
   useEffect(() => {
-    const total = (adultTotal += childTotal).toFixed(2);
+    const total = (adultTotal.current += childTotal).toFixed(2);
     setTotalPrice(+total);
   }, [adultTotal, childTotal]);
 

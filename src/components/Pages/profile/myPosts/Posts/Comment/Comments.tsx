@@ -1,17 +1,18 @@
 import { Avatar, Button, IconButton } from "@chakra-ui/react";
 import { format } from "date-fns";
-import React, { useState } from "react";
+import { useState } from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
 import useCreateData from "../../../../../../hooks/useCreateData";
 import { Link } from "react-router-dom";
 import { momentPostCommentRemove } from "../../../../../../api-call/user-api";
 import { useCurrentUser } from "../../../../../../context/UserContext";
 import { POST_KEYS } from "../../../../../../constants/react-query";
+import type { userCommentType } from "../../../../../../types/user-type";
 
-const Comments = ({ comment }: { comment: any }) => {
+const Comments = ({ comment }: { comment: userCommentType }) => {
   const { currentUser } = useCurrentUser();
   const [showRemove, setShowRemove] = useState(false);
-  const { profile } = comment?.user || {};
+  const { profile } = comment?.user;
 
   const { submitForm, isPending } = useCreateData({
     key: POST_KEYS,

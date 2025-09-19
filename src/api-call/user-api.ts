@@ -1,25 +1,23 @@
 import { API, publicAPI } from "../config/ApiClient";
 import type { statusType, ticketsType } from "../types/tours-type";
 import type {
+  userCommentType,
   userMomentType,
-  userType,
   userWithProfileType,
 } from "../types/user-type";
 
 // get current user details
+export interface currentUserApi extends userWithProfileType {
+  moments: userMomentType[];
+}
 export const getCurrentUser = async () => {
-  const res = await API.get<userType>(`/user`);
+  const res = await API.get<currentUserApi>(`/user`);
   return res.data;
 };
 
 // get user by id details
-export type singleUserApiType = userWithProfileType & {
-  moments: userMomentType;
-};
 export const getSingleUser = async (id: string | undefined) => {
-  const res = await publicAPI.get<singleUserApiType>(
-    `/user/getSingleUser/${id}`
-  );
+  const res = await publicAPI.get<currentUserApi>(`/user/getSingleUser/${id}`);
   return res.data;
 };
 
@@ -148,12 +146,18 @@ export const getBooking = async (page: number, limit: number) => {
 };
 
 // get Moments
+type momentApiType = {
+  moments: userMomentType & {
+    comments: userCommentType[];
+  };
+  totalPages: number;
+};
 export const getMoments = async (
   page: number,
   id: string | undefined,
   limit: number
 ) => {
-  const res = await API.get(
+  const res = await API.get<momentApiType>(
     `/user/getUserMoments/${id}?page=${page}&limit=${limit}`
   );
   return res.data;

@@ -3,6 +3,7 @@ import Address from "./Address";
 import Traveler from "./Traveler";
 import { Button } from "@chakra-ui/react";
 import Stars from "../../../../../utils/stars";
+import type { userReviewsType } from "../../../../../types/user-type";
 
 export type tourDetailsType = {
   tourDetails: {
@@ -11,7 +12,7 @@ export type tourDetailsType = {
     close_time: string;
     address: string;
     phone_number: string;
-    reviews: any;
+    reviews: userReviewsType[];
   };
 };
 

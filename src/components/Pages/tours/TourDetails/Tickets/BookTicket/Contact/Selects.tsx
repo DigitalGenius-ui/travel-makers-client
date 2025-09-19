@@ -19,7 +19,7 @@ const Selects = ({ contactCode, setContactCode }: selectType) => {
       country?.name?.toLowerCase().includes(search.toLowerCase())
     );
     setSortData(searchedData);
-  }, [countries, search]);
+  }, [search]);
 
   const handleClick = (code: string) => {
     setContactCode(code);

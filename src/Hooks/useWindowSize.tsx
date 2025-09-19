@@ -10,9 +10,9 @@ const useWindowSize = () => {
   const [windowSize, setWindowSize] = React.useState<windowType>(
     {} as windowType
   );
-  const debounce = useDebounce();
 
   useEffect(() => {
+    const debounce = useDebounce();
     const handleResize = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;

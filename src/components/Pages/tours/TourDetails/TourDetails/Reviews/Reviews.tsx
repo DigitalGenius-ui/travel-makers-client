@@ -1,5 +1,5 @@
 import { Button, Flex, HStack } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { HiMiniPencilSquare } from "react-icons/hi2";
 import Filter from "./Filter";
 import Review from "./Review";
@@ -7,18 +7,19 @@ import { Link } from "react-router-dom";
 import OutStanding from "../../../../../../utils/OutStanding";
 import { useCurrentUser } from "../../../../../../context/UserContext";
 import Pagination from "../../../../../../utils/Pagination";
+import type { userReviewsType } from "../../../../../../types/user-type";
 
 type reviewsProps = {
   title: string;
   tourId: string;
-  reviews: any;
+  reviews: userReviewsType[];
 };
 
 const Reviews = ({ title, tourId, reviews }: reviewsProps) => {
   const { currentUser } = useCurrentUser();
 
   // for filtering data
-  const [allReviews, setAllReviews] = useState([]);
+  const [allReviews, setAllReviews] = useState<userReviewsType[]>([]);
 
   useEffect(() => {
     if (reviews) {

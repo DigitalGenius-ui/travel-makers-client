@@ -14,7 +14,7 @@ const AllTours = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const totalPages = Math.ceil(tourData?.length / itemsPerPage);
+  const totalPages = Math.ceil((tourData?.length ?? 0) / itemsPerPage);
 
   const newTours = tourData?.slice(indexOfFirstItem, indexOfLastItem);
 

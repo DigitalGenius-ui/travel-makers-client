@@ -102,7 +102,7 @@ const BookTicket = () => {
     });
 
     localStorage.setItem("ticket", JSON.stringify(bookData));
-    window.location.href = url;
+    window.location.href = url!;
   };
 
   return (

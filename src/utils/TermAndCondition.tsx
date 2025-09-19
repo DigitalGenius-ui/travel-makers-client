@@ -1,10 +1,17 @@
 import { Checkbox } from "@chakra-ui/react";
+import type { FormikProps } from "formik";
 
-const TermAndCondition = ({ formik }: { formik: any }) => {
+interface termType<T> {
+  formik: FormikProps<T>;
+}
+
+const TermAndCondition = <T extends { termCondition: boolean }>({
+  formik,
+}: termType<T>) => {
   return (
     <>
       <Checkbox
-        isInvalid={formik.errors.termCondition}
+        isInvalid={!!formik.errors.termCondition}
         isChecked={formik.values.termCondition}
         onChange={(e) =>
           formik.setFieldValue("termCondition", e.target.checked)
@@ -21,11 +28,12 @@ const TermAndCondition = ({ formik }: { formik: any }) => {
           <button className="text-blue-500 pl-1">Community Rules</button> .
         </p>
       </Checkbox>
-      {formik.errors.termCondition && formik.touched.termCondition && (
-        <span className="text-red-500 text-xs capitalize">
-          {formik.errors.termCondition}
-        </span>
-      )}
+      {formik.touched.termCondition &&
+        typeof formik.errors.termCondition === "string" && (
+          <span className="text-red-500 text-xs capitalize">
+            {formik.errors.termCondition}
+          </span>
+        )}
     </>
   );
 };

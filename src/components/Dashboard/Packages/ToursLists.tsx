@@ -1,13 +1,14 @@
 import { VerticaleCardLoading } from "../../../utils/Loadings";
 import { FiFilter } from "react-icons/fi";
-import { Button } from "@chakra-ui/react";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { IoTimeOutline } from "react-icons/io5";
 import { RiStarSFill } from "react-icons/ri";
 import clsx from "clsx";
 import type { tourReview, tourType } from "../../../types/tours-type";
 import type { tourWithReviwes } from "../../../api-call/tour-api";
-import type { SetStateAction } from "react";
+import { useState, type SetStateAction } from "react";
+import SearchInput from "../../../utils/SearchInput";
+import { ActionButton } from "../../../utils/ActionButton";
 
 type tourListsProps = {
   tourData: tourWithReviwes[] | undefined;
@@ -22,17 +23,19 @@ const ToursLists = ({
   setActivePackage,
   activePackage,
 }: tourListsProps) => {
+  const [search, setSearch] = useState("");
   return (
     <section className="dash-box flex-1">
       <div className="flex items-center gap-1">
-        <input
-          className="outline-none p-2 text-sm bg-gray-100 flex-1"
-          type="text"
+        <SearchInput
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
           placeholder="Search..."
+          bg="white"
         />
-        <Button bgColor={"blue.500"} color={"white"} size="sm">
-          <FiFilter />
-        </Button>
+        <ActionButton py={5} onClick={() => console.log("search")}>
+          <FiFilter size={15} />
+        </ActionButton>
       </div>
       <>
         {isPending ? (

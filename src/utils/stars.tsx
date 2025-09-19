@@ -1,13 +1,22 @@
 import { Icon } from "@chakra-ui/react";
-import { ReactNode } from "react";
+import clsx from "clsx";
+import { type ReactNode } from "react";
 import { RiStarSFill } from "react-icons/ri";
 
-const Stars = ({ review }: { review: number }) => {
+const Stars = ({
+  review,
+  showText = true,
+}: {
+  review: number;
+  showText?: boolean;
+}) => {
   const stars = generateStars(<Icon as={RiStarSFill} />, review);
   return (
     <div className="flex items-center gap-2">
       <span>{stars}</span>
-      <p className="text-xs pt-[0.3rem]">{review} Reviews</p>
+      <p className="text-xs pt-[0.3rem]">
+        {review} <span className={clsx(!showText && "hidden")}>Reviews</span>
+      </p>
     </div>
   );
 };

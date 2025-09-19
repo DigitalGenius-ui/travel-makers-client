@@ -3,8 +3,18 @@ import { useState } from "react";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import Comments from "../Comment/Comments";
+import type {
+  userCommentType,
+  userMomentType,
+  userWithProfileType,
+} from "../../../../../../types/user-type";
 
-const PostData = ({ getSinglePost }: { getSinglePost: any }) => {
+type singlePostProps = userMomentType & {
+  user: userWithProfileType;
+  comments: userCommentType[];
+};
+
+const PostData = ({ getSinglePost }: { getSinglePost: singlePostProps }) => {
   const { profile, userImg } = getSinglePost?.user;
   const [showMore, setShowMore] = useState(500);
   const comments = getSinglePost?.comments;

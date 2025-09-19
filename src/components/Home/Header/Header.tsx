@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   HStack,
   Image,
@@ -78,7 +78,7 @@ const Header = () => {
             {isPending ? (
               <div className="w-[2rem] h-[2rem] rounded-full bg-gray-300 animate-pulse" />
             ) : currentUser ? (
-              <DropDown getUser={currentUser} />
+              <DropDown />
             ) : (
               <button
                 onClick={() => navigate("/auth/login")}

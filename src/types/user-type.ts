@@ -1,18 +1,17 @@
-export type userType =
-  | {
-      id: string;
-      email: string;
-      password: string;
-      userAgent: string;
-      verified: "VERIFIED" | "UNVERIFIED" | "BLOCKED";
-      role: "ADMIN" | "EDITOR" | "USER";
-      createAt: Date;
-      updatedAt: Date;
-      userImg: string;
-    }
-  | undefined;
+export interface userType {
+  id: string;
+  email: string;
+  password: string;
+  userAgent: string;
+  verified: "VERIFIED" | "UNVERIFIED" | "BLOCKED";
+  role: "ADMIN" | "EDITOR" | "USER";
+  createAt: Date;
+  updatedAt: Date;
+  userImg: string;
+}
 
-export type userProfileType = {
+// user profile type
+export interface userProfileType {
   id: string;
   firstName: string;
   lastName: string;
@@ -28,10 +27,10 @@ export type userProfileType = {
   userId: string;
   createAt: Date;
   updatedAt: Date;
-};
+}
 
 // user post
-export type userMomentType = {
+export interface userMomentType {
   id: string;
   title: string;
   desc: string;
@@ -40,9 +39,43 @@ export type userMomentType = {
   userId: string;
   createAt: Date;
   updatedAt: Date;
-};
+}
 
 // user with profile
-export type userWithProfileType = userType & {
-  profile?: userProfileType | undefined;
-};
+export interface userWithProfileType extends userType {
+  profile?: userProfileType;
+}
+
+// user comment type
+export interface userCommentType {
+  id: string;
+  comment: string;
+  momentId: string | null;
+  user: userWithProfileType;
+  userId: string;
+  createAt: Date;
+  updatedAt: Date;
+}
+
+// user reviews
+export interface userReviewsType {
+  id: string;
+  text: string;
+  rating: string;
+  reviewImages: string[];
+  userId: string;
+  toursId: string;
+  createAt: Date;
+  updatedAt: Date;
+}
+
+// user message type
+export interface userMessageType {
+  id: string;
+  fullName: string;
+  userImg: string;
+  gender: "male" | "female";
+  message: string;
+  createAt: string;
+  updateAt: string;
+}

@@ -1,9 +1,7 @@
-"use client";
-
 import { HStack, IconButton, VStack } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa6";
 import { FiMinus } from "react-icons/fi";
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { useBookingContext } from "../../../../../../../context/BookingContext";

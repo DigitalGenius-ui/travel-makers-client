@@ -1,7 +1,7 @@
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { CiSearch } from "react-icons/ci";
 
-type searchInputProps = {
+type SearchInputProps = {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
@@ -13,7 +13,7 @@ const SearchInput = ({
   onChange,
   placeholder,
   bg,
-}: searchInputProps) => {
+}: SearchInputProps) => {
   return (
     <InputGroup size="md">
       <InputLeftElement>

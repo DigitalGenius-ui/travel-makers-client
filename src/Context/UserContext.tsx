@@ -1,15 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { createContext, useContext } from "react";
 import { USER_KEY } from "../constants/react-query";
-import { getCurrentUser } from "../api-call/user-api";
-import type { userMomentType, userWithProfileType } from "../types/user-type";
-
-type userWithMoment = userWithProfileType & {
-  moment: userMomentType[];
-};
+import { getCurrentUser, type currentUserApi } from "../api-call/user-api";
 
 type contextType = {
-  currentUser: userWithMoment;
+  currentUser: currentUserApi | undefined;
   isPending: boolean;
 };
 
@@ -22,8 +17,6 @@ const UserContext = ({ children }: { children: React.ReactNode }) => {
     staleTime: Infinity,
     retry: false,
   });
-
-  console.log(data);
 
   return (
     <UserAuth.Provider value={{ currentUser: data, isPending: isPending }}>

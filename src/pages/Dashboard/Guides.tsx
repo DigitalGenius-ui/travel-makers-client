@@ -2,7 +2,7 @@ import { useState } from "react";
 import CustomeMenu from "../../utils/CustomeMenu";
 import { ActionButton } from "../../utils/ActionButton";
 import { AddIcon } from "@chakra-ui/icons";
-import { tourGuids } from "../../constants/TourGuids";
+import { tourGuids } from "../../constants/tourGuide/tourGuids";
 import { genderImg } from "../../constants/assets";
 import { BiSolidMessageAltDots } from "react-icons/bi";
 import { IoCallOutline } from "react-icons/io5";
@@ -102,10 +102,19 @@ const Guides = () => {
               <p className="text-xs capitalize text-darkText">{role}</p>
             </div>
             <div className="space-x-2">
-              <ActionButton px="0.8rem" py="1.3rem" colorScheme="gray">
+              <ActionButton
+                onClick={() => console.log("clicked")}
+                px="0.8rem"
+                py="1.3rem"
+                colorScheme="gray"
+              >
                 <BiSolidMessageAltDots size={20} />
               </ActionButton>
-              <ActionButton px="0.8rem" py="1.3rem">
+              <ActionButton
+                onClick={() => console.log("clicked")}
+                px="0.8rem"
+                py="1.3rem"
+              >
                 <IoCallOutline size={20} />
               </ActionButton>
             </div>

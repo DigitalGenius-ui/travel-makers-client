@@ -11,7 +11,7 @@ import Screen from "../../utils/Screen";
 import useGetTours from "../../hooks/useGetTours";
 import { Link } from "react-router-dom";
 import useDebounce from "../../hooks/useDebounce";
-import { type tourType } from "../../api-call/tour-api";
+import type { tourType } from "../../types/tours-type";
 
 const Search = () => {
   const { tourData } = useGetTours();
@@ -20,9 +20,8 @@ const Search = () => {
   const [loading, setLoading] = useState(false);
   const [titles, setTitles] = useState<tourType[] | undefined>([]);
 
-  const debounce = useDebounce();
-
   useEffect(() => {
+    const debounce = useDebounce();
     setLoading(true);
     const search = () => {
       if (!searchInput.trim()) {

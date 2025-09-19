@@ -8,12 +8,12 @@ import { useQuery } from "@tanstack/react-query";
 import { MOMENTS_KEYS } from "../../../../../constants/react-query";
 import {
   getMoments,
-  type singleUserApiType,
+  type currentUserApi,
 } from "../../../../../api-call/user-api";
 import Pagination from "../../../../../utils/Pagination";
 import { CartLoading } from "../../../../../utils/Loadings";
 
-const UserMoments = ({ userData }: { userData?: singleUserApiType }) => {
+const UserMoments = ({ userData }: { userData: currentUserApi }) => {
   const [page, setPage] = useState(1);
   const limit = 4;
   const { currentUser } = useCurrentUser();
@@ -24,10 +24,8 @@ const UserMoments = ({ userData }: { userData?: singleUserApiType }) => {
     queryFn: async () => await getMoments(page, userId, limit),
   });
 
-  const moments = data?.moments ?? userData?.moments;
-
-  const firstName =
-    currentUser?.profile?.firstName ?? userData?.profile?.firstName;
+  const { moments } = userData;
+  const firstName = userData?.profile?.firstName;
 
   return (
     <>
@@ -46,13 +44,13 @@ const UserMoments = ({ userData }: { userData?: singleUserApiType }) => {
           {isPending ? (
             <CartLoading />
           ) : moments?.length > 0 ? (
-            moments?.map((post: any) => <Moment post={post} key={post.id} />)
+            moments?.map((post) => <Moment post={post} key={post.id} />)
           ) : (
             <EmptyMessage text="posts" getUser={currentUser} />
           )}
         </div>
 
-        {data?.totalPages > 1 && (
+        {(data?.totalPages ?? 0) > 1 && (
           <div className="!pt-3">
             <Pagination
               totalPages={data?.totalPages}
