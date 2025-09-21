@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ImageSlider from "./ImageSlider";
 
-const SliderDemo = ({ tourImages }: { tourImages: string[] }) => {
+const SliderDemo = ({ tourImages }: { tourImages: string[] | undefined }) => {
   const [showModal, setShowModal] = useState(false);
   const [image, setImage] = useState<string | null>(null);
 

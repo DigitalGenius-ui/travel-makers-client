@@ -102,7 +102,7 @@ const Form = () => {
 
   useEffect(() => {
     ratingCount !== null && formik.setFieldValue("rating", ratingCount + 1);
-  }, [ratingCount, formik]);
+  }, [ratingCount]);
 
   // catch form errors
   const handleError = (title: "rating" | "review") => {

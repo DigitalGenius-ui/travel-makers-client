@@ -17,6 +17,8 @@ const TourDetails = () => {
 
   const singleTour = tourData && tourData.find((tour) => tour.id === id);
 
+  if (!singleTour) return;
+
   if (isPending) <Loading />;
 
   return (

@@ -1,5 +1,5 @@
 import { Avatar, Flex, Image } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import OutStanding from "../../../../../../utils/OutStanding";
 import ImageSlider from "../../ImageSlider/ImageSlider";
@@ -7,8 +7,9 @@ import RemoveBtn from "../../../../../../utils/RemoveBtn";
 import { format } from "date-fns";
 import { useCurrentUser } from "../../../../../../context/UserContext";
 import { removeTourReview } from "../../../../../../api-call/tour-api";
+import type { reviewWithUser } from "./Reviews";
 
-const Review = ({ review }) => {
+const Review = ({ review }: { review: reviewWithUser }) => {
   const [showMore, setShowMore] = useState(200);
   const [showModal, setShowModal] = useState(false);
   const { rating, user, reviewImages, text, userId, id } = review;
@@ -37,7 +38,7 @@ const Review = ({ review }) => {
         </Link>
         <div className="space-y-2">
           <div className="flex items-center gap-2">
-            <OutStanding size="lg" fontSize="1.3rem" rating={rating} />
+            <OutStanding size="lg" fontSize="1.3rem" rating={Number(rating)} />
             <span className="pt-[0.3rem] text-xs">
               {format(review?.createAt, "PP")}
             </span>

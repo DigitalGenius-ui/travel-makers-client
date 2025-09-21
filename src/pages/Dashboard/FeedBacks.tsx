@@ -5,33 +5,46 @@ import CustomeMenu from "../../utils/CustomeMenu";
 import { CartLoading } from "../../utils/Loadings";
 import type { tourReview } from "../../types/tours-type";
 import useDebounce from "../../hooks/useDebounce";
-import { Avatar, filter } from "@chakra-ui/react";
+import { Avatar } from "@chakra-ui/react";
 import Stars from "../../utils/stars";
+import { dateEgoFormatter } from "../../utils/Date";
+import Pagination from "../../utils/Pagination";
 
-type filterData = {
-  reviews: tourReview[];
+interface filterData extends tourReview {
   cat: string;
-};
+}
 
 const FeedBacks = () => {
   const [search, setSearch] = useState("");
   const [select, setSelect] = useState("all packages");
   const [loading, setLoading] = useState(true);
   const { tourData, isPending } = useGetTours();
-
   const [filterData, setFilterData] = useState<filterData[]>([]);
+
+  // pagination page
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const totalPages = Math.ceil((filterData.length ?? 0) / itemsPerPage);
+
   const debounce = useDebounce();
 
   const tourReviews = useMemo(() => {
     return (
       tourData
         ?.filter((tour) => tour.reviews.length > 0)
-        .map((tour) => ({
-          reviews: tour.reviews,
-          cat: tour.category,
-        })) ?? []
+        .flatMap((tour) =>
+          tour.reviews.map((rev) => ({
+            ...rev,
+            cat: tour.category,
+          }))
+        ) ?? []
     );
   }, [tourData]);
+
+  const newReviews = filterData?.slice(indexOfFirstItem, indexOfLastItem);
+  console.log(newReviews);
 
   useEffect(() => {
     const handleFilter = () => {
@@ -57,6 +70,7 @@ const FeedBacks = () => {
     "all packages",
     ...new Set(tourData?.map((tour) => tour.category)),
   ];
+
   return (
     <section className="bg-gray-100 rounded-lg p-3 px-5">
       {/* header  */}
@@ -76,23 +90,33 @@ const FeedBacks = () => {
       </div>
       {/* review part  */}
       {(loading ?? isPending) ? (
-        <div className="box my-5">
+        <div className="reviewBox my-5">
           {Array.from({ length: 4 }).map((_, i) => (
             <CartLoading key={i} />
           ))}
         </div>
       ) : (
         <>
-          {filterData?.length === 0 ? (
+          {newReviews?.length === 0 ? (
             <p className="h-[70vh] flex items-center justify-center capitalize">
               no reviews
             </p>
           ) : (
-            <div className="box">
-              {filterData.map((item) => (
-                <ReviewCard key={item.cat} item={item} />
-              ))}
-            </div>
+            <>
+              <div className="reviewBox my-5">
+                {newReviews?.map((item) => {
+                  console.log(item);
+                  return <ReviewCard key={item.id} item={item} />;
+                })}
+              </div>
+              <div>
+                <Pagination
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  totalPages={totalPages}
+                />
+              </div>
+            </>
           )}
         </>
       )}
@@ -102,32 +126,43 @@ const FeedBacks = () => {
 
 export default FeedBacks;
 
+type profileFullName = {
+  firstName: string;
+  lastName: string;
+};
 const ReviewCard = ({ item }: { item: filterData }) => {
   const [showMore, setShowMore] = useState(100);
-  const { reviews } = item;
+  const { firstName, lastName } = item?.user?.profile as profileFullName;
+
+  const fullName = `${firstName} ${lastName}`;
+  const textLenght = item.text.length;
   return (
     <>
-      {reviews.map((item) => {
-        const { firstName, lastName } = item?.user?.profile as {
-          firstName: string;
-          lastName: string;
-        };
-        const fullName = `${firstName} ${lastName}`;
-        return (
-          <div className="bg-white p-4 rounded-lg shadow-md">
-            <div className="flex items-center gap-2">
-              <Avatar size={"sm"} src={item.user.userImg} name={"milad"} />
-              <h2 className="capitalize font-semibold">{fullName}</h2>
-            </div>
-            <Stars review={Number(item.rating)} showText={false} />
-            <p className="text-sm text-darkText">
-              {item.text.length > showMore
-                ? `${item.text.substring(0, showMore)}...`
-                : item.text}
-            </p>
-          </div>
-        );
-      })}
+      <div className="flex flex-col bg-white p-4 rounded-lg shadow-md">
+        <div className="flex items-center gap-2">
+          <Avatar size={"sm"} src={item.user.userImg} name={"milad"} />
+          <h2 className="capitalize font-semibold">{fullName}</h2>
+        </div>
+        <Stars review={Number(item.rating)} showText={false} />
+        <div className="flex-1 flex flex-col justify-between gap-2">
+          <p className="flex-1 text-sm text-darkText">
+            {item.text.substring(0, showMore)}
+            {textLenght > 100 && (
+              <button
+                onClick={() =>
+                  setShowMore((prev) => (prev === 100 ? textLenght : 100))
+                }
+                className="hover:text-red-700 text-xs"
+              >
+                {showMore > 100 ? "...show less" : "...show more"}
+              </button>
+            )}
+          </p>
+          <p className="text-right text-xs text-darkText">
+            {dateEgoFormatter(item?.updatedAt)}
+          </p>
+        </div>
+      </div>
     </>
   );
 };

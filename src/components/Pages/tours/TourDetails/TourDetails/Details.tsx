@@ -8,7 +8,7 @@ import type { userReviewsType } from "../../../../../types/user-type";
 export type tourDetailsType = {
   tourDetails: {
     title: string;
-    open_time: string;
+    open_time: Date;
     close_time: string;
     address: string;
     phone_number: string;
@@ -32,7 +32,7 @@ const Details = ({ tourDetails }: tourDetailsType) => {
         </div>
         <Stars review={tourDetails?.reviews?.length} />
         <Address tourDetails={tourDetails} />
-        {reviews?.length > 0 && <Traveler reviews={reviews} />}
+        {(reviews?.length ?? 0) > 0 && <Traveler reviews={reviews} />}
       </div>
       <div
         className="flex-1 bg-white shadow-xl h-fit p-5 border-t-4 

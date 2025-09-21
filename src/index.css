@@ -29,6 +29,12 @@ body {
   gap: 1rem;
 }
 
+.reviewBox {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
 @media (max-width: 700px) {
   .box {
     display: flex;

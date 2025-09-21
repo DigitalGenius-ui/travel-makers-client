@@ -7,7 +7,7 @@ const Stars = ({
   review,
   showText = true,
 }: {
-  review: number;
+  review: number | undefined;
   showText?: boolean;
 }) => {
   const stars = generateStars(<Icon as={RiStarSFill} />, review);
@@ -23,7 +23,8 @@ const Stars = ({
 
 export default Stars;
 
-const generateStars = (icon: ReactNode, length: number) => {
+const generateStars = (icon: ReactNode, length: number | undefined) => {
+  if (!length) return;
   const newLength = length === 0 ? 1 : length < 5 ? length : 5;
   return Array.from({ length: newLength })
     .fill(icon)

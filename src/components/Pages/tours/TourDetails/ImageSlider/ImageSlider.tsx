@@ -14,7 +14,7 @@ import CustomeModal from "../../../../../utils/CustomeModal";
 type sliderProps = {
   showModal: boolean;
   setShowModal: React.Dispatch<SetStateAction<boolean>>;
-  tourImages: string[];
+  tourImages: string[] | undefined;
 };
 
 const ImageSlider = ({ showModal, setShowModal, tourImages }: sliderProps) => {
@@ -32,6 +32,8 @@ const ImageSlider = ({ showModal, setShowModal, tourImages }: sliderProps) => {
     }
   }, [gallery]);
 
+  const tourImagesLength = tourImages?.length ?? 0;
+
   return (
     <CustomeModal showModal={showModal}>
       <div className="gallery w-[95%] md:w-[90%] lg:w-[85%] h-screen bg-white mx-auto relative">
@@ -41,7 +43,7 @@ const ImageSlider = ({ showModal, setShowModal, tourImages }: sliderProps) => {
         />
         <div className="pt-[6rem] px-[2rem] w-full md:w-[40rem] mx-auto">
           <div className="relative group cursor-pointer">
-            {tourImages.map((img, i) => (
+            {tourImages?.map((img, i) => (
               <Image
                 onClick={() => setZoom(img)}
                 w="100%"
@@ -77,9 +79,7 @@ const ImageSlider = ({ showModal, setShowModal, tourImages }: sliderProps) => {
             <SliderArrow
               onClick={() =>
                 setGallery((prev) =>
-                  prev < tourImages.length - 1
-                    ? prev + 1
-                    : tourImages.length - 1
+                  prev < tourImagesLength - 1 ? prev + 1 : tourImagesLength - 1
                 )
               }
               icon={<MdKeyboardArrowRight />}
@@ -87,7 +87,7 @@ const ImageSlider = ({ showModal, setShowModal, tourImages }: sliderProps) => {
               !right-[-1rem] md:!right-[-3.5rem]
               ${classNames({
                 "opacity-50 cursor-not-allowed":
-                  gallery === tourImages.length - 1,
+                  gallery === tourImagesLength - 1,
               })}
               `}
             />
@@ -97,7 +97,7 @@ const ImageSlider = ({ showModal, setShowModal, tourImages }: sliderProps) => {
             className="flex items-center gap-3 overflow-x-scroll mt-5"
             ref={lowerGalleryRef}
           >
-            {tourImages.map((img, i) => (
+            {tourImages?.map((img, i) => (
               <Image
                 onClick={() => setGallery(i)}
                 w="7rem"

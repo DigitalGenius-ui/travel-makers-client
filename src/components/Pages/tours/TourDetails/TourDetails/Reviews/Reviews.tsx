@@ -7,12 +7,19 @@ import { Link } from "react-router-dom";
 import OutStanding from "../../../../../../utils/OutStanding";
 import { useCurrentUser } from "../../../../../../context/UserContext";
 import Pagination from "../../../../../../utils/Pagination";
-import type { userReviewsType } from "../../../../../../types/user-type";
+import type {
+  userReviewsType,
+  userWithProfileType,
+} from "../../../../../../types/user-type";
 
-type reviewsProps = {
+export interface reviewWithUser extends userReviewsType {
+  user?: userWithProfileType;
+}
+
+export type reviewsProps = {
   title: string;
   tourId: string;
-  reviews: userReviewsType[];
+  reviews: reviewWithUser[];
 };
 
 const Reviews = ({ title, tourId, reviews }: reviewsProps) => {
