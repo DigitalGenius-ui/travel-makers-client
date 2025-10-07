@@ -1,16 +1,32 @@
 import { useMemo, useState } from "react";
 import TravleMakersTable from "../../components/Table/TravelMakersTable";
 import useGetAllUsers from "../../hooks/useGetAllUsers";
-import { MRT_GlobalFilterTextField } from "material-react-table";
+import {
+  MRT_GlobalFilterTextField,
+  type MRT_ColumnDef,
+  type MRT_TableOptions,
+} from "material-react-table";
 import { Avatar, Button, MenuItem } from "@mui/material";
 import { dateColumn, textColumn } from "../../components/Table/textColumn";
 import { UserStatus } from "../../utils/StatusBox";
 import useCreateData from "../../hooks/useCreateData";
 import { USERS_KEYS } from "../../constants/react-query";
 import { userDetailsUpdate } from "../../api-call/user-api";
+import type { roleType, vertifyType } from "../../types/user-type";
 
 const statusSelectOptions = ["VERIFIED", "UNVERIFIED", "BLOCKED"];
 const roleSelectOptions = ["USER", "ADMIN", "EDITOR"];
+
+type User = {
+  fullName: string;
+  id: string;
+  email: string;
+  phoneNumber: string;
+  verified: vertifyType;
+  role: roleType;
+  createAt: Date;
+  userImg: string;
+};
 
 const Travlers = () => {
   const [globalFilter, setGlobalFilter] = useState("");
@@ -38,7 +54,7 @@ const Travlers = () => {
     };
   });
 
-  const columns = useMemo(
+  const columns = useMemo<MRT_ColumnDef<User>[]>(
     () => [
       textColumn({
         accessorKey: "fullName",
@@ -86,10 +102,10 @@ const Travlers = () => {
       }),
       textColumn({
         accessorKey: "verified",
-        header: "Status",
+        header: "Verified",
         enableEditing: true,
         render: ({ cellValue }) => {
-          return <UserStatus status={cellValue} />;
+          return <UserStatus status={cellValue as vertifyType} />;
         },
         editVariant: "select",
         muiEditTextFieldProps: () => ({
@@ -109,27 +125,16 @@ const Travlers = () => {
     []
   );
 
-  const renderToolbar = ({ table }) => {
-    return (
-      <div className="p-5 flex items-center gap-2 justify-end">
-        <MRT_GlobalFilterTextField
-          table={table}
-          placeholder="Search by Email..."
-        />
-        <Button variant="contained" color="primary">
-          Add Travler
-        </Button>
-      </div>
-    );
-  };
-
   // handle update data
   const { submitForm: updateUser, isPending: userPending } = useCreateData({
     key: USERS_KEYS,
     func: userDetailsUpdate,
   });
 
-  const handleSaveUser = async ({ table, values }) => {
+  const handleSaveUser: MRT_TableOptions<User>["onEditingRowSave"] = async ({
+    table,
+    values,
+  }) => {
     await updateUser({
       inputData: {
         userId: values.id,
@@ -152,7 +157,19 @@ const Travlers = () => {
         onGlobalFilterChange={setGlobalFilter}
         paginationDisplayMode="default"
         state={{ pagination, globalFilter, showProgressBars: isFetching }}
-        renderTopToolbar={({ table }) => renderToolbar({ table })}
+        renderTopToolbar={({ table }) => {
+          return (
+            <div className="p-5 flex items-center gap-2 justify-end">
+              <MRT_GlobalFilterTextField
+                table={table}
+                placeholder="Search by Email..."
+              />
+              <Button variant="contained" color="primary">
+                Add Travler
+              </Button>
+            </div>
+          );
+        }}
         enableRowActions={true}
         enableEditing={true}
         editDisplayMode="row"

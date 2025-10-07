@@ -12,6 +12,7 @@ type textProps<TData extends MRT_RowData> = {
   filterVariant?: FilterVariant;
   enableSorting?: boolean;
   enableEditing?: boolean;
+  muiEditTextFieldProps?: () => void;
   render?: (params: { cellValue: ReactNode; rowData: TData }) => ReactNode;
   editVariant?: "text" | "select" | undefined;
 };

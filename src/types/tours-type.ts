@@ -1,6 +1,6 @@
 import type { userWithProfileType } from "./user-type";
 
-export type statusType = "pending" | "canceled" | "verified";
+export type ticketStatusType = "pending" | "canceled" | "verified";
 
 // ticket bookig types
 export type ticketsType = {
@@ -17,7 +17,7 @@ export type ticketsType = {
   };
   totalPrice: string;
   tourImage: string;
-  status: statusType;
+  status: ticketStatusType;
   verifyNumber: string;
   userId: string;
   createAt: Date;

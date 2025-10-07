@@ -1,5 +1,5 @@
 import { API, publicAPI } from "../config/ApiClient";
-import type { statusType, ticketsType } from "../types/tours-type";
+import type { ticketStatusType, ticketsType } from "../types/tours-type";
 import type {
   userCommentType,
   userMomentType,
@@ -170,12 +170,17 @@ export const getUserReviews = async (page: number, limit: number) => {
 };
 
 // get all tickets
+type getTickets = {
+  allTickets: ticketsType[];
+  totalPages: number;
+  totalTickets: number;
+};
 export const getUserTickets = async (
   page: number,
   limit: number,
   search: string
 ) => {
-  const res = await API.get<ticketsType & { totalTickets: number }>(
+  const res = await API.get<getTickets>(
     `/user/getAllTickets?page=${page}&limit=${limit}&search=${search}`
   );
   return res.data;
@@ -183,7 +188,7 @@ export const getUserTickets = async (
 
 // update ticket
 type userTicketType = {
-  status: statusType;
+  status: ticketStatusType;
   travelDate: string;
   id: string;
 };

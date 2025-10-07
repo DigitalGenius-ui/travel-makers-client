@@ -1,10 +1,14 @@
+export type vertifyType = "VERIFIED" | "UNVERIFIED" | "BLOCKED";
+export type roleType = "ADMIN" | "EDITOR" | "USER";
+export type genderType = "male" | "female";
+
 export interface userType {
   id: string;
   email: string;
   password: string;
   userAgent: string;
-  verified: "VERIFIED" | "UNVERIFIED" | "BLOCKED";
-  role: "ADMIN" | "EDITOR" | "USER";
+  verified: vertifyType;
+  role: roleType;
   createAt: Date;
   updatedAt: Date;
   userImg: string;
@@ -18,8 +22,9 @@ export interface userProfileType {
   bio: string;
   followings: string[];
   followers: string[];
-  gender: "male" | "female";
+  gender: genderType;
   birthDate: Date;
+  phoneNumber: string;
   facebook: string;
   linkedIn: string;
   instagram: string;
@@ -74,7 +79,7 @@ export interface userMessageType {
   id: string;
   fullName: string;
   userImg: string;
-  gender: "male" | "female";
+  gender: genderType;
   message: string;
   createAt: string;
   updateAt: string;

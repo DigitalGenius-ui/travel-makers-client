@@ -24,7 +24,7 @@ const TotalPrice = ({
       <Prices
         key={"adult"}
         title="adult"
-        price={`${bookPrice}x${count.adult}`}
+        price={`${Number(bookPrice)}x${Number(count.adult)}`}
       />,
       <Prices
         key={"child"}
@@ -42,14 +42,14 @@ const TotalPrice = ({
   }, [sortTitle, bookPrice, childPrice, count.adult, count.child]);
 
   // getting adult and child total prices
-  const adultTotal = useRef(bookPrice * count.adult);
+  let adultTotal = bookPrice * count.adult;
   const childTotal = childPrice * count.child;
 
   // set the total price for global state
   useEffect(() => {
-    const total = (adultTotal.current += childTotal).toFixed(2);
+    const total = (adultTotal += childTotal).toFixed(2);
     setTotalPrice(+total);
-  }, [adultTotal, childTotal]);
+  }, [adultTotal, childTotal, bookPrice]);
 
   return (
     <section className="secondBg rounded-lg h-fit lg:!sticky lg:mt-[-3rem] lg:!top-[10rem]">
@@ -57,8 +57,8 @@ const TotalPrice = ({
         Payment Details
       </h2>
       <div className="space-y-1 mt-3">
-        <Prices key={1} title="Booking Total" price={totalPrice} />
-        <Prices key={2} title={ticketTitle} price={bookPrice} />
+        <Prices key={1} title="Booking Total" price={+totalPrice} />
+        <Prices key={2} title={ticketTitle} price={+bookPrice} />
 
         {sortedPrice.map((comp) => {
           const title = comp.props.title as "child" | "adult";
@@ -80,7 +80,7 @@ const Prices = ({
   price,
 }: {
   title: string | undefined;
-  price: string | number;
+  price: number | string;
 }) => {
   return (
     <Flex justifyContent="space-between" fontSize="0.9rem">

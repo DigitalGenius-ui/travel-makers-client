@@ -1,6 +1,7 @@
 import { parsDateHandler } from "./Date";
 import { isAfter } from "date-fns";
 import clsx from "clsx";
+import type { vertifyType } from "../types/user-type";
 
 type statusColorType = "pending" | "verified" | "canceled";
 const colors: Record<statusColorType, string> = {
@@ -32,20 +33,18 @@ export const TicketStatus = ({
   );
 };
 
-const userStatusColor: Record<"VERIFIED" | "UNVERIFIED" | "BLOCKED", string> = {
+const userStatusColor: Record<vertifyType, string> = {
   VERIFIED: "bg-green-200 text-green-600 border-green-300",
   UNVERIFIED: "bg-gray-500 text-gray-200",
   BLOCKED: "bg-rose-200 text-rose-500 border-rose-300",
 };
 
-type statusType = "VERIFIED" | "UNVERIFIED" | "BLOCKED";
-
-export const UserStatus = ({ status }: { status: statusType }) => {
+export const UserStatus = ({ status }: { status: vertifyType }) => {
   return (
     <p
       className={clsx(
         "font-bold p-1 px-2 rounded-md uppercase w-fit text-xs border",
-        userStatusColor[status]
+        userStatusColor[status!]
       )}
     >
       {status}

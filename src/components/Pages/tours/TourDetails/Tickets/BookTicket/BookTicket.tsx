@@ -69,7 +69,7 @@ const BookTicket = () => {
     const { phone, sendDeal, ...rest } = bookForm;
 
     const bookData: createTicketType = {
-      totalPrice,
+      totalPrice: String(totalPrice),
       phone: `${contactCode} ${phone}`,
       ...rest,
       userId: singleBooking?.userId,
@@ -102,7 +102,9 @@ const BookTicket = () => {
     });
 
     localStorage.setItem("ticket", JSON.stringify(bookData));
-    window.location.href = url!;
+    if (typeof url === "string") {
+      window.location.href = url;
+    }
   };
 
   return (

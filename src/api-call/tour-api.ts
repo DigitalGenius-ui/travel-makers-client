@@ -58,7 +58,7 @@ export const createCheckout = async (data: checkoutType[]) => {
 
 // create tickets
 export type createTicketType = {
-  totalPrice: number;
+  totalPrice: string;
   phone: string;
   userId: string | undefined;
   tourImage: string | undefined;

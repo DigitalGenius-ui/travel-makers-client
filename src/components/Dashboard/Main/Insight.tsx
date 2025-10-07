@@ -3,86 +3,57 @@ import { SlCalender } from "react-icons/sl";
 import { PiUserCircleCheck } from "react-icons/pi";
 import { TfiMoney } from "react-icons/tfi";
 import { FaArrowTrendUp } from "react-icons/fa6";
-import { AreaChart, Area, Tooltip, ResponsiveContainer } from "recharts";
-import { type ReactElement } from "react";
+import { AreaChart, Area, Tooltip, ResponsiveContainer, XAxis } from "recharts";
+import { useState, type ReactElement } from "react";
+import CustomeMenu from "../../../utils/CustomeMenu";
+
+const filterMenus = ["weekly", "monthly", "yearly"];
 
 const Insight = ({ isBooking }: { isBooking?: boolean }) => {
+  const [filter, setFilter] = useState("weekly");
   const totalBookings = 1000;
   const newCustomer = 1000;
   const totalEarnings = 2000;
 
   return (
-    <section className="box">
-      <InsightCard
-        title={"Total Booking"}
-        amount={totalBookings}
-        estimate={2.4}
-        icon={<SlCalender size={21} />}
-        isBooking={isBooking}
-      />
-      <InsightCard
-        title={"Total new customers"}
-        amount={newCustomer}
-        estimate={2.4}
-        icon={<PiUserCircleCheck size={25} />}
-        isBooking={isBooking}
-      />
-      <InsightCard
-        title={"Total earnings"}
-        amount={totalEarnings}
-        estimate={2.4}
-        icon={<TfiMoney size={22} />}
-        isBooking={isBooking}
-      />
-    </section>
+    <>
+      <div className="flex items-center gap-3 justify-end">
+        <p>Filter based on :</p>
+        <CustomeMenu menus={filterMenus} value={filter} setValue={setFilter} />
+      </div>
+      <div className="box">
+        <InsightCard
+          title={"Total Booking"}
+          amount={totalBookings}
+          estimate={2.4}
+          icon={<SlCalender size={21} />}
+          isBooking={isBooking}
+        />
+        <InsightCard
+          title={"Total new customers"}
+          amount={newCustomer}
+          estimate={2.4}
+          icon={<PiUserCircleCheck size={25} />}
+          isBooking={isBooking}
+        />
+        <InsightCard
+          title={"Total earnings"}
+          amount={totalEarnings}
+          estimate={2.4}
+          icon={<TfiMoney size={22} />}
+          isBooking={isBooking}
+        />
+      </div>
+    </>
   );
 };
 
 export default Insight;
 
-const data = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Page D",
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
+const customeTooltip = ({ active, payload, label }) => {
+  console.log(label);
+  return <></>;
+};
 
 type InsightProps = {
   title: string;
@@ -90,6 +61,10 @@ type InsightProps = {
   estimate: number;
   icon: ReactElement;
   isBooking: boolean | undefined;
+  data: {
+    name: string;
+    total: number;
+  };
 };
 
 const InsightCard = ({
@@ -98,6 +73,7 @@ const InsightCard = ({
   estimate,
   icon,
   isBooking,
+  data,
 }: InsightProps) => {
   const chart = () => (
     <div
@@ -118,7 +94,8 @@ const InsightCard = ({
             bottom: 0,
           }}
         >
-          <Tooltip />
+          <Tooltip content={customeTooltip} />
+          <XAxis dataKey="name" hide />
           <Area
             connectNulls
             type="monotone"

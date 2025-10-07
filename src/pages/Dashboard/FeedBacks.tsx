@@ -44,7 +44,6 @@ const FeedBacks = () => {
   }, [tourData]);
 
   const newReviews = filterData?.slice(indexOfFirstItem, indexOfLastItem);
-  console.log(newReviews);
 
   useEffect(() => {
     const handleFilter = () => {
@@ -109,13 +108,15 @@ const FeedBacks = () => {
                   return <ReviewCard key={item.id} item={item} />;
                 })}
               </div>
-              <div>
-                <Pagination
-                  currentPage={currentPage}
-                  setCurrentPage={setCurrentPage}
-                  totalPages={totalPages}
-                />
-              </div>
+              {totalPages > 1 && (
+                <div>
+                  <Pagination
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                    totalPages={totalPages}
+                  />
+                </div>
+              )}
             </>
           )}
         </>

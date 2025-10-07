@@ -9,6 +9,7 @@ import { USER_KEY } from "../../../../constants/react-query";
 const CheckOut = () => {
   const savedTicket = JSON.parse(localStorage.getItem("ticket")!);
   const { currentUser } = useCurrentUser();
+  console.log(savedTicket);
 
   const navigate = useNavigate();
 

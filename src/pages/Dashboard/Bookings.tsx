@@ -18,7 +18,7 @@ import {
 import CustomeMenu from "../../utils/CustomeMenu";
 import Insight from "../../components/Dashboard/Main/Insight";
 import { useNavigate, useParams } from "react-router-dom";
-import type { statusType, ticketsType } from "../../types/tours-type";
+import type { ticketStatusType, ticketsType } from "../../types/tours-type";
 
 type bookingProps = {
   mainBooking?: boolean;
@@ -40,7 +40,7 @@ const Bookings = ({ mainBooking }: bookingProps) => {
     globalFilter
   );
 
-  const newData = data?.tickets?.map((item) => ({
+  const newData = data?.allTickets?.map((item) => ({
     ...item,
     owner: `${item.firstName} ${item.lastName}`,
     ticketNumber: item.verifyNumber,
@@ -91,7 +91,8 @@ const Bookings = ({ mainBooking }: bookingProps) => {
 
   // table details
   function RenderDetails({ row }: { row: { original: ticketsType } }) {
-    const { status, travelDate, id } = row.original;
+    const ticket = row.original as ticketsType;
+    const { status, travelDate, id } = ticket;
 
     const { parsDate } = parsDateHandler(travelDate);
     const isTicketExpired = isAfter(new Date(), parsDate);
@@ -184,7 +185,7 @@ const Bookings = ({ mainBooking }: bookingProps) => {
                 onChange={(e: SelectChangeEvent<string>) =>
                   setData((prev) => ({
                     ...prev,
-                    status: e.target.value as statusType,
+                    status: e.target.value as ticketStatusType,
                   }))
                 }
               />
@@ -209,7 +210,7 @@ const Bookings = ({ mainBooking }: bookingProps) => {
             </div>
           </div>
         )}
-        <TicketCard ticket={row} />
+        <TicketCard bookedTicket={ticket} />
       </>
     );
   }

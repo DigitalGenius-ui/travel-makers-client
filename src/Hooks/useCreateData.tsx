@@ -26,10 +26,10 @@ const useCreateData = <TData, TVariable>({
     inputData: TVariable;
     dataMessage: string;
   }) => {
-    await mutateAsync(inputData);
+    const data = await mutateAsync(inputData);
 
     // toast notification
-    if (dataMessage) {
+    if (data && dataMessage) {
       toast({
         title: dataMessage,
         status: "success",
@@ -37,6 +37,7 @@ const useCreateData = <TData, TVariable>({
         isClosable: true,
       });
     }
+    return data;
   };
 
   useErrorToest({ isError, error });
