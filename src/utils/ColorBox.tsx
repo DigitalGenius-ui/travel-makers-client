@@ -1,8 +1,19 @@
 import clsx from "clsx";
-import React from "react";
+import type { CSSProperties } from "react";
 
-const ColorBox = ({ className }: { className?: string }) => {
-  return <p className={clsx(`size-2.5 bg-blue-400 rounded-sm`, className)} />;
+const ColorBox = ({
+  className,
+  style,
+}: {
+  className?: string;
+  style?: CSSProperties;
+}) => {
+  return (
+    <p
+      style={style}
+      className={clsx(`size-2.5 bg-blue-200 rounded-sm`, className)}
+    />
+  );
 };
 
 export default ColorBox;

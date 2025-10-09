@@ -3,22 +3,39 @@ import ColorBox from "../../../utils/ColorBox";
 import CustomeMenu from "../../../utils/CustomeMenu";
 import { Button } from "@chakra-ui/react";
 import { FaRegClock } from "react-icons/fa";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import useGetTours from "../../../hooks/useGetTours";
+import useGetBookingData from "../../../hooks/useGetBookingData";
+import clsx from "clsx";
 
-const TripsCalcs = ({ title, amount }: { title: string; amount: number }) => {
-  return (
-    <div className="flex items-center gap-1 text-xs">
-      <ColorBox />
-      <p className="">{title}</p>
-      <p className="font-bold">{amount}</p>
-    </div>
-  );
+const COLORS: Record<string, string> = {
+  Canceled: "rgb(239 246 255)",
+  Pending: "rgb(191 219 254)",
+  Done: "rgb(147 197 253)",
 };
-
 const Trips = () => {
   const { tourData } = useGetTours();
   const [travelFilter, setTravelFilter] = useState("");
+  const chartRef = useRef<HTMLDivElement>(null);
+  const chartWidth = chartRef?.current?.offsetWidth;
+
+  const { data, isPending } = useGetBookingData();
+
+  const doneTrips = data?.allBookings.filter(
+    (item) => item.status === "verified"
+  );
+  const canceledTrips = data?.allBookings.filter(
+    (item) => item.status === "canceled"
+  );
+  const pendingTrips = data?.allBookings.filter(
+    (item) => item.status === "pending"
+  );
+
+  const chartBoxes = [
+    { title: "Canceled", amount: pendingTrips?.length },
+    { title: "Pending", amount: canceledTrips?.length },
+    { title: "Done", amount: doneTrips?.length },
+  ];
 
   function totalTrips() {
     return (
@@ -29,19 +46,35 @@ const Trips = () => {
           </span>
           <div className="flex flex-col">
             <h1 className="text-sm">Total Trips</h1>
-            <p className="text-xl font-bold text-gray-700">4000</p>
+            <p className="text-xl font-bold text-gray-700">
+              {data?.allBookings?.length}
+            </p>
           </div>
         </div>
         <div className="flex-1 space-y-2">
-          <div className="flex items-center justify-center">
-            <div className="flex-1 h-4 bg-blue-50 rounded-e-sm" />
-            <div className="flex-1 h-4 bg-blue-200" />
-            <div className="flex-1 h-4 bg-blue-300 rounded-e-sm" />
+          <div ref={chartRef} className="flex items-center justify-center">
+            {chartBoxes.map((item, i) => (
+              <div
+                key={item.amount}
+                style={{
+                  flex: `${(item.amount ?? 0 / chartWidth!) * 100}%`,
+                  backgroundColor: COLORS[item.title],
+                }}
+                className={clsx(
+                  `flex-1 h-4`,
+                  i === 0 || (i === 2 && "rounded-e-sm")
+                )}
+              />
+            ))}
           </div>
           <div className="flex flex-col xs:flex-row xs:items-center xs:justify-between">
-            <TripsCalcs title="Done" amount={250} />
-            <TripsCalcs title="Booked" amount={50} />
-            <TripsCalcs title="Canceled" amount={350} />
+            {chartBoxes.map((item) => (
+              <TripsCalcs
+                key={item.title}
+                title={item.title}
+                amount={item.amount}
+              />
+            ))}
           </div>
         </div>
       </div>
@@ -78,13 +111,33 @@ const Trips = () => {
   }
   return (
     <section className="flex-[2.5] space-y-5">
-      {totalTrips()}
+      {isPending ? (
+        <p className="w-full h-20 bg-gray-200 animate-pulse rounded-md" />
+      ) : (
+        totalTrips()
+      )}
       {travelPackages()}
     </section>
   );
 };
 
 export default Trips;
+
+const TripsCalcs = ({
+  title,
+  amount,
+}: {
+  title: string;
+  amount: number | undefined;
+}) => {
+  return (
+    <div className="flex items-center gap-1 text-xs">
+      <ColorBox style={{ backgroundColor: COLORS[title] }} />
+      <p>{title}</p>
+      <p className="font-bold">{amount}</p>
+    </div>
+  );
+};
 
 const TourCard = ({ item }: { item: any }) => {
   const { category, price, tourDuration, city } = item;

@@ -54,7 +54,7 @@ export const InsightLoading = ({ isBooking }: { isBooking?: boolean }) => {
     <p
       className={clsx(
         "w-full h-40 bg-gray-200 animate-pulse",
-        !isBooking && "h-20 rounded-lg"
+        !isBooking && "h-16 rounded-lg"
       )}
     />
   );

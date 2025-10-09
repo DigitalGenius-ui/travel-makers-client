@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getInsight } from "../../../api-call/dashboard-api";
 import { InsightLoading } from "../../../utils/Loadings";
 import useErrorToest from "../../../hooks/useErrorToest";
+import { DASH_INSIGHT } from "../../../constants/react-query";
 
 const filterMenus = ["weekly", "monthly", "yearly"];
 
@@ -17,7 +18,7 @@ const Insight = ({ isBooking }: { isBooking?: boolean }) => {
   const [filter, setFilter] = useState<string>("weekly");
 
   const { data, isPending, error, isError } = useQuery({
-    queryKey: ["dash-key", filter],
+    queryKey: [DASH_INSIGHT, filter],
     queryFn: async () => await getInsight(filter),
   });
 
@@ -31,8 +32,8 @@ const Insight = ({ isBooking }: { isBooking?: boolean }) => {
       </div>
       {isPending ? (
         <div className="box">
-          {Array.from({ length: 3 }).map((_) => (
-            <InsightLoading isBooking={isBooking} />
+          {Array.from({ length: 3 }).map((_, i) => (
+            <InsightLoading key={i} isBooking={isBooking} />
           ))}
         </div>
       ) : (
@@ -116,19 +117,21 @@ const InsightCard = ({
           }}
         >
           <Tooltip
-            content={({ payload }) => (
-              <div className="bg-white px-2">
-                {payload.map((item) => {
-                  const { name, value } = item.payload;
-                  return (
-                    <div className="flex flex-col justify-center items-center">
-                      <p>{value}</p>
-                      <p>{name}</p>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+            content={({ payload }) => {
+              if (!payload || !payload.length) return null;
+              const item = payload[0];
+              return (
+                <div className="bg-white px-2">
+                  <div
+                    key={item.value}
+                    className="flex flex-col justify-center items-center"
+                  >
+                    <p>{item.value}</p>
+                    <p>{item.payload.name}</p>
+                  </div>
+                </div>
+              );
+            }}
           />
           <XAxis dataKey="name" hide />
           <Area

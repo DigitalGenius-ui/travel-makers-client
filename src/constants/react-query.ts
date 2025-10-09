@@ -8,6 +8,8 @@ export const BOOKING_KEYS = "BOOKING_KEYS";
 export const MOMENTS_KEYS = "MOMENTS_KEYS";
 export const REVIEW_KEYS = "REVIEW_KEYS";
 export const TICKETS_KEYS = "TICKETS_KEYS";
+export const DASH_INSIGHT = "DASH_INSIGHT";
+export const DASH_BOOKING_DATA = "DASH_BOOKING_DATA";
 
 // http code
 export const UNATHURIZED = 401;
