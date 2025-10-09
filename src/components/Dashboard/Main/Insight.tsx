@@ -9,16 +9,19 @@ import CustomeMenu from "../../../utils/CustomeMenu";
 import { useQuery } from "@tanstack/react-query";
 import { getInsight } from "../../../api-call/dashboard-api";
 import { InsightLoading } from "../../../utils/Loadings";
+import useErrorToest from "../../../hooks/useErrorToest";
 
 const filterMenus = ["weekly", "monthly", "yearly"];
 
 const Insight = ({ isBooking }: { isBooking?: boolean }) => {
   const [filter, setFilter] = useState<string>("weekly");
 
-  const { data, isPending, isError } = useQuery({
+  const { data, isPending, error, isError } = useQuery({
     queryKey: ["dash-key", filter],
     queryFn: async () => await getInsight(filter),
   });
+
+  useErrorToest({ error, isError });
 
   return (
     <>
