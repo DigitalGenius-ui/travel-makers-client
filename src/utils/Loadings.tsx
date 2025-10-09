@@ -1,3 +1,5 @@
+import clsx from "clsx";
+
 export const ReviewLoading = () => {
   return (
     <div className="flex gap-4">
@@ -44,5 +46,16 @@ export const VerticaleCardLoading = () => {
         <div className="w-full h-8 bg-gray-300 animate-pulse" />
       </div>
     </div>
+  );
+};
+
+export const InsightLoading = ({ isBooking }: { isBooking?: boolean }) => {
+  return (
+    <p
+      className={clsx(
+        "w-full h-40 bg-gray-200 animate-pulse",
+        !isBooking && "h-20 rounded-lg"
+      )}
+    />
   );
 };

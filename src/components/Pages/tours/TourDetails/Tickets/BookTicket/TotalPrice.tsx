@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo } from "react";
 import { useBookingContext } from "../../../../../../context/BookingContext";
 
 const TotalPrice = ({

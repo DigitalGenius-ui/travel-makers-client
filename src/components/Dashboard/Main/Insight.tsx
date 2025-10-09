@@ -2,18 +2,23 @@ import clsx from "clsx";
 import { SlCalender } from "react-icons/sl";
 import { PiUserCircleCheck } from "react-icons/pi";
 import { TfiMoney } from "react-icons/tfi";
-import { FaArrowTrendUp } from "react-icons/fa6";
+import { FaArrowTrendUp, FaArrowTrendDown } from "react-icons/fa6";
 import { AreaChart, Area, Tooltip, ResponsiveContainer, XAxis } from "recharts";
 import { useState, type ReactElement } from "react";
 import CustomeMenu from "../../../utils/CustomeMenu";
+import { useQuery } from "@tanstack/react-query";
+import { getInsight } from "../../../api-call/dashboard-api";
+import { InsightLoading } from "../../../utils/Loadings";
 
 const filterMenus = ["weekly", "monthly", "yearly"];
 
 const Insight = ({ isBooking }: { isBooking?: boolean }) => {
-  const [filter, setFilter] = useState("weekly");
-  const totalBookings = 1000;
-  const newCustomer = 1000;
-  const totalEarnings = 2000;
+  const [filter, setFilter] = useState<string>("weekly");
+
+  const { data, isPending, isError } = useQuery({
+    queryKey: ["dash-key", filter],
+    queryFn: async () => await getInsight(filter),
+  });
 
   return (
     <>
@@ -21,59 +26,72 @@ const Insight = ({ isBooking }: { isBooking?: boolean }) => {
         <p>Filter based on :</p>
         <CustomeMenu menus={filterMenus} value={filter} setValue={setFilter} />
       </div>
-      <div className="box">
-        <InsightCard
-          title={"Total Booking"}
-          amount={totalBookings}
-          estimate={2.4}
-          icon={<SlCalender size={21} />}
-          isBooking={isBooking}
-        />
-        <InsightCard
-          title={"Total new customers"}
-          amount={newCustomer}
-          estimate={2.4}
-          icon={<PiUserCircleCheck size={25} />}
-          isBooking={isBooking}
-        />
-        <InsightCard
-          title={"Total earnings"}
-          amount={totalEarnings}
-          estimate={2.4}
-          icon={<TfiMoney size={22} />}
-          isBooking={isBooking}
-        />
-      </div>
+      {isPending ? (
+        <div className="box">
+          {Array.from({ length: 3 }).map((_) => (
+            <InsightLoading isBooking={isBooking} />
+          ))}
+        </div>
+      ) : (
+        <div className="box">
+          <InsightCard
+            title={"Total Booking"}
+            amount={data?.bookings?.totalBookings}
+            estimate={data?.bookings?.percent}
+            icon={<SlCalender size={21} />}
+            isBooking={isBooking}
+            data={data?.bookings?.bookingsTime}
+            filter={filter}
+          />
+          <InsightCard
+            title={"Total new customers"}
+            amount={data?.customers?.totalCustomer}
+            estimate={data?.customers.percent}
+            icon={<PiUserCircleCheck size={25} />}
+            isBooking={isBooking}
+            data={data?.customers?.customerTime}
+            filter={filter}
+          />
+          <InsightCard
+            title={"Total earnings"}
+            amount={data?.earnings.totalEarnings}
+            estimate={data?.earnings.percent}
+            icon={<TfiMoney size={22} />}
+            isBooking={isBooking}
+            data={data?.earnings.earningsTime}
+            filter={filter}
+          />
+        </div>
+      )}
     </>
   );
 };
 
 export default Insight;
 
-const customeTooltip = ({ active, payload, label }) => {
-  console.log(label);
-  return <></>;
-};
-
 type InsightProps = {
   title: string;
-  amount: number;
-  estimate: number;
+  amount: number | undefined;
+  estimate: number | undefined;
   icon: ReactElement;
   isBooking: boolean | undefined;
-  data: {
-    name: string;
-    total: number;
-  };
+  filter: string;
+  data:
+    | {
+        name: string;
+        value: number;
+      }[]
+    | undefined;
 };
 
 const InsightCard = ({
   title,
-  amount,
-  estimate,
+  amount = 0,
+  estimate = 0,
   icon,
   isBooking,
   data,
+  filter,
 }: InsightProps) => {
   const chart = () => (
     <div
@@ -94,12 +112,26 @@ const InsightCard = ({
             bottom: 0,
           }}
         >
-          <Tooltip content={customeTooltip} />
+          <Tooltip
+            content={({ payload }) => (
+              <div className="bg-white px-2">
+                {payload.map((item) => {
+                  const { name, value } = item.payload;
+                  return (
+                    <div className="flex flex-col justify-center items-center">
+                      <p>{value}</p>
+                      <p>{name}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          />
           <XAxis dataKey="name" hide />
           <Area
             connectNulls
             type="monotone"
-            dataKey="uv"
+            dataKey="value"
             stroke="#0d6efd"
             fill="#0d6efd"
             fillOpacity={0.4}
@@ -109,6 +141,10 @@ const InsightCard = ({
       </ResponsiveContainer>
     </div>
   );
+
+  const isEarning = title === "Total earnings";
+  const newFilterText = filter.slice(0, -2);
+
   return (
     <div
       className={clsx(
@@ -134,18 +170,27 @@ const InsightCard = ({
         >
           <div className="w-full">
             <h3 className="text-darktext text-sm capitalize">{title}</h3>
-            <p className="text-xl font-bold">{amount}</p>
+            <p className="text-xl font-bold">
+              {isEarning ? `${amount?.toFixed(2)}$` : amount}
+            </p>
           </div>
           <p
             className={clsx(
               "bg-white rounded-md text-sm px-1 flex items-center justify-center gap-1 w-fit"
             )}
           >
-            <span className="text-blue-400 flex items-center gap-1">
-              <FaArrowTrendUp />
+            <span
+              className={clsx(
+                "text-blue-400 flex items-center gap-1",
+                estimate <= 0 && "text-rose-700"
+              )}
+            >
+              {estimate <= 0 ? <FaArrowTrendDown /> : <FaArrowTrendUp />}
               {estimate}%
             </span>
-            {isBooking && <span className="text-darkText">from last week</span>}
+            {isBooking && (
+              <span className="text-darkText">from last {newFilterText}</span>
+            )}
           </p>
         </div>
       </div>
