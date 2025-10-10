@@ -13,7 +13,10 @@ import {
 import ColorBox from "../../../utils/ColorBox";
 import CustomeMenu from "../../../utils/CustomeMenu";
 import { useState } from "react";
-import useGetBookingData from "../../../hooks/useGetBookingData";
+import { useQuery } from "@tanstack/react-query";
+import { DASH_REVENEUE_DIS } from "../../../constants/react-query";
+import { getRevenueAndTopDis } from "../../../api-call/dashboard-api";
+import useErrorToest from "../../../hooks/useErrorToest";
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 const menus = ["weekly", "monthly", "yearly"];
@@ -25,16 +28,26 @@ const data2 = [
   { name: "Group D", value: 200 },
 ];
 const Charts = () => {
-  const [filter, setFilter] = useState("weekly");
+  const [disFilter, setDisFilter] = useState("weekly");
+  const [revenueFilter, setRevenueFilter] = useState("weekly");
 
-  const { data, isPending } = useGetBookingData(filter);
+  const { data, isPending, error, isError } = useQuery({
+    queryKey: [DASH_REVENEUE_DIS, disFilter, revenueFilter],
+    queryFn: async () => await getRevenueAndTopDis(disFilter, revenueFilter),
+  });
+
+  useErrorToest({ error, isError });
 
   function revenue() {
     return (
       <div className="flex-[1.2] dash-box">
         <div className="flex items-center justify-between">
           <h1 className="font-semibold">Revenue Overview</h1>
-          <CustomeMenu value={filter} setValue={setFilter} menus={menus} />
+          <CustomeMenu
+            value={revenueFilter}
+            setValue={setRevenueFilter}
+            menus={menus}
+          />
         </div>
         <div className="!w-full !h-64 focus:outline-none text-xs">
           <ResponsiveContainer width="100%" height="100%">
@@ -101,7 +114,11 @@ const Charts = () => {
       <section className="flex-1 dash-box">
         <div className="flex items-center justify-between">
           <h1 className="font-semibold">Top Destinations</h1>
-          <CustomeMenu value={filter} setValue={setFilter} menus={menus} />
+          <CustomeMenu
+            value={disFilter}
+            setValue={setDisFilter}
+            menus={menus}
+          />
         </div>
         <div className="flex flex-col xs:flex-row gap-3 items-center">
           <div className="flex-1 w-full h-64 flex items-center justify-center">
@@ -140,8 +157,8 @@ const Charts = () => {
     <section className="flex flex-col md:flex-row gap-4 w-full">
       {isPending ? (
         <>
-          <p className="w-full h-72 bg-gray-200 animate-pulse" />
-          <p className="w-full h-72 bg-gray-200 animate-pulse" />
+          <p className="w-full h-72 bg-gray-200 animate-pulse rounded-md" />
+          <p className="w-full h-72 bg-gray-200 animate-pulse rounded-md" />
         </>
       ) : (
         <>

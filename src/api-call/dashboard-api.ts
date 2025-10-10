@@ -1,5 +1,5 @@
 import { API } from "../config/ApiClient";
-import type { ticketsType } from "../types/tours-type";
+import type { ticketsType, tourType } from "../types/tours-type";
 
 // getting insight
 type timeType = {
@@ -28,7 +28,8 @@ export const getInsight = async (filter: string) => {
   return res.data;
 };
 
-type bookingDataType = {
+// getting revenue And Top Distination api.
+type revenueAndTopDisType = {
   revenue: {
     earningsTime: timeType[];
   };
@@ -38,9 +39,26 @@ type bookingDataType = {
   }[];
   allBookings: ticketsType[];
 };
-export const bookingData = async (filter: string | undefined) => {
-  const res = await API.get<bookingDataType>(
-    `/dashboard/revenueAndTopDis?filter=${filter}`
+export const getRevenueAndTopDis = async (
+  disFilter: string | undefined,
+  revenueFilter: string | undefined
+) => {
+  const res = await API.get<revenueAndTopDisType>(
+    `/dashboard/revenueAndTopDis?disFilter=${disFilter}&revenueFilter=${revenueFilter}`
   );
+  return res.data;
+};
+
+// getting trips and package data
+type tripAndPackageType = {
+  trips: {
+    title: string;
+    amount: number;
+  }[];
+  allPackages: tourType[];
+  totalTrips: number;
+};
+export const getTripAndPackage = async () => {
+  const res = await API.get<tripAndPackageType>(`/dashboard/tripsAndPackages`);
   return res.data;
 };

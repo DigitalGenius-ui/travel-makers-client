@@ -1,12 +1,15 @@
 import { PiAirplaneTiltLight } from "react-icons/pi";
 import ColorBox from "../../../utils/ColorBox";
-import CustomeMenu from "../../../utils/CustomeMenu";
 import { Button } from "@chakra-ui/react";
 import { FaRegClock } from "react-icons/fa";
-import { useMemo, useRef, useState } from "react";
-import useGetTours from "../../../hooks/useGetTours";
-import useGetBookingData from "../../../hooks/useGetBookingData";
+import { useRef } from "react";
 import clsx from "clsx";
+import { useQuery } from "@tanstack/react-query";
+import { DASH_TRIPS_PACKAGE } from "../../../constants/react-query";
+import { getTripAndPackage } from "../../../api-call/dashboard-api";
+import useErrorToest from "../../../hooks/useErrorToest";
+import { Link, useParams } from "react-router-dom";
+import useGetTours from "../../../hooks/useGetTours";
 
 const COLORS: Record<string, string> = {
   Canceled: "rgb(239 246 255)",
@@ -15,27 +18,17 @@ const COLORS: Record<string, string> = {
 };
 const Trips = () => {
   const { tourData } = useGetTours();
-  const [travelFilter, setTravelFilter] = useState("");
+  const { id } = useParams();
   const chartRef = useRef<HTMLDivElement>(null);
   const chartWidth = chartRef?.current?.offsetWidth;
 
-  const { data, isPending } = useGetBookingData();
+  const { data, isPending, error, isError } = useQuery({
+    queryKey: [DASH_TRIPS_PACKAGE],
+    queryFn: async () => await getTripAndPackage(),
+  });
+  useErrorToest({ error, isError });
 
-  const doneTrips = data?.allBookings.filter(
-    (item) => item.status === "verified"
-  );
-  const canceledTrips = data?.allBookings.filter(
-    (item) => item.status === "canceled"
-  );
-  const pendingTrips = data?.allBookings.filter(
-    (item) => item.status === "pending"
-  );
-
-  const chartBoxes = [
-    { title: "Canceled", amount: pendingTrips?.length },
-    { title: "Pending", amount: canceledTrips?.length },
-    { title: "Done", amount: doneTrips?.length },
-  ];
+  const chartBoxes = data?.trips;
 
   function totalTrips() {
     return (
@@ -47,13 +40,13 @@ const Trips = () => {
           <div className="flex flex-col">
             <h1 className="text-sm">Total Trips</h1>
             <p className="text-xl font-bold text-gray-700">
-              {data?.allBookings?.length}
+              {data?.totalTrips}
             </p>
           </div>
         </div>
         <div className="flex-1 space-y-2">
           <div ref={chartRef} className="flex items-center justify-center">
-            {chartBoxes.map((item, i) => (
+            {chartBoxes?.map((item, i) => (
               <div
                 key={item.amount}
                 style={{
@@ -68,7 +61,7 @@ const Trips = () => {
             ))}
           </div>
           <div className="flex flex-col xs:flex-row xs:items-center xs:justify-between">
-            {chartBoxes.map((item) => (
+            {chartBoxes?.map((item) => (
               <TripsCalcs
                 key={item.title}
                 title={item.title}
@@ -82,23 +75,16 @@ const Trips = () => {
   }
 
   function travelPackages() {
-    const menus = useMemo(() => {
-      return [...new Set(tourData?.map((item) => item.category))];
-    }, [tourData]);
-
     return (
       <div className="dash-box space-y-3">
         <div className="flex items-center justify-between">
           <h1 className="font-semibold">Travel Packages</h1>
           <div className="flex items-center gap-2">
-            <CustomeMenu
-              value={travelFilter}
-              setValue={setTravelFilter}
-              menus={menus}
-            />
-            <Button variant={"outline"} size={"sm"}>
-              View All
-            </Button>
+            <Link to={`/packages/${id}`} replace>
+              <Button variant={"outline"} size={"sm"}>
+                View All
+              </Button>
+            </Link>
           </div>
         </div>
         <div className="bg-blue-200 p-2 rounded-md box !gap-2">
