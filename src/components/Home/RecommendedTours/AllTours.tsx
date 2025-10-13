@@ -4,33 +4,34 @@ import useGetTours from "../../../hooks/useGetTours";
 import TourCard from "./TourCard";
 import Screen from "../../../utils/Screen";
 import Pagination from "../../../utils/Pagination";
+import { CartLoading } from "../../../utils/Loadings";
 
 const AllTours = () => {
-  const { tourData } = useGetTours();
-  if (!tourData) return;
+  const [page, setPage] = useState(1);
+  const limit = 6;
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8;
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const totalPages = Math.ceil((tourData?.length ?? 0) / itemsPerPage);
-
-  const newTours = tourData?.slice(indexOfFirstItem, indexOfLastItem);
+  const { tourData, isPending } = useGetTours(page, limit);
+  const allTours = tourData?.allTours;
 
   return (
     <div>
       <PageBanner title="All Tours" />
       <Screen>
         <div className="grid grid-cols-resCol gap-4 my-6">
-          {newTours?.map((item) => (
-            <TourCard item={item} key={item.id} />
-          ))}
+          {isPending ? (
+            <>
+              {Array.from({ length: limit }).map((_, i) => (
+                <CartLoading key={i} />
+              ))}
+            </>
+          ) : (
+            allTours?.map((item) => <TourCard item={item} key={item.id} />)
+          )}
         </div>
         <Pagination
-          totalPages={totalPages}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
+          totalPages={tourData?.totalPages!}
+          setCurrentPage={setPage}
+          currentPage={page}
         />
       </Screen>
     </div>

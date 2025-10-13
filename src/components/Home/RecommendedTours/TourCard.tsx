@@ -4,9 +4,13 @@ import { GrMapLocation } from "react-icons/gr";
 import { FaRegClock } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Stars from "../../../utils/stars";
-import { type tourType } from "../../../api-call/tour-api";
+import type { tourType } from "../../../types/tours-type";
 
-const TourCard = ({ item }: { item: tourType }) => {
+interface TourCardProps extends tourType {
+  reviewCount?: number;
+}
+
+const TourCard = ({ item }: { item: TourCardProps }) => {
   const isNewTour =
     new Date(item.createAt) >= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
 
@@ -25,7 +29,7 @@ const TourCard = ({ item }: { item: tourType }) => {
         className="relative h-[17rem] md:h-[13rem] 2xl:h-[16rem] bg-cover bg-no-repeat bg-center"
       >
         <div className="absolute top-3 left-3 text-white">
-          <Stars review={item?.reviews?.length} />
+          <Stars review={item?.reviewCount} />
         </div>
         {isNewTour && (
           <span

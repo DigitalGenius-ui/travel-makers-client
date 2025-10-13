@@ -11,7 +11,7 @@ const ColorBox = ({
   return (
     <p
       style={style}
-      className={clsx(`size-2.5 bg-blue-200 rounded-sm`, className)}
+      className={clsx(`size-[10px] bg-blue-200 rounded-sm`, className)}
     />
   );
 };

@@ -4,17 +4,16 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import { IoTimeOutline } from "react-icons/io5";
 import { RiStarSFill } from "react-icons/ri";
 import clsx from "clsx";
-import type { tourReview, tourType } from "../../../types/tours-type";
-import type { tourWithReviwes } from "../../../api-call/tour-api";
+import type { tourRewviewsCount } from "../../../types/tours-type";
 import { useState, type SetStateAction } from "react";
 import SearchInput from "../../../utils/SearchInput";
 import { ActionButton } from "../../../utils/ActionButton";
 
 type tourListsProps = {
-  tourData: tourWithReviwes[] | undefined;
+  tourData: tourRewviewsCount[] | undefined;
   isPending: boolean;
-  setActivePackage: React.Dispatch<SetStateAction<tourWithReviwes>>;
-  activePackage: tourWithReviwes;
+  setActivePackage: React.Dispatch<SetStateAction<tourRewviewsCount>>;
+  activePackage: tourRewviewsCount;
 };
 
 const ToursLists = ({
@@ -25,7 +24,7 @@ const ToursLists = ({
 }: tourListsProps) => {
   const [search, setSearch] = useState("");
   return (
-    <section className="dash-box flex-1">
+    <section className="flex-1">
       <div className="flex items-center gap-1">
         <SearchInput
           value={search}
@@ -45,16 +44,14 @@ const ToursLists = ({
             {tourData?.length === 0 ? (
               <p>No tours are avaliable!</p>
             ) : (
-              tourData
-                ?.slice(0, 8)
-                .map((tour) => (
-                  <Tour
-                    key={tour.id}
-                    tour={tour}
-                    setActivePackage={setActivePackage}
-                    activePackage={activePackage}
-                  />
-                ))
+              tourData?.map((tour) => (
+                <Tour
+                  key={tour.id}
+                  tour={tour}
+                  setActivePackage={setActivePackage}
+                  activePackage={activePackage}
+                />
+              ))
             )}
           </div>
         )}
@@ -66,14 +63,12 @@ const ToursLists = ({
 export default ToursLists;
 
 type tourProps = {
-  tour: tourType & {
-    reviews: tourReview[];
-  };
-  setActivePackage: React.Dispatch<SetStateAction<tourWithReviwes>>;
-  activePackage: tourWithReviwes;
+  tour: tourRewviewsCount;
+  setActivePackage: React.Dispatch<SetStateAction<tourRewviewsCount>>;
+  activePackage: tourRewviewsCount;
 };
 const Tour = ({ tour, setActivePackage, activePackage }: tourProps) => {
-  const { title, price, reviews, tourImages } = tour;
+  const { title, price, reviewCount, tourImages } = tour;
   return (
     <div
       onClick={() => setActivePackage(tour)}
@@ -102,7 +97,7 @@ const Tour = ({ tour, setActivePackage, activePackage }: tourProps) => {
             <span className="text-yellow-500 text-sm">
               <RiStarSFill />
             </span>
-            {reviews?.length}
+            {reviewCount}
           </p>
           <p>
             <span className="text-xl text-blue-500">${price}</span>/

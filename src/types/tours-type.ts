@@ -25,7 +25,7 @@ export type ticketsType = {
 };
 
 // tour data type
-export type tourType = {
+export interface tourType {
   id: string;
   title: string;
   open_time: Date;
@@ -44,7 +44,11 @@ export type tourType = {
   tourDuration: string;
   createAt: Date;
   updatedAt: Date;
-};
+}
+
+export interface tourRewviewsCount extends tourType {
+  reviewCount: number;
+}
 
 // tour review
 export type tourReview = {

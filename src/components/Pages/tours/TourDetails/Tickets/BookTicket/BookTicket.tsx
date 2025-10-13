@@ -21,7 +21,7 @@ import type React from "react";
 const BookTicket = () => {
   const { tourId } = useParams();
   const { tourData } = useGetTours();
-  const singleBooking = tourData?.find((item) => item.id === tourId);
+  const singleBooking = tourData?.allTours?.find((item) => item.id === tourId);
 
   const toast = useToast();
 

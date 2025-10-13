@@ -1,5 +1,5 @@
 import { API } from "../config/ApiClient";
-import type { ticketsType, tourType } from "../types/tours-type";
+import type { tourType } from "../types/tours-type";
 
 // getting insight
 type timeType = {
@@ -29,22 +29,26 @@ export const getInsight = async (filter: string) => {
 };
 
 // getting revenue And Top Distination api.
-type revenueAndTopDisType = {
-  revenue: {
-    earningsTime: timeType[];
-  };
+type revenueType = {
+  revenue: timeType[];
+};
+export const getRevenue = async (revenueFilter: string | undefined) => {
+  const res = await API.get<revenueType>(
+    `/dashboard/chartRevenue?revenueFilter=${revenueFilter}`
+  );
+  return res.data;
+};
+
+// getting revenue And Top Distination api.
+type topDisType = {
   distinations: {
     title: string;
     count: number;
   }[];
-  allBookings: ticketsType[];
 };
-export const getRevenueAndTopDis = async (
-  disFilter: string | undefined,
-  revenueFilter: string | undefined
-) => {
-  const res = await API.get<revenueAndTopDisType>(
-    `/dashboard/revenueAndTopDis?disFilter=${disFilter}&revenueFilter=${revenueFilter}`
+export const getTopDis = async (disFilter: string | undefined) => {
+  const res = await API.get<topDisType>(
+    `/dashboard/chartTopDis?disFilter=${disFilter}`
   );
   return res.data;
 };

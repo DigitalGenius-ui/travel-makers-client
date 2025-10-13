@@ -5,7 +5,7 @@ import ResetPassword from "../components/Auth/ResetPassword";
 import Login from "../components/Auth/Login";
 import type { userType } from "../types/user-type";
 
-export const authRoutes = (currentUser: userType) => [
+export const authRoutes = (currentUser: userType | undefined) => [
   <Route
     key="login"
     path="/auth/login"

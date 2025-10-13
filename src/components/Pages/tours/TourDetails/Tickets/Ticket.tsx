@@ -10,8 +10,8 @@ import type { tourType } from "../../../../../types/tours-type";
 
 type ticketType = {
   title: "adult" | "child";
-  singleTour: tourType;
-  tourTitle: string;
+  singleTour: tourType | undefined;
+  tourTitle: string | undefined;
 };
 
 const Ticket = ({ title, singleTour, tourTitle }: ticketType) => {
@@ -23,8 +23,8 @@ const Ticket = ({ title, singleTour, tourTitle }: ticketType) => {
 
   const age = title === "adult" ? "16 and over" : "1 - 12 years old";
   const price: Record<"adult" | "child", number> = {
-    adult: +singleTour?.price,
-    child: +singleTour?.price * (1 - 0.4),
+    adult: +(singleTour?.price ?? 0),
+    child: +(singleTour?.price ?? 0) * (1 - 0.4),
   };
 
   const handleBook = useCallback(() => {

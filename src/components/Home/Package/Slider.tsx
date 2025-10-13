@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -12,16 +12,18 @@ import useGetTours from "../../../hooks/useGetTours";
 import SliderArrow from "../../../utils/SliderArros";
 import TourCard from "../RecommendedTours/TourCard";
 import FilterBtn from "./FilterBtn";
+import { CartLoading } from "../../../utils/Loadings";
 
 const Slider = () => {
-  const { tourData } = useGetTours();
-  const [data, setData] = useState(tourData);
+  const { tourData, isPending } = useGetTours();
+  const newData = tourData?.allTours;
+  const [data, setData] = useState(newData);
 
   useEffect(() => {
-    if (tourData) {
-      setData(tourData);
+    if (newData) {
+      setData(newData);
     }
-  }, [tourData]);
+  }, [newData]);
 
   return (
     <>
@@ -32,7 +34,7 @@ const Slider = () => {
         <h2 className="text-[1.2rem] 2xl:text-[2rem] font-bold">
           Latest Packages
         </h2>
-        <FilterBtn getTourData={tourData} setData={setData} />
+        <FilterBtn getTourData={newData} setData={setData} />
       </div>
       <div className="py-[2rem]">
         <Flex gap={3} justifyContent="center" alignItems="center">
@@ -68,11 +70,21 @@ const Slider = () => {
             }}
             modules={[Navigation]}
           >
-            {data?.map((item, i) => (
-              <SwiperSlide key={i} className="bg-white shadow-xl">
-                <TourCard item={item} />
-              </SwiperSlide>
-            ))}
+            {isPending ? (
+              <>
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <SwiperSlide key={i}>
+                    <CartLoading />
+                  </SwiperSlide>
+                ))}
+              </>
+            ) : (
+              data?.map((item, i) => (
+                <SwiperSlide key={i} className="bg-white shadow-xl">
+                  <TourCard item={item} />
+                </SwiperSlide>
+              ))
+            )}
           </Swiper>
           {/* next button  */}
           <SliderArrow

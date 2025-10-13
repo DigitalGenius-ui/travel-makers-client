@@ -1,13 +1,38 @@
 import { API, publicAPI } from "../config/ApiClient";
-import type { tourReview, tourType } from "../types/tours-type";
+import type {
+  tourReview,
+  tourRewviewsCount,
+  tourType,
+} from "../types/tours-type";
 
 // get all tours data
-export type tourWithReviwes = tourType & {
+
+export type tourWithReviwes = {
+  allTours: tourRewviewsCount[];
+  totalPages: number;
+};
+export const getTours = async (limit?: number, page?: number, cat?: string) => {
+  const params = new URLSearchParams();
+
+  if (limit) params.append("limit", String(limit));
+  if (page) params.append("page", String(page));
+  if (cat) params.append("cat", cat);
+
+  const query = params.toString() ? `?${params.toString()}` : "";
+
+  const tours = await publicAPI.get<tourWithReviwes>(`/tours${query}`);
+  return tours.data;
+};
+
+// get all tours data
+export type singleTourWithReviwes = tourType & {
   reviews: tourReview[];
 };
-export const getTours = async () => {
-  const tours = await publicAPI.get<tourWithReviwes[]>(`/tours`);
-  return tours.data;
+export const getSingleTours = async (tourId: string | undefined) => {
+  const singleTour = await publicAPI.get<singleTourWithReviwes>(
+    `/tours/${tourId}`
+  );
+  return singleTour.data;
 };
 
 // upload tours reviews images

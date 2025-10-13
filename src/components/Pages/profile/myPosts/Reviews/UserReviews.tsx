@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import EmptyMessage from "../EmptyMessage";
 import { useCurrentUser } from "../../../../../context/UserContext";
 import Pagination from "../../../../../utils/Pagination";
@@ -15,21 +15,27 @@ const UserReviews = () => {
 
   const { data, isPending } = useQuery({
     queryKey: [REVIEW_KEYS, currentPage, limit],
-    queryFn: async () => await getUserReviews(currentPage, limit),
+    queryFn: async () =>
+      await getUserReviews(currentPage, limit, currentUser?.id),
   });
 
   const reviews = data?.reviews || [];
+  const totalPages = data?.totalPages || 0;
 
   return (
     <>
       {isPending ? (
-        <ReviewLoading />
+        <>
+          {Array.from({ length: 4 }).map((_, i) => (
+            <ReviewLoading key={i} />
+          ))}
+        </>
       ) : reviews?.length > 0 ? (
         reviews?.map((review) => <Review review={review} key={review.id} />)
       ) : (
         <EmptyMessage getUser={currentUser} text="comments" />
       )}
-      {data?.totalPages > 1 && (
+      {totalPages > 1 && (
         <Pagination
           totalPages={data?.totalPages}
           setCurrentPage={setCurrentPage}

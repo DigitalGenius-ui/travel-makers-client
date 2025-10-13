@@ -3,6 +3,7 @@ import type { ticketStatusType, ticketsType } from "../types/tours-type";
 import type {
   userCommentType,
   userMomentType,
+  userReviewsType,
   userWithProfileType,
 } from "../types/user-type";
 
@@ -146,10 +147,12 @@ export const getBooking = async (page: number, limit: number) => {
 };
 
 // get Moments
+interface momentType extends userMomentType {
+  user: userWithProfileType;
+  comments: userCommentType[];
+}
 type momentApiType = {
-  moments: userMomentType & {
-    comments: userCommentType[];
-  };
+  moments: momentType[];
   totalPages: number;
 };
 export const getMoments = async (
@@ -164,8 +167,36 @@ export const getMoments = async (
 };
 
 // get getUserReviews
-export const getUserReviews = async (page: number, limit: number) => {
-  const res = await API.get(`/user/getUserReviews?page=${page}&limit=${limit}`);
+export interface reviewWithUser extends userReviewsType {
+  user: userWithProfileType;
+}
+type reviewsType = {
+  reviews: reviewWithUser[];
+  totalPages: number;
+};
+
+const selectSymbol: Record<string, string> = {
+  all: "all",
+  "★": "1",
+  "★★": "2",
+  "★★★": "3",
+  "★★★★": "4",
+  "★★★★★": "5",
+};
+export const getUserReviews = async (
+  page: number,
+  limit: number,
+  id?: string,
+  filter?: string
+) => {
+  const params = new URLSearchParams();
+  if (page) params.append("page", String(page));
+  if (limit) params.append("limit", String(limit));
+  if (limit) params.append("filter", String(selectSymbol[filter!]));
+  if (id) params.append("id", id);
+
+  const query = params.toString() ? `?${params.toString()}` : "";
+  const res = await API.get<reviewsType>(`/user/getUserReviews${query}`);
   return res.data;
 };
 
@@ -178,11 +209,17 @@ type getTickets = {
 export const getUserTickets = async (
   page: number,
   limit: number,
-  search: string
+  search: string,
+  select: string
 ) => {
-  const res = await API.get<getTickets>(
-    `/user/getAllTickets?page=${page}&limit=${limit}&search=${search}`
-  );
+  const params = new URLSearchParams();
+  if (page >= 0) params.append("page", String(page));
+  if (limit) params.append("limit", String(limit));
+  if (search) params.append("search", String(search));
+  if (select) params.append("select", String(select));
+
+  const query = params.toString() ? `?${params.toString()}` : "";
+  const res = await API.get<getTickets>(`/user/getAllTickets${query}`);
   return res.data;
 };
 

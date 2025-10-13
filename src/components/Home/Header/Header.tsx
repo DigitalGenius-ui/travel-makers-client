@@ -1,16 +1,10 @@
 import { useState } from "react";
-import {
-  HStack,
-  Image,
-  Link,
-  IconButton,
-  useMediaQuery,
-} from "@chakra-ui/react";
+import { HStack, Image, IconButton, useMediaQuery } from "@chakra-ui/react";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import classNames from "classnames";
 import { nav } from "../../../../HomeData.json";
 import DropDown from "./DropDown";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Screen from "../../../utils/Screen";
 import useHeaderScroll from "../../../hooks/useHeaderScroll";
 import { useCurrentUser } from "../../../context/UserContext";
@@ -34,7 +28,7 @@ const Header = () => {
     >
       <Screen>
         <div className="flex items-center justify-between gap-3 h-[80px] 2xl:h-[120px]">
-          <Link href="/">
+          <Link to="/">
             <Image
               h={{ base: "4rem", "2xl": "6rem" }}
               objectFit="cover"
@@ -62,15 +56,15 @@ const Header = () => {
             />
             {/* navigation  */}
             {nav.map((item) => (
-              <a
+              <Link
                 key={item.title}
                 className="relative before:absolute before:bottom-0 before:left-0 before:right-0
                 before:h-[1px] before:bg-white before:scale-0 before:hover:scale-100 before:transition-all
                 before:duration-500 hover:opacity-50 2xl:text-xl"
-                href={item.path}
+                to={item.path}
               >
                 {item.title}
-              </a>
+              </Link>
             ))}
           </div>
           {/* phone number and avatar + menu bar icon  */}

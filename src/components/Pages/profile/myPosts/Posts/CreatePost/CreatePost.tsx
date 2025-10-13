@@ -145,7 +145,7 @@ const CreatePost = () => {
             </span>
           )}
           {/* location dropDown  */}
-          <LocationDrop formik={formik} data={tourData} />
+          <LocationDrop formik={formik} data={tourData?.allTours} />
           {/* term and condition  */}
           <TermAndCondition formik={formik} />
         </div>

@@ -1,5 +1,5 @@
 import useGetTours from "../../hooks/useGetTours";
-import { useEffect, useState, type CSSProperties } from "react";
+import { useState, type CSSProperties } from "react";
 import Pagination from "../../utils/Pagination";
 import { CartLoading } from "../../utils/Loadings";
 import SearchInput from "../../utils/SearchInput";
@@ -8,8 +8,6 @@ import { RxComponent2 } from "react-icons/rx";
 import { IoIosMenu } from "react-icons/io";
 import clsx from "clsx";
 import { GalleryCard } from "../../components/Dashboard/Gallery/GalleryCard";
-import useDebounce from "../../hooks/useDebounce";
-import type { tourType } from "../../types/tours-type";
 
 const cardsRows: { title: "grid" | "vertical"; icon: React.ReactNode }[] = [
   { title: "grid", icon: <RxComponent2 size={20} /> },
@@ -33,46 +31,14 @@ const styles: { vertical: CSSProperties; grid: CSSProperties } = {
 const Gallery = () => {
   const [sort, setSort] = useState("A - Z");
   const [searchInput, setSearchInput] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [filterData, setFilterData] = useState<tourType[] | undefined>([]);
   const [row, setRow] = useState<"grid" | "vertical">("grid");
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const { tourData, isPending } = useGetTours();
-  const itemsPerPage = row === "grid" ? 8 : 4;
+  const [page, setPage] = useState(1);
+  const limit = row === "grid" ? 8 : 4;
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const totalPages = Math.ceil((filterData?.length ?? 0) / itemsPerPage);
+  const { tourData, isPending } = useGetTours(page, limit);
 
-  useEffect(() => {
-    const debounce = useDebounce();
-    setLoading(true);
-    const search = () => {
-      let data = tourData;
-
-      if (sort === "A - Z") {
-        data = data?.sort((a, b) => a.title.localeCompare(b.title));
-      } else if (sort === "Z - A") {
-        data = data?.sort((a, b) => b.title.localeCompare(a.title));
-      }
-
-      if (searchInput.trim()) {
-        data = data?.filter((item) =>
-          item.title.toLowerCase().startsWith(searchInput.toLowerCase())
-        );
-        setCurrentPage(1);
-      }
-
-      setFilterData(data);
-      setLoading(false);
-    };
-
-    const debounceSearch = debounce(search, 1000);
-    debounceSearch();
-  }, [searchInput, setFilterData, tourData, sort, setCurrentPage]);
-
-  const newTours = filterData?.slice(indexOfFirstItem, indexOfLastItem);
+  const newTours = tourData?.allTours;
 
   function gallHeader() {
     const menus = ["A - Z", "Z - A"];
@@ -115,7 +81,7 @@ const Gallery = () => {
   return (
     <section className="mb-[2rem] space-y-5">
       {gallHeader()}
-      {(loading ?? isPending) ? (
+      {isPending ? (
         <div style={styles["grid"]}>
           {Array.from({ length: 8 }).map((_, i) => (
             <CartLoading key={i} />
@@ -123,17 +89,19 @@ const Gallery = () => {
         </div>
       ) : (
         <>
-          {(filterData?.length ?? 0) > 0 ? (
+          {(newTours?.length ?? 0) > 0 ? (
             <>
-              <article style={styles[row]}>
+              <article
+                style={{ ...styles[row], transition: "all 0.5s ease-in-out" }}
+              >
                 {newTours?.map((tour) => (
                   <GalleryCard tour={tour} key={tour.id} row={row} />
                 ))}
               </article>
               <Pagination
-                totalPages={totalPages}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
+                totalPages={tourData?.totalPages}
+                currentPage={page}
+                setCurrentPage={setPage}
               />
             </>
           ) : (

@@ -9,7 +9,7 @@ import ErrorLabel from "../../../../../../utils/ErrorLabel";
 const CreateReview = () => {
   const { id } = useParams();
   const { tourData } = useGetTours();
-  const getSingleBook = tourData?.find((item) => item?.id === id);
+  const getSingleBook = tourData?.allTours.find((item) => item?.id === id);
   const { currentUser } = useCurrentUser();
 
   const isProfileExist = currentUser?.profile !== null;

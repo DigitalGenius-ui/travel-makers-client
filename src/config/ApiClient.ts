@@ -1,5 +1,6 @@
 import axios from "axios";
 import { BACKEND_URL } from "../constants/env";
+import { UNATHURIZED } from "../constants/react-query";
 
 const options = {
   baseURL: BACKEND_URL,
@@ -25,10 +26,8 @@ API.interceptors.response.use(
   async (error) => {
     const { config, response } = error;
     const { status, data } = response || {};
-    if (
-      data?.errorCode === "TOKEN_NOT_FOUND" ||
-      data?.errorCode === "INVALID_TOKEN"
-    ) {
+
+    if (status === UNATHURIZED) {
       // refresh the access token, then retry the original request
       await tokenRefreshClient.get("/auth/refresh");
       await tokenRefreshClient(config);

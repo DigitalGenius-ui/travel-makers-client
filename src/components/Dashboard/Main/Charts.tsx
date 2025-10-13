@@ -13,34 +13,34 @@ import {
 import ColorBox from "../../../utils/ColorBox";
 import CustomeMenu from "../../../utils/CustomeMenu";
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { DASH_REVENEUE_DIS } from "../../../constants/react-query";
-import { getRevenueAndTopDis } from "../../../api-call/dashboard-api";
-import useErrorToest from "../../../hooks/useErrorToest";
+import { DASH_DIS, DASH_REVENEUE } from "../../../constants/react-query";
+import { getRevenue, getTopDis } from "../../../api-call/dashboard-api";
+import useGetData from "../../../hooks/useGetData";
+import { ChartLoading } from "../../../utils/Loadings";
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 const menus = ["weekly", "monthly", "yearly"];
 
-const data2 = [
-  { name: "Group A", value: 400 },
-  { name: "Group B", value: 300 },
-  { name: "Group C", value: 300 },
-  { name: "Group D", value: 200 },
-];
 const Charts = () => {
   const [disFilter, setDisFilter] = useState("weekly");
   const [revenueFilter, setRevenueFilter] = useState("weekly");
 
-  const { data, isPending, error, isError } = useQuery({
-    queryKey: [DASH_REVENEUE_DIS, disFilter, revenueFilter],
-    queryFn: async () => await getRevenueAndTopDis(disFilter, revenueFilter),
+  const { data: revenueData, isPending: revenuePending } = useGetData({
+    key: DASH_REVENEUE,
+    func: () => getRevenue(revenueFilter),
+    variables: revenueFilter,
   });
 
-  useErrorToest({ error, isError });
+  const { data: topDisData, isPending: topDisPending } = useGetData({
+    key: DASH_DIS,
+    func: () => getTopDis(disFilter),
+    variables: disFilter,
+  });
 
   function revenue() {
     return (
-      <div className="flex-[1.2] dash-box">
+      <section className="flex-[1.2] dash-box">
+        {revenuePending && <ChartLoading h={72} />}
         <div className="flex items-center justify-between">
           <h1 className="font-semibold">Revenue Overview</h1>
           <CustomeMenu
@@ -52,7 +52,7 @@ const Charts = () => {
         <div className="!w-full !h-64 focus:outline-none text-xs">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart
-              data={data?.revenue?.earningsTime}
+              data={revenueData?.revenue}
               margin={{
                 top: 30,
                 right: 30,
@@ -105,13 +105,14 @@ const Charts = () => {
             </LineChart>
           </ResponsiveContainer>
         </div>
-      </div>
+      </section>
     );
   }
 
   function topDistinations() {
     return (
       <section className="flex-1 dash-box">
+        {topDisPending && <ChartLoading h={72} />}
         <div className="flex items-center justify-between">
           <h1 className="font-semibold">Top Destinations</h1>
           <CustomeMenu
@@ -124,13 +125,13 @@ const Charts = () => {
           <div className="flex-1 w-full h-64 flex items-center justify-center">
             <PieChart width={120} height={120}>
               <Pie
-                data={data?.distinations}
+                data={topDisData?.distinations}
                 innerRadius={40}
                 outerRadius={60}
                 fill="#8884d8"
                 dataKey="count"
               >
-                {data2.map((_, index) => (
+                {topDisData?.distinations.map((_, index) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={COLORS[index % COLORS.length]}
@@ -140,7 +141,7 @@ const Charts = () => {
             </PieChart>
           </div>
           <div className="flex-1 space-y-2">
-            {data?.distinations.map((item, i) => (
+            {topDisData?.distinations.map((item, i) => (
               <DistinatoinBox
                 key={i}
                 index={i}
@@ -155,19 +156,12 @@ const Charts = () => {
   }
   return (
     <section className="flex flex-col md:flex-row gap-4 w-full">
-      {isPending ? (
-        <>
-          <p className="w-full h-72 bg-gray-200 animate-pulse rounded-md" />
-          <p className="w-full h-72 bg-gray-200 animate-pulse rounded-md" />
-        </>
-      ) : (
-        <>
-          {/* revenue overview  */}
-          {revenue()}
-          {/* top distinations  */}
-          {topDistinations()}
-        </>
-      )}
+      <>
+        {/* revenue overview  */}
+        {revenue()}
+        {/* top distinations  */}
+        {topDistinations()}
+      </>
     </section>
   );
 };

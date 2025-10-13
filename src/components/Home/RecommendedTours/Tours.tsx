@@ -1,4 +1,3 @@
-import React from "react";
 import TourCard from "./TourCard";
 import useGetTours from "../../../hooks/useGetTours";
 import Screen from "../../../utils/Screen";
@@ -8,8 +7,8 @@ import { CartLoading } from "../../../utils/Loadings";
 const Tours = () => {
   const { tourData, isPending } = useGetTours();
 
-  const topReviewsPosts = tourData?.sort(
-    (a, b) => b.reviews?.length - a.reviews?.length
+  const topReviewsPosts = tourData?.allTours?.sort(
+    (a, b) => b.reviewCount - a.reviewCount
   );
 
   return (

@@ -6,16 +6,16 @@ import { GiDuration } from "react-icons/gi";
 import { LuUsersRound } from "react-icons/lu";
 import { MdAttachMoney } from "react-icons/md";
 import { IoIosCheckmark } from "react-icons/io";
-import type { tourWithReviwes } from "../../../api-call/tour-api";
+import type { tourRewviewsCount } from "../../../types/tours-type";
 
 const TourDetails = ({
   activePackage,
   isPending,
 }: {
-  activePackage: tourWithReviwes;
+  activePackage: tourRewviewsCount;
   isPending: boolean;
 }) => {
-  const { title, description, tourImages, reviews, price } = activePackage;
+  const { title, description, tourImages, reviewCount, price } = activePackage;
   const toursDetails = () => (
     <div className="flex-[1.5] space-y-5">
       <img
@@ -29,7 +29,7 @@ const TourDetails = ({
             {title}
           </h1>
           <div>
-            <Stars review={+reviews?.length} />
+            <Stars review={+reviewCount} />
           </div>
         </div>
         <Button size={"sm"} color={"blue.500"}>

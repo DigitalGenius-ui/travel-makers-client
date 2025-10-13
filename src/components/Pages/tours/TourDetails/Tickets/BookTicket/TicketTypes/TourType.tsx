@@ -19,7 +19,7 @@ const TourType = ({ title }: { title: "adult" | "child" }) => {
   // getting tour price
   const { tourId } = useParams();
   const { tourData } = useGetTours();
-  const singleBooking = tourData?.find((item) => item.id === tourId);
+  const singleBooking = tourData?.allTours.find((item) => item.id === tourId);
 
   // increase ticket number
   const increase = useCallback(() => {

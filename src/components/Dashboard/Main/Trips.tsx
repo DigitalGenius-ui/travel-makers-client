@@ -88,7 +88,7 @@ const Trips = () => {
           </div>
         </div>
         <div className="bg-blue-200 p-2 rounded-md box !gap-2">
-          {tourData?.slice(3, 6).map((item) => (
+          {tourData?.allTours?.slice(3, 6).map((item) => (
             <TourCard item={item} key={item.id} />
           ))}
         </div>

@@ -1,74 +1,29 @@
-import { useEffect, useMemo, useState } from "react";
-import useGetTours from "../../hooks/useGetTours";
-import SearchInput from "../../utils/SearchInput";
+import { useState } from "react";
 import CustomeMenu from "../../utils/CustomeMenu";
 import { CartLoading } from "../../utils/Loadings";
-import type { tourReview } from "../../types/tours-type";
-import useDebounce from "../../hooks/useDebounce";
 import { Avatar } from "@chakra-ui/react";
 import Stars from "../../utils/stars";
 import { dateEgoFormatter } from "../../utils/Date";
 import Pagination from "../../utils/Pagination";
-
-interface filterData extends tourReview {
-  cat: string;
-}
+import { getUserReviews, type reviewWithUser } from "../../api-call/user-api";
+import { REVIEW_KEYS } from "../../constants/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 const FeedBacks = () => {
-  const [search, setSearch] = useState("");
-  const [select, setSelect] = useState("all packages");
-  const [loading, setLoading] = useState(true);
-  const { tourData, isPending } = useGetTours();
-  const [filterData, setFilterData] = useState<filterData[]>([]);
+  const [select, setSelect] = useState("all");
 
-  // pagination page
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8;
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const totalPages = Math.ceil((filterData.length ?? 0) / itemsPerPage);
+  const limit = 8;
+  const [page, setPage] = useState(1);
 
-  const debounce = useDebounce();
+  const { data, isPending } = useQuery({
+    queryKey: [REVIEW_KEYS, select, page],
+    queryFn: () => getUserReviews(page, limit, undefined, select),
+  });
 
-  const tourReviews = useMemo(() => {
-    return (
-      tourData
-        ?.filter((tour) => tour.reviews.length > 0)
-        .flatMap((tour) =>
-          tour.reviews.map((rev) => ({
-            ...rev,
-            cat: tour.category,
-          }))
-        ) ?? []
-    );
-  }, [tourData]);
+  const reviews = data?.reviews || [];
+  const totalPages = data?.totalPages || 1;
 
-  const newReviews = filterData?.slice(indexOfFirstItem, indexOfLastItem);
-
-  useEffect(() => {
-    const handleFilter = () => {
-      let data = tourReviews;
-      if (select !== "all packages") {
-        data = data.filter((item) => item.cat === select);
-      }
-      if (search.trim()) {
-        data = data.filter((item) =>
-          item.cat.toLowerCase().startsWith(search.toLowerCase())
-        );
-      }
-
-      setFilterData(data);
-      setLoading(false);
-    };
-
-    const debounceFilter = debounce(handleFilter, 1000);
-    debounceFilter();
-  }, [select, tourReviews, search, setFilterData, debounce]);
-
-  const menus = [
-    "all packages",
-    ...new Set(tourData?.map((tour) => tour.category)),
-  ];
+  const menus = ["all", "★", "★★", "★★★", "★★★★", "★★★★★"];
 
   return (
     <section className="bg-gray-100 rounded-lg p-3 px-5">
@@ -76,19 +31,11 @@ const FeedBacks = () => {
       <div className="flex items-center justify-between">
         <h1 className="flex-1 capitalize font-semibold">traveler feedback</h1>
         <div className="flex items-center gap-1">
-          <div className="w-[18rem]">
-            <SearchInput
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search Package..."
-              bg="white"
-            />
-          </div>
           <CustomeMenu value={select} setValue={setSelect} menus={menus} />
         </div>
       </div>
       {/* review part  */}
-      {(loading ?? isPending) ? (
+      {isPending ? (
         <div className="reviewBox my-5">
           {Array.from({ length: 4 }).map((_, i) => (
             <CartLoading key={i} />
@@ -96,23 +43,22 @@ const FeedBacks = () => {
         </div>
       ) : (
         <>
-          {newReviews?.length === 0 ? (
+          {reviews.length === 0 ? (
             <p className="h-[70vh] flex items-center justify-center capitalize">
               no reviews
             </p>
           ) : (
             <>
               <div className="reviewBox my-5">
-                {newReviews?.map((item) => {
-                  console.log(item);
+                {reviews?.map((item) => {
                   return <ReviewCard key={item.id} item={item} />;
                 })}
               </div>
               {totalPages > 1 && (
                 <div>
                   <Pagination
-                    currentPage={currentPage}
-                    setCurrentPage={setCurrentPage}
+                    currentPage={page}
+                    setCurrentPage={setPage}
                     totalPages={totalPages}
                   />
                 </div>
@@ -131,7 +77,8 @@ type profileFullName = {
   firstName: string;
   lastName: string;
 };
-const ReviewCard = ({ item }: { item: filterData }) => {
+
+const ReviewCard = ({ item }: { item: reviewWithUser }) => {
   const [showMore, setShowMore] = useState(100);
   const { firstName, lastName } = item?.user?.profile as profileFullName;
 

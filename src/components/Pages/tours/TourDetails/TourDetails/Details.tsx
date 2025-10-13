@@ -3,17 +3,14 @@ import Address from "./Address";
 import Traveler from "./Traveler";
 import { Button } from "@chakra-ui/react";
 import Stars from "../../../../../utils/stars";
-import type { userReviewsType } from "../../../../../types/user-type";
+import type { tourReview, tourType } from "../../../../../types/tours-type";
 
 export type tourDetailsType = {
-  tourDetails: {
-    title: string;
-    open_time: Date;
-    close_time: string;
-    address: string;
-    phone_number: string;
-    reviews: userReviewsType[];
-  };
+  tourDetails:
+    | (tourType & {
+        reviews: tourReview[];
+      })
+    | undefined;
 };
 
 const Details = ({ tourDetails }: tourDetailsType) => {

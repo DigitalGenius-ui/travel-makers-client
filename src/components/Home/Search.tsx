@@ -29,7 +29,7 @@ const Search = () => {
         return;
       }
 
-      const filterData = tourData?.filter((item) =>
+      const filterData = tourData?.allTours?.filter((item) =>
         item.title.toLowerCase().startsWith(searchInput.toLowerCase())
       );
       setTitles(filterData);

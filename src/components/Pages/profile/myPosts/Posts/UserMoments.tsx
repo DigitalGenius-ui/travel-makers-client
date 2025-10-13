@@ -13,7 +13,7 @@ import {
 import Pagination from "../../../../../utils/Pagination";
 import { CartLoading } from "../../../../../utils/Loadings";
 
-const UserMoments = ({ userData }: { userData: currentUserApi }) => {
+const UserMoments = ({ userData }: { userData?: currentUserApi }) => {
   const [page, setPage] = useState(1);
   const limit = 4;
   const { currentUser } = useCurrentUser();
@@ -24,8 +24,9 @@ const UserMoments = ({ userData }: { userData: currentUserApi }) => {
     queryFn: async () => await getMoments(page, userId, limit),
   });
 
-  const { moments } = userData;
-  const firstName = userData?.profile?.firstName;
+  const moments = data?.moments ?? userData?.moments;
+  const firstName =
+    data?.moments[0]?.user.profile?.firstName ?? userData?.profile?.firstName;
 
   return (
     <>
@@ -42,8 +43,12 @@ const UserMoments = ({ userData }: { userData: currentUserApi }) => {
         </div>
         <div className="grid grid-cols-resCol gap-4">
           {isPending ? (
-            <CartLoading />
-          ) : moments?.length > 0 ? (
+            <>
+              {Array.from({ length: 4 }).map((_, i) => (
+                <CartLoading key={i} />
+              ))}
+            </>
+          ) : (moments?.length ?? 0) > 0 ? (
             moments?.map((post) => <Moment post={post} key={post.id} />)
           ) : (
             <EmptyMessage text="posts" getUser={currentUser} />

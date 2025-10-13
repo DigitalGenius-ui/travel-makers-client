@@ -8,7 +8,7 @@ import { useState, type ReactElement } from "react";
 import CustomeMenu from "../../../utils/CustomeMenu";
 import { useQuery } from "@tanstack/react-query";
 import { getInsight } from "../../../api-call/dashboard-api";
-import { InsightLoading } from "../../../utils/Loadings";
+import { ChartLoading } from "../../../utils/Loadings";
 import useErrorToest from "../../../hooks/useErrorToest";
 import { DASH_INSIGHT } from "../../../constants/react-query";
 
@@ -33,7 +33,7 @@ const Insight = ({ isBooking }: { isBooking?: boolean }) => {
       {isPending ? (
         <div className="box">
           {Array.from({ length: 3 }).map((_, i) => (
-            <InsightLoading key={i} isBooking={isBooking} />
+            <ChartLoading key={i} isBooking={isBooking} h={40} />
           ))}
         </div>
       ) : (

@@ -6,23 +6,28 @@ import { Flex, IconButton, Icon } from "@chakra-ui/react";
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import useGetTours from "../../../hooks/useGetTours";
+import { CartLoading, ChartLoading } from "../../../utils/Loadings";
 
 const Slider = () => {
-  const { tourData } = useGetTours();
+  const { tourData, isPending } = useGetTours();
 
-  const categories = [...new Set(tourData?.map((cat) => cat.category))];
+  const categories = [
+    ...new Set(tourData?.allTours?.map((cat) => cat.category)),
+  ];
 
   // getting each tours length
   const tourLength: Record<string, number | undefined> = {};
 
   categories.forEach((cat) => {
-    const tourNumber = tourData?.filter((item) => item.category === cat);
+    const tourNumber = tourData?.allTours.filter(
+      (item) => item.category === cat
+    );
     tourLength[cat] = tourNumber?.length;
   });
 
   // displaying tours category and lentgh
   const newData = categories?.map((cat) => {
-    const tourCat = tourData?.find((item) => item.category === cat);
+    const tourCat = tourData?.allTours.find((item) => item.category === cat);
     return {
       ...tourCat,
       tourLength,
@@ -41,26 +46,30 @@ const Slider = () => {
         .join("");
 
     return (
-      <SwiperSlide
-        onClick={() => navigate(`/tour/filtered/${filterCat}`)}
-        key={i}
-      >
-        <div className="h-[15rem] 2xl:h-[20rem] overflow-hidden">
-          <div
-            className="w-full h-full object-cover bg-no-repeat bg-cover bg-center hover:scale-125 
+      <>
+        {
+          <SwiperSlide
+            onClick={() => navigate(`/tour/filtered/${filterCat}`)}
+            key={i}
+          >
+            <div className="h-[15rem] 2xl:h-[20rem] overflow-hidden">
+              <div
+                className="w-full h-full object-cover bg-no-repeat bg-cover bg-center hover:scale-125 
           transition-all duration-500 cursor-pointer"
-            style={{
-              backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.5), rgba(0,0,0,0.2)), url(${item.tourImages?.[0] ?? ""})`,
-            }}
-          />
-          <div className="flex items-center justify-between absolute bottom-3 left-3 right-3 text-white">
-            <h3 className="font-bold capitalize">{item.category}</h3>
-            <p className="text-sm">
-              {item.category ? item.tourLength[item.category] : 0} Tours
-            </p>
-          </div>
-        </div>
-      </SwiperSlide>
+                style={{
+                  backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.5), rgba(0,0,0,0.2)), url(${item.tourImages?.[0] ?? ""})`,
+                }}
+              />
+              <div className="flex items-center justify-between absolute bottom-3 left-3 right-3 text-white">
+                <h3 className="font-bold capitalize">{item.category}</h3>
+                <p className="text-sm">
+                  {item.category ? item.tourLength[item.category] : 0} Tours
+                </p>
+              </div>
+            </div>
+          </SwiperSlide>
+        }
+      </>
     );
   });
 
@@ -92,7 +101,15 @@ const Slider = () => {
         }}
         modules={[Navigation]}
       >
-        {tourInfo}
+        {isPending ? (
+          <div className="box">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <ChartLoading h={32} key={i} />
+            ))}
+          </div>
+        ) : (
+          tourInfo
+        )}
       </Swiper>
 
       <Flex

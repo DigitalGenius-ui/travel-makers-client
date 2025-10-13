@@ -33,11 +33,13 @@ const Bookings = ({ mainBooking }: bookingProps) => {
   });
 
   const [globalFilter, setGlobalFilter] = useState("");
+  const [select, setSelect] = useState("");
 
   const { data, isPending, isFetching } = useTicketsData(
     pagination.pageSize,
     pagination.pageIndex,
-    globalFilter
+    globalFilter,
+    select
   );
 
   const newData = data?.allTickets?.map((item) => ({
@@ -221,11 +223,7 @@ const Bookings = ({ mainBooking }: bookingProps) => {
         <MRT_GlobalFilterTextField table={table} />
         {!mainBooking ? (
           <>
-            <CustomeMenu
-              value={globalFilter}
-              setValue={setGlobalFilter}
-              menus={menus}
-            />
+            <CustomeMenu value={select} setValue={setSelect} menus={menus} />
           </>
         ) : (
           <Button

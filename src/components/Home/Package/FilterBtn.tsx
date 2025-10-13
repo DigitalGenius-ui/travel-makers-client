@@ -1,10 +1,10 @@
 import { Button, HStack } from "@chakra-ui/react";
 import type { SetStateAction } from "react";
-import type { tourWithReviwes } from "../../../api-call/tour-api";
+import type { tourRewviewsCount } from "../../../types/tours-type";
 
 type filterProps = {
-  getTourData: tourWithReviwes[] | undefined;
-  setData: React.Dispatch<SetStateAction<tourWithReviwes[] | undefined>>;
+  getTourData: tourRewviewsCount[] | undefined;
+  setData: React.Dispatch<SetStateAction<tourRewviewsCount[] | undefined>>;
 };
 
 const FilterBtn = ({ getTourData, setData }: filterProps) => {

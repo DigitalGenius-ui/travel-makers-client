@@ -6,7 +6,7 @@ import { ActionButton } from "../../../../../../utils/ActionButton";
 
 const MentionedTrips = ({ location }: { location: string }) => {
   const { tourData } = useGetTours();
-  const trip = tourData?.find((item) => item?.title === location);
+  const trip = tourData?.allTours?.find((item) => item?.title === location);
 
   return (
     <section className="mt-4">

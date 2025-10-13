@@ -49,11 +49,17 @@ export const VerticaleCardLoading = () => {
   );
 };
 
-export const InsightLoading = ({ isBooking }: { isBooking?: boolean }) => {
+export const ChartLoading = ({
+  isBooking,
+  h,
+}: {
+  isBooking?: boolean;
+  h: number;
+}) => {
   return (
     <p
       className={clsx(
-        "w-full h-40 bg-gray-200 animate-pulse",
+        `w-full h-${h} bg-gray-200 animate-pulse`,
         !isBooking && "h-16 rounded-lg"
       )}
     />
