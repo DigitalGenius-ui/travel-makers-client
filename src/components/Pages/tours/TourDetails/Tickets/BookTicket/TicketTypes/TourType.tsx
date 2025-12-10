@@ -1,7 +1,7 @@
 import { HStack, IconButton, VStack } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa6";
 import { FiMinus } from "react-icons/fi";
-import { useCallback, useState } from "react";
+import { Activity, useCallback, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { useBookingContext } from "../../../../../../../context/BookingContext";
@@ -108,9 +108,9 @@ const TourType = ({ title }: { title: "adult" | "child" }) => {
         </p>
       )}
       {/* show condition for booking the tickets  */}
-      {showModal && (
+      <Activity mode={showModal ? "visible" : "hidden"}>
         <Conditions showModal={showModal} setShowModal={setShowModal} />
-      )}
+      </Activity>
     </>
   );
 };

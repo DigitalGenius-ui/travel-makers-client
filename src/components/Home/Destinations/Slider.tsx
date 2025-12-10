@@ -6,7 +6,7 @@ import { Flex, IconButton, Icon } from "@chakra-ui/react";
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import useGetTours from "../../../hooks/useGetTours";
-import { CartLoading, ChartLoading } from "../../../utils/Loadings";
+import { ChartLoading } from "../../../utils/Loadings";
 
 const Slider = () => {
   const { tourData, isPending } = useGetTours();

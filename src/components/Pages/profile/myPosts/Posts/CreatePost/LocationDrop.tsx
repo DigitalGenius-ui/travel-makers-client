@@ -23,7 +23,7 @@ const LocationDrop = ({ formik, data }: locationProps) => {
 
   return (
     <div className="bg-gray-100 absolute top-[3.5rem] left-0 right-0 z-[9999] shadow-md">
-      {newData?.length! > 0 && formik.values.location !== "" && (
+      {(newData?.length ?? 0) > 0 && formik.values.location !== "" && (
         <div className="flex flex-col max-h-[10rem] overflow-y-auto">
           {newData?.map((item) => (
             <span

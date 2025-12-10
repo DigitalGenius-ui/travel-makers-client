@@ -16,6 +16,7 @@ import { queryClient } from "../../../config/queryClient";
 import { USER_KEY } from "../../../constants/react-query";
 import useErrorToest from "../../../hooks/useErrorToest";
 import { genderImg } from "../../../constants/assets";
+import { Activity } from "react";
 
 const DropDown = () => {
   const navigate = useNavigate();
@@ -60,7 +61,7 @@ const DropDown = () => {
         <Avatar src={profileImg} mt={2} name={fullName} size="sm" zIndex={10} />
       </MenuButton>
       <MenuList color="black" fontSize="0.9rem">
-        {isAdmin && (
+        <Activity mode={isAdmin ? "visible" : "hidden"}>
           <Link to={`/dashboard/${currentUser?.id}`}>
             <MenuItem
               _hover={{ bg: "blue.50" }}
@@ -69,7 +70,7 @@ const DropDown = () => {
               Dashboard
             </MenuItem>
           </Link>
-        )}
+        </Activity>
         {dropMenu.slice(0, 3).map((item) => (
           <Link key={item.title} to={`${item.path}/${currentUser?.id}`}>
             <MenuItem

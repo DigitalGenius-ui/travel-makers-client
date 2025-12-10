@@ -1,5 +1,5 @@
 import { Avatar, Flex, Image } from "@chakra-ui/react";
-import { useState } from "react";
+import { Activity, useState } from "react";
 import { Link } from "react-router-dom";
 import OutStanding from "../../../../../../utils/OutStanding";
 import ImageSlider from "../../ImageSlider/ImageSlider";
@@ -75,13 +75,13 @@ const Review = ({ review }: { review: reviewWithUser }) => {
             </div>
           )}
         </div>
-        {showModal && (
+        <Activity mode={showModal ? "visible" : "hidden"}>
           <ImageSlider
             showModal={showModal}
             setShowModal={setShowModal}
             tourImages={reviewImages}
           />
-        )}
+        </Activity>
         <RemoveBtn
           removeFunc={removeTourReview}
           itemToRemove={review}

@@ -29,7 +29,7 @@ const AllTours = () => {
           )}
         </div>
         <Pagination
-          totalPages={tourData?.totalPages!}
+          totalPages={tourData?.totalPages ?? 0}
           setCurrentPage={setPage}
           currentPage={page}
         />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Activity, useState } from "react";
 import { Avatar, IconButton } from "@chakra-ui/react";
 import { CiEdit } from "react-icons/ci";
 import BioEdit from "./BioEdit";
@@ -45,13 +45,13 @@ const UserDetails = ({ detail }: { detail: userWithProfileType }) => {
           )}
         </div>
       </div>
-      {showModal && (
+      <Activity mode={showModal ? "visible" : "hidden"}>
         <BioEdit
           showModal={showModal}
           setShowModal={setShowModal}
           bioText={profile?.bio}
         />
-      )}
+      </Activity>
     </div>
   );
 };

@@ -15,7 +15,7 @@ export type profileForm = {
   lastName: string;
   birthDate: string;
   gender: string;
-  userImg: string;
+  userImg?: string;
 };
 
 const MyProfile = () => {

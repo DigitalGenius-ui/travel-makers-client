@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { HStack, Image, IconButton, useMediaQuery } from "@chakra-ui/react";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import classNames from "classnames";
@@ -13,6 +13,9 @@ const Header = () => {
   const { isScroll, changeBg } = useHeaderScroll();
   const [menuOpen, setMenuOpen] = useState(false);
   const { currentUser, isPending } = useCurrentUser();
+  const navClassName = `relative before:absolute before:bottom-0 before:left-0 before:right-0
+  before:h-[1px] before:bg-white before:scale-0 before:hover:scale-100 before:transition-all
+  before:duration-500 hover:opacity-50 2xl:text-xl`;
 
   const [isSmallScreen] = useMediaQuery("(max-width: 765px)");
 
@@ -56,15 +59,17 @@ const Header = () => {
             />
             {/* navigation  */}
             {nav.map((item) => (
-              <Link
-                key={item.title}
-                className="relative before:absolute before:bottom-0 before:left-0 before:right-0
-                before:h-[1px] before:bg-white before:scale-0 before:hover:scale-100 before:transition-all
-                before:duration-500 hover:opacity-50 2xl:text-xl"
-                to={item.path}
-              >
-                {item.title}
-              </Link>
+              <Fragment key={item.title}>
+                {item.path.startsWith("/") ? (
+                  <Link to={item.path} className={navClassName}>
+                    {item.title}
+                  </Link>
+                ) : (
+                  <a className={navClassName} href={item.path}>
+                    {item.title}
+                  </a>
+                )}
+              </Fragment>
             ))}
           </div>
           {/* phone number and avatar + menu bar icon  */}

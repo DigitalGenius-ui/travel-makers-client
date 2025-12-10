@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Activity, useEffect, useState } from "react";
 import ImageSlider from "./ImageSlider";
 
 const SliderDemo = ({ tourImages }: { tourImages: string[] | undefined }) => {
@@ -32,13 +32,13 @@ const SliderDemo = ({ tourImages }: { tourImages: string[] | undefined }) => {
       >
         see all photos
       </button>
-      {showModal && (
+      <Activity mode={showModal ? "visible" : "hidden"}>
         <ImageSlider
           showModal={showModal}
           setShowModal={setShowModal}
           tourImages={tourImages}
         />
-      )}
+      </Activity>
       <div />
     </section>
   );

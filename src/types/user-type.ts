@@ -23,7 +23,7 @@ export interface userProfileType {
   followings: string[];
   followers: string[];
   gender: genderType;
-  birthDate: Date;
+  birthDate: string;
   phoneNumber: string;
   facebook: string;
   linkedIn: string;

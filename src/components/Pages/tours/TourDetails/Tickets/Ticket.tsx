@@ -1,7 +1,7 @@
 import { GrDocumentText } from "react-icons/gr";
 import { RiMoneyCnyCircleLine } from "react-icons/ri";
 import { BsTicketDetailed } from "react-icons/bs";
-import React, { useCallback, useState } from "react";
+import React, { Activity, useCallback, useState } from "react";
 import { Button } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useBookingContext } from "../../../../../context/BookingContext";
@@ -75,14 +75,14 @@ const Ticket = ({ title, singleTour, tourTitle }: ticketType) => {
           Book
         </Button>
       </div>
-      {showModal && (
+      <Activity mode={showModal ? "visible" : "hidden"}>
         <Conditions
           showModal={showModal}
           setShowModal={setShowModal}
           title={title}
           tourTitle={tourTitle}
         />
-      )}
+      </Activity>
     </section>
   );
 };

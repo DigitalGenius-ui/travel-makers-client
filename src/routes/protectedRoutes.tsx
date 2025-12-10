@@ -34,8 +34,8 @@ const Packages = lazy(() => import("../pages/Dashboard/Packages"));
 const Bookings = lazy(() => import("../pages/Dashboard/Bookings"));
 const Travlers = lazy(() => import("../pages/Dashboard/Travlers"));
 const Guides = lazy(() => import("../pages/Dashboard/Guides"));
-const Gallery = lazy(() => import("../pages/Dashboard/Messages"));
-const Messages = lazy(() => import("../pages/Dashboard/FeedBacks"));
+const Gallery = lazy(() => import("../pages/Dashboard/Gallery"));
+const Messages = lazy(() => import("../pages/Dashboard/Messages"));
 const FeedBacks = lazy(() => import("../pages/Dashboard/FeedBacks"));
 const ProfileMenu = lazy(() => import("../pages/Profile/ProfileMenu"));
 const MyProfile = lazy(

@@ -6,7 +6,7 @@ import {
   Input,
   VStack,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { Activity, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useCreateData from "../../../../hooks/useCreateData";
 import CustomeModal from "../../../../utils/CustomeModal";
@@ -138,9 +138,10 @@ const Inputs = ({ item, form, setForm }: inputsProps) => {
         fontSize="sm"
         type="text"
       />
-      {error && (
+
+      <Activity mode={error ? "visible" : "hidden"}>
         <span className="text-xs text-red-500">Url must starts with https</span>
-      )}
+      </Activity>
     </FormControl>
   );
 };

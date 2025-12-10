@@ -7,7 +7,7 @@ import { ActionButton } from "../../../utils/ActionButton";
 import clsx from "clsx";
 
 const ChatBox = () => {
-  let isMessage = true;
+  const isMessage = true;
   return (
     <section className="flex-[2.5]">
       {/* header part */}

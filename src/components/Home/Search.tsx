@@ -20,8 +20,8 @@ const Search = () => {
   const [loading, setLoading] = useState(false);
   const [titles, setTitles] = useState<tourType[] | undefined>([]);
 
+  const debounce = useDebounce();
   useEffect(() => {
-    const debounce = useDebounce();
     setLoading(true);
     const search = () => {
       if (!searchInput.trim()) {

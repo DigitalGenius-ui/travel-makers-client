@@ -1,10 +1,11 @@
 import { ActionButton } from "../../../../utils/ActionButton";
 import { useCurrentUser } from "../../../../context/UserContext";
 import type { ReactNode } from "react";
+import type { socialTitleType } from "./LinkAccounts";
 
 type boxesType = {
   item: {
-    title: string;
+    title: socialTitleType;
     icon: ReactNode;
   };
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,6 +13,7 @@ type boxesType = {
 
 const Boxes = ({ item, setShowModal }: boxesType) => {
   const { icon, title } = item;
+  console.log(title);
   const { currentUser } = useCurrentUser();
   const getSocial = currentUser?.profile;
 

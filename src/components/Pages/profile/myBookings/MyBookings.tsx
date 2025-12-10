@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Activity, useState } from "react";
 import EmptyBook from "./EmptyBook";
 import TicketCard from "./TicketCard";
 import Pagination from "../../../../utils/Pagination";
@@ -23,7 +23,7 @@ const MyBookings = () => {
       <div className="grid grid-cols-resCol tablet:flex flex-col flex-wrap gap-3">
         {isPending ? (
           <BookingLoading />
-        ) : data?.bookings.length === 0 ? (
+        ) : !data?.bookings && data?.bookings.length === 0 ? (
           <EmptyBook />
         ) : (
           data?.bookings.map((book) => (
@@ -31,13 +31,13 @@ const MyBookings = () => {
           ))
         )}
       </div>
-      {(data?.totalPages ?? 0) > 1 && (
+      <Activity mode={(data?.totalPages ?? 0) > 1 ? "visible" : "hidden"}>
         <Pagination
           totalPages={data?.totalPages}
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}
         />
-      )}
+      </Activity>
     </section>
   );
 };

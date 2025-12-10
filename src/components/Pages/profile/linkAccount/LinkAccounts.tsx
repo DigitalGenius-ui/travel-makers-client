@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Activity, useState, type ReactNode } from "react";
 import { FaFacebook } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
@@ -6,7 +6,8 @@ import { FaSquareInstagram } from "react-icons/fa6";
 import Boxes from "./Boxes";
 import SocialLinks from "./SocialLinks";
 
-const socialLinks = [
+export type socialTitleType = "facebook" | "linkedIn" | "xMedia" | "instagram";
+const socialLinks: { icon: ReactNode; title: socialTitleType }[] = [
   {
     icon: <FaFacebook className="text-blue-500" />,
     title: "facebook",
@@ -36,9 +37,9 @@ const LinkedAccounts = () => {
           <Boxes item={item} key={i} setShowModal={setShowModal} />
         ))}
       </div>
-      {showModal && (
+      <Activity mode={showModal ? "visible" : "hidden"}>
         <SocialLinks showModal={showModal} setShowModal={setShowModal} />
-      )}
+      </Activity>
     </section>
   );
 };

@@ -13,7 +13,7 @@ const UploadImg = ({ formik, imageName }: unploadProps) => {
   const imgRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let selectedImages = e.target.files;
+    const selectedImages = e.target.files;
 
     if (selectedImages && selectedImages.length <= 5) {
       imageBase64(selectedImages);

@@ -71,6 +71,10 @@ type profileType = {
   gender?: string;
   userImg?: string;
   bio?: string;
+  facebook?: string;
+  linkedIn?: string;
+  instagram?: string;
+  xMedia?: string;
 };
 export const profileDetailsUpdate = async (data: profileType) => {
   const res = await API.post(`/user/profile`, data);
@@ -128,7 +132,7 @@ export const momentPostCommentRemove = async (id: string) => {
 type passType = {
   currentPassword: string;
   newPassword: string;
-  userId: string;
+  userId: string | undefined;
 };
 export const changeProfilePassword = async (data: passType) => {
   return await API.put(`/user/changePassword/${data.userId}`, data);

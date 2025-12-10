@@ -1,7 +1,7 @@
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { GrMapLocation } from "react-icons/gr";
 import ImageSlider from "../../Pages/tours/TourDetails/ImageSlider/ImageSlider";
-import React, { useState } from "react";
+import React, { Activity, useState } from "react";
 import clsx from "clsx";
 import { IoMdTime } from "react-icons/io";
 import { GiWorld } from "react-icons/gi";
@@ -93,13 +93,13 @@ export const GalleryCard = ({ tour, row }: galleryProps) => {
           )}
         </div>
       </div>
-      {showModal && (
+      <Activity mode={showModal ? "visible" : "hidden"}>
         <ImageSlider
           showModal={showModal}
           setShowModal={setShowModal}
           tourImages={tourImages}
         />
-      )}
+      </Activity>
     </>
   );
 };

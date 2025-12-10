@@ -15,7 +15,7 @@ type singlePostProps = userMomentType & {
 };
 
 const PostData = ({ getSinglePost }: { getSinglePost: singlePostProps }) => {
-  const { profile, userImg } = getSinglePost?.user;
+  const { profile, userImg } = getSinglePost.user;
   const [showMore, setShowMore] = useState(500);
   const comments = getSinglePost?.comments;
 

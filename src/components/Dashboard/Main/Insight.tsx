@@ -4,7 +4,7 @@ import { PiUserCircleCheck } from "react-icons/pi";
 import { TfiMoney } from "react-icons/tfi";
 import { FaArrowTrendUp, FaArrowTrendDown } from "react-icons/fa6";
 import { AreaChart, Area, Tooltip, ResponsiveContainer, XAxis } from "recharts";
-import { useState, type ReactElement } from "react";
+import { Activity, useState, type ReactElement } from "react";
 import CustomeMenu from "../../../utils/CustomeMenu";
 import { useQuery } from "@tanstack/react-query";
 import { getInsight } from "../../../api-call/dashboard-api";
@@ -194,13 +194,13 @@ const InsightCard = ({
               {estimate <= 0 ? <FaArrowTrendDown /> : <FaArrowTrendUp />}
               {estimate}%
             </span>
-            {isBooking && (
+            <Activity mode={isBooking ? "hidden" : "visible"}>
               <span className="text-darkText">from last {newFilterText}</span>
-            )}
+            </Activity>
           </p>
         </div>
       </div>
-      {isBooking && chart()}
+      <Activity mode={isBooking ? "hidden" : "visible"}>{chart()}</Activity>
     </div>
   );
 };

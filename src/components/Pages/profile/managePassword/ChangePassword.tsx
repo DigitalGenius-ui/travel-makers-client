@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Activity, useState } from "react";
 import { HStack } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { changePasswordSchema } from "../InputsSchemas";
@@ -63,7 +63,7 @@ const ChangePassword = () => {
             formik={formik}
           />
         ))}
-        {isEdit && (
+        <Activity mode={isEdit ? "visible" : "hidden"}>
           <HStack spacing={3}>
             <ActionButton
               onClick={() => console.log("clicked")}
@@ -76,13 +76,13 @@ const ChangePassword = () => {
               Cancel
             </ActionButton>
           </HStack>
-        )}
+        </Activity>
       </form>
-      {!isEdit && (
+      <Activity mode={isEdit ? "visible" : "hidden"}>
         <ActionButton onClick={() => setIsEdit(true)}>
           Change Password
         </ActionButton>
-      )}
+      </Activity>
     </div>
   );
 };

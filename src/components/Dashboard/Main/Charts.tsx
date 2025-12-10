@@ -12,7 +12,7 @@ import {
 } from "recharts";
 import ColorBox from "../../../utils/ColorBox";
 import CustomeMenu from "../../../utils/CustomeMenu";
-import { useState } from "react";
+import { Activity, useState } from "react";
 import { DASH_DIS, DASH_REVENEUE } from "../../../constants/react-query";
 import { getRevenue, getTopDis } from "../../../api-call/dashboard-api";
 import useGetData from "../../../hooks/useGetData";
@@ -40,7 +40,9 @@ const Charts = () => {
   function revenue() {
     return (
       <section className="flex-[1.2] dash-box">
-        {revenuePending && <ChartLoading h={72} />}
+        <Activity mode={revenuePending ? "visible" : "hidden"}>
+          <ChartLoading h={72} />
+        </Activity>
         <div className="flex items-center justify-between">
           <h1 className="font-semibold">Revenue Overview</h1>
           <CustomeMenu
@@ -112,7 +114,9 @@ const Charts = () => {
   function topDistinations() {
     return (
       <section className="flex-1 dash-box">
-        {topDisPending && <ChartLoading h={72} />}
+        <Activity mode={topDisPending ? "visible" : "hidden"}>
+          <ChartLoading h={72} />
+        </Activity>
         <div className="flex items-center justify-between">
           <h1 className="font-semibold">Top Destinations</h1>
           <CustomeMenu

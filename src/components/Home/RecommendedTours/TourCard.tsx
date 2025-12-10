@@ -5,6 +5,7 @@ import { FaRegClock } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Stars from "../../../utils/stars";
 import type { tourType } from "../../../types/tours-type";
+import { Activity } from "react";
 
 interface TourCardProps extends tourType {
   reviewCount?: number;
@@ -31,14 +32,14 @@ const TourCard = ({ item }: { item: TourCardProps }) => {
         <div className="absolute top-3 left-3 text-white">
           <Stars review={item?.reviewCount} />
         </div>
-        {isNewTour && (
+        <Activity mode={isNewTour ? "visible" : "hidden"}>
           <span
             className="bg-gradient rounded-full px-[1rem] py-[0.3rem] text-white text-xs
             uppercase absolute -bottom-3 left-4"
           >
             New Tour
           </span>
-        )}
+        </Activity>
       </div>
       {/* card contents  */}
       <div className="px-[1rem] py-[1.5rem]">

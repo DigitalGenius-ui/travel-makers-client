@@ -6,7 +6,7 @@ type inputProps = {
   label: string;
   type?: string;
   gender?: string[] | null;
-  name: string;
+  name: "firstName" | "lastName" | "birthDate" | "gender" | "userImg";
   isActive: boolean;
   ref?: React.RefObject<null>;
   hidden?: boolean;

@@ -12,7 +12,7 @@ import type { userCommentType } from "../../../../../../types/user-type";
 const Comments = ({ comment }: { comment: userCommentType }) => {
   const { currentUser } = useCurrentUser();
   const [showRemove, setShowRemove] = useState(false);
-  const { profile } = comment?.user;
+  const { profile } = comment.user;
 
   const { submitForm, isPending } = useCreateData({
     key: POST_KEYS,

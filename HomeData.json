@@ -2,9 +2,9 @@
   "nav": [
     { "title": "Trips", "path": "#trips" },
     { "title": "Recommended Tours", "path": "/allTours" },
+    { "title": "Moments", "path": "/moments" },
     { "title": "Assistance", "path": "#assistance" },
-    { "title": "Latest Packages", "path": "#packages" },
-    { "title": "Moments", "path": "/moments" }
+    { "title": "Latest Packages", "path": "#packages" }
   ],
   "dropMenu": [
     { "title": "Profile", "path": "/profile/profileDetails" },
