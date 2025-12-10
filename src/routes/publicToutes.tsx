@@ -1,13 +1,31 @@
+import { lazy } from "react";
 import { Route } from "react-router-dom";
-import SingleProfile from "../components/Pages/singleProfile/SingleProfile";
-import SinglePost from "../components/Pages/profile/myPosts/Posts/SinglePost/SinglePost";
-import EmailVerify from "../components/EmailVerify";
-import Moments from "../pages/Moments/Moments";
-import AllTours from "../components/Home/RecommendedTours/AllTours";
-import FilterTours from "../components/Home/Destinations/FilterTours";
-import TourDetails from "../components/Pages/tours/TourDetails/TourDetails";
-import BookTicket from "../components/Pages/tours/TourDetails/Tickets/BookTicket/BookTicket";
-import Home from "../pages/Home/Home";
+
+const SingleProfile = lazy(
+  () => import("../components/Pages/singleProfile/SingleProfile")
+);
+const SinglePost = lazy(
+  () =>
+    import("../components/Pages/profile/myPosts/Posts/SinglePost/SinglePost")
+);
+const EmailVerify = lazy(() => import("../components/EmailVerify"));
+const Moments = lazy(() => import("../pages/Moments/Moments"));
+const AllTours = lazy(
+  () => import("../components/Home/RecommendedTours/AllTours")
+);
+const FilterTours = lazy(
+  () => import("../components/Home/Destinations/FilterTours")
+);
+const TourDetails = lazy(
+  () => import("../components/Pages/tours/TourDetails/TourDetails")
+);
+const BookTicket = lazy(
+  () =>
+    import(
+      "../components/Pages/tours/TourDetails/Tickets/BookTicket/BookTicket"
+    )
+);
+const Home = lazy(() => import("../pages/Home/Home"));
 
 export const publicToutes = [
   <Route key="home" path="/" element={<Home />} />,

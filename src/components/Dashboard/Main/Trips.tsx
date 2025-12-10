@@ -44,32 +44,38 @@ const Trips = () => {
             </p>
           </div>
         </div>
-        <div className="flex-1 space-y-2">
-          <div ref={chartRef} className="flex items-center justify-center">
-            {chartBoxes?.map((item, i) => (
-              <div
-                key={item.amount}
-                style={{
-                  flex: `${(item.amount ?? 0 / chartWidth!) * 100}%`,
-                  backgroundColor: COLORS[item.title],
-                }}
-                className={clsx(
-                  `flex-1 h-4`,
-                  i === 0 || (i === 2 && "rounded-e-sm")
-                )}
-              />
-            ))}
+        {(chartBoxes?.length ?? 0) < 0 ? (
+          <div className="flex-1 space-y-2">
+            <div ref={chartRef} className="flex items-center justify-center">
+              {chartBoxes?.map((item, i) => (
+                <div
+                  key={item.amount}
+                  style={{
+                    flex: `${(item.amount ?? 0 / chartWidth!) * 100}%`,
+                    backgroundColor: COLORS[item.title],
+                  }}
+                  className={clsx(
+                    `flex-1 h-4`,
+                    i === 0 || (i === 2 && "rounded-e-sm")
+                  )}
+                />
+              ))}
+            </div>
+            <div className="flex flex-col xs:flex-row xs:items-center xs:justify-between">
+              {chartBoxes?.map((item) => (
+                <TripsCalcs
+                  key={item.title}
+                  title={item.title}
+                  amount={item.amount}
+                />
+              ))}
+            </div>
           </div>
-          <div className="flex flex-col xs:flex-row xs:items-center xs:justify-between">
-            {chartBoxes?.map((item) => (
-              <TripsCalcs
-                key={item.title}
-                title={item.title}
-                amount={item.amount}
-              />
-            ))}
-          </div>
-        </div>
+        ) : (
+          <p className="flex-1 text-sm w-full h-full grid place-items-center text-notAvailable">
+            No data available!
+          </p>
+        )}
       </div>
     );
   }
@@ -120,7 +126,7 @@ const TripsCalcs = ({
     <div className="flex items-center gap-1 text-xs">
       <ColorBox style={{ backgroundColor: COLORS[title] }} />
       <p>{title}</p>
-      <p className="font-bold">{amount}</p>
+      <p className="font-bold">{amount ?? 0}</p>
     </div>
   );
 };

@@ -18,6 +18,7 @@ const TourDetails = () => {
   const { data: singleTour, isPending } = useGetData({
     key: SINGLE_TOUR_KEY,
     func: () => getSingleTours(id),
+    variables: id,
   });
 
   return (

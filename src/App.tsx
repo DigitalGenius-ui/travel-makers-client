@@ -1,13 +1,14 @@
-import { Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
-import Header from "./components/Home/Header/Header";
-import Loading from "./Loading";
 import { useCurrentUser } from "./context/UserContext";
 import NotFound from "./not-found";
 import { authRoutes } from "./routes/authRoutes";
 import { publicToutes } from "./routes/publicToutes";
-import Footer from "./components/Home/Footer";
 import { protectedRoutes } from "./routes/protectedRoutes";
+
+const Header = lazy(() => import("./components/Home/Header/Header"));
+const Footer = lazy(() => import("./components/Home/Footer"));
+const Loading = lazy(() => import("./Loading"));
 
 const App = () => {
   const { currentUser, isPending } = useCurrentUser();

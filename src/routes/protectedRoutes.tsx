@@ -1,22 +1,46 @@
 import { Route } from "react-router-dom";
-import CreateReview from "../components/Pages/tours/TourDetails/TourDetails/write/CreateReview";
-import CheckOut from "../components/Pages/tours/CheckOut/CheckOut";
-import MyBookings from "../components/Pages/profile/myBookings/MyBookings";
-import MyPosts from "../components/Pages/profile/myPosts/MyPosts";
-import ChangePassword from "../components/Pages/profile/managePassword/ChangePassword";
-import LinkedAccounts from "../components/Pages/profile/linkAccount/LinkAccounts";
-import CreatePost from "../components/Pages/profile/myPosts/Posts/CreatePost/CreatePost";
-import DashboardLayout from "../pages/Dashboard/Layout/DashboardLayout";
-import Dashboard from "../pages/Dashboard/Dashboard";
-import Packages from "../pages/Dashboard/Packages";
-import Bookings from "../pages/Dashboard/Bookings";
-import Travlers from "../pages/Dashboard/Travlers";
-import Guides from "../pages/Dashboard/Guides";
-import Gallery from "../pages/Dashboard/Gallery";
-import Messages from "../pages/Dashboard/Messages";
-import FeedBacks from "../pages/Dashboard/FeedBacks";
-import ProfileMenu from "../pages/Profile/ProfileMenu";
-import MyProfile from "../components/Pages/profile/myProfile/MyProfile";
+import { lazy } from "react";
+
+const CreateReview = lazy(
+  () =>
+    import(
+      "../components/Pages/tours/TourDetails/TourDetails/write/CreateReview"
+    )
+);
+const CheckOut = lazy(
+  () => import("../components/Pages/tours/CheckOut/CheckOut")
+);
+const MyBookings = lazy(
+  () => import("../components/Pages/profile/myBookings/MyBookings")
+);
+const MyPosts = lazy(
+  () => import("../components/Pages/profile/myPosts/MyPosts")
+);
+const ChangePassword = lazy(
+  () => import("../components/Pages/profile/managePassword/ChangePassword")
+);
+const LinkedAccounts = lazy(
+  () => import("../components/Pages/profile/linkAccount/LinkAccounts")
+);
+const CreatePost = lazy(
+  () =>
+    import("../components/Pages/profile/myPosts/Posts/CreatePost/CreatePost")
+);
+const DashboardLayout = lazy(
+  () => import("../pages/Dashboard/Layout/DashboardLayout")
+);
+const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
+const Packages = lazy(() => import("../pages/Dashboard/Packages"));
+const Bookings = lazy(() => import("../pages/Dashboard/Bookings"));
+const Travlers = lazy(() => import("../pages/Dashboard/Travlers"));
+const Guides = lazy(() => import("../pages/Dashboard/Guides"));
+const Gallery = lazy(() => import("../pages/Dashboard/Messages"));
+const Messages = lazy(() => import("../pages/Dashboard/FeedBacks"));
+const FeedBacks = lazy(() => import("../pages/Dashboard/FeedBacks"));
+const ProfileMenu = lazy(() => import("../pages/Profile/ProfileMenu"));
+const MyProfile = lazy(
+  () => import("../components/Pages/profile/myProfile/MyProfile")
+);
 
 export const protectedRoutes = (isAdmin: boolean) => {
   return [

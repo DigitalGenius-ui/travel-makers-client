@@ -121,36 +121,42 @@ const Charts = () => {
             menus={menus}
           />
         </div>
-        <div className="flex flex-col xs:flex-row gap-3 items-center">
-          <div className="flex-1 w-full h-64 flex items-center justify-center">
-            <PieChart width={120} height={120}>
-              <Pie
-                data={topDisData?.distinations}
-                innerRadius={40}
-                outerRadius={60}
-                fill="#8884d8"
-                dataKey="count"
-              >
-                {topDisData?.distinations.map((_, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
-                  />
-                ))}
-              </Pie>
-            </PieChart>
+        {(topDisData?.distinations?.length ?? 0) > 0 ? (
+          <div className="flex flex-col xs:flex-row gap-3 items-center">
+            <div className="flex-1 w-full h-64 flex items-center justify-center">
+              <PieChart width={120} height={120}>
+                <Pie
+                  data={topDisData?.distinations}
+                  innerRadius={40}
+                  outerRadius={60}
+                  fill="#8884d8"
+                  dataKey="count"
+                >
+                  {topDisData?.distinations.map((_, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={COLORS[index % COLORS.length]}
+                    />
+                  ))}
+                </Pie>
+              </PieChart>
+            </div>
+            <div className="flex-1 space-y-2">
+              {topDisData?.distinations.map((item, i) => (
+                <DistinatoinBox
+                  key={i}
+                  index={i}
+                  title={item.title}
+                  participents={item.count}
+                />
+              ))}
+            </div>
           </div>
-          <div className="flex-1 space-y-2">
-            {topDisData?.distinations.map((item, i) => (
-              <DistinatoinBox
-                key={i}
-                index={i}
-                title={item.title}
-                participents={item.count}
-              />
-            ))}
-          </div>
-        </div>
+        ) : (
+          <p className="w-full h-full grid place-items-center capitalize !mb-10 text-notAvailable">
+            no data available!
+          </p>
+        )}
       </section>
     );
   }
